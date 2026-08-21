@@ -1068,18 +1068,26 @@
         cupcake: {
             nome: "Cupcakes",
             titulo: "Configuração dos cupcakes",
-            descricao: "Cadastre e altere os tipos de cupcake e seus preços por unidade.",
+            descricao: "Cadastre os sabores disponíveis e configure os tipos, preços e limites de sabores.",
             icone: "🧁",
             usaRegras: true,
-            somenteRegras: true,
-            tituloRegras: "Tipos e preços",
-            descricaoRegras: "Gerencie o cupcake tradicional e a opção com topinho e saia. Os valores podem ser alterados a qualquer momento.",
-            botaoRegra: "+ Novo tipo/preço",
+            somenteRegras: false,
+            tituloRegras: "Tipos, preços e limites",
+            descricaoRegras: "Defina o valor por unidade, a quantidade mínima e quantos sabores o cliente poderá escolher em cada faixa.",
+            botaoRegra: "+ Nova regra de cupcake",
             categoriasRegra: [
                 { id: "tradicional", nome: "Tradicional" },
                 { id: "decorado", nome: "Com topinho e saia" }
             ],
-            grupos: []
+            grupos: [
+                {
+                    id: "sabor",
+                    titulo: "Sabores",
+                    descricao: "Cadastre os sabores disponíveis de cupcake.",
+                    icone: "🧁",
+                    botao: "+ Novo sabor"
+                }
+            ]
         },
 
         caseirinho: {
@@ -1242,18 +1250,21 @@
 
             let detalhesRegra = quantidadeTexto;
 
-            if (regra.tipo_produto === "docinho") {
+            if (regra.tipo_produto === "docinho" || regra.tipo_produto === "cupcake") {
                 const max = Number(regra.max_sabores || 0);
-                const minimoPorSabor =
-                    Number(regra.quantidade_minima_por_sabor || 0);
 
                 detalhesRegra += max > 0
                     ? ` • Até ${max} sabor(es)`
                     : "";
 
-                if (ehPacote && minimoPorSabor > 0) {
-                    detalhesRegra +=
-                        ` • Mínimo de ${minimoPorSabor} por sabor`;
+                if (regra.tipo_produto === "docinho") {
+                    const minimoPorSabor =
+                        Number(regra.quantidade_minima_por_sabor || 0);
+
+                    if (ehPacote && minimoPorSabor > 0) {
+                        detalhesRegra +=
+                            ` • Mínimo de ${minimoPorSabor} por sabor`;
+                    }
                 }
             }
 
@@ -1557,12 +1568,19 @@
 
         // CUPCAKES
         if (tipo === "cupcake") {
-            nomeInput.placeholder = "Ex.: Cupcake tradicional";
-            descricaoInput.placeholder = "Ex.: Cupcake tradicional com cobertura de brigadeiro.";
-            labelDescricao.innerHTML = 'Descrição do cupcake <small>(opcional)</small>';
-            labelPreco.textContent = "Preço neste cadastro";
-            ajudaPreco.textContent =
-                "Deixe R$ 0,00 quando o valor estiver sendo controlado na configuração de preços.";
+            nomeInput.placeholder = "Ex.: Ninho";
+            descricaoInput.placeholder = "Ex.: Cupcake sabor Ninho.";
+            labelDescricao.innerHTML = 'Descrição do sabor <small>(opcional)</small>';
+
+            if (campoPreco) {
+                campoPreco.hidden = true;
+            }
+
+            if (precoInput) {
+                precoInput.value = "0";
+                precoInput.required = false;
+            }
+
             return;
         }
 
@@ -1645,6 +1663,9 @@
                 tradicional: "Cadastre um sabor tradicional disponível para encomenda.",
                 premium: "Cadastre um sabor premium disponível para encomenda."
             },
+            cupcake: {
+                sabor: "Cadastre um sabor disponível de cupcake."
+            },
             caseirinho: {
                 sabor: "Cadastre um sabor disponível de bolo caseirinho.",
                 tamanho: "Cadastre um tamanho e informe o preço correspondente."
@@ -1667,7 +1688,7 @@
         document.getElementById("nomeOpcao").value = opcao.nome || "";
         document.getElementById("descricaoOpcao").value = opcao.descricao || "";
         document.getElementById("precoOpcao").value =
-            opcao.tipo_produto === "docinho"
+            (opcao.tipo_produto === "docinho" || opcao.tipo_produto === "cupcake")
                 ? "0"
                 : (opcao.preco ?? 0);
         document.getElementById("ordemOpcao").value = opcao.ordem ?? 0;
@@ -1700,7 +1721,7 @@
             nome: document.getElementById("nomeOpcao").value.trim(),
             descricao: document.getElementById("descricaoOpcao").value.trim(),
             preco:
-                tipo === "docinho"
+                (tipo === "docinho" || tipo === "cupcake")
                     ? 0
                     : Number(document.getElementById("precoOpcao").value || 0),
             ativo: document.getElementById("ativoOpcao").checked,
@@ -1881,13 +1902,13 @@
         const ehCupcake = tipo === "cupcake";
 
         document.getElementById("campoMaxSaboresRegra").style.display =
-            ehDocinho ? "" : "none";
+            (ehDocinho || ehCupcake) ? "" : "none";
 
         document.getElementById("labelCategoriaRegra").textContent =
             ehDocinho ? "Tipo de docinho" : "Tipo de cupcake";
 
         document.getElementById("labelQuantidadeRegra").textContent =
-            ehDocinho
+            (ehDocinho || ehCupcake)
                 ? "A partir de quantas unidades?"
                 : "Quantidade mínima";
 
@@ -1897,7 +1918,7 @@
                 : "Valor de cada cupcake";
 
         document.getElementById("ajudaQuantidadeRegra").textContent =
-            ehDocinho
+            (ehDocinho || ehCupcake)
                 ? "A partir desta quantidade, o preço e o limite de sabores abaixo serão aplicados."
                 : "Quantidade mínima para aplicar este preço.";
 
@@ -1912,7 +1933,7 @@
         document.getElementById("ajudaRegra").textContent =
             ehDocinho
                 ? "Defina a partir de qual quantidade o preço será aplicado e quantos sabores o cliente poderá escolher."
-                : "Defina o tipo de cupcake e o preço cobrado por unidade.";
+                : "Defina o tipo de cupcake, o preço por unidade, a quantidade mínima e quantos sabores o cliente poderá escolher.";
 
         document.getElementById("subtituloModalRegra").textContent =
             "Você poderá alterar estes valores depois pelo próprio painel.";
@@ -2081,7 +2102,7 @@
             preco_pacote: precoPacote,
             quantidade_minima_por_sabor: quantidadeMinimaPorSabor,
             max_sabores:
-                tipo === "docinho"
+                (tipo === "docinho" || tipo === "cupcake")
                     ? Number(document.getElementById("maxSaboresRegra").value || 0)
                     : 0,
             ativo: document.getElementById("ativoRegra").checked,

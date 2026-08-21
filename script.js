@@ -1390,6 +1390,13 @@ function renderizarCarrinho() {
                             ${item.unidades} unidade(s)
                         </p>
 
+                        ${item.sabores?.length ? `
+                            <p>
+                                <strong>Sabores:</strong>
+                                ${item.sabores.join(", ")}
+                            </p>
+                        ` : ""}
+
                         <p>
                             <strong>Valor unitário:</strong>
                             ${formatarMoeda(item.precoUnitario)}
@@ -1950,6 +1957,13 @@ function renderizarCheckout() {
                         ${item.unidades} unidade(s)
                     </p>
 
+                    ${item.sabores?.length ? `
+                        <p>
+                            <strong>Sabores:</strong>
+                            ${item.sabores.join(", ")}
+                        </p>
+                    ` : ""}
+
                     <p>
                         <strong>Valor unitário:</strong>
                         ${formatarMoeda(item.precoUnitario)}
@@ -2267,6 +2281,11 @@ function finalizarPedidoWhatsApp() {
 
             mensagem +=
                 `🔢 Cupcakes: ${item.unidades} unidade(s)\n`;
+
+            if (item.sabores?.length) {
+                mensagem +=
+                    `🍫 Sabores: ${item.sabores.join(", ")}\n`;
+            }
 
             mensagem +=
                 `💵 Valor unitário: ${formatarMoeda(item.precoUnitario)}\n`;
@@ -3711,14 +3730,34 @@ document.addEventListener(
 
 
 /* =====================================================
-   CUPCAKES - REGRAS VINDAS DO SUPABASE
+   CUPCAKES - SABORES E REGRAS VINDAS DO SUPABASE
 ===================================================== */
 
+let opcoesCupcakesSupabase = [];
 let regrasCupcakesSupabase = [];
 let regraCupcakeAtual = null;
 
-async function buscarRegrasCupcakesSupabase() {
+async function buscarOpcoesCupcakesSupabase() {
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/opcoes_encomenda` +
+        `?tipo_produto=eq.cupcake&ativo=eq.true&select=*` +
+        `&order=grupo.asc,ordem.asc,created_at.asc`;
 
+    const resposta = await fetch(endpoint, {
+        headers: {
+            "apikey": SUPABASE_PUBLISHABLE_KEY,
+            "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+        }
+    });
+
+    if (!resposta.ok) {
+        throw new Error("Não foi possível carregar os sabores de cupcakes.");
+    }
+
+    return await resposta.json();
+}
+
+async function buscarRegrasCupcakesSupabase() {
     const endpoint =
         `${SUPABASE_URL}/rest/v1/regras_encomenda` +
         `?tipo_produto=eq.cupcake&ativo=eq.true&select=*` +
@@ -3732,105 +3771,96 @@ async function buscarRegrasCupcakesSupabase() {
     });
 
     if (!resposta.ok) {
-        throw new Error("Não foi possível carregar os preços dos cupcakes.");
+        throw new Error("Não foi possível carregar as regras dos cupcakes.");
     }
 
     return await resposta.json();
 }
 
-function nomeCategoriaCupcake(categoria) {
-
+function nomeTipoCupcake(categoria) {
     const nomes = {
-        tradicional: "Cupcake tradicional",
+        tradicional: "Tradicional",
         decorado: "Com topinho e saia"
     };
 
-    return nomes[categoria] ||
-        String(categoria || "")
-            .replaceAll("_", " ")
-            .replace(/\b\w/g, letra => letra.toUpperCase());
+    return nomes[categoria] || String(categoria || "")
+        .replaceAll("_", " ")
+        .replace(/\b\w/g, letra => letra.toUpperCase());
 }
 
-function categoriasCupcakesDisponiveis() {
+function tiposCupcakeDisponiveis() {
+    const tipos = new Set();
 
-    return [
-        ...new Set(
-            regrasCupcakesSupabase
-                .map(item => item.categoria)
-                .filter(Boolean)
-        )
-    ];
+    regrasCupcakesSupabase.forEach(regra => {
+        if (regra.categoria) {
+            tipos.add(regra.categoria);
+        }
+    });
+
+    return [...tipos];
 }
 
-function menorPrecoCupcake(categoria) {
+function menorQuantidadeCupcake(tipo) {
+    const valores = regrasCupcakesSupabase
+        .filter(regra => regra.categoria === tipo)
+        .map(regra => Number(regra.quantidade_minima || 0))
+        .filter(valor => valor > 0);
 
-    const regras = regrasCupcakesSupabase
-        .filter(item => item.categoria === categoria)
-        .sort(
-            (a, b) =>
-                Number(a.quantidade_minima || 0) -
-                Number(b.quantidade_minima || 0)
-        );
+    return valores.length ? Math.min(...valores) : 1;
+}
 
-    return regras[0] || null;
+function menorPrecoCupcake(tipo) {
+    const valores = regrasCupcakesSupabase
+        .filter(regra => regra.categoria === tipo)
+        .map(regra => Number(regra.preco_unitario || 0))
+        .filter(valor => valor >= 0);
+
+    return valores.length ? Math.min(...valores) : null;
 }
 
 function renderizarTiposCupcake() {
+    const container = document.getElementById("opcoesTipoCupcake");
+    if (!container) return;
 
-    const container =
-        document.getElementById("opcoesTipoCupcake");
+    const tipos = tiposCupcakeDisponiveis();
 
-    if (!container) {
-        return;
-    }
-
-    const categorias =
-        categoriasCupcakesDisponiveis();
-
-    if (!categorias.length) {
-
+    if (!tipos.length) {
         container.innerHTML = `
             <div class="opcoes-indisponiveis">
                 Nenhum tipo de cupcake foi cadastrado ainda.
             </div>
         `;
-
         return;
     }
 
     container.innerHTML = "";
 
-    categorias.forEach(categoria => {
+    tipos.forEach(tipo => {
+        const minimo = menorQuantidadeCupcake(tipo);
+        const menorPreco = menorPrecoCupcake(tipo);
 
-        const regraInicial =
-            menorPrecoCupcake(categoria);
-
-        const label =
-            document.createElement("label");
-
+        const label = document.createElement("label");
         label.className = "opcao-card";
 
         label.innerHTML = `
-            <input
-                type="radio"
-                name="tipoCupcake"
-                value="${escaparHtmlSite(categoria)}"
-            >
+            <input type="radio" name="tipoCupcake" value="${escaparHtmlSite(tipo)}">
 
             <span>
-                <strong>${escaparHtmlSite(nomeCategoriaCupcake(categoria))}</strong>
+                <strong>${escaparHtmlSite(nomeTipoCupcake(tipo))}</strong>
                 <small>
                     ${
-                        regraInicial
-                            ? `${formatarMoeda(regraInicial.preco_unitario)} / unidade`
-                            : "Preço conforme cadastro"
+                        menorPreco !== null
+                            ? `A partir de ${formatarMoeda(menorPreco)} / unidade`
+                            : "Preço conforme regra cadastrada"
                     }
                 </small>
-                ${
-                    regraInicial?.nome
-                        ? `<em>${escaparHtmlSite(regraInicial.nome)}</em>`
-                        : ""
-                }
+                <em>
+                    ${
+                        minimo > 1
+                            ? `Pedido mínimo a partir de ${minimo} unidades`
+                            : "Quantidade conforme regra cadastrada"
+                    }
+                </em>
             </span>
         `;
 
@@ -3839,22 +3869,20 @@ function renderizarTiposCupcake() {
 }
 
 function tipoCupcakeSelecionado() {
-
-    return document.querySelector(
-        'input[name="tipoCupcake"]:checked'
-    )?.value || "";
+    return document.querySelector('input[name="tipoCupcake"]:checked')?.value || "";
 }
 
-function encontrarRegraCupcake(categoria, quantidade) {
+function saboresCupcakeSelecionados() {
+    return [...document.querySelectorAll('input[name="saborCupcake"]:checked')];
+}
 
-    if (!categoria || !quantidade) {
-        return null;
-    }
+function encontrarRegraCupcake(tipo, quantidade) {
+    if (!tipo || !quantidade) return null;
 
     return regrasCupcakesSupabase
-        .filter(item =>
-            item.categoria === categoria &&
-            Number(item.quantidade_minima || 0) <= quantidade
+        .filter(regra =>
+            regra.categoria === tipo &&
+            Number(regra.quantidade_minima || 0) <= quantidade
         )
         .sort(
             (a, b) =>
@@ -3863,12 +3891,11 @@ function encontrarRegraCupcake(categoria, quantidade) {
         )[0] || null;
 }
 
-function proximaRegraCupcake(categoria, quantidade) {
-
+function proximaRegraCupcake(tipo, quantidade) {
     return regrasCupcakesSupabase
-        .filter(item =>
-            item.categoria === categoria &&
-            Number(item.quantidade_minima || 0) > quantidade
+        .filter(regra =>
+            regra.categoria === tipo &&
+            Number(regra.quantidade_minima || 0) > quantidade
         )
         .sort(
             (a, b) =>
@@ -3877,143 +3904,197 @@ function proximaRegraCupcake(categoria, quantidade) {
         )[0] || null;
 }
 
+function renderizarSaboresCupcake() {
+    const container = document.getElementById("opcoesSaboresCupcake");
+    if (!container) return;
+
+    const sabores = opcoesCupcakesSupabase
+        .filter(item => item.grupo === "sabor")
+        .sort((a, b) => Number(a.ordem || 0) - Number(b.ordem || 0));
+
+    if (!sabores.length) {
+        container.innerHTML = `
+            <div class="opcoes-indisponiveis">
+                Nenhum sabor de cupcake foi cadastrado ainda.
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = "";
+
+    sabores.forEach(sabor => {
+        const label = document.createElement("label");
+        label.className = "opcao-card";
+
+        label.innerHTML = `
+            <input
+                type="checkbox"
+                name="saborCupcake"
+                value="${escaparHtmlSite(sabor.nome)}"
+                data-id="${sabor.id}"
+            >
+
+            <span>
+                <strong>${escaparHtmlSite(sabor.nome)}</strong>
+                <small>Disponível</small>
+                ${sabor.descricao ? `<em>${escaparHtmlSite(sabor.descricao)}</em>` : ""}
+            </span>
+        `;
+
+        container.appendChild(label);
+    });
+
+    atualizarLimiteSaboresCupcake();
+}
+
 function atualizarCupcake() {
+    const tipo = tipoCupcakeSelecionado();
+    const quantidade = Number(document.getElementById("quantidadeCupcakes")?.value || 0);
+    const feedback = document.getElementById("regraCupcakeFeedback");
 
-    const categoria =
-        tipoCupcakeSelecionado();
+    regraCupcakeAtual = encontrarRegraCupcake(tipo, quantidade);
 
-    const quantidade =
-        Number(
-            document.getElementById("quantidadeCupcakes")?.value || 0
-        );
-
-    const feedback =
-        document.getElementById("regraCupcakeFeedback");
-
-    regraCupcakeAtual =
-        encontrarRegraCupcake(categoria, quantidade);
-
-    if (!categoria) {
-
+    if (!tipo) {
         if (feedback) {
-            feedback.textContent =
-                "Escolha um tipo de cupcake e informe a quantidade.";
-            feedback.className =
-                "regra-docinho-feedback";
+            feedback.textContent = "Escolha um tipo e informe a quantidade.";
+            feedback.className = "regra-docinho-feedback";
         }
 
+        atualizarLimiteSaboresCupcake();
         atualizarResumoCupcakes();
         return;
     }
 
     if (!quantidade) {
-
-        const primeira =
-            menorPrecoCupcake(categoria);
-
         if (feedback) {
-            feedback.textContent =
-                primeira
-                    ? `Informe a quantidade. Valor atual: ${formatarMoeda(primeira.preco_unitario)} por unidade.`
-                    : "Informe a quantidade.";
-            feedback.className =
-                "regra-docinho-feedback";
+            feedback.textContent = `Pedido mínimo: ${menorQuantidadeCupcake(tipo)} unidades.`;
+            feedback.className = "regra-docinho-feedback";
         }
 
+        atualizarLimiteSaboresCupcake();
         atualizarResumoCupcakes();
         return;
     }
 
     if (!regraCupcakeAtual) {
-
-        const proxima =
-            proximaRegraCupcake(categoria, quantidade);
+        const proxima = proximaRegraCupcake(tipo, quantidade);
 
         if (feedback) {
             feedback.textContent =
                 proxima
-                    ? `A quantidade mínima para esta opção é ${Number(proxima.quantidade_minima)} unidade(s).`
-                    : "Não existe uma regra de preço ativa para esta quantidade.";
-            feedback.className =
-                "regra-docinho-feedback alerta";
+                    ? `A partir de ${Number(proxima.quantidade_minima)} unidades esta opção fica disponível.`
+                    : "A quantidade informada não atende às regras cadastradas.";
+
+            feedback.className = "regra-docinho-feedback erro";
         }
 
+        atualizarLimiteSaboresCupcake();
         atualizarResumoCupcakes();
         return;
     }
 
-    if (feedback) {
-        feedback.innerHTML =
-            `<strong>${formatarMoeda(regraCupcakeAtual.preco_unitario)} por unidade</strong>`;
+    const maxSabores = Number(regraCupcakeAtual.max_sabores || 0);
 
-        feedback.className =
-            "regra-docinho-feedback sucesso";
+    if (feedback) {
+        feedback.innerHTML = `
+            <strong>${formatarMoeda(regraCupcakeAtual.preco_unitario)} por unidade</strong>
+            ${maxSabores > 0 ? ` • até ${maxSabores} sabor(es)` : ""}
+        `;
+        feedback.className = "regra-docinho-feedback sucesso";
     }
 
+    atualizarLimiteSaboresCupcake();
     atualizarResumoCupcakes();
 }
 
+function atualizarLimiteSaboresCupcake() {
+    const selecionados = saboresCupcakeSelecionados();
+    const maxSabores = Number(regraCupcakeAtual?.max_sabores || 0);
+
+    const contador = document.getElementById("quantidadeSaboresCupcake");
+    const limite = document.getElementById("limiteSaboresCupcake");
+    const ajuda = document.getElementById("ajudaSaboresCupcake");
+    const mensagem = document.getElementById("mensagemLimiteSaboresCupcake");
+
+    if (contador) {
+        contador.textContent = selecionados.length;
+    }
+
+    if (limite) {
+        limite.textContent =
+            maxSabores > 0
+                ? `/${maxSabores} selecionados`
+                : " selecionados";
+    }
+
+    if (ajuda) {
+        ajuda.textContent =
+            regraCupcakeAtual && maxSabores > 0
+                ? `Você pode escolher até ${maxSabores} sabor(es) para esta quantidade.`
+                : "O limite de sabores será definido conforme a quantidade escolhida.";
+    }
+
+    if (mensagem) {
+        mensagem.textContent =
+            maxSabores > 0 && selecionados.length >= maxSabores
+                ? `Você já escolheu o limite de ${maxSabores} sabor(es).`
+                : "";
+    }
+
+    document.querySelectorAll('input[name="saborCupcake"]').forEach(input => {
+        input.disabled =
+            maxSabores > 0 &&
+            selecionados.length >= maxSabores &&
+            !input.checked;
+    });
+}
+
 function atualizarResumoCupcakes() {
+    const tipo = tipoCupcakeSelecionado();
+    const quantidade = Number(document.getElementById("quantidadeCupcakes")?.value || 0);
+    const sabores = saboresCupcakeSelecionados();
 
-    const categoria =
-        tipoCupcakeSelecionado();
+    const campoTipo = document.getElementById("resumoTipoCupcake");
+    const campoQuantidade = document.getElementById("resumoQuantidadeCupcake");
+    const campoSabores = document.getElementById("resumoSaboresCupcake");
+    const campoPreco = document.getElementById("resumoPrecoCupcake");
+    const campoTotal = document.getElementById("valorTotalCupcakes");
 
-    const quantidade =
-        Number(
-            document.getElementById("quantidadeCupcakes")?.value || 0
-        );
+    if (campoTipo) {
+        campoTipo.textContent = tipo ? nomeTipoCupcake(tipo) : "—";
+    }
 
-    const preco =
-        regraCupcakeAtual
-            ? Number(regraCupcakeAtual.preco_unitario || 0)
-            : 0;
+    if (campoQuantidade) {
+        campoQuantidade.textContent = quantidade ? `${quantidade} unidade(s)` : "—";
+    }
+
+    if (campoSabores) {
+        campoSabores.textContent =
+            sabores.length
+                ? sabores.map(item => item.value).join(", ")
+                : "—";
+    }
+
+    if (campoPreco) {
+        campoPreco.textContent =
+            regraCupcakeAtual
+                ? formatarMoeda(regraCupcakeAtual.preco_unitario)
+                : "—";
+    }
 
     const total =
-        quantidade * preco;
+        regraCupcakeAtual
+            ? quantidade * Number(regraCupcakeAtual.preco_unitario || 0)
+            : 0;
 
-    const resumoTipo =
-        document.getElementById("resumoTipoCupcake");
-
-    const resumoQuantidade =
-        document.getElementById("resumoQuantidadeCupcake");
-
-    const resumoPreco =
-        document.getElementById("resumoPrecoCupcake");
-
-    const resumoTotal =
-        document.getElementById("valorTotalCupcakes");
-
-    if (resumoTipo) {
-        resumoTipo.textContent =
-            categoria
-                ? nomeCategoriaCupcake(categoria)
-                : "—";
-    }
-
-    if (resumoQuantidade) {
-        resumoQuantidade.textContent =
-            quantidade > 0
-                ? `${quantidade} unidade(s)`
-                : "—";
-    }
-
-    if (resumoPreco) {
-        resumoPreco.textContent =
-            regraCupcakeAtual
-                ? formatarMoeda(preco)
-                : "—";
-    }
-
-    if (resumoTotal) {
-        resumoTotal.textContent =
-            formatarMoeda(total);
+    if (campoTotal) {
+        campoTotal.textContent = formatarMoeda(total);
     }
 }
 
 function configurarEventosCupcakes() {
-
-    const painel =
-        document.getElementById("painelCupcakes");
+    const painel = document.getElementById("painelCupcakes");
 
     if (!painel || painel.dataset.eventosAtivos === "true") {
         return;
@@ -4022,52 +4103,76 @@ function configurarEventosCupcakes() {
     painel.dataset.eventosAtivos = "true";
 
     painel.addEventListener("change", function(event) {
+        const alvo = event.target;
 
-        if (event.target.name === "tipoCupcake") {
+        if (alvo.name === "tipoCupcake") {
+            document.getElementById("quantidadeCupcakes").value = "";
+            regraCupcakeAtual = null;
 
-            const quantidade =
-                document.getElementById("quantidadeCupcakes");
+            document.querySelectorAll('input[name="saborCupcake"]').forEach(input => {
+                input.checked = false;
+                input.disabled = false;
+            });
 
-            if (quantidade) {
-                quantidade.value = "";
+            atualizarCupcake();
+        }
+
+        if (alvo.name === "saborCupcake") {
+            const maxSabores = Number(regraCupcakeAtual?.max_sabores || 0);
+            const selecionados = saboresCupcakeSelecionados();
+
+            if (maxSabores > 0 && selecionados.length > maxSabores) {
+                alvo.checked = false;
+                alert(`Para esta quantidade você pode escolher até ${maxSabores} sabor(es).`);
             }
 
-            regraCupcakeAtual = null;
-            atualizarCupcake();
+            atualizarLimiteSaboresCupcake();
+            atualizarResumoCupcakes();
         }
     });
 
-    document.getElementById("quantidadeCupcakes")
-        ?.addEventListener("input", atualizarCupcake);
+    document.getElementById("quantidadeCupcakes")?.addEventListener(
+        "input",
+        atualizarCupcake
+    );
 }
 
-async function carregarMontagemCupcakes() {
+async function carregarCupcakes() {
+    const painel = document.getElementById("painelCupcakes");
 
-    if (!document.getElementById("painelCupcakes")) {
+    if (!painel) {
         return;
     }
 
     try {
-
-        regrasCupcakesSupabase =
-            await buscarRegrasCupcakesSupabase();
+        [opcoesCupcakesSupabase, regrasCupcakesSupabase] = await Promise.all([
+            buscarOpcoesCupcakesSupabase(),
+            buscarRegrasCupcakesSupabase()
+        ]);
 
         renderizarTiposCupcake();
+        renderizarSaboresCupcake();
         configurarEventosCupcakes();
         atualizarResumoCupcakes();
 
     } catch (erro) {
-
         console.error("Erro ao carregar cupcakes:", erro);
 
-        const container =
-            document.getElementById("opcoesTipoCupcake");
+        const tipos = document.getElementById("opcoesTipoCupcake");
+        const sabores = document.getElementById("opcoesSaboresCupcake");
 
-        if (container) {
-            container.innerHTML = `
+        if (tipos) {
+            tipos.innerHTML = `
                 <div class="opcoes-indisponiveis">
-                    Não foi possível carregar os cupcakes.
-                    Atualize a página e tente novamente.
+                    Não foi possível carregar os tipos de cupcake.
+                </div>
+            `;
+        }
+
+        if (sabores) {
+            sabores.innerHTML = `
+                <div class="opcoes-indisponiveis">
+                    Não foi possível carregar os sabores de cupcake.
                 </div>
             `;
         }
@@ -4075,22 +4180,13 @@ async function carregarMontagemCupcakes() {
 }
 
 function adicionarCupcakesCarrinho() {
+    const tipo = tipoCupcakeSelecionado();
+    const quantidade = Number(document.getElementById("quantidadeCupcakes")?.value || 0);
+    const sabores = saboresCupcakeSelecionados();
+    const data = document.getElementById("dataRetiradaCupcakes")?.value;
+    const horario = document.getElementById("horaRetiradaCupcakes")?.value;
 
-    const categoria =
-        tipoCupcakeSelecionado();
-
-    const quantidade =
-        Number(
-            document.getElementById("quantidadeCupcakes")?.value || 0
-        );
-
-    const data =
-        document.getElementById("dataRetiradaCupcakes")?.value;
-
-    const horario =
-        document.getElementById("horaRetiradaCupcakes")?.value;
-
-    if (!categoria) {
+    if (!tipo) {
         alert("Escolha o tipo de cupcake.");
         return;
     }
@@ -4100,10 +4196,22 @@ function adicionarCupcakesCarrinho() {
         return;
     }
 
-    atualizarCupcake();
+    regraCupcakeAtual = encontrarRegraCupcake(tipo, quantidade);
 
     if (!regraCupcakeAtual) {
-        alert("A quantidade informada não atende às regras atuais desta opção.");
+        alert(`A quantidade mínima atual é ${menorQuantidadeCupcake(tipo)} unidade(s).`);
+        return;
+    }
+
+    if (!sabores.length) {
+        alert("Escolha pelo menos um sabor.");
+        return;
+    }
+
+    const maxSabores = Number(regraCupcakeAtual.max_sabores || 0);
+
+    if (maxSabores > 0 && sabores.length > maxSabores) {
+        alert(`Escolha no máximo ${maxSabores} sabor(es).`);
         return;
     }
 
@@ -4117,19 +4225,19 @@ function adicionarCupcakesCarrinho() {
         return;
     }
 
-    const precoUnitario =
-        Number(regraCupcakeAtual.preco_unitario || 0);
-
-    const total =
-        quantidade * precoUnitario;
+    const precoUnitario = Number(regraCupcakeAtual.preco_unitario || 0);
+    const total = quantidade * precoUnitario;
 
     carrinho.push({
         id: Date.now(),
         tipo: "cupcakes",
-        nome: nomeCategoriaCupcake(categoria),
-        categoria: categoria,
+        nome: `Cupcakes ${nomeTipoCupcake(tipo)}`,
+        tipoCupcake: tipo,
+        tipoNome: nomeTipoCupcake(tipo),
         unidades: quantidade,
+        sabores: sabores.map(item => item.value),
         precoUnitario: precoUnitario,
+        regraNome: regraCupcakeAtual.nome || "",
         data: data,
         horario: horario,
         preco: total,
@@ -4144,6 +4252,11 @@ function adicionarCupcakesCarrinho() {
         `Total: ${formatarMoeda(total)}`
     );
 }
+
+document.addEventListener(
+    "DOMContentLoaded",
+    carregarCupcakes
+);
 
 
 /* =====================================================
@@ -4454,7 +4567,6 @@ function adicionarCaseirinhoCarrinho() {
 document.addEventListener(
     "DOMContentLoaded",
     function () {
-        carregarMontagemCupcakes();
         carregarMontagemCaseirinhos();
     }
 );

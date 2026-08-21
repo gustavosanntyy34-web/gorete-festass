@@ -90,8 +90,8 @@
                 <span class="icone-encomenda">🧁</span>
                 <strong>Cupcakes</strong>
                 <small>
-                    Escolha o tipo, informe a quantidade
-                    e veja o valor automaticamente.
+                    Escolha o tipo, a quantidade e os sabores
+                    conforme as opções disponíveis.
                 </small>
                 <span class="acao-encomenda">Ver encomenda →</span>
             </button>
@@ -335,6 +335,34 @@
                     <div class="numero-etapa">3</div>
 
                     <div class="conteudo-etapa">
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Escolha os sabores</h2>
+                                <p id="ajudaSaboresCupcake">
+                                    O limite de sabores será definido conforme a quantidade escolhida.
+                                </p>
+                            </div>
+
+                            <span class="contador-recheios contador-sabores-docinho">
+                                <strong id="quantidadeSaboresCupcake">0</strong>
+                                <span id="limiteSaboresCupcake"> selecionados</span>
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesSaboresCupcake">
+                            <div class="opcoes-indisponiveis">
+                                Escolha primeiro o tipo e informe a quantidade.
+                            </div>
+                        </div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemLimiteSaboresCupcake"></p>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">4</div>
+
+                    <div class="conteudo-etapa">
                         <h2>Quando deseja retirar?</h2>
 
                         <div class="campos-retirada">
@@ -374,6 +402,11 @@
                 <div class="linha-resumo">
                     <span>Quantidade</span>
                     <strong id="resumoQuantidadeCupcake">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Sabores</span>
+                    <strong id="resumoSaboresCupcake">—</strong>
                 </div>
 
                 <div class="linha-resumo">

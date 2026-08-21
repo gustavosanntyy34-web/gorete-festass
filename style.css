@@ -10044,3 +10044,51 @@ footer div p {
     }
 }
 
+
+
+/* =========================================================
+   CUPCAKES - SABORES E LIMITES
+========================================================= */
+
+.montagem-cupcakes .contador-sabores-docinho {
+    flex-shrink: 0;
+}
+
+.montagem-cupcakes #opcoesSaboresCupcake .opcao-card {
+    min-height: 74px;
+}
+
+.montagem-cupcakes #mensagemLimiteSaboresCupcake {
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .montagem-cupcakes .titulo-etapa-com-limite {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .montagem-cupcakes .contador-sabores-docinho {
+        align-self: flex-start;
+    }
+}
+
+
+/* =====================================================
+   AJUSTE FINAL - CONTRASTE DO BOTÃO CARRINHO
+   ===================================================== */
+
+.btn-carrinho {
+    color: #ffffff !important;
+}
+
+.btn-carrinho .icone-carrinho,
+.btn-carrinho .texto-carrinho {
+    color: #ffffff !important;
+}
+
+.btn-carrinho #quantidadeCarrinho,
+.btn-carrinho .quantidade-carrinho {
+    background: #ffffff !important;
+    color: #6f4031 !important;
+}
