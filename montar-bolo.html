@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Faça sua Encomenda | Gorete Festass</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topo">
+
+        <div class="marca">
+            <h1>Gorete Festass</h1>
+            <span>BOLOS • DOCES • CUPCAKES</span>
+        </div>
+
+        <nav class="menu">
+            <a href="index.html">Início</a>
+            <a href="index.html#cardapio">Fatias</a>
+            <a href="montar-bolo.html">Faça sua encomenda</a>
+
+            <a href="carrinho.html" class="btn-carrinho">
+                🛒 Carrinho
+                <span id="quantidadeCarrinho">0</span>
+            </a>
+        </nav>
+
+    </header>
+
+
+    <main class="pagina-montar-bolo">
+
+        <section class="cabecalho-montagem cabecalho-encomenda">
+
+            <span>ENCOMENDAS</span>
+
+            <h1>Faça sua encomenda</h1>
+
+            <p>
+                Escolha o que deseja encomendar para sua comemoração.
+                Bolos personalizados, docinhos, cupcakes e bolos caseirinhos preparados com carinho.
+            </p>
+
+        </section>
+
+
+        <!-- TIPO DE ENCOMENDA -->
+        <section class="seletor-encomenda">
+
+            <button
+                type="button"
+                class="card-tipo-encomenda ativo"
+                data-encomenda="bolo"
+                onclick="selecionarTipoEncomenda('bolo')"
+            >
+                <span class="icone-encomenda">🎂</span>
+                <strong>Bolo personalizado</strong>
+                <small>
+                    Escolha tamanho, massa, recheio, decoração e envie suas referências.
+                </small>
+                <span class="acao-encomenda">Personalizar bolo →</span>
+            </button>
+
+            <button
+                type="button"
+                class="card-tipo-encomenda"
+                data-encomenda="docinhos"
+                onclick="selecionarTipoEncomenda('docinhos')"
+            >
+                <span class="icone-encomenda">🍬</span>
+                <strong>Docinhos</strong>
+                <small>
+                    Escolha categoria, quantidade e sabores
+                    conforme as opções disponíveis.
+                </small>
+                <span class="acao-encomenda">Ver encomenda →</span>
+            </button>
+
+            <button
+                type="button"
+                class="card-tipo-encomenda"
+                data-encomenda="cupcakes"
+                onclick="selecionarTipoEncomenda('cupcakes')"
+            >
+                <span class="icone-encomenda">🧁</span>
+                <strong>Cupcakes</strong>
+                <small>
+                    Escolha o tipo, informe a quantidade
+                    e veja o valor automaticamente.
+                </small>
+                <span class="acao-encomenda">Ver encomenda →</span>
+            </button>
+
+            <button
+                type="button"
+                class="card-tipo-encomenda"
+                data-encomenda="caseirinhos"
+                onclick="selecionarTipoEncomenda('caseirinhos')"
+            >
+                <span class="icone-encomenda">🍊</span>
+                <strong>Bolos caseirinhos</strong>
+                <small>
+                    Escolha sabor e tamanho
+                    conforme as opções disponíveis.
+                </small>
+                <span class="acao-encomenda">Ver encomenda →</span>
+            </button>
+
+        </section>
+
+
+        <!-- AVISO PARA CATEGORIAS A CONFIGURAR -->
+        <section
+            class="aviso-encomenda"
+            id="avisoEncomenda"
+            hidden
+        >
+            <div class="aviso-encomenda-conteudo">
+                <span id="iconeAvisoEncomenda">🍬</span>
+
+                <div>
+                    <small>ENCOMENDA</small>
+                    <h2 id="tituloAvisoEncomenda">Docinhos</h2>
+                    <p id="textoAvisoEncomenda">
+                        Estamos preparando as opções desta categoria.
+                    </p>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                onclick="selecionarTipoEncomenda('bolo')"
+            >
+                ← Voltar para bolo personalizado
+            </button>
+        </section>
+
+
+
+        <!-- DOCINHOS -->
+        <section class="montagem-container montagem-docinhos" id="painelDocinhos" hidden>
+
+            <div class="opcoes-bolo">
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">1</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha a categoria</h2>
+                        <p>Selecione o tipo de docinho que deseja encomendar.</p>
+
+                        <div class="opcoes-selecao" id="opcoesCategoriaDocinho">
+                            <p class="opcoes-carregando">Carregando categorias...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">2</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Informe a quantidade</h2>
+                        <p>
+                            A quantidade mínima e o valor serão definidos conforme
+                            as regras cadastradas no painel.
+                        </p>
+
+                        <div class="campo-quantidade-docinho">
+                            <label for="quantidadeDocinhos">Quantidade de docinhos</label>
+                            <input
+                                type="number"
+                                id="quantidadeDocinhos"
+                                class="campo-bolo"
+                                min="1"
+                                step="1"
+                                placeholder="Ex.: 20"
+                            >
+                        </div>
+
+                        <div class="regra-docinho-feedback" id="regraDocinhoFeedback">
+                            Selecione uma categoria e informe a quantidade.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">3</div>
+
+                    <div class="conteudo-etapa">
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Escolha os sabores</h2>
+                                <p id="ajudaSaboresDocinho">
+                                    A quantidade de sabores permitida será informada após escolher a quantidade.
+                                </p>
+                            </div>
+
+                            <span class="contador-recheios contador-sabores-docinho">
+                                <strong id="quantidadeSaboresDocinho">0</strong>
+                                <span id="limiteSaboresDocinho"> selecionados</span>
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesSaboresDocinho">
+                            <div class="opcoes-indisponiveis">
+                                Escolha primeiro uma categoria.
+                            </div>
+                        </div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemLimiteSaboresDocinho"></p>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">4</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Quando deseja retirar?</h2>
+
+                        <div class="campos-retirada">
+                            <div>
+                                <label>Data</label>
+                                <input
+                                    type="date"
+                                    id="dataRetiradaDocinhos"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Horário</label>
+                                <input
+                                    type="time"
+                                    id="horaRetiradaDocinhos"
+                                    class="campo-bolo"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="resumo-bolo resumo-docinhos">
+
+                <span>SEU PEDIDO</span>
+                <h2>Resumo dos docinhos</h2>
+
+                <div class="linha-resumo">
+                    <span>Categoria</span>
+                    <strong id="resumoCategoriaDocinho">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Quantidade</span>
+                    <strong id="resumoQuantidadeDocinho">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Sabores</span>
+                    <strong id="resumoSaboresDocinho">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span id="rotuloPrecoDocinho">Valor</span>
+                    <strong id="resumoPrecoUnitarioDocinho">—</strong>
+                </div>
+
+                <div class="total-bolo">
+                    <span>Total dos docinhos</span>
+                    <strong id="valorTotalDocinhos">R$ 0,00</strong>
+                </div>
+
+                <button
+                    class="btn-adicionar-bolo"
+                    onclick="adicionarDocinhosCarrinho()"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </aside>
+
+        </section>
+
+
+        <!-- CUPCAKES -->
+        <section class="montagem-container montagem-cupcakes" id="painelCupcakes" hidden>
+
+            <div class="opcoes-bolo">
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">1</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha o tipo de cupcake</h2>
+                        <p>Selecione a opção desejada.</p>
+
+                        <div class="opcoes-selecao" id="opcoesTipoCupcake">
+                            <p class="opcoes-carregando">Carregando tipos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">2</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Informe a quantidade</h2>
+                        <p>O valor será calculado automaticamente conforme o tipo escolhido.</p>
+
+                        <div class="campo-quantidade-encomenda">
+                            <label for="quantidadeCupcakes">Quantidade de cupcakes</label>
+                            <input
+                                type="number"
+                                id="quantidadeCupcakes"
+                                class="campo-bolo"
+                                min="1"
+                                step="1"
+                                placeholder="Ex.: 10"
+                            >
+                        </div>
+
+                        <div class="regra-docinho-feedback" id="regraCupcakeFeedback">
+                            Escolha um tipo e informe a quantidade.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">3</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Quando deseja retirar?</h2>
+
+                        <div class="campos-retirada">
+                            <div>
+                                <label>Data</label>
+                                <input
+                                    type="date"
+                                    id="dataRetiradaCupcakes"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Horário</label>
+                                <input
+                                    type="time"
+                                    id="horaRetiradaCupcakes"
+                                    class="campo-bolo"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="resumo-bolo resumo-cupcakes">
+
+                <span>SEU PEDIDO</span>
+                <h2>Resumo dos cupcakes</h2>
+
+                <div class="linha-resumo">
+                    <span>Tipo</span>
+                    <strong id="resumoTipoCupcake">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Quantidade</span>
+                    <strong id="resumoQuantidadeCupcake">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Valor unitário</span>
+                    <strong id="resumoPrecoCupcake">—</strong>
+                </div>
+
+                <div class="total-bolo">
+                    <span>Total dos cupcakes</span>
+                    <strong id="valorTotalCupcakes">R$ 0,00</strong>
+                </div>
+
+                <button
+                    class="btn-adicionar-bolo"
+                    onclick="adicionarCupcakesCarrinho()"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </aside>
+
+        </section>
+
+
+        <!-- BOLOS CASEIRINHOS -->
+        <section class="montagem-container montagem-caseirinhos" id="painelCaseirinhos" hidden>
+
+            <div class="opcoes-bolo">
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">1</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha o sabor</h2>
+                        <p>Selecione um dos sabores disponíveis.</p>
+
+                        <div class="opcoes-selecao" id="opcoesSaborCaseirinho">
+                            <p class="opcoes-carregando">Carregando sabores...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">2</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha o tamanho</h2>
+                        <p>O valor do bolo caseirinho será atualizado conforme o tamanho.</p>
+
+                        <div class="opcoes-selecao" id="opcoesTamanhoCaseirinho">
+                            <p class="opcoes-carregando">Carregando tamanhos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">3</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Quando deseja retirar?</h2>
+
+                        <div class="campos-retirada">
+                            <div>
+                                <label>Data</label>
+                                <input
+                                    type="date"
+                                    id="dataRetiradaCaseirinho"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Horário</label>
+                                <input
+                                    type="time"
+                                    id="horaRetiradaCaseirinho"
+                                    class="campo-bolo"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="resumo-bolo resumo-caseirinhos">
+
+                <span>SEU PEDIDO</span>
+                <h2>Resumo do bolo caseirinho</h2>
+
+                <div class="linha-resumo">
+                    <span>Sabor</span>
+                    <strong id="resumoSaborCaseirinho">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Tamanho</span>
+                    <strong id="resumoTamanhoCaseirinho">—</strong>
+                </div>
+
+                <div class="total-bolo">
+                    <span>Total do bolo caseirinho</span>
+                    <strong id="valorTotalCaseirinho">R$ 0,00</strong>
+                </div>
+
+                <button
+                    class="btn-adicionar-bolo"
+                    onclick="adicionarCaseirinhoCarrinho()"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </aside>
+
+        </section>
+
+        <section class="montagem-container" id="painelBolo">
+
+            <div class="opcoes-bolo">
+
+
+                <!-- TAMANHO -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">1</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Escolha o tamanho</h2>
+
+                        <p>Para quantas pessoas será o bolo?</p>
+
+                        <div class="opcoes-selecao" id="opcoesTamanho">
+                            <p class="opcoes-carregando">Carregando tamanhos...</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MASSA -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">2</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Escolha a massa</h2>
+
+                        <div class="opcoes-selecao" id="opcoesMassa">
+                            <p class="opcoes-carregando">Carregando massas...</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECHEIOS -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">3</div>
+
+                    <div class="conteudo-etapa">
+
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Escolha os recheios</h2>
+                                <p>Você pode escolher até 2 recheios.</p>
+                            </div>
+
+                            <span class="contador-recheios">
+                                <strong id="quantidadeRecheiosSelecionados">0</strong>/2 selecionados
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesRecheio">
+                            <p class="opcoes-carregando">Carregando recheios...</p>
+                        </div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemLimiteRecheios"></p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADICIONAIS -->
+
+                <div class="etapa-bolo" id="etapaAdicionais">
+
+                    <div class="numero-etapa">4</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Adicionais</h2>
+
+                        <p>
+                            Escolha algum complemento, se desejar.
+                            Esta etapa é opcional.
+                        </p>
+
+                        <div class="opcoes-selecao" id="opcoesAdicionais">
+                            <p class="opcoes-carregando">Carregando adicionais...</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COR -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">5</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Cor principal</h2>
+
+                        <p>
+                            Escolha a cor predominante da decoração.
+                        </p>
+
+                        <input
+                            type="text"
+                            id="corBolo"
+                            class="campo-bolo"
+                            placeholder="Ex.: Rosa claro, azul, branco..."
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOPO -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">6</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Deseja topo de bolo?</h2>
+
+                        <p>
+                            O valor do topo é informado depois que a gráfica analisar
+                            a referência enviada.
+                        </p>
+
+                        <div class="opcoes-selecao">
+
+                            <label class="opcao-card">
+                                <input
+                                    type="radio"
+                                    name="topo"
+                                    value="Não quero topo"
+                                    data-preco="0"
+                                >
+
+                                <span>
+                                    <strong>Não quero topo</strong>
+                                    <small>Sem custo adicional</small>
+                                </span>
+                            </label>
+
+                            <label class="opcao-card">
+                                <input
+                                    type="radio"
+                                    name="topo"
+                                    value="Quero topo personalizado"
+                                    data-preco="0"
+                                >
+
+                                <span>
+                                    <strong>Quero topo personalizado</strong>
+                                    <small>Valor a confirmar com a gráfica</small>
+                                </span>
+                            </label>
+
+                        </div>
+
+                        <div class="aviso-topo-orcamento">
+                            <strong>Como funciona?</strong>
+                            <p>
+                                Envie abaixo uma foto de referência. Após receber o pedido,
+                                confirmaremos o valor do topo conforme o orçamento da gráfica.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGENS DE REFERÊNCIA -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">7</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Inspiração</h2>
+
+                        <p>
+                            Envie uma referência do bolo e, caso queira topo personalizado, envie também a referência do topo.
+                        </p>
+
+                        <div class="uploads-bolo">
+
+                            <label class="upload-box">
+
+                                <strong>📷 Foto do bolo</strong>
+
+                                <span>
+                                    Enviar imagem de inspiração
+                                </span>
+
+                                <input
+                                    type="file"
+                                    id="fotoBolo"
+                                    accept="image/*"
+                                >
+
+                            </label>
+
+
+                            <label class="upload-box">
+
+                                <strong>🎂 Foto do topo</strong>
+
+                                <span>
+                                    Obrigatória se escolher topo personalizado
+                                </span>
+
+                                <input
+                                    type="file"
+                                    id="fotoTopo"
+                                    accept="image/*"
+                                >
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RETIRADA -->
+
+                <div class="etapa-bolo">
+
+                    <div class="numero-etapa">8</div>
+
+                    <div class="conteudo-etapa">
+
+                        <h2>Quando deseja retirar?</h2>
+
+                        <div class="campos-retirada">
+
+                            <div>
+                                <label>Data</label>
+
+                                <input
+                                    type="date"
+                                    id="dataRetirada"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Horário</label>
+
+                                <input
+                                    type="time"
+                                    id="horaRetirada"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESUMO -->
+
+            <aside class="resumo-bolo">
+
+                <span>SEU PEDIDO</span>
+
+                <h2>Resumo da encomenda</h2>
+
+                <div class="linha-resumo">
+                    <span>Tamanho</span>
+                    <strong id="resumoTamanho">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Massa</span>
+                    <strong id="resumoMassa">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Recheios</span>
+                    <strong id="resumoRecheio">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Adicionais</span>
+                    <strong id="resumoAdicionais">Nenhum</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Topo</span>
+                    <strong id="resumoTopo">—</strong>
+                </div>
+
+                <div class="total-bolo">
+
+                    <span>Total parcial do bolo</span>
+
+                    <strong id="valorTotalBolo">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <button
+                    class="btn-adicionar-bolo"
+                    onclick="adicionarBoloCarrinho()"
+                >
+                    Adicionar ao carrinho
+                </button>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

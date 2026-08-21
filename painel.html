@@ -1,0 +1,2280 @@
+<!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Painel Administrativo | Gorete Festass</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <style>
+            /* =========================================================
+               ENCOMENDAS - REGRAS, DOCINHOS, CUPCAKES E CASEIRINHOS
+            ========================================================= */
+            .admin-produtos-encomenda {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            .admin-regras-wrapper {
+                margin-top: 18px;
+                padding-top: 18px;
+                border-top: 1px solid #f0e2db;
+            }
+
+            .admin-regras-wrapper[hidden] {
+                display: none !important;
+            }
+
+            .admin-regras-topo {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 14px;
+            }
+
+            .admin-regras-topo span {
+                display: block;
+                margin-bottom: 5px;
+                color: #b66f54;
+                font-size: 9px;
+                font-weight: 700;
+                letter-spacing: 2px;
+            }
+
+            .admin-regras-topo h4 {
+                margin: 0;
+                color: #563126;
+                font-size: 18px;
+            }
+
+            .admin-regras-topo p {
+                margin: 5px 0 0;
+                color: #8a7065;
+                font-size: 11px;
+                line-height: 1.45;
+            }
+
+            .lista-regras-admin {
+                display: grid;
+                gap: 10px;
+            }
+
+            .regra-admin-card {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto auto;
+                align-items: center;
+                gap: 14px;
+                min-height: 76px;
+                padding: 14px;
+                border: 1px solid #eadbd3;
+                border-radius: 12px;
+                background: #fffdfb;
+            }
+
+            .regra-admin-info {
+                min-width: 0;
+            }
+
+            .regra-admin-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-bottom: 6px;
+            }
+
+            .regra-admin-tag {
+                display: inline-flex;
+                align-items: center;
+                min-height: 23px;
+                padding: 4px 8px;
+                border-radius: 999px;
+                background: #f3e3db;
+                color: #754434;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .regra-admin-info h5 {
+                margin: 0 0 4px;
+                color: #563126;
+                font-size: 14px;
+            }
+
+            .regra-admin-info p {
+                margin: 0;
+                color: #8a7065;
+                font-size: 10px;
+                line-height: 1.4;
+            }
+
+            .regra-admin-preco {
+                min-width: 115px;
+                color: #6e3d2e;
+                font-size: 13px;
+                text-align: right;
+            }
+
+            .regra-admin-acoes {
+                display: flex;
+                gap: 6px;
+            }
+
+            .regra-admin-acoes button {
+                min-height: 34px;
+                padding: 7px 10px;
+                border-radius: 8px;
+                font-size: 9px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .modal-regra-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .modal-regra-grid .campo-admin {
+                margin: 0;
+            }
+
+            .admin-ajuda-regra {
+                margin: -2px 0 10px;
+                padding: 10px 12px;
+                border: 1px solid #ead6cc;
+                border-radius: 10px;
+                background: #fff7f2;
+                color: #82695f;
+                font-size: 10px;
+                line-height: 1.45;
+            }
+
+            @media (max-width: 980px) {
+                .admin-produtos-encomenda {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 700px) {
+                .admin-produtos-encomenda {
+                    grid-template-columns: 1fr;
+                }
+
+                .admin-regras-topo {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .admin-regras-topo .btn-adicionar-grupo {
+                    width: 100%;
+                }
+
+                .regra-admin-card {
+                    grid-template-columns: 1fr;
+                    gap: 9px;
+                }
+
+                .regra-admin-preco {
+                    min-width: 0;
+                    text-align: left;
+                }
+
+                .regra-admin-acoes {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                .regra-admin-acoes button {
+                    width: 100%;
+                }
+
+                .modal-regra-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* =========================================================
+               AJUSTES FINAIS - ENCOMENDAS POR CATEGORIA
+            ========================================================= */
+            .admin-sem-grupos {
+                padding: 18px;
+                border: 1px dashed #dfc7bb;
+                border-radius: 12px;
+                background: #fff9f5;
+                color: #7d6257;
+                font-size: 11px;
+                line-height: 1.55;
+            }
+
+            .admin-sem-grupos strong {
+                display: block;
+                margin-bottom: 5px;
+                color: #5f3428;
+                font-size: 14px;
+            }
+
+            .admin-regras-wrapper.cupcake-regras {
+                margin-top: 0;
+                padding: 20px;
+                border: 1px solid #eadbd3;
+                border-radius: 14px;
+                background: #fffaf7;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-regras-topo {
+                align-items: center;
+                margin-bottom: 0;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #efdfd7;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-regras-topo > div {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-regras-topo span {
+                margin-bottom: 6px;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-regras-topo h4 {
+                font-size: 20px;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-regras-topo p {
+                max-width: 720px;
+                margin-top: 6px;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .lista-regras-admin {
+                margin-top: 14px;
+            }
+
+            .admin-regras-wrapper.cupcake-regras .admin-grupo-vazio {
+                min-height: 66px;
+                padding: 2px 0;
+            }
+
+            .admin-regras-wrapper.cupcake-regras #btnNovaRegra {
+                min-width: 150px;
+                min-height: 42px;
+                padding: 10px 16px;
+                box-shadow: 0 8px 18px rgba(111, 64, 49, 0.10);
+            }
+
+            .admin-produto-tab strong {
+                font-size: 14px;
+            }
+
+            .admin-produto-tab small {
+                line-height: 1.35;
+            }
+
+            @media (max-width: 700px) {
+                .admin-produto-tab {
+                    min-height: 74px;
+                }
+
+                .admin-produto-tab strong {
+                    font-size: 15px;
+                }
+
+                .admin-regras-wrapper.cupcake-regras {
+                    padding: 15px;
+                }
+
+                .admin-regras-wrapper.cupcake-regras .admin-regras-topo {
+                    align-items: stretch;
+                }
+
+                .admin-regras-wrapper.cupcake-regras #btnNovaRegra {
+                    width: 100%;
+                    min-width: 0;
+                }
+            }
+
+
+            /* MODAL DE PREÇOS MAIS SIMPLES */
+            #modalRegra .modal-admin-conteudo {
+                max-width: 560px;
+            }
+
+            #modalRegra .campo-admin > small {
+                display: block;
+                margin-top: 6px;
+                color: #9a7668;
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            #modalRegra .admin-ajuda-regra {
+                margin-bottom: 16px;
+                padding: 12px 14px;
+                font-size: 10px;
+            }
+
+            #modalRegra .campo-status-card {
+                margin-top: 15px;
+            }
+
+        
+            /* DOCINHOS: PREÇO FORA DO CADASTRO DO SABOR */
+            #campoPrecoOpcao[hidden] {
+                display: none !important;
+            }
+
+        
+            /* FORMA DE COBRANÇA DOS DOCINHOS */
+            #camposCobrancaUnidade[hidden],
+            #camposCobrancaPacote[hidden],
+            #campoTipoCobrancaRegra[hidden] {
+                display: none !important;
+            }
+
+            #campoTipoCobrancaRegra {
+                margin-bottom: 16px;
+            }
+
+        
+            .campo-minimo-por-sabor {
+                margin-top: 14px;
+            }
+
+        </style>
+    </head>
+    <body class="pagina-painel">
+
+    <header class="painel-topo">
+        <div>
+            <span>PAINEL ADMINISTRATIVO</span>
+            <h1>Gorete Festass</h1>
+        </div>
+
+        <div class="painel-topo-acoes">
+            <a href="index.html" target="_blank">Ver site</a>
+            <button id="btnSairPainel">Sair</button>
+        </div>
+    </header>
+
+    <main class="painel-container">
+
+        <nav class="painel-abas" aria-label="Seções do painel">
+            <button class="painel-aba ativa" data-alvo="secaoFatias">🍰 Fatias do dia</button>
+            <button class="painel-aba" data-alvo="secaoEncomendas">🎉 Encomendas</button>
+        </nav>
+
+        <section class="painel-secao ativa" id="secaoFatias">
+            <div class="painel-secao-topo">
+                <div>
+                    <span>PRONTA ENTREGA</span>
+                    <h2>Fatias do dia</h2>
+                    <p>Cadastre sabores, preços, imagens e disponibilidade.</p>
+                </div>
+                <button class="btn-nova-fatia" id="btnNovaFatia">+ Nova fatia</button>
+            </div>
+
+            <section class="painel-indicadores">
+                <div class="painel-indicador">
+                    <span>Total de fatias</span>
+                    <strong id="totalFatias">0</strong>
+                </div>
+                <div class="painel-indicador">
+                    <span>Disponíveis</span>
+                    <strong id="totalAtivas">0</strong>
+                </div>
+                <div class="painel-indicador">
+                    <span>Indisponíveis</span>
+                    <strong id="totalInativas">0</strong>
+                </div>
+            </section>
+
+            <section class="painel-lista">
+                <div class="painel-lista-topo">
+                    <h3>Fatias cadastradas</h3>
+                    <button id="btnAtualizarLista" class="btn-atualizar-lista">↻ Atualizar</button>
+                </div>
+
+                <div id="listaFatiasAdmin" class="lista-fatias-admin">
+                    <p class="painel-carregando">Carregando produtos...</p>
+                </div>
+            </section>
+        </section>
+
+        <section class="painel-secao" id="secaoEncomendas">
+            <div class="painel-secao-topo painel-secao-topo-encomendas">
+                <div>
+                    <span>PERSONALIZAÇÃO</span>
+                    <h2>Encomendas</h2>
+                    <p>
+                        Escolha o produto e gerencie cada parte da encomenda
+                        de forma simples, sem precisar pensar na estrutura do banco de dados.
+                    </p>
+                </div>
+            </div>
+
+            <div class="admin-produtos-encomenda" aria-label="Tipos de encomenda">
+                <button class="admin-produto-tab ativo" type="button" data-produto="bolo">
+                    <span class="admin-produto-icone">🎂</span>
+                    <span>
+                        <strong>Bolo personalizado</strong>
+                        <small>Tamanhos, massas, recheios e adicionais</small>
+                    </span>
+                </button>
+
+                <button class="admin-produto-tab" type="button" data-produto="docinho">
+                    <span class="admin-produto-icone">🍬</span>
+                    <span>
+                        <strong>Docinhos</strong>
+                        <small>Opções e valores</small>
+                    </span>
+                </button>
+
+                <button class="admin-produto-tab" type="button" data-produto="cupcake">
+                    <span class="admin-produto-icone">🧁</span>
+                    <span>
+                        <strong>Cupcakes</strong>
+                        <small>Tipos e valores</small>
+                    </span>
+                </button>
+
+                <button class="admin-produto-tab" type="button" data-produto="caseirinho">
+                    <span class="admin-produto-icone">🍊</span>
+                    <span>
+                        <strong>Bolos caseirinhos</strong>
+                        <small>Sabores, tamanhos e valores</small>
+                    </span>
+                </button>
+            </div>
+
+            <section class="painel-indicadores painel-indicadores-encomendas">
+                <div class="painel-indicador">
+                    <span id="rotuloTotalOpcoes">Opções cadastradas</span>
+                    <strong id="totalOpcoes">0</strong>
+                </div>
+                <div class="painel-indicador">
+                    <span id="rotuloOpcoesAtivas">Ativas no site</span>
+                    <strong id="totalOpcoesAtivas">0</strong>
+                </div>
+                <div class="painel-indicador">
+                    <span id="rotuloOpcoesInativas">Inativas</span>
+                    <strong id="totalOpcoesInativas">0</strong>
+                </div>
+            </section>
+
+            <div class="admin-grupos-wrapper">
+                <div class="admin-grupos-cabecalho">
+                    <div>
+                        <span>CONFIGURAÇÃO</span>
+                        <h3 id="tituloProdutoSelecionado">Configuração dos bolos</h3>
+                        <p id="descricaoProdutoSelecionado">
+                            Gerencie os itens que o cliente poderá escolher ao montar o bolo.
+                        </p>
+                    </div>
+
+                    <button id="btnAtualizarOpcoes" class="btn-atualizar-lista" type="button">
+                        ↻ Atualizar
+                    </button>
+                </div>
+
+                <div id="listaOpcoesAdmin" class="admin-grupos-lista">
+                    <p class="painel-carregando">Carregando opções...</p>
+                </div>
+
+                <section class="admin-regras-wrapper" id="secaoRegrasEncomenda" hidden>
+                    <div class="admin-regras-topo">
+                        <div>
+                            <span>REGRAS DE VENDA</span>
+                            <h4 id="tituloRegrasEncomenda">Preços e quantidades</h4>
+                            <p id="descricaoRegrasEncomenda">
+                                Defina quantidades mínimas, preço por unidade e quantidade de sabores permitida.
+                            </p>
+                        </div>
+
+                        <button class="btn-adicionar-grupo" type="button" id="btnNovaRegra">
+                            + Nova regra
+                        </button>
+                    </div>
+
+                    <div id="listaRegrasAdmin" class="lista-regras-admin">
+                        <p class="painel-carregando">Carregando regras...</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="modal-admin" id="modalFatia">
+        <div class="modal-admin-conteudo">
+            <div class="modal-admin-topo">
+                <div>
+                    <span>FATIAS DO DIA</span>
+                    <h2 id="tituloModalFatia">Nova fatia</h2>
+                </div>
+                <button type="button" id="fecharModalFatia" class="btn-fechar-modal">×</button>
+            </div>
+
+            <form id="formFatia">
+                <input type="hidden" id="fatiaId">
+
+                <div class="campo-admin">
+                    <label for="nomeFatia">Nome da fatia</label>
+                    <input type="text" id="nomeFatia" placeholder="Ex.: Ninho com Nutella" required>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="descricaoFatia">Descrição</label>
+                    <textarea id="descricaoFatia" rows="4" placeholder="Descreva a fatia..."></textarea>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="precoFatia">Preço</label>
+                    <input type="number" id="precoFatia" min="0" step="0.01" placeholder="18.00" required>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="imagemFatia">URL da imagem</label>
+                    <input type="url" id="imagemFatia" placeholder="https://...">
+                    <small>Depois podemos trocar este campo por envio direto de foto pelo celular.</small>
+                </div>
+
+                <label class="campo-status-admin">
+                    <input type="checkbox" id="ativoFatia" checked>
+                    <span>Disponível para venda</span>
+                </label>
+
+                <p id="mensagemFatia" class="mensagem-admin"></p>
+
+                <div class="modal-admin-acoes">
+                    <button type="button" id="cancelarFatia" class="btn-admin-secundario">Cancelar</button>
+                    <button type="submit" class="btn-admin-principal">Salvar produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-admin" id="modalOpcao">
+        <div class="modal-admin-conteudo modal-opcao-simplificado">
+            <div class="modal-admin-topo">
+                <div>
+                    <span id="contextoModalOpcao">ENCOMENDAS</span>
+                    <h2 id="tituloModalOpcao">Adicionar opção</h2>
+                    <p class="modal-admin-subtitulo" id="subtituloModalOpcao">
+                        Preencha apenas as informações que aparecerão para o cliente.
+                    </p>
+                </div>
+                <button type="button" id="fecharModalOpcao" class="btn-fechar-modal">×</button>
+            </div>
+
+            <form id="formOpcao">
+                <input type="hidden" id="opcaoId">
+                <input type="hidden" id="tipoProdutoOpcao" value="bolo">
+                <input type="hidden" id="grupoOpcao" value="tamanho">
+                <input type="hidden" id="ordemOpcao" value="0">
+
+                <div class="admin-contexto-cadastro">
+                    <span id="badgeProdutoOpcao">🎂 Bolo</span>
+                    <strong id="badgeGrupoOpcao">Tamanho</strong>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="nomeOpcao">Nome</label>
+                    <input type="text" id="nomeOpcao" placeholder="Ex.: 15 pessoas" required>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="descricaoOpcao" id="labelDescricaoOpcao">Descrição <small>(opcional)</small></label>
+                    <textarea id="descricaoOpcao" rows="3" placeholder="Ex.: Bolo para até 15 pessoas"></textarea>
+                </div>
+
+                <div class="campo-admin" id="campoPrecoOpcao">
+                    <label for="precoOpcao">Preço / adicional</label>
+                    <div class="campo-preco-admin">
+                        <span>R$</span>
+                        <input type="number" id="precoOpcao" min="0" step="0.01" placeholder="0,00">
+                    </div>
+                    <small id="ajudaPrecoOpcao">
+                        Informe 0 quando a opção já estiver incluída no valor base.
+                    </small>
+                </div>
+
+                <label class="campo-status-admin campo-status-card">
+                    <input type="checkbox" id="ativoOpcao" checked>
+                    <span>
+                        <strong>Disponível no site</strong>
+                        <small>Desmarque para ocultar esta opção temporariamente.</small>
+                    </span>
+                </label>
+
+                <p id="mensagemOpcao" class="mensagem-admin"></p>
+
+                <div class="modal-admin-acoes">
+                    <button type="button" id="cancelarOpcao" class="btn-admin-secundario">Cancelar</button>
+                    <button type="submit" class="btn-admin-principal">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-admin" id="modalRegra">
+        <div class="modal-admin-conteudo modal-opcao-simplificado">
+            <div class="modal-admin-topo">
+                <div>
+                    <span id="contextoModalRegra">PREÇOS DA ENCOMENDA</span>
+                    <h2 id="tituloModalRegra">Configurar preço</h2>
+                    <p class="modal-admin-subtitulo" id="subtituloModalRegra">
+                        Defina os valores que serão usados no site.
+                    </p>
+                </div>
+                <button type="button" id="fecharModalRegra" class="btn-fechar-modal">×</button>
+            </div>
+
+            <form id="formRegra">
+                <input type="hidden" id="regraId">
+                <input type="hidden" id="tipoProdutoRegra">
+
+                <div class="admin-ajuda-regra" id="ajudaRegra">
+                    Cadastre uma regra de preço ou quantidade para este produto.
+                </div>
+
+                <input type="hidden" id="nomeRegra">
+
+                <div class="campo-admin">
+                    <label for="categoriaRegra" id="labelCategoriaRegra">Tipo</label>
+                    <select id="categoriaRegra" required></select>
+                </div>
+
+                <div class="campo-admin" id="campoTipoCobrancaRegra">
+                    <label for="tipoCobrancaRegra">Forma de cobrança</label>
+                    <select id="tipoCobrancaRegra">
+                        <option value="unidade">Por unidade</option>
+                        <option value="pacote">Pacote / cento</option>
+                    </select>
+                    <small>
+                        Escolha “Por unidade” para o preço normal ou “Pacote / cento” para um valor fechado.
+                    </small>
+                </div>
+
+                <div id="camposCobrancaUnidade">
+                    <div class="modal-regra-grid">
+                        <div class="campo-admin">
+                            <label for="quantidadeMinimaRegra" id="labelQuantidadeRegra">A partir de quantas unidades?</label>
+                            <input type="number" id="quantidadeMinimaRegra" min="0" step="1" placeholder="20">
+                            <small id="ajudaQuantidadeRegra">Quantidade mínima para aplicar este preço.</small>
+                        </div>
+
+                        <div class="campo-admin">
+                            <label for="precoUnitarioRegra" id="labelPrecoRegra">Valor por unidade</label>
+                            <div class="campo-preco-admin">
+                                <span>R$</span>
+                                <input type="number" id="precoUnitarioRegra" min="0" step="0.01" placeholder="0,00">
+                            </div>
+                            <small id="ajudaPrecoRegra">Valor cobrado por unidade.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="camposCobrancaPacote" hidden>
+                    <div class="modal-regra-grid">
+                        <div class="campo-admin">
+                            <label for="quantidadePacoteRegra">Quantidade do pacote</label>
+                            <input type="number" id="quantidadePacoteRegra" min="1" step="1" placeholder="100">
+                            <small>Ex.: 100 para cadastrar o cento de docinhos.</small>
+                        </div>
+
+                        <div class="campo-admin">
+                            <label for="precoPacoteRegra">Valor do pacote</label>
+                            <div class="campo-preco-admin">
+                                <span>R$</span>
+                                <input type="number" id="precoPacoteRegra" min="0" step="0.01" placeholder="140,00">
+                            </div>
+                            <small>Ex.: R$ 140,00 para 100 docinhos tradicionais.</small>
+                        </div>
+                    </div>
+
+                    <div class="campo-admin campo-minimo-por-sabor">
+                        <label for="quantidadeMinimaPorSaborRegra">Quantidade mínima por sabor</label>
+                        <input
+                            type="number"
+                            id="quantidadeMinimaPorSaborRegra"
+                            min="1"
+                            step="1"
+                            placeholder="20"
+                        >
+                        <small>
+                            Ex.: informe 20 para que cada sabor escolhido tenha no mínimo 20 docinhos.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="campo-admin" id="campoMaxSaboresRegra">
+                    <label for="maxSaboresRegra">Quantos sabores o cliente pode escolher?</label>
+                    <input type="number" id="maxSaboresRegra" min="0" step="1" placeholder="Ex.: 1">
+                    <small>Informe 0 caso não queira limitar a quantidade de sabores.</small>
+                </div>
+
+                <label class="campo-status-admin campo-status-card">
+                    <input type="checkbox" id="ativoRegra" checked>
+                    <span>
+                        <strong id="textoStatusRegra">Disponível para encomenda</strong>
+                        <small>Desmarque para ocultar temporariamente sem excluir.</small>
+                    </span>
+                </label>
+
+                <p id="mensagemRegra" class="mensagem-admin"></p>
+
+                <div class="modal-admin-acoes">
+                    <button type="button" id="cancelarRegra" class="btn-admin-secundario">Cancelar</button>
+                    <button type="submit" class="btn-admin-principal" id="btnSalvarRegra">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    const SUPABASE_URL = "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
+
+    const supabasePainel = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+    function formatarMoeda(valor) {
+        return Number(valor || 0).toLocaleString(
+            "pt-BR",
+            { style: "currency", currency: "BRL" }
+        );
+    }
+
+    function escaparHtml(valor) {
+        return String(valor ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    const listaFatias = document.getElementById("listaFatiasAdmin");
+    const listaOpcoes = document.getElementById("listaOpcoesAdmin");
+    const modalFatia = document.getElementById("modalFatia");
+    const modalOpcao = document.getElementById("modalOpcao");
+    const formFatia = document.getElementById("formFatia");
+    const formOpcao = document.getElementById("formOpcao");
+    const mensagemFatia = document.getElementById("mensagemFatia");
+    const mensagemOpcao = document.getElementById("mensagemOpcao");
+    const listaRegras = document.getElementById("listaRegrasAdmin");
+    const secaoRegras = document.getElementById("secaoRegrasEncomenda");
+    const modalRegra = document.getElementById("modalRegra");
+    const formRegra = document.getElementById("formRegra");
+    const mensagemRegra = document.getElementById("mensagemRegra");
+
+    let fatiasCarregadas = [];
+    let opcoesCarregadas = [];
+    let produtoEncomendaSelecionado = "bolo";
+    let regrasCarregadas = [];
+
+    async function verificarLogin() {
+        const { data } = await supabasePainel.auth.getSession();
+
+        if (!data.session) {
+            window.location.href = "admin.html";
+            return false;
+        }
+
+        return true;
+    }
+
+    document.querySelectorAll(".painel-aba").forEach(function(botao) {
+        botao.addEventListener("click", function() {
+            document.querySelectorAll(".painel-aba").forEach(function(item) {
+                item.classList.remove("ativa");
+            });
+
+            document.querySelectorAll(".painel-secao").forEach(function(secao) {
+                secao.classList.remove("ativa");
+            });
+
+            botao.classList.add("ativa");
+            document.getElementById(botao.dataset.alvo).classList.add("ativa");
+        });
+    });
+
+    async function carregarFatias() {
+        listaFatias.innerHTML = '<p class="painel-carregando">Carregando produtos...</p>';
+
+        const { data, error } = await supabasePainel
+            .from("fatias")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) {
+            console.error(error);
+            listaFatias.innerHTML = '<p class="painel-vazio">Não foi possível carregar as fatias.</p>';
+            return;
+        }
+
+        fatiasCarregadas = data || [];
+        atualizarIndicadoresFatias(fatiasCarregadas);
+
+        if (fatiasCarregadas.length === 0) {
+            listaFatias.innerHTML = `
+                <div class="painel-vazio">
+                    <span>🍰</span>
+                    <h3>Nenhuma fatia cadastrada</h3>
+                    <p>Clique em “Nova fatia” para cadastrar o primeiro produto.</p>
+                </div>
+            `;
+            return;
+        }
+
+        listaFatias.innerHTML = "";
+
+        fatiasCarregadas.forEach(function(fatia) {
+            const card = document.createElement("article");
+            card.className = "fatia-admin-card";
+
+            const imagem = fatia.imagem_url
+                ? `<img src="${escaparHtml(fatia.imagem_url)}" alt="${escaparHtml(fatia.nome)}">`
+                : '<div class="fatia-admin-sem-foto">🍰</div>';
+
+            card.innerHTML = `
+                <div class="fatia-admin-imagem">${imagem}</div>
+
+                <div class="fatia-admin-info">
+                    <div class="fatia-admin-status">
+                        <span class="${fatia.ativo ? "status-ativo" : "status-inativo"}">
+                            ${fatia.ativo ? "Disponível" : "Indisponível"}
+                        </span>
+                    </div>
+
+                    <h3>${escaparHtml(fatia.nome)}</h3>
+                    <p>${escaparHtml(fatia.descricao || "")}</p>
+                    <strong>${formatarMoeda(fatia.preco)}</strong>
+                </div>
+
+                <div class="fatia-admin-acoes">
+                    <button class="btn-editar-fatia" data-acao="editar-fatia" data-id="${fatia.id}">
+                        Editar
+                    </button>
+
+                    <button
+                        class="btn-status-fatia"
+                        data-acao="status-fatia"
+                        data-id="${fatia.id}"
+                        data-status="${!fatia.ativo}"
+                    >
+                        ${fatia.ativo ? "Desativar" : "Ativar"}
+                    </button>
+
+                    <button
+                        class="btn-excluir-fatia"
+                        data-acao="excluir-fatia"
+                        data-id="${fatia.id}"
+                        data-nome="${escaparHtml(fatia.nome)}"
+                    >
+                        Excluir
+                    </button>
+                </div>
+            `;
+
+            card._dadosFatia = fatia;
+            listaFatias.appendChild(card);
+        });
+    }
+
+    function atualizarIndicadoresFatias(fatias) {
+        const total = fatias.length;
+        const ativas = fatias.filter(fatia => fatia.ativo).length;
+
+        document.getElementById("totalFatias").textContent = total;
+        document.getElementById("totalAtivas").textContent = ativas;
+        document.getElementById("totalInativas").textContent = total - ativas;
+    }
+
+    function abrirNovaFatia() {
+        formFatia.reset();
+        document.getElementById("fatiaId").value = "";
+        document.getElementById("ativoFatia").checked = true;
+        document.getElementById("tituloModalFatia").textContent = "Nova fatia";
+        mensagemFatia.textContent = "";
+        mensagemFatia.className = "mensagem-admin";
+        modalFatia.classList.add("aberto");
+    }
+
+    function editarFatia(fatia) {
+        document.getElementById("fatiaId").value = fatia.id;
+        document.getElementById("nomeFatia").value = fatia.nome || "";
+        document.getElementById("descricaoFatia").value = fatia.descricao || "";
+        document.getElementById("precoFatia").value = fatia.preco || "";
+        document.getElementById("imagemFatia").value = fatia.imagem_url || "";
+        document.getElementById("ativoFatia").checked = !!fatia.ativo;
+        document.getElementById("tituloModalFatia").textContent = "Editar fatia";
+        mensagemFatia.textContent = "";
+        mensagemFatia.className = "mensagem-admin";
+        modalFatia.classList.add("aberto");
+    }
+
+    function fecharModalFatia() {
+        modalFatia.classList.remove("aberto");
+    }
+
+    formFatia.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("fatiaId").value;
+
+        const produto = {
+            nome: document.getElementById("nomeFatia").value.trim(),
+            descricao: document.getElementById("descricaoFatia").value.trim(),
+            preco: Number(document.getElementById("precoFatia").value),
+            imagem_url: document.getElementById("imagemFatia").value.trim() || null,
+            ativo: document.getElementById("ativoFatia").checked
+        };
+
+        mensagemFatia.textContent = "Salvando...";
+        mensagemFatia.className = "mensagem-admin";
+
+        let resultado;
+
+        if (id) {
+            resultado = await supabasePainel
+                .from("fatias")
+                .update(produto)
+                .eq("id", id);
+        } else {
+            resultado = await supabasePainel
+                .from("fatias")
+                .insert(produto);
+        }
+
+        if (resultado.error) {
+            console.error(resultado.error);
+            mensagemFatia.textContent = "Não foi possível salvar.";
+            mensagemFatia.className = "mensagem-admin erro";
+            return;
+        }
+
+        mensagemFatia.textContent = "Produto salvo com sucesso.";
+        mensagemFatia.className = "mensagem-admin sucesso";
+
+        await carregarFatias();
+
+        setTimeout(fecharModalFatia, 450);
+    });
+
+    async function alterarStatusFatia(id, novoStatus) {
+        const { error } = await supabasePainel
+            .from("fatias")
+            .update({ ativo: novoStatus })
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível alterar o status.");
+            return;
+        }
+
+        carregarFatias();
+    }
+
+    async function excluirFatia(id, nome) {
+        const confirmar = confirm(`Deseja realmente excluir "${nome}"?`);
+
+        if (!confirmar) {
+            return;
+        }
+
+        const { error } = await supabasePainel
+            .from("fatias")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível excluir.");
+            return;
+        }
+
+        carregarFatias();
+    }
+
+    listaFatias.addEventListener("click", function(event) {
+        const botao = event.target.closest("button[data-acao]");
+
+        if (!botao) {
+            return;
+        }
+
+        const card = botao.closest(".fatia-admin-card");
+        const acao = botao.dataset.acao;
+
+        if (acao === "editar-fatia") {
+            editarFatia(card._dadosFatia);
+        }
+
+        if (acao === "status-fatia") {
+            alterarStatusFatia(
+                Number(botao.dataset.id),
+                botao.dataset.status === "true"
+            );
+        }
+
+        if (acao === "excluir-fatia") {
+            excluirFatia(
+                Number(botao.dataset.id),
+                botao.dataset.nome
+            );
+        }
+    });
+
+    const configuracaoProdutos = {
+        bolo: {
+            nome: "Bolo personalizado",
+            titulo: "Configuração do bolo personalizado",
+            descricao: "Gerencie tamanhos, massas, recheios e adicionais. O topo continua sendo orçado separadamente pela gráfica.",
+            icone: "🎂",
+            usaRegras: false,
+            grupos: [
+                { id: "tamanho", titulo: "Tamanhos", descricao: "Defina os tamanhos disponíveis e o valor base de cada bolo.", icone: "📏", botao: "Adicionar tamanho" },
+                { id: "massa", titulo: "Massas", descricao: "Cadastre as massas disponíveis e informe apenas o adicional quando houver.", icone: "🍰", botao: "Adicionar massa" },
+                { id: "recheio", titulo: "Recheios", descricao: "Cadastre os sabores disponíveis. O cliente poderá escolher até 2 recheios.", icone: "🥄", botao: "Adicionar recheio", aviso: "Até 2 recheios por bolo" },
+                { id: "outro", titulo: "Adicionais", descricao: "Cadastre complementos que podem acrescentar valor ao bolo.", icone: "➕", botao: "Adicionar adicional" }
+            ]
+        },
+
+        docinho: {
+            nome: "Docinhos",
+            titulo: "Configuração dos docinhos",
+            descricao: "Cadastre apenas os sabores Tradicionais e Premium. Os preços, quantidades mínimas e limite de sabores são configurados separadamente abaixo.",
+            icone: "🍬",
+            usaRegras: true,
+            tituloRegras: "Preços, quantidades e sabores permitidos",
+            descricaoRegras: "Crie as faixas de venda. Ex.: a partir de 20 unidades = 1 sabor; a partir de 30 unidades = até 2 sabores.",
+            botaoRegra: "+ Nova faixa de preço",
+            categoriasRegra: [
+                { id: "tradicional", nome: "Tradicional" },
+                { id: "premium", nome: "Premium" }
+            ],
+            grupos: [
+                { id: "tradicional", titulo: "Sabores tradicionais", descricao: "Cadastre Brigadeiro, Ninho, Beijinho, Paçoca, Morango e outros sabores que estiverem disponíveis.", icone: "🍬", botao: "Adicionar sabor" },
+                { id: "premium", titulo: "Sabores premium", descricao: "Cadastre Casadinho, Olho de sogra, Ninho com Nutella e outros sabores premium.", icone: "✨", botao: "Adicionar sabor premium" }
+            ]
+        },
+
+        cupcake: {
+            nome: "Cupcakes",
+            titulo: "Configuração dos cupcakes",
+            descricao: "Cadastre e altere os tipos de cupcake e seus preços por unidade.",
+            icone: "🧁",
+            usaRegras: true,
+            somenteRegras: true,
+            tituloRegras: "Tipos e preços",
+            descricaoRegras: "Gerencie o cupcake tradicional e a opção com topinho e saia. Os valores podem ser alterados a qualquer momento.",
+            botaoRegra: "+ Novo tipo/preço",
+            categoriasRegra: [
+                { id: "tradicional", nome: "Tradicional" },
+                { id: "decorado", nome: "Com topinho e saia" }
+            ],
+            grupos: []
+        },
+
+        caseirinho: {
+            nome: "Bolos caseirinhos",
+            titulo: "Configuração dos bolos caseirinhos",
+            descricao: "Cadastre os sabores disponíveis e os tamanhos com seus respectivos preços. Tudo pode ser editado depois pelo painel.",
+            icone: "🍊",
+            usaRegras: false,
+            grupos: [
+                { id: "sabor", titulo: "Sabores", descricao: "Cadastre os sabores disponíveis, como Laranja, Chocolate, Coco e outros.", icone: "🍊", botao: "Adicionar sabor" },
+                { id: "tamanho", titulo: "Tamanhos e valores", descricao: "Cadastre cada tamanho e o preço correspondente. Ex.: 60 cm, 80 cm ou qualquer outro tamanho futuro.", icone: "📏", botao: "Adicionar tamanho" }
+            ]
+        }
+    };
+
+    const nomesGrupo = {
+        tamanho: "Tamanho",
+        massa: "Massa",
+        recheio: "Recheio",
+        outro: "Adicional",
+        tradicional: "Sabor tradicional",
+        premium: "Sabor premium",
+        sabor: "Sabor"
+    };
+
+    function nomeProdutoSingular(tipo) {
+        if (tipo === "bolo") return "Bolo";
+        if (tipo === "docinho") return "Docinho";
+        if (tipo === "cupcake") return "Cupcake";
+        if (tipo === "caseirinho") return "Bolo caseirinho";
+        return tipo;
+    }
+
+    async function carregarOpcoes() {
+        listaOpcoes.innerHTML = '<p class="painel-carregando">Carregando opções...</p>';
+
+        const { data, error } = await supabasePainel
+            .from("opcoes_encomenda")
+            .select("*")
+            .order("tipo_produto", { ascending: true })
+            .order("grupo", { ascending: true })
+            .order("ordem", { ascending: true })
+            .order("created_at", { ascending: true });
+
+        if (error) {
+            console.error(error);
+            listaOpcoes.innerHTML = `
+                <div class="painel-vazio">
+                    <span>⚠️</span>
+                    <h3>Não foi possível carregar as opções</h3>
+                    <p>Confira a conexão com o Supabase e tente novamente.</p>
+                </div>
+            `;
+            return;
+        }
+
+        opcoesCarregadas = data || [];
+        renderizarOpcoes();
+    }
+
+    async function carregarRegras() {
+        const { data, error } = await supabasePainel
+            .from("regras_encomenda")
+            .select("*")
+            .order("tipo_produto", { ascending: true })
+            .order("categoria", { ascending: true })
+            .order("ordem", { ascending: true })
+            .order("quantidade_minima", { ascending: true })
+            .order("created_at", { ascending: true });
+
+        if (error) {
+            console.error(error);
+            regrasCarregadas = [];
+            renderizarRegras();
+            return;
+        }
+
+        regrasCarregadas = data || [];
+        renderizarRegras();
+
+        if (configuracaoProdutos[produtoEncomendaSelecionado]?.somenteRegras) {
+            const opcoesProduto = opcoesCarregadas.filter(
+                item => item.tipo_produto === produtoEncomendaSelecionado
+            );
+            atualizarIndicadoresOpcoes(opcoesProduto);
+        }
+    }
+
+    function regrasDoProdutoAtual() {
+        return regrasCarregadas.filter(
+            item => item.tipo_produto === produtoEncomendaSelecionado
+        );
+    }
+
+    function renderizarRegras() {
+        const config = configuracaoProdutos[produtoEncomendaSelecionado];
+
+        if (!config?.usaRegras) {
+            secaoRegras.hidden = true;
+            return;
+        }
+
+        secaoRegras.hidden = false;
+        secaoRegras.classList.toggle(
+            "cupcake-regras",
+            produtoEncomendaSelecionado === "cupcake"
+        );
+
+        document.getElementById("tituloRegrasEncomenda").textContent =
+            config.tituloRegras || "Regras de venda";
+
+        document.getElementById("descricaoRegrasEncomenda").textContent =
+            config.descricaoRegras || "";
+
+        const regras = regrasDoProdutoAtual();
+
+        if (regras.length === 0) {
+            const vazioCupcake = produtoEncomendaSelecionado === "cupcake";
+
+            listaRegras.innerHTML = `
+                <div class="admin-grupo-vazio">
+                    <span>
+                        ${vazioCupcake
+                            ? "Nenhum tipo/preço de cupcake cadastrado ainda."
+                            : "Nenhuma regra cadastrada ainda."}
+                    </span>
+                    <button type="button" data-acao="nova-regra">
+                        ${vazioCupcake
+                            ? "Cadastrar primeiro tipo"
+                            : "Cadastrar primeira regra"}
+                    </button>
+                </div>
+            `;
+            return;
+        }
+
+        listaRegras.innerHTML = "";
+
+        regras.forEach(function(regra) {
+            const card = document.createElement("article");
+            card.className = "regra-admin-card";
+            card._dadosRegra = regra;
+
+            const categoria =
+                config.categoriasRegra?.find(item => item.id === regra.categoria)?.nome ||
+                regra.categoria ||
+                "Geral";
+
+            const ehPacote =
+                regra.tipo_produto === "docinho" &&
+                (regra.tipo_cobranca || "unidade") === "pacote";
+
+            const quantidadeTexto = ehPacote
+                ? `Pacote: ${Number(regra.quantidade_pacote || 0)} unidade(s)`
+                : (
+                    Number(regra.quantidade_minima || 0) > 0
+                        ? `Mínimo: ${Number(regra.quantidade_minima)} unidade(s)`
+                        : "Sem quantidade mínima"
+                );
+
+            let detalhesRegra = quantidadeTexto;
+
+            if (regra.tipo_produto === "docinho") {
+                const max = Number(regra.max_sabores || 0);
+                const minimoPorSabor =
+                    Number(regra.quantidade_minima_por_sabor || 0);
+
+                detalhesRegra += max > 0
+                    ? ` • Até ${max} sabor(es)`
+                    : "";
+
+                if (ehPacote && minimoPorSabor > 0) {
+                    detalhesRegra +=
+                        ` • Mínimo de ${minimoPorSabor} por sabor`;
+                }
+            }
+
+            card.innerHTML = `
+                <div class="regra-admin-info">
+                    <div class="regra-admin-tags">
+                        <span class="${regra.ativo ? "status-ativo" : "status-inativo"}">
+                            ${regra.ativo ? "Ativa" : "Inativa"}
+                        </span>
+                        <span class="regra-admin-tag">${escaparHtml(categoria)}</span>
+                    </div>
+
+                    <h5>${escaparHtml(regra.nome)}</h5>
+                    <p>${detalhesRegra}</p>
+                </div>
+
+                <strong class="regra-admin-preco">
+                    ${
+                        ehPacote
+                            ? `${formatarMoeda(regra.preco_pacote)} / pacote`
+                            : `${formatarMoeda(regra.preco_unitario)} / unidade`
+                    }
+                </strong>
+
+                <div class="regra-admin-acoes">
+                    <button class="btn-editar-fatia" data-acao="editar-regra" data-id="${regra.id}">
+                        Editar
+                    </button>
+
+                    <button
+                        class="btn-status-fatia"
+                        data-acao="status-regra"
+                        data-id="${regra.id}"
+                        data-status="${!regra.ativo}"
+                    >
+                        ${regra.ativo ? "Desativar" : "Ativar"}
+                    </button>
+
+                    <button
+                        class="btn-excluir-fatia"
+                        data-acao="excluir-regra"
+                        data-id="${regra.id}"
+                        data-nome="${escaparHtml(regra.nome)}"
+                    >
+                        Excluir
+                    </button>
+                </div>
+            `;
+
+            listaRegras.appendChild(card);
+        });
+    }
+
+    function atualizarIndicadoresOpcoes(opcoes) {
+        const config = configuracaoProdutos[produtoEncomendaSelecionado];
+        const usaSomenteRegras = !!config?.somenteRegras;
+
+        const base = usaSomenteRegras
+            ? regrasCarregadas.filter(item => item.tipo_produto === produtoEncomendaSelecionado)
+            : opcoes;
+
+        const total = base.length;
+        const ativas = base.filter(item => item.ativo).length;
+
+        document.getElementById("totalOpcoes").textContent = total;
+        document.getElementById("totalOpcoesAtivas").textContent = ativas;
+        document.getElementById("totalOpcoesInativas").textContent = total - ativas;
+
+        document.getElementById("rotuloTotalOpcoes").textContent =
+            usaSomenteRegras ? "Tipos/preços cadastrados" : "Opções cadastradas";
+
+        document.getElementById("rotuloOpcoesAtivas").textContent =
+            usaSomenteRegras ? "Ativos no site" : "Ativas no site";
+
+        document.getElementById("rotuloOpcoesInativas").textContent =
+            usaSomenteRegras ? "Inativos" : "Inativas";
+    }
+
+    function selecionarProdutoEncomenda(tipo) {
+        produtoEncomendaSelecionado = tipo;
+
+        document.querySelectorAll(".admin-produto-tab").forEach(function(botao) {
+            botao.classList.toggle("ativo", botao.dataset.produto === tipo);
+        });
+
+        const config = configuracaoProdutos[tipo];
+        const btnRegra = document.getElementById("btnNovaRegra");
+
+        if (btnRegra && config) {
+            btnRegra.textContent = config.botaoRegra || "+ Nova regra";
+        }
+
+        renderizarOpcoes();
+        renderizarRegras();
+    }
+
+    function renderizarOpcoes() {
+        const config = configuracaoProdutos[produtoEncomendaSelecionado];
+        const opcoesProduto = opcoesCarregadas.filter(
+            item => item.tipo_produto === produtoEncomendaSelecionado
+        );
+
+        atualizarIndicadoresOpcoes(opcoesProduto);
+
+        document.getElementById("tituloProdutoSelecionado").textContent = config.titulo;
+        document.getElementById("descricaoProdutoSelecionado").textContent = config.descricao;
+
+        listaOpcoes.innerHTML = "";
+        listaOpcoes.hidden = !!config.somenteRegras;
+
+        config.grupos.forEach(function(grupoConfig) {
+            const opcoesGrupo = opcoesProduto
+                .filter(item => item.grupo === grupoConfig.id)
+                .sort((a, b) => Number(a.ordem || 0) - Number(b.ordem || 0));
+
+            const bloco = document.createElement("section");
+            bloco.className = "admin-grupo-card";
+
+            const cabecalho = document.createElement("div");
+            cabecalho.className = "admin-grupo-card-topo";
+
+            cabecalho.innerHTML = `
+                <div class="admin-grupo-titulo">
+                    <span class="admin-grupo-icone">${grupoConfig.icone}</span>
+                    <div>
+                        <div class="admin-grupo-titulo-linha">
+                            <h4>${grupoConfig.titulo}</h4>
+                            ${grupoConfig.aviso ? `<span class="admin-grupo-aviso">${grupoConfig.aviso}</span>` : ""}
+                        </div>
+                        <p>${grupoConfig.descricao}</p>
+                    </div>
+                </div>
+
+                <button
+                    class="btn-adicionar-grupo"
+                    type="button"
+                    data-acao="nova-opcao-grupo"
+                    data-produto="${produtoEncomendaSelecionado}"
+                    data-grupo="${grupoConfig.id}"
+                >
+                    + ${grupoConfig.botao}
+                </button>
+            `;
+
+            const conteudo = document.createElement("div");
+            conteudo.className = "admin-grupo-itens";
+
+            if (opcoesGrupo.length === 0) {
+                conteudo.innerHTML = `
+                    <div class="admin-grupo-vazio">
+                        <span>Nenhuma opção cadastrada ainda.</span>
+                        <button
+                            type="button"
+                            data-acao="nova-opcao-grupo"
+                            data-produto="${produtoEncomendaSelecionado}"
+                            data-grupo="${grupoConfig.id}"
+                        >
+                            Cadastrar primeira opção
+                        </button>
+                    </div>
+                `;
+            } else {
+                opcoesGrupo.forEach(function(opcao) {
+                    const item = document.createElement("article");
+                    item.className = "admin-opcao-linha opcao-admin-card";
+                    item._dadosOpcao = opcao;
+
+                    const preco = Number(opcao.preco || 0);
+
+                    let textoPreco;
+
+                    if (
+                        produtoEncomendaSelecionado === "caseirinho" &&
+                        opcao.grupo === "sabor"
+                    ) {
+                        textoPreco = preco === 0
+                            ? "Sem adicional"
+                            : `+ ${formatarMoeda(preco)}`;
+                    } else if (
+                        produtoEncomendaSelecionado === "docinho"
+                    ) {
+                        textoPreco = "Preço pelas regras";
+                    } else if (preco === 0) {
+                        textoPreco = "Incluído";
+                    } else if (opcao.grupo === "tamanho") {
+                        textoPreco = formatarMoeda(preco);
+                    } else {
+                        textoPreco = `+ ${formatarMoeda(preco)}`;
+                    }
+
+                    item.innerHTML = `
+                        <div class="admin-opcao-principal">
+                            <span class="${opcao.ativo ? "status-ativo" : "status-inativo"}">
+                                ${opcao.ativo ? "Ativa" : "Inativa"}
+                            </span>
+
+                            <div>
+                                <h5>${escaparHtml(opcao.nome)}</h5>
+                                ${opcao.descricao ? `<p>${escaparHtml(opcao.descricao)}</p>` : ""}
+                            </div>
+                        </div>
+
+                        <strong class="admin-opcao-preco">${textoPreco}</strong>
+
+                        <div class="admin-opcao-acoes">
+                            <button class="btn-editar-fatia" data-acao="editar-opcao" data-id="${opcao.id}">
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-status-fatia"
+                                data-acao="status-opcao"
+                                data-id="${opcao.id}"
+                                data-status="${!opcao.ativo}"
+                            >
+                                ${opcao.ativo ? "Desativar" : "Ativar"}
+                            </button>
+
+                            <button
+                                class="btn-excluir-fatia"
+                                data-acao="excluir-opcao"
+                                data-id="${opcao.id}"
+                                data-nome="${escaparHtml(opcao.nome)}"
+                            >
+                                Excluir
+                            </button>
+                        </div>
+                    `;
+
+                    conteudo.appendChild(item);
+                });
+            }
+
+            bloco.appendChild(cabecalho);
+            bloco.appendChild(conteudo);
+            listaOpcoes.appendChild(bloco);
+        });
+    }
+
+    function atualizarContextoModalOpcao(tipo, grupo) {
+        const config = configuracaoProdutos[tipo] || configuracaoProdutos.bolo;
+        const grupoConfig = config.grupos.find(item => item.id === grupo);
+
+        document.getElementById("tipoProdutoOpcao").value = tipo;
+        document.getElementById("grupoOpcao").value = grupo;
+
+        document.getElementById("contextoModalOpcao").textContent =
+            `${config.nome.toUpperCase()} • ${(grupoConfig?.titulo || nomesGrupo[grupo] || "OPÇÕES").toUpperCase()}`;
+
+        document.getElementById("badgeProdutoOpcao").textContent =
+            `${config.icone} ${nomeProdutoSingular(tipo)}`;
+
+        document.getElementById("badgeGrupoOpcao").textContent =
+            grupoConfig?.titulo || nomesGrupo[grupo] || "Opções";
+
+        const nomeInput = document.getElementById("nomeOpcao");
+        const descricaoInput = document.getElementById("descricaoOpcao");
+        const labelDescricao = document.getElementById("labelDescricaoOpcao");
+        const ajudaPreco = document.getElementById("ajudaPrecoOpcao");
+        const labelPreco = document.querySelector('label[for="precoOpcao"]');
+        const campoPreco = document.getElementById("campoPrecoOpcao");
+        const precoInput = document.getElementById("precoOpcao");
+
+        // Padrões
+        labelDescricao.innerHTML = 'Descrição <small>(opcional)</small>';
+        descricaoInput.placeholder = "Descreva esta opção para o cliente.";
+
+        if (campoPreco) {
+            campoPreco.hidden = false;
+        }
+
+        if (precoInput) {
+            precoInput.required = false;
+        }
+
+        // DOCINHOS
+        if (tipo === "docinho") {
+            if (grupo === "premium") {
+                nomeInput.placeholder = "Ex.: Ninho com Nutella";
+                descricaoInput.placeholder = "Ex.: Docinho premium de Ninho com recheio de Nutella.";
+            } else {
+                nomeInput.placeholder = "Ex.: Brigadeiro";
+                descricaoInput.placeholder = "Ex.: Brigadeiro tradicional com granulado.";
+            }
+
+            labelDescricao.innerHTML = 'Descrição do sabor <small>(opcional)</small>';
+
+            // O preço dos docinhos é configurado somente na área
+            // "Preços, quantidades e sabores".
+            if (campoPreco) {
+                campoPreco.hidden = true;
+            }
+
+            if (precoInput) {
+                precoInput.value = "0";
+                precoInput.required = false;
+            }
+
+            return;
+        }
+
+        // CUPCAKES
+        if (tipo === "cupcake") {
+            nomeInput.placeholder = "Ex.: Cupcake tradicional";
+            descricaoInput.placeholder = "Ex.: Cupcake tradicional com cobertura de brigadeiro.";
+            labelDescricao.innerHTML = 'Descrição do cupcake <small>(opcional)</small>';
+            labelPreco.textContent = "Preço neste cadastro";
+            ajudaPreco.textContent =
+                "Deixe R$ 0,00 quando o valor estiver sendo controlado na configuração de preços.";
+            return;
+        }
+
+        // BOLOS CASEIRINHOS
+        if (tipo === "caseirinho") {
+            if (grupo === "sabor") {
+                nomeInput.placeholder = "Ex.: Laranja";
+                descricaoInput.placeholder = "Ex.: Bolo caseirinho de laranja, macio e saboroso.";
+                labelDescricao.innerHTML = 'Descrição do sabor <small>(opcional)</small>';
+                labelPreco.textContent = "Adicional do sabor";
+                ajudaPreco.textContent =
+                    "Normalmente o sabor não altera o preço. Deixe R$ 0,00 quando não houver adicional.";
+            } else if (grupo === "tamanho") {
+                nomeInput.placeholder = "Ex.: 60 cm";
+                descricaoInput.placeholder = "Ex.: Tamanho indicado para a opção de R$ 60,00.";
+                labelDescricao.innerHTML = 'Descrição do tamanho <small>(opcional)</small>';
+                labelPreco.textContent = "Preço deste tamanho";
+                ajudaPreco.textContent =
+                    "Informe o valor correspondente a este tamanho do bolo caseirinho.";
+            }
+            return;
+        }
+
+        // BOLO PERSONALIZADO
+        if (grupo === "tamanho") {
+            nomeInput.placeholder = "Ex.: 15 pessoas";
+            descricaoInput.placeholder = "Ex.: Bolo para até 15 pessoas.";
+            labelDescricao.innerHTML = 'Descrição do tamanho <small>(opcional)</small>';
+            labelPreco.textContent = "Preço do bolo";
+            ajudaPreco.textContent =
+                "Informe o valor base correspondente a este tamanho.";
+        } else if (grupo === "massa") {
+            nomeInput.placeholder = "Ex.: Massa branca";
+            descricaoInput.placeholder = "Ex.: Massa branca, leve e macia.";
+            labelDescricao.innerHTML = 'Descrição da massa <small>(opcional)</small>';
+            labelPreco.textContent = "Valor adicional";
+            ajudaPreco.textContent =
+                "Use R$ 0,00 quando a massa estiver incluída no valor do bolo.";
+        } else if (grupo === "recheio") {
+            nomeInput.placeholder = "Ex.: Brigadeiro";
+            descricaoInput.placeholder = "Ex.: Recheio cremoso de brigadeiro.";
+            labelDescricao.innerHTML = 'Descrição do recheio <small>(opcional)</small>';
+            labelPreco.textContent = "Valor adicional";
+            ajudaPreco.textContent =
+                "Use R$ 0,00 para recheios incluídos. O cliente poderá escolher até 2 recheios.";
+        } else {
+            nomeInput.placeholder = "Ex.: Decoração especial";
+            descricaoInput.placeholder = "Ex.: Complemento especial para personalizar o bolo.";
+            labelDescricao.innerHTML = 'Descrição do adicional <small>(opcional)</small>';
+            labelPreco.textContent = "Valor adicional";
+            ajudaPreco.textContent =
+                "Informe R$ 0,00 quando não houver cobrança adicional.";
+        }
+    }
+
+    function proximaOrdem(tipo, grupo) {
+        const ordens = opcoesCarregadas
+            .filter(item => item.tipo_produto === tipo && item.grupo === grupo)
+            .map(item => Number(item.ordem || 0));
+
+        return ordens.length ? Math.max(...ordens) + 1 : 1;
+    }
+
+    function abrirNovaOpcao(tipo = produtoEncomendaSelecionado, grupo = "outro") {
+        formOpcao.reset();
+
+        document.getElementById("opcaoId").value = "";
+        document.getElementById("ativoOpcao").checked = true;
+        document.getElementById("ordemOpcao").value = proximaOrdem(tipo, grupo);
+        const tituloGrupo = nomesGrupo[grupo] || "Opção";
+        document.getElementById("tituloModalOpcao").textContent = `Adicionar ${tituloGrupo.toLowerCase()}`;
+        const subtitulos = {
+            bolo: {
+                tamanho: "Cadastre um tamanho e o valor base correspondente.",
+                massa: "Cadastre uma opção de massa e informe somente o adicional, quando houver.",
+                recheio: "Cadastre um sabor de recheio e informe se existe valor adicional.",
+                outro: "Cadastre um adicional que o cliente poderá escolher no bolo."
+            },
+            docinho: {
+                tradicional: "Cadastre um sabor tradicional disponível para encomenda.",
+                premium: "Cadastre um sabor premium disponível para encomenda."
+            },
+            caseirinho: {
+                sabor: "Cadastre um sabor disponível de bolo caseirinho.",
+                tamanho: "Cadastre um tamanho e informe o preço correspondente."
+            }
+        };
+
+        document.getElementById("subtituloModalOpcao").textContent =
+            subtitulos[tipo]?.[grupo] ||
+            "Preencha apenas as informações que aparecerão para o cliente.";
+
+        atualizarContextoModalOpcao(tipo, grupo);
+
+        mensagemOpcao.textContent = "";
+        mensagemOpcao.className = "mensagem-admin";
+        modalOpcao.classList.add("aberto");
+    }
+
+    function editarOpcao(opcao) {
+        document.getElementById("opcaoId").value = opcao.id;
+        document.getElementById("nomeOpcao").value = opcao.nome || "";
+        document.getElementById("descricaoOpcao").value = opcao.descricao || "";
+        document.getElementById("precoOpcao").value =
+            opcao.tipo_produto === "docinho"
+                ? "0"
+                : (opcao.preco ?? 0);
+        document.getElementById("ordemOpcao").value = opcao.ordem ?? 0;
+        document.getElementById("ativoOpcao").checked = !!opcao.ativo;
+        document.getElementById("tituloModalOpcao").textContent = "Editar opção";
+        document.getElementById("subtituloModalOpcao").textContent =
+            "Altere as informações abaixo e salve para atualizar o site.";
+
+        atualizarContextoModalOpcao(opcao.tipo_produto || "bolo", opcao.grupo || "outro");
+
+        mensagemOpcao.textContent = "";
+        mensagemOpcao.className = "mensagem-admin";
+        modalOpcao.classList.add("aberto");
+    }
+
+    function fecharModalOpcao() {
+        modalOpcao.classList.remove("aberto");
+    }
+
+    formOpcao.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("opcaoId").value;
+        const tipo = document.getElementById("tipoProdutoOpcao").value;
+        const grupo = document.getElementById("grupoOpcao").value;
+
+        const opcao = {
+            tipo_produto: tipo,
+            grupo: grupo,
+            nome: document.getElementById("nomeOpcao").value.trim(),
+            descricao: document.getElementById("descricaoOpcao").value.trim(),
+            preco:
+                tipo === "docinho"
+                    ? 0
+                    : Number(document.getElementById("precoOpcao").value || 0),
+            ativo: document.getElementById("ativoOpcao").checked,
+            ordem: Number(document.getElementById("ordemOpcao").value || proximaOrdem(tipo, grupo))
+        };
+
+        mensagemOpcao.textContent = "Salvando...";
+        mensagemOpcao.className = "mensagem-admin";
+
+        let resultado;
+
+        if (id) {
+            resultado = await supabasePainel
+                .from("opcoes_encomenda")
+                .update(opcao)
+                .eq("id", id);
+        } else {
+            resultado = await supabasePainel
+                .from("opcoes_encomenda")
+                .insert(opcao);
+        }
+
+        if (resultado.error) {
+            console.error(resultado.error);
+            mensagemOpcao.textContent = "Não foi possível salvar.";
+            mensagemOpcao.className = "mensagem-admin erro";
+            return;
+        }
+
+        mensagemOpcao.textContent = "Salvo com sucesso.";
+        mensagemOpcao.className = "mensagem-admin sucesso";
+
+        await carregarOpcoes();
+        setTimeout(fecharModalOpcao, 450);
+    });
+
+    async function alterarStatusOpcao(id, novoStatus) {
+        const { error } = await supabasePainel
+            .from("opcoes_encomenda")
+            .update({ ativo: novoStatus })
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível alterar o status.");
+            return;
+        }
+
+        carregarOpcoes();
+    }
+
+    async function excluirOpcao(id, nome) {
+        const confirmar = confirm(`Deseja realmente excluir "${nome}"?`);
+
+        if (!confirmar) {
+            return;
+        }
+
+        const { error } = await supabasePainel
+            .from("opcoes_encomenda")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível excluir.");
+            return;
+        }
+
+        carregarOpcoes();
+    }
+
+    listaOpcoes.addEventListener("click", function(event) {
+        const botao = event.target.closest("button[data-acao]");
+
+        if (!botao) {
+            return;
+        }
+
+        const card = botao.closest(".opcao-admin-card");
+        const acao = botao.dataset.acao;
+
+        if (acao === "editar-opcao") {
+            editarOpcao(card._dadosOpcao);
+        }
+
+        if (acao === "status-opcao") {
+            alterarStatusOpcao(
+                Number(botao.dataset.id),
+                botao.dataset.status === "true"
+            );
+        }
+
+        if (acao === "excluir-opcao") {
+            excluirOpcao(
+                Number(botao.dataset.id),
+                botao.dataset.nome
+            );
+        }
+    });
+
+    function preencherCategoriasRegra(tipo, categoriaSelecionada = "") {
+        const config = configuracaoProdutos[tipo];
+        const select = document.getElementById("categoriaRegra");
+        const categorias = config?.categoriasRegra || [];
+
+        select.innerHTML = categorias
+            .map(item => `
+                <option value="${escaparHtml(item.id)}">
+                    ${escaparHtml(item.nome)}
+                </option>
+            `)
+            .join("");
+
+        if (categoriaSelecionada) {
+            select.value = categoriaSelecionada;
+        }
+    }
+
+    function proximaOrdemRegra(tipo, categoria) {
+        const ordens = regrasCarregadas
+            .filter(item => item.tipo_produto === tipo && item.categoria === categoria)
+            .map(item => Number(item.ordem || 0));
+
+        return ordens.length ? Math.max(...ordens) + 1 : 1;
+    }
+
+    function gerarNomeRegra(tipo, categoria, quantidade, tipoCobranca = "unidade", quantidadePacote = 0) {
+        const config = configuracaoProdutos[tipo];
+        const categoriaNome =
+            config?.categoriasRegra?.find(item => item.id === categoria)?.nome ||
+            categoria ||
+            "Opção";
+
+        const qtd = Number(quantidade || 0);
+        const qtdPacote = Number(quantidadePacote || 0);
+
+        if (tipo === "docinho" && tipoCobranca === "pacote") {
+            return `${categoriaNome} - pacote com ${qtdPacote} unidades`;
+        }
+
+        if (tipo === "docinho") {
+            return `${categoriaNome} - a partir de ${qtd} unidades`;
+        }
+
+        if (tipo === "cupcake") {
+            return `${categoriaNome} - ${qtd > 1 ? `a partir de ${qtd} unidades` : "preço por unidade"}`;
+        }
+
+        return `${categoriaNome}${qtd > 0 ? ` - a partir de ${qtd} unidades` : ""}`;
+    }
+
+    function atualizarCamposTipoCobranca() {
+        const tipoProduto = document.getElementById("tipoProdutoRegra").value;
+        const tipoCobranca = document.getElementById("tipoCobrancaRegra").value || "unidade";
+
+        const ehDocinho = tipoProduto === "docinho";
+        const ehPacote = ehDocinho && tipoCobranca === "pacote";
+
+        document.getElementById("campoTipoCobrancaRegra").hidden = !ehDocinho;
+        document.getElementById("camposCobrancaUnidade").hidden = ehPacote;
+        document.getElementById("camposCobrancaPacote").hidden = !ehPacote;
+
+        document.getElementById("precoUnitarioRegra").required = !ehPacote;
+        document.getElementById("quantidadeMinimaRegra").required = !ehPacote;
+        document.getElementById("quantidadePacoteRegra").required = ehPacote;
+        document.getElementById("precoPacoteRegra").required = ehPacote;
+        document.getElementById("quantidadeMinimaPorSaborRegra").required = ehPacote;
+
+        if (ehPacote) {
+            document.getElementById("ajudaRegra").textContent =
+                "Cadastre o valor fechado do pacote e a quantidade mínima permitida para cada sabor. Ex.: 100 docinhos por R$ 140,00, com mínimo de 20 por sabor.";
+        }
+    }
+
+    function configurarModalRegraPorProduto(tipo) {
+        const ehDocinho = tipo === "docinho";
+        const ehCupcake = tipo === "cupcake";
+
+        document.getElementById("campoMaxSaboresRegra").style.display =
+            ehDocinho ? "" : "none";
+
+        document.getElementById("labelCategoriaRegra").textContent =
+            ehDocinho ? "Tipo de docinho" : "Tipo de cupcake";
+
+        document.getElementById("labelQuantidadeRegra").textContent =
+            ehDocinho
+                ? "A partir de quantas unidades?"
+                : "Quantidade mínima";
+
+        document.getElementById("labelPrecoRegra").textContent =
+            ehDocinho
+                ? "Valor de cada docinho"
+                : "Valor de cada cupcake";
+
+        document.getElementById("ajudaQuantidadeRegra").textContent =
+            ehDocinho
+                ? "A partir desta quantidade, o preço e o limite de sabores abaixo serão aplicados."
+                : "Quantidade mínima para aplicar este preço.";
+
+        document.getElementById("ajudaPrecoRegra").textContent =
+            ehDocinho
+                ? "Preço cobrado por cada docinho."
+                : "Preço cobrado por cada cupcake.";
+
+        document.getElementById("textoStatusRegra").textContent =
+            "Disponível para encomenda";
+
+        document.getElementById("ajudaRegra").textContent =
+            ehDocinho
+                ? "Defina a partir de qual quantidade o preço será aplicado e quantos sabores o cliente poderá escolher."
+                : "Defina o tipo de cupcake e o preço cobrado por unidade.";
+
+        document.getElementById("subtituloModalRegra").textContent =
+            "Você poderá alterar estes valores depois pelo próprio painel.";
+
+        if (ehCupcake && !document.getElementById("quantidadeMinimaRegra").value) {
+            document.getElementById("quantidadeMinimaRegra").value = 1;
+        }
+
+        if (!ehDocinho) {
+            document.getElementById("tipoCobrancaRegra").value = "unidade";
+        }
+
+        atualizarCamposTipoCobranca();
+    }
+
+    function abrirNovaRegra() {
+        const config = configuracaoProdutos[produtoEncomendaSelecionado];
+
+        if (!config?.usaRegras) {
+            return;
+        }
+
+        formRegra.reset();
+
+        document.getElementById("regraId").value = "";
+        document.getElementById("tipoProdutoRegra").value = produtoEncomendaSelecionado;
+        document.getElementById("ativoRegra").checked = true;
+        document.getElementById("tipoCobrancaRegra").value = "unidade";
+        document.getElementById("quantidadePacoteRegra").value = "";
+        document.getElementById("precoPacoteRegra").value = "";
+        document.getElementById("quantidadeMinimaPorSaborRegra").value = "";
+
+        preencherCategoriasRegra(produtoEncomendaSelecionado);
+        configurarModalRegraPorProduto(produtoEncomendaSelecionado);
+
+        if (produtoEncomendaSelecionado === "docinho") {
+            document.getElementById("tituloModalRegra").textContent =
+                "Configurar preço dos docinhos";
+            document.getElementById("contextoModalRegra").textContent =
+                "DOCINHOS • PREÇOS E QUANTIDADES";
+        } else {
+            document.getElementById("tituloModalRegra").textContent =
+                "Configurar preço dos cupcakes";
+            document.getElementById("contextoModalRegra").textContent =
+                "CUPCAKES • TIPOS E PREÇOS";
+        }
+
+        mensagemRegra.textContent = "";
+        mensagemRegra.className = "mensagem-admin";
+        modalRegra.classList.add("aberto");
+    }
+
+    function editarRegra(regra) {
+        const config = configuracaoProdutos[regra.tipo_produto];
+
+        document.getElementById("regraId").value = regra.id;
+        document.getElementById("tipoProdutoRegra").value = regra.tipo_produto;
+        document.getElementById("nomeRegra").value = regra.nome || "";
+        document.getElementById("quantidadeMinimaRegra").value = regra.quantidade_minima ?? 0;
+        document.getElementById("precoUnitarioRegra").value = regra.preco_unitario ?? 0;
+        document.getElementById("tipoCobrancaRegra").value = regra.tipo_cobranca || "unidade";
+        document.getElementById("quantidadePacoteRegra").value = regra.quantidade_pacote ?? "";
+        document.getElementById("precoPacoteRegra").value = regra.preco_pacote ?? "";
+        document.getElementById("quantidadeMinimaPorSaborRegra").value =
+            regra.quantidade_minima_por_sabor ?? "";
+        document.getElementById("maxSaboresRegra").value = regra.max_sabores ?? 0;
+        document.getElementById("ativoRegra").checked = !!regra.ativo;
+
+        preencherCategoriasRegra(regra.tipo_produto, regra.categoria);
+        configurarModalRegraPorProduto(regra.tipo_produto);
+
+        if (regra.tipo_produto === "docinho") {
+            document.getElementById("tituloModalRegra").textContent =
+                "Editar preço dos docinhos";
+            document.getElementById("contextoModalRegra").textContent =
+                "DOCINHOS • PREÇOS E QUANTIDADES";
+        } else {
+            document.getElementById("tituloModalRegra").textContent =
+                "Editar preço dos cupcakes";
+            document.getElementById("contextoModalRegra").textContent =
+                "CUPCAKES • TIPOS E PREÇOS";
+        }
+
+        mensagemRegra.textContent = "";
+        mensagemRegra.className = "mensagem-admin";
+        modalRegra.classList.add("aberto");
+    }
+
+    function fecharModalRegra() {
+        modalRegra.classList.remove("aberto");
+    }
+
+    formRegra.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("regraId").value;
+        const tipo = document.getElementById("tipoProdutoRegra").value;
+        const categoria = document.getElementById("categoriaRegra").value;
+
+        const tipoCobranca =
+            tipo === "docinho"
+                ? (document.getElementById("tipoCobrancaRegra").value || "unidade")
+                : "unidade";
+
+        const ehPacote = tipo === "docinho" && tipoCobranca === "pacote";
+
+        const quantidadeMinima =
+            ehPacote
+                ? 0
+                : Number(document.getElementById("quantidadeMinimaRegra").value || 0);
+
+        const precoUnitario =
+            ehPacote
+                ? 0
+                : Number(document.getElementById("precoUnitarioRegra").value || 0);
+
+        const quantidadePacote =
+            ehPacote
+                ? Number(document.getElementById("quantidadePacoteRegra").value || 0)
+                : null;
+
+        const precoPacote =
+            ehPacote
+                ? Number(document.getElementById("precoPacoteRegra").value || 0)
+                : null;
+
+        const quantidadeMinimaPorSabor =
+            ehPacote
+                ? Number(document.getElementById("quantidadeMinimaPorSaborRegra").value || 0)
+                : null;
+
+        if (
+            ehPacote &&
+            (!quantidadePacote || !precoPacote || !quantidadeMinimaPorSabor)
+        ) {
+            mensagemRegra.textContent =
+                "Informe a quantidade do pacote, o valor e a quantidade mínima por sabor.";
+            mensagemRegra.className = "mensagem-admin erro";
+            return;
+        }
+
+        if (
+            ehPacote &&
+            quantidadeMinimaPorSabor > quantidadePacote
+        ) {
+            mensagemRegra.textContent =
+                "A quantidade mínima por sabor não pode ser maior que a quantidade do pacote.";
+            mensagemRegra.className = "mensagem-admin erro";
+            return;
+        }
+
+        const regra = {
+            tipo_produto: tipo,
+            categoria: categoria,
+            nome: gerarNomeRegra(
+                tipo,
+                categoria,
+                quantidadeMinima,
+                tipoCobranca,
+                quantidadePacote
+            ),
+            quantidade_minima: quantidadeMinima,
+            preco_unitario: precoUnitario,
+            tipo_cobranca: tipoCobranca,
+            quantidade_pacote: quantidadePacote,
+            preco_pacote: precoPacote,
+            quantidade_minima_por_sabor: quantidadeMinimaPorSabor,
+            max_sabores:
+                tipo === "docinho"
+                    ? Number(document.getElementById("maxSaboresRegra").value || 0)
+                    : 0,
+            ativo: document.getElementById("ativoRegra").checked,
+            ordem: id
+                ? Number(
+                    regrasCarregadas.find(item => String(item.id) === String(id))?.ordem || 0
+                )
+                : proximaOrdemRegra(tipo, categoria)
+        };
+
+        mensagemRegra.textContent = "Salvando...";
+        mensagemRegra.className = "mensagem-admin";
+
+        let resultado;
+
+        if (id) {
+            resultado = await supabasePainel
+                .from("regras_encomenda")
+                .update(regra)
+                .eq("id", id);
+        } else {
+            resultado = await supabasePainel
+                .from("regras_encomenda")
+                .insert(regra);
+        }
+
+        if (resultado.error) {
+            console.error(resultado.error);
+            mensagemRegra.textContent = "Não foi possível salvar a configuração.";
+            mensagemRegra.className = "mensagem-admin erro";
+            return;
+        }
+
+        mensagemRegra.textContent = "Configuração salva com sucesso.";
+        mensagemRegra.className = "mensagem-admin sucesso";
+
+        await carregarRegras();
+        setTimeout(fecharModalRegra, 450);
+    });
+
+    async function alterarStatusRegra(id, novoStatus) {
+        const { error } = await supabasePainel
+            .from("regras_encomenda")
+            .update({ ativo: novoStatus })
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível alterar o status da regra.");
+            return;
+        }
+
+        carregarRegras();
+    }
+
+    async function excluirRegra(id, nome) {
+        const confirmar = confirm(`Deseja realmente excluir a regra "${nome}"?`);
+
+        if (!confirmar) {
+            return;
+        }
+
+        const { error } = await supabasePainel
+            .from("regras_encomenda")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível excluir a regra.");
+            return;
+        }
+
+        carregarRegras();
+    }
+
+    listaRegras.addEventListener("click", function(event) {
+        const botaoNova = event.target.closest('button[data-acao="nova-regra"]');
+
+        if (botaoNova) {
+            abrirNovaRegra();
+            return;
+        }
+
+        const botao = event.target.closest("button[data-acao]");
+
+        if (!botao) {
+            return;
+        }
+
+        const card = botao.closest(".regra-admin-card");
+        const acao = botao.dataset.acao;
+
+        if (acao === "editar-regra") {
+            editarRegra(card._dadosRegra);
+        }
+
+        if (acao === "status-regra") {
+            alterarStatusRegra(
+                Number(botao.dataset.id),
+                botao.dataset.status === "true"
+            );
+        }
+
+        if (acao === "excluir-regra") {
+            excluirRegra(
+                Number(botao.dataset.id),
+                botao.dataset.nome
+            );
+        }
+    });
+
+
+    document.getElementById("btnNovaFatia").addEventListener("click", abrirNovaFatia);
+    document.getElementById("fecharModalFatia").addEventListener("click", fecharModalFatia);
+    document.getElementById("cancelarFatia").addEventListener("click", fecharModalFatia);
+    document.getElementById("btnAtualizarLista").addEventListener("click", carregarFatias);
+
+    document.getElementById("fecharModalOpcao").addEventListener("click", fecharModalOpcao);
+    document.getElementById("cancelarOpcao").addEventListener("click", fecharModalOpcao);
+    document.getElementById("btnAtualizarOpcoes").addEventListener("click", async function() {
+        await Promise.all([
+            carregarOpcoes(),
+            carregarRegras()
+        ]);
+    });
+
+    document.getElementById("tipoCobrancaRegra").addEventListener(
+        "change",
+        atualizarCamposTipoCobranca
+    );
+
+    document.getElementById("btnNovaRegra").addEventListener("click", abrirNovaRegra);
+    document.getElementById("fecharModalRegra").addEventListener("click", fecharModalRegra);
+    document.getElementById("cancelarRegra").addEventListener("click", fecharModalRegra);
+
+
+    document.querySelectorAll(".admin-produto-tab").forEach(function(botao) {
+        botao.addEventListener("click", function() {
+            selecionarProdutoEncomenda(botao.dataset.produto);
+        });
+    });
+
+    listaOpcoes.addEventListener("click", function(event) {
+        const botaoNova = event.target.closest('button[data-acao="nova-opcao-grupo"]');
+
+        if (botaoNova) {
+            abrirNovaOpcao(
+                botaoNova.dataset.produto,
+                botaoNova.dataset.grupo
+            );
+        }
+    });
+
+    modalFatia.addEventListener("click", function(event) {
+        if (event.target === modalFatia) {
+            fecharModalFatia();
+        }
+    });
+
+    modalOpcao.addEventListener("click", function(event) {
+        if (event.target === modalOpcao) {
+            fecharModalOpcao();
+        }
+    });
+
+    modalRegra.addEventListener("click", function(event) {
+        if (event.target === modalRegra) {
+            fecharModalRegra();
+        }
+    });
+
+    document.getElementById("btnSairPainel").addEventListener("click", async function() {
+        await supabasePainel.auth.signOut();
+        window.location.href = "admin.html";
+    });
+
+    async function iniciarPainel() {
+        const logado = await verificarLogin();
+
+        if (!logado) {
+            return;
+        }
+
+        await Promise.all([
+            carregarFatias(),
+            carregarOpcoes(),
+            carregarRegras()
+        ]);
+    }
+
+    iniciarPainel();
+    </script>
+
+    </body>
+    </html>

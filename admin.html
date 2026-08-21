@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel Administrativo | Gorete Festass</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="pagina-admin">
+
+    <main class="admin-login-container">
+
+        <section class="admin-login-card">
+
+            <div class="admin-marca">
+                <span>PAINEL ADMINISTRATIVO</span>
+
+                <h1>Gorete Festass</h1>
+
+                <p>
+                    Entre com seus dados para gerenciar
+                    as fatias disponíveis no site.
+                </p>
+            </div>
+
+            <form id="formLoginAdmin" class="admin-login-form">
+
+                <div class="campo-admin">
+
+                    <label for="emailAdmin">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="emailAdmin"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="campo-admin">
+
+                    <label for="senhaAdmin">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senhaAdmin"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <p
+                    id="mensagemLoginAdmin"
+                    class="mensagem-admin"
+                ></p>
+
+                <button
+                    type="submit"
+                    class="btn-admin-principal"
+                >
+                    Entrar no painel
+                </button>
+
+            </form>
+
+            <a
+                href="index.html"
+                class="admin-voltar-site"
+            >
+                ← Voltar para o site
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
+
+        const supabaseAdmin =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        const formLogin =
+            document.getElementById("formLoginAdmin");
+
+        const mensagemLogin =
+            document.getElementById("mensagemLoginAdmin");
+
+
+        formLogin.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                const email =
+                    document.getElementById("emailAdmin").value.trim();
+
+                const senha =
+                    document.getElementById("senhaAdmin").value;
+
+
+                mensagemLogin.textContent =
+                    "Entrando...";
+
+                mensagemLogin.className =
+                    "mensagem-admin";
+
+
+                const {
+                    data,
+                    error
+                } =
+                await supabaseAdmin.auth.signInWithPassword({
+
+                    email: email,
+                    password: senha
+
+                });
+
+
+                if (error) {
+
+                    mensagemLogin.textContent =
+                        "E-mail ou senha inválidos.";
+
+                    mensagemLogin.className =
+                        "mensagem-admin erro";
+
+                    return;
+
+                }
+
+
+                mensagemLogin.textContent =
+                    "Login realizado com sucesso.";
+
+                mensagemLogin.className =
+                    "mensagem-admin sucesso";
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "painel.html";
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+
+        async function verificarSessao() {
+
+            const {
+                data
+            } =
+            await supabaseAdmin.auth.getSession();
+
+
+            if (data.session) {
+
+                window.location.href =
+                    "painel.html";
+
+            }
+
+        }
+
+
+        verificarSessao();
+
+    </script>
+
+</body>
+
+</html>

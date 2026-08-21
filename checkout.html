@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finalizar Pedido | Gorete Festass</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo">
+
+        <div class="marca">
+            <h1>Gorete Festass</h1>
+            <span>BOLOS • DOCES • CUPCAKES</span>
+        </div>
+
+        <nav class="menu">
+
+            <a href="index.html">Início</a>
+
+            <a href="index.html#cardapio">
+                Fatias
+            </a>
+
+            <a href="montar-bolo.html">
+                Faça sua encomenda
+            </a>
+
+            <a href="carrinho.html" class="btn-carrinho">
+                🛒 Carrinho
+                <span id="quantidadeCarrinho">0</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="pagina-checkout">
+
+        <!-- TÍTULO -->
+        <section class="cabecalho-checkout">
+
+            <span>FINALIZAÇÃO</span>
+
+            <h1>Finalizar pedido</h1>
+
+            <p>
+                Preencha seus dados e confira o pedido antes de enviar.
+            </p>
+
+        </section>
+
+
+        <section class="checkout-container">
+
+            <!-- LADO ESQUERDO -->
+            <div class="checkout-conteudo">
+
+                <!-- DADOS DO CLIENTE -->
+                <div class="checkout-card">
+
+                    <div class="checkout-card-titulo">
+
+                        <span class="numero-checkout">
+                            1
+                        </span>
+
+                        <div>
+                            <h2>Seus dados</h2>
+
+                            <p>
+                                Informe os dados para identificação do pedido.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-campos">
+
+                        <div class="campo-checkout">
+
+                            <label for="nomeCliente">
+                                Nome completo
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nomeCliente"
+                                placeholder="Digite seu nome"
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+
+                        <div class="campo-checkout">
+
+                            <label for="telefoneCliente">
+                                WhatsApp
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefoneCliente"
+                                placeholder="(21) 99999-9999"
+                                autocomplete="tel"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PEDIDO -->
+                <div class="checkout-card">
+
+                    <div class="checkout-card-titulo">
+
+                        <span class="numero-checkout">
+                            2
+                        </span>
+
+                        <div>
+
+                            <h2>Seu pedido</h2>
+
+                            <p>
+                                Confira os produtos selecionados.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="itensCheckout"
+                        class="itens-checkout"
+                    >
+                        <!-- JavaScript -->
+                    </div>
+
+                </div>
+
+
+                <!-- OBSERVAÇÕES -->
+                <div class="checkout-card">
+
+                    <div class="checkout-card-titulo">
+
+                        <span class="numero-checkout">
+                            3
+                        </span>
+
+                        <div>
+
+                            <h2>Observações</h2>
+
+                            <p>
+                                Alguma informação adicional?
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo-checkout">
+
+                        <textarea
+                            id="observacaoPedido"
+                            rows="4"
+                            maxlength="300"
+                            placeholder="Ex.: escrever Parabéns Maria no bolo..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESUMO -->
+            <aside class="resumo-checkout">
+
+                <span class="mini-titulo-checkout">
+                    RESUMO
+                </span>
+
+                <h2>
+                    Resumo do pedido
+                </h2>
+
+
+                <div class="linha-checkout">
+
+                    <span>Itens</span>
+
+                    <strong id="quantidadeCheckout">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="linha-checkout">
+
+                    <span>Subtotal</span>
+
+                    <strong id="subtotalCheckout">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="total-checkout">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="totalCheckout">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="btn-whatsapp-checkout"
+                    onclick="finalizarPedidoWhatsApp()"
+                >
+                    Finalizar pelo WhatsApp
+                </button>
+
+
+                <a
+                    href="carrinho.html"
+                    class="voltar-carrinho"
+                >
+                    ← Voltar ao carrinho
+                </a>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
