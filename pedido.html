@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pedido | Gorete Festass</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .pagina-pedido-publico {
+            min-height: 100vh;
+            padding: 55px 20px 80px;
+            background: #fffaf7;
+        }
+
+        .pedido-publico-container {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .pedido-publico-topo {
+            margin-bottom: 22px;
+            text-align: center;
+        }
+
+        .pedido-publico-topo > span {
+            color: #ad6952;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .pedido-publico-topo h1 {
+            margin: 9px 0 7px;
+            color: #4e2e24;
+            font-size: 34px;
+        }
+
+        .pedido-publico-topo p {
+            margin: 0;
+            color: #806b62;
+            font-size: 12px;
+        }
+
+        .pedido-publico-card {
+            margin-bottom: 14px;
+            padding: 22px;
+            border: 1px solid #eaded8;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(75, 44, 33, 0.05);
+        }
+
+        .pedido-publico-resumo {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .pedido-publico-codigo {
+            margin-bottom: 12px;
+            color: #563126;
+            font-size: 24px;
+        }
+
+        .pedido-publico-dados {
+            display: grid;
+            gap: 7px;
+            color: #806b62;
+            font-size: 12px;
+        }
+
+        .pedido-publico-dados strong {
+            color: #5c4036;
+        }
+
+        .pedido-publico-total {
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: #f8e9e0;
+            color: #6f4031;
+            text-align: right;
+        }
+
+        .pedido-publico-total span {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 10px;
+        }
+
+        .pedido-publico-total strong {
+            font-size: 25px;
+        }
+
+        .pedido-publico-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #efe2dc;
+        }
+
+        .pedido-publico-item:last-child {
+            border-bottom: 0;
+        }
+
+        .pedido-publico-item h2 {
+            margin: 0 0 10px;
+            color: #563126;
+            font-size: 17px;
+        }
+
+        .pedido-publico-item p {
+            margin: 5px 0;
+            color: #806b62;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .pedido-publico-item p strong {
+            color: #5c4036;
+        }
+
+        .pedido-publico-imagens {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .pedido-publico-imagem {
+            overflow: hidden;
+            border: 1px solid #eadbd3;
+            border-radius: 12px;
+            background: #fffaf7;
+        }
+
+        .pedido-publico-imagem img {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .pedido-publico-imagem a {
+            display: block;
+            padding: 10px;
+            color: #6f4031;
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .pedido-publico-status {
+            display: inline-flex;
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #f3e3db;
+            color: #754434;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .pedido-publico-erro,
+        .pedido-publico-carregando {
+            padding: 40px 20px;
+            border: 1px dashed #dfc7bb;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #806b62;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .pagina-pedido-publico {
+                padding: 35px 5% 60px;
+            }
+
+            .pedido-publico-resumo {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-total {
+                text-align: left;
+            }
+
+            .pedido-publico-imagens {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-imagem img {
+                height: auto;
+                max-height: 380px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topo">
+        <div class="marca">
+            <h1>Gorete Festass</h1>
+            <span>BOLOS • DOCES • CUPCAKES</span>
+        </div>
+
+        <nav class="menu">
+            <a href="index.html">Início</a>
+            <a href="index.html#cardapio">Fatias</a>
+            <a href="montar-bolo.html">Faça sua encomenda</a>
+        </nav>
+    </header>
+
+    <main class="pagina-pedido-publico">
+        <div class="pedido-publico-container">
+
+            <section class="pedido-publico-topo">
+                <span>PEDIDO</span>
+                <h1>Detalhes da encomenda</h1>
+                <p>
+                    Aqui estão todas as informações registradas no pedido.
+                </p>
+            </section>
+
+            <div id="pedidoPublicoConteudo">
+                <div class="pedido-publico-carregando">
+                    Carregando pedido...
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL =
+            "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
+
+        function escaparHtml(valor) {
+            return String(valor ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function formatarMoeda(valor) {
+            return Number(valor || 0).toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+        }
+
+        function formatarData(data) {
+            if (!data) {
+                return "—";
+            }
+
+            const partes =
+                String(data).split("-");
+
+            return partes.length === 3
+                ? `${partes[2]}/${partes[1]}/${partes[0]}`
+                : data;
+        }
+
+        function nomeStatus(status) {
+            const nomes = {
+                novo: "Novo",
+                confirmado: "Confirmado",
+                em_producao: "Em produção",
+                concluido: "Concluído",
+                cancelado: "Cancelado"
+            };
+
+            return nomes[status] || status || "Novo";
+        }
+
+        function formatarRotulo(chave) {
+            const nomes = {
+                tamanho: "Tamanho",
+                massa: "Massa",
+                recheio: "Recheio",
+                recheios: "Recheios",
+                adicionais: "Adicionais",
+                cor: "Cor",
+                topo: "Topo",
+                categoria: "Categoria",
+                unidades: "Unidades",
+                sabores: "Sabores",
+                sabor: "Sabor",
+                tipoNome: "Tipo",
+                tipoCupcake: "Tipo"
+            };
+
+            return nomes[chave] ||
+                chave
+                    .replaceAll("_", " ")
+                    .replace(/\b\w/g, letra => letra.toUpperCase());
+        }
+
+        function detalhesVisiveis(detalhes) {
+            if (!detalhes || typeof detalhes !== "object") {
+                return [];
+            }
+
+            const ignorar = new Set([
+                "fotoBoloUrl",
+                "fotoTopoUrl",
+                "fotoBoloNome",
+                "fotoTopoNome",
+                "precoUnitario",
+                "precoPacote",
+                "quantidadePacote",
+                "tipoCobranca",
+                "regraNome"
+            ]);
+
+            return Object.entries(detalhes)
+                .filter(([chave, valor]) =>
+                    !ignorar.has(chave) &&
+                    valor !== null &&
+                    valor !== undefined &&
+                    valor !== "" &&
+                    !(Array.isArray(valor) && valor.length === 0)
+                )
+                .map(([chave, valor]) => ({
+                    rotulo: formatarRotulo(chave),
+                    valor:
+                        Array.isArray(valor)
+                            ? valor.join(", ")
+                            : typeof valor === "object"
+                                ? JSON.stringify(valor)
+                                : String(valor)
+                }));
+        }
+
+        async function buscarPedido(token) {
+            const resposta = await fetch(
+                `${SUPABASE_URL}/rest/v1/rpc/buscar_pedido_publico`,
+                {
+                    method: "POST",
+                    headers: {
+                        "apikey": SUPABASE_PUBLISHABLE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        p_token: token
+                    })
+                }
+            );
+
+            if (!resposta.ok) {
+                throw new Error(
+                    "Não foi possível carregar o pedido."
+                );
+            }
+
+            return await resposta.json();
+        }
+
+        function renderizarPedido(resultado) {
+            const container =
+                document.getElementById(
+                    "pedidoPublicoConteudo"
+                );
+
+            if (!resultado || !resultado.pedido) {
+                container.innerHTML = `
+                    <div class="pedido-publico-erro">
+                        Pedido não encontrado ou link inválido.
+                    </div>
+                `;
+                return;
+            }
+
+            const pedido =
+                resultado.pedido;
+
+            const itens =
+                Array.isArray(resultado.itens)
+                    ? resultado.itens
+                    : [];
+
+            const htmlItens =
+                itens.map(item => {
+                    const detalhes =
+                        detalhesVisiveis(item.detalhes);
+
+                    const imagens =
+                        Array.isArray(item.imagens)
+                            ? item.imagens
+                            : [];
+
+                    return `
+                        <article class="pedido-publico-item">
+                            <h2>
+                                ${escaparHtml(item.nome_produto)}
+                                — ${formatarMoeda(item.valor_total)}
+                            </h2>
+
+                            <p>
+                                <strong>Quantidade:</strong>
+                                ${Number(item.quantidade || 1)}
+                            </p>
+
+                            ${
+                                item.data_retirada
+                                    ? `
+                                        <p>
+                                            <strong>Retirada:</strong>
+                                            ${formatarData(item.data_retirada)}
+                                            ${item.horario_retirada ? ` às ${escaparHtml(String(item.horario_retirada).slice(0, 5))}` : ""}
+                                        </p>
+                                    `
+                                    : ""
+                            }
+
+                            ${detalhes.map(detalhe => `
+                                <p>
+                                    <strong>${escaparHtml(detalhe.rotulo)}:</strong>
+                                    ${escaparHtml(detalhe.valor)}
+                                </p>
+                            `).join("")}
+
+                            ${
+                                imagens.length
+                                    ? `
+                                        <div class="pedido-publico-imagens">
+                                            ${imagens.map((imagem, indice) => `
+                                                <div class="pedido-publico-imagem">
+                                                    <img
+                                                        src="${escaparHtml(imagem.url)}"
+                                                        alt="${escaparHtml(imagem.nome_arquivo || `Imagem ${indice + 1}`)}"
+                                                    >
+
+                                                    <a
+                                                        href="${escaparHtml(imagem.url)}"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        Abrir imagem original
+                                                    </a>
+                                                </div>
+                                            `).join("")}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+                        </article>
+                    `;
+                }).join("");
+
+            container.innerHTML = `
+                <section class="pedido-publico-card">
+                    <div class="pedido-publico-resumo">
+                        <div>
+                            <div class="pedido-publico-codigo">
+                                ${escaparHtml(pedido.codigo)}
+                            </div>
+
+                            <div class="pedido-publico-dados">
+                                <span>
+                                    <strong>Cliente:</strong>
+                                    ${escaparHtml(pedido.cliente_nome)}
+                                </span>
+
+                                <span>
+                                    <strong>WhatsApp:</strong>
+                                    ${escaparHtml(pedido.cliente_whatsapp)}
+                                </span>
+
+                                ${
+                                    pedido.observacoes
+                                        ? `
+                                            <span>
+                                                <strong>Observações:</strong>
+                                                ${escaparHtml(pedido.observacoes)}
+                                            </span>
+                                        `
+                                        : ""
+                                }
+                            </div>
+
+                            <span class="pedido-publico-status">
+                                ${escaparHtml(nomeStatus(pedido.status))}
+                            </span>
+                        </div>
+
+                        <div class="pedido-publico-total">
+                            <span>Total do pedido</span>
+                            <strong>
+                                ${formatarMoeda(pedido.valor_total)}
+                            </strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pedido-publico-card">
+                    ${htmlItens || "Nenhum item registrado."}
+                </section>
+            `;
+        }
+
+        async function iniciarPedidoPublico() {
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const token =
+                params.get("token");
+
+            if (!token) {
+                document.getElementById(
+                    "pedidoPublicoConteudo"
+                ).innerHTML = `
+                    <div class="pedido-publico-erro">
+                        O link deste pedido está incompleto.
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const resultado =
+                    await buscarPedido(token);
+
+                renderizarPedido(resultado);
+            } catch (erro) {
+                console.error(erro);
+
+                document.getElementById(
+                    "pedidoPublicoConteudo"
+                ).innerHTML = `
+                    <div class="pedido-publico-erro">
+                        Não foi possível abrir o pedido.
+                        Confira o link e tente novamente.
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciarPedidoPublico
+        );
+    </script>
+
+</body>
+
+</html>

@@ -341,6 +341,216 @@
                 margin-top: 14px;
             }
 
+        
+
+            /* =========================================================
+               PEDIDOS
+            ========================================================= */
+
+            .painel-lista-topo-pedidos {
+                align-items: center;
+                gap: 16px;
+            }
+
+            .painel-lista-topo-pedidos p {
+                margin: 4px 0 0;
+                color: #8a7065;
+                font-size: 10px;
+            }
+
+            .filtro-status-pedidos {
+                min-width: 180px;
+                min-height: 40px;
+                padding: 0 12px;
+                border: 1px solid #dfd0c9;
+                border-radius: 10px;
+                background: #fffdfb;
+                color: #5f3a2f;
+                font-size: 11px;
+                outline: none;
+            }
+
+            .lista-pedidos-admin {
+                display: grid;
+                gap: 12px;
+            }
+
+            .pedido-admin-card {
+                border: 1px solid #eadbd3;
+                border-radius: 14px;
+                background: #fffdfb;
+                overflow: hidden;
+            }
+
+            .pedido-admin-resumo {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 18px;
+                padding: 16px;
+            }
+
+            .pedido-admin-codigo {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 7px;
+            }
+
+            .pedido-admin-codigo strong {
+                color: #563126;
+                font-size: 16px;
+            }
+
+            .pedido-admin-status {
+                display: inline-flex;
+                align-items: center;
+                min-height: 24px;
+                padding: 4px 8px;
+                border-radius: 999px;
+                background: #f3e3db;
+                color: #754434;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .pedido-admin-info {
+                display: grid;
+                gap: 4px;
+                color: #806b62;
+                font-size: 11px;
+            }
+
+            .pedido-admin-info b {
+                color: #5c4036;
+            }
+
+            .pedido-admin-lateral {
+                min-width: 170px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+            }
+
+            .pedido-admin-total {
+                color: #6f4031;
+                font-size: 19px;
+                font-weight: 700;
+            }
+
+            .pedido-admin-acoes {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 7px;
+            }
+
+            .pedido-admin-acoes button,
+            .pedido-admin-acoes a {
+                min-height: 34px;
+                padding: 8px 11px;
+                border: 1px solid #d9bcae;
+                border-radius: 8px;
+                background: #ffffff;
+                color: #6f4031;
+                text-decoration: none;
+                font-size: 9px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .pedido-admin-acoes .btn-pedido-principal {
+                background: #6f4031;
+                border-color: #6f4031;
+                color: #ffffff;
+            }
+
+            .pedido-admin-detalhes {
+                padding: 0 16px 16px;
+                border-top: 1px solid #f0e2db;
+                background: #fffaf7;
+            }
+
+            .pedido-admin-detalhes[hidden] {
+                display: none !important;
+            }
+
+            .pedido-admin-item {
+                padding: 14px 0;
+                border-bottom: 1px solid #efe2dc;
+            }
+
+            .pedido-admin-item:last-child {
+                border-bottom: 0;
+            }
+
+            .pedido-admin-item h4 {
+                margin: 0 0 8px;
+                color: #563126;
+                font-size: 13px;
+            }
+
+            .pedido-admin-item p {
+                margin: 3px 0;
+                color: #806b62;
+                font-size: 10px;
+                line-height: 1.45;
+            }
+
+            .pedido-admin-imagens {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 9px;
+            }
+
+            .pedido-admin-imagens a {
+                display: inline-flex;
+                padding: 7px 10px;
+                border-radius: 8px;
+                background: #f4e2d8;
+                color: #6f4031;
+                text-decoration: none;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .pedido-admin-status-select {
+                min-height: 34px;
+                padding: 0 9px;
+                border: 1px solid #d9bcae;
+                border-radius: 8px;
+                background: #ffffff;
+                color: #6f4031;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            @media (max-width: 700px) {
+                .painel-lista-topo-pedidos {
+                    align-items: stretch;
+                    flex-direction: column;
+                }
+
+                .filtro-status-pedidos {
+                    width: 100%;
+                }
+
+                .pedido-admin-resumo {
+                    grid-template-columns: 1fr;
+                }
+
+                .pedido-admin-lateral {
+                    min-width: 0;
+                    align-items: stretch;
+                }
+
+                .pedido-admin-acoes {
+                    justify-content: flex-start;
+                }
+            }
+
         </style>
     </head>
     <body class="pagina-painel">
@@ -362,6 +572,7 @@
         <nav class="painel-abas" aria-label="Seções do painel">
             <button class="painel-aba ativa" data-alvo="secaoFatias">🍰 Fatias do dia</button>
             <button class="painel-aba" data-alvo="secaoEncomendas">🎉 Encomendas</button>
+            <button class="painel-aba" data-alvo="secaoPedidos">🧾 Pedidos</button>
         </nav>
 
         <section class="painel-secao ativa" id="secaoFatias">
@@ -501,6 +712,63 @@
                     </div>
                 </section>
             </div>
+        </section>
+
+
+        <section class="painel-secao" id="secaoPedidos">
+            <div class="painel-secao-topo">
+                <div>
+                    <span>GESTÃO DE PEDIDOS</span>
+                    <h2>Pedidos recebidos</h2>
+                    <p>
+                        Consulte os pedidos enviados pelo site, visualize os detalhes
+                        e atualize o andamento da encomenda.
+                    </p>
+                </div>
+
+                <button id="btnAtualizarPedidos" class="btn-atualizar-lista" type="button">
+                    ↻ Atualizar
+                </button>
+            </div>
+
+            <section class="painel-indicadores">
+                <div class="painel-indicador">
+                    <span>Total de pedidos</span>
+                    <strong id="totalPedidosAdmin">0</strong>
+                </div>
+
+                <div class="painel-indicador">
+                    <span>Novos</span>
+                    <strong id="totalPedidosNovos">0</strong>
+                </div>
+
+                <div class="painel-indicador">
+                    <span>Confirmados</span>
+                    <strong id="totalPedidosConfirmados">0</strong>
+                </div>
+            </section>
+
+            <section class="painel-lista">
+                <div class="painel-lista-topo painel-lista-topo-pedidos">
+                    <div>
+                        <h3>Lista de pedidos</h3>
+                        <p>Os pedidos mais recentes aparecem primeiro.</p>
+                    </div>
+
+                    <select id="filtroStatusPedidos" class="filtro-status-pedidos">
+                        <option value="">Todos os status</option>
+                        <option value="novo">Novos</option>
+                        <option value="confirmado">Confirmados</option>
+                        <option value="em_producao">Em produção</option>
+                        <option value="concluido">Concluídos</option>
+                        <option value="cancelado">Cancelados</option>
+                    </select>
+                </div>
+
+                <div id="listaPedidosAdmin" class="lista-pedidos-admin">
+                    <p class="painel-carregando">Carregando pedidos...</p>
+                </div>
+            </section>
         </section>
 
     </main>
@@ -800,6 +1068,10 @@
 
             botao.classList.add("ativa");
             document.getElementById(botao.dataset.alvo).classList.add("ativa");
+
+            if (botao.dataset.alvo === "secaoPedidos") {
+                carregarPedidosAdmin();
+            }
         });
     });
 
@@ -2216,6 +2488,467 @@
     });
 
 
+
+    /* =========================================================
+       PEDIDOS - PAINEL ADMINISTRATIVO
+    ========================================================= */
+
+    const listaPedidosAdmin =
+        document.getElementById("listaPedidosAdmin");
+
+    const filtroStatusPedidos =
+        document.getElementById("filtroStatusPedidos");
+
+    let pedidosAdminCarregados = [];
+
+    function nomeStatusPedido(status) {
+        const nomes = {
+            novo: "Novo",
+            confirmado: "Confirmado",
+            em_producao: "Em produção",
+            concluido: "Concluído",
+            cancelado: "Cancelado"
+        };
+
+        return nomes[status] || status || "Novo";
+    }
+
+    function formatarDataHoraPedido(dataIso) {
+        if (!dataIso) {
+            return "—";
+        }
+
+        return new Date(dataIso).toLocaleString(
+            "pt-BR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
+    }
+
+    function formatarDataPedido(data) {
+        if (!data) {
+            return "—";
+        }
+
+        const partes = String(data).split("-");
+
+        if (partes.length !== 3) {
+            return data;
+        }
+
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    function resumoDetalhesPedido(detalhes) {
+        if (!detalhes || typeof detalhes !== "object") {
+            return [];
+        }
+
+        const ignorar = new Set([
+            "fotoBoloUrl",
+            "fotoTopoUrl",
+            "fotoBoloNome",
+            "fotoTopoNome",
+            "precoUnitario",
+            "precoPacote",
+            "quantidadePacote",
+            "tipoCobranca",
+            "regraNome"
+        ]);
+
+        const rotulos = {
+            tamanho: "Tamanho",
+            massa: "Massa",
+            recheio: "Recheio",
+            recheios: "Recheios",
+            adicionais: "Adicionais",
+            cor: "Cor",
+            topo: "Topo",
+            categoria: "Categoria",
+            unidades: "Unidades",
+            sabores: "Sabores",
+            sabor: "Sabor",
+            tipoNome: "Tipo",
+            tipoCupcake: "Tipo",
+            quantidadeMinimaPorSabor: "Mínimo por sabor"
+        };
+
+        return Object.entries(detalhes)
+            .filter(([chave, valor]) =>
+                !ignorar.has(chave) &&
+                valor !== null &&
+                valor !== undefined &&
+                valor !== "" &&
+                !(Array.isArray(valor) && valor.length === 0)
+            )
+            .map(([chave, valor]) => {
+                const texto =
+                    Array.isArray(valor)
+                        ? valor.join(", ")
+                        : typeof valor === "object"
+                            ? JSON.stringify(valor)
+                            : String(valor);
+
+                return {
+                    rotulo:
+                        rotulos[chave] ||
+                        chave
+                            .replaceAll("_", " ")
+                            .replace(/\b\w/g, letra => letra.toUpperCase()),
+                    valor: texto
+                };
+            });
+    }
+
+    function atualizarIndicadoresPedidos() {
+        const total =
+            pedidosAdminCarregados.length;
+
+        const novos =
+            pedidosAdminCarregados.filter(
+                pedido => pedido.status === "novo"
+            ).length;
+
+        const confirmados =
+            pedidosAdminCarregados.filter(
+                pedido => pedido.status === "confirmado"
+            ).length;
+
+        document.getElementById("totalPedidosAdmin").textContent =
+            total;
+
+        document.getElementById("totalPedidosNovos").textContent =
+            novos;
+
+        document.getElementById("totalPedidosConfirmados").textContent =
+            confirmados;
+    }
+
+    function renderizarPedidosAdmin() {
+        if (!listaPedidosAdmin) {
+            return;
+        }
+
+        const filtro =
+            filtroStatusPedidos?.value || "";
+
+        const pedidos =
+            pedidosAdminCarregados.filter(
+                pedido =>
+                    !filtro ||
+                    pedido.status === filtro
+            );
+
+        if (!pedidos.length) {
+            listaPedidosAdmin.innerHTML =
+                '<p class="painel-carregando">Nenhum pedido encontrado.</p>';
+            return;
+        }
+
+        listaPedidosAdmin.innerHTML = "";
+
+        pedidos.forEach(pedido => {
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "pedido-admin-card";
+
+            const itens =
+                Array.isArray(pedido.itens_pedido)
+                    ? pedido.itens_pedido
+                    : [];
+
+            const detalhesItens =
+                itens.map(item => {
+                    const detalhes =
+                        resumoDetalhesPedido(item.detalhes);
+
+                    const imagens =
+                        Array.isArray(item.imagens_pedido)
+                            ? item.imagens_pedido
+                            : [];
+
+                    return `
+                        <div class="pedido-admin-item">
+                            <h4>
+                                ${escaparHtml(item.nome_produto)}
+                                — ${formatarMoeda(item.valor_total)}
+                            </h4>
+
+                            <p>
+                                <strong>Quantidade:</strong>
+                                ${Number(item.quantidade || 1)}
+                            </p>
+
+                            ${
+                                item.data_retirada
+                                    ? `
+                                        <p>
+                                            <strong>Retirada:</strong>
+                                            ${formatarDataPedido(item.data_retirada)}
+                                            ${item.horario_retirada ? ` às ${String(item.horario_retirada).slice(0, 5)}` : ""}
+                                        </p>
+                                    `
+                                    : ""
+                            }
+
+                            ${
+                                detalhes.map(detalhe => `
+                                    <p>
+                                        <strong>${escaparHtml(detalhe.rotulo)}:</strong>
+                                        ${escaparHtml(detalhe.valor)}
+                                    </p>
+                                `).join("")
+                            }
+
+                            ${
+                                imagens.length
+                                    ? `
+                                        <div class="pedido-admin-imagens">
+                                            ${imagens.map((imagem, indice) => `
+                                                <a
+                                                    href="${escaparHtml(imagem.url)}"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    📷 ${escaparHtml(imagem.nome_arquivo || `Imagem ${indice + 1}`)}
+                                                </a>
+                                            `).join("")}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+                        </div>
+                    `;
+                }).join("");
+
+            const linkPublico =
+                pedido.public_token
+                    ? `pedido.html?token=${encodeURIComponent(pedido.public_token)}`
+                    : "#";
+
+            card.innerHTML = `
+                <div class="pedido-admin-resumo">
+                    <div>
+                        <div class="pedido-admin-codigo">
+                            <strong>${escaparHtml(pedido.codigo || `Pedido ${pedido.id}`)}</strong>
+                            <span class="pedido-admin-status">
+                                ${escaparHtml(nomeStatusPedido(pedido.status))}
+                            </span>
+                        </div>
+
+                        <div class="pedido-admin-info">
+                            <span>
+                                <b>Cliente:</b>
+                                ${escaparHtml(pedido.cliente_nome)}
+                            </span>
+
+                            <span>
+                                <b>WhatsApp:</b>
+                                ${escaparHtml(pedido.cliente_whatsapp)}
+                            </span>
+
+                            <span>
+                                <b>Recebido em:</b>
+                                ${escaparHtml(formatarDataHoraPedido(pedido.created_at))}
+                            </span>
+
+                            ${
+                                pedido.observacoes
+                                    ? `
+                                        <span>
+                                            <b>Observação:</b>
+                                            ${escaparHtml(pedido.observacoes)}
+                                        </span>
+                                    `
+                                    : ""
+                            }
+                        </div>
+                    </div>
+
+                    <div class="pedido-admin-lateral">
+                        <div class="pedido-admin-total">
+                            ${formatarMoeda(pedido.valor_total)}
+                        </div>
+
+                        <select
+                            class="pedido-admin-status-select"
+                            data-pedido-id="${pedido.id}"
+                        >
+                            <option value="novo" ${pedido.status === "novo" ? "selected" : ""}>Novo</option>
+                            <option value="confirmado" ${pedido.status === "confirmado" ? "selected" : ""}>Confirmado</option>
+                            <option value="em_producao" ${pedido.status === "em_producao" ? "selected" : ""}>Em produção</option>
+                            <option value="concluido" ${pedido.status === "concluido" ? "selected" : ""}>Concluído</option>
+                            <option value="cancelado" ${pedido.status === "cancelado" ? "selected" : ""}>Cancelado</option>
+                        </select>
+
+                        <div class="pedido-admin-acoes">
+                            <button
+                                type="button"
+                                class="btn-pedido-principal"
+                                data-acao="detalhes-pedido"
+                                data-pedido-id="${pedido.id}"
+                            >
+                                Ver detalhes
+                            </button>
+
+                            <a
+                                href="${linkPublico}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Abrir link
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="pedido-admin-detalhes"
+                    id="detalhesPedidoAdmin-${pedido.id}"
+                    hidden
+                >
+                    ${detalhesItens || '<p class="painel-carregando">Nenhum item registrado.</p>'}
+                </div>
+            `;
+
+            listaPedidosAdmin.appendChild(card);
+        });
+    }
+
+    async function carregarPedidosAdmin() {
+        if (!listaPedidosAdmin) {
+            return;
+        }
+
+        listaPedidosAdmin.innerHTML =
+            '<p class="painel-carregando">Carregando pedidos...</p>';
+
+        const { data, error } =
+            await supabasePainel
+                .from("pedidos")
+                .select(`
+                    *,
+                    itens_pedido (
+                        *,
+                        imagens_pedido (*)
+                    )
+                `)
+                .order("created_at", { ascending: false });
+
+        if (error) {
+            console.error(error);
+
+            listaPedidosAdmin.innerHTML =
+                '<p class="painel-carregando">Não foi possível carregar os pedidos.</p>';
+
+            return;
+        }
+
+        pedidosAdminCarregados =
+            data || [];
+
+        atualizarIndicadoresPedidos();
+        renderizarPedidosAdmin();
+    }
+
+    async function atualizarStatusPedidoAdmin(id, status) {
+        const { error } =
+            await supabasePainel
+                .from("pedidos")
+                .update({ status })
+                .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível atualizar o status do pedido.");
+            return;
+        }
+
+        const pedido =
+            pedidosAdminCarregados.find(
+                item => String(item.id) === String(id)
+            );
+
+        if (pedido) {
+            pedido.status = status;
+        }
+
+        atualizarIndicadoresPedidos();
+        renderizarPedidosAdmin();
+    }
+
+    listaPedidosAdmin?.addEventListener(
+        "click",
+        function(event) {
+            const botao =
+                event.target.closest(
+                    'button[data-acao="detalhes-pedido"]'
+                );
+
+            if (!botao) {
+                return;
+            }
+
+            const id =
+                botao.dataset.pedidoId;
+
+            const detalhes =
+                document.getElementById(
+                    `detalhesPedidoAdmin-${id}`
+                );
+
+            if (!detalhes) {
+                return;
+            }
+
+            const abrir =
+                detalhes.hidden;
+
+            detalhes.hidden =
+                !abrir;
+
+            botao.textContent =
+                abrir
+                    ? "Ocultar detalhes"
+                    : "Ver detalhes";
+        }
+    );
+
+    listaPedidosAdmin?.addEventListener(
+        "change",
+        function(event) {
+            const select =
+                event.target.closest(
+                    ".pedido-admin-status-select"
+                );
+
+            if (!select) {
+                return;
+            }
+
+            atualizarStatusPedidoAdmin(
+                Number(select.dataset.pedidoId),
+                select.value
+            );
+        }
+    );
+
+    filtroStatusPedidos?.addEventListener(
+        "change",
+        renderizarPedidosAdmin
+    );
+
+    document.getElementById("btnAtualizarPedidos")
+        ?.addEventListener(
+            "click",
+            carregarPedidosAdmin
+        );
+
+
     document.getElementById("btnNovaFatia").addEventListener("click", abrirNovaFatia);
     document.getElementById("fecharModalFatia").addEventListener("click", fecharModalFatia);
     document.getElementById("cancelarFatia").addEventListener("click", fecharModalFatia);
@@ -2290,7 +3023,8 @@
         await Promise.all([
             carregarFatias(),
             carregarOpcoes(),
-            carregarRegras()
+            carregarRegras(),
+            carregarPedidosAdmin()
         ]);
     }
 

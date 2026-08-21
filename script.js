@@ -2125,257 +2125,273 @@ function atualizarResumoCheckout() {
    FINALIZAR PELO WHATSAPP
 ===================================================== */
 
-function finalizarPedidoWhatsApp() {
 
-    if (carrinho.length === 0) {
+/* =====================================================
+   PEDIDOS - SUPABASE
+===================================================== */
 
-        alert("Seu carrinho está vazio.");
+const SITE_PUBLICO_URL = "https://gorete-festass.netlify.app";
 
-        return;
+function montarDetalhesItemPedido(item) {
+    const detalhes = { ...item };
 
+    delete detalhes.id;
+    delete detalhes.preco;
+    delete detalhes.quantidade;
+
+    return detalhes;
+}
+
+function montarImagensItemPedido(item) {
+    const imagens = [];
+
+    if (item.fotoBoloUrl) {
+        imagens.push({
+            url: item.fotoBoloUrl,
+            nome_arquivo: item.fotoBoloNome || "inspiracao-bolo"
+        });
     }
 
-
-    const nome =
-        document
-            .getElementById("nomeCliente")
-            ?.value
-            .trim();
-
-
-    const telefone =
-        document
-            .getElementById("telefoneCliente")
-            ?.value
-            .trim();
-
-
-    const observacao =
-        document
-            .getElementById("observacaoPedido")
-            ?.value
-            .trim();
-
-
-    if (!nome) {
-
-        alert("Informe seu nome.");
-
-        document
-            .getElementById("nomeCliente")
-            ?.focus();
-
-        return;
-
+    if (item.fotoTopoUrl) {
+        imagens.push({
+            url: item.fotoTopoUrl,
+            nome_arquivo: item.fotoTopoNome || "inspiracao-topo"
+        });
     }
 
+    return imagens;
+}
 
-    if (!telefone) {
+function montarItensParaSalvarPedido() {
+    return carrinho.map(item => {
+        const quantidadePedido = Number(item.quantidade || 1);
+        const valorTotal = Number(item.preco || 0) * quantidadePedido;
 
-        alert("Informe seu WhatsApp.");
+        let valorUnitario = Number(item.precoUnitario || 0);
 
-        document
-            .getElementById("telefoneCliente")
-            ?.focus();
-
-        return;
-
-    }
-
-
-    let mensagem =
-        `Olá! Gostaria de fazer um pedido na Gorete Festas. 🎂\n\n`;
-
-
-    mensagem +=
-        `👤 *Cliente:* ${nome}\n`;
-
-    mensagem +=
-        `📱 *WhatsApp:* ${telefone}\n\n`;
-
-
-    mensagem +=
-        `🛒 *PEDIDO*\n\n`;
-
-
-    carrinho.forEach((item, index) => {
-
-        mensagem +=
-            `*${index + 1}. ${item.nome}*\n`;
-
-
-        if (item.tipo === "bolo-personalizado") {
-
-            mensagem +=
-                `🎂 Tamanho: ${item.tamanho}\n`;
-
-            mensagem +=
-                `🍰 Massa: ${item.massa}\n`;
-
-            mensagem +=
-                `🍫 Recheios: ${item.recheio}\n`;
-
-            if (item.adicionais?.length) {
-                mensagem +=
-                    `➕ Adicionais: ${item.adicionais.join(", ")}\n`;
-            }
-
-            mensagem +=
-                `🎨 Cor: ${item.cor}\n`;
-
-            mensagem +=
-                `✨ Topo: ${item.topo}\n`;
-
-            if (item.topoValorPendente) {
-                mensagem +=
-                    `💬 Valor do topo: a confirmar após orçamento da gráfica\n`;
-            }
-
-            mensagem +=
-                `📅 Retirada: ${formatarData(item.data)}\n`;
-
-            mensagem +=
-                `🕐 Horário: ${item.horario}\n`;
-
-            if (item.fotoBoloUrl) {
-                mensagem +=
-                    `📷 Inspiração do bolo: ${item.fotoBoloUrl}\n`;
-            }
-
-            if (item.fotoTopoUrl) {
-                mensagem +=
-                    `🎂 Inspiração do topo: ${item.fotoTopoUrl}\n`;
-            }
-
+        if (!valorUnitario && quantidadePedido > 0) {
+            valorUnitario = Number(item.preco || 0);
         }
 
-
-        if (item.tipo === "docinhos") {
-
-            mensagem +=
-                `🍬 Categoria: ${item.categoria}\n`;
-
-            mensagem +=
-                `🔢 Docinhos: ${item.unidades} unidades\n`;
-
-            mensagem +=
-                `🍫 Sabores: ${item.sabores.join(", ")}\n`;
-
-            mensagem +=
-                item.tipoCobranca === "pacote"
-                    ? `💵 Pacote: ${item.quantidadePacote} unidades por ${formatarMoeda(item.precoPacote)}\n`
-                    : `💵 Valor unitário: ${formatarMoeda(item.precoUnitario)}\n`;
-
-            mensagem +=
-                `📅 Retirada: ${formatarData(item.data)}\n`;
-
-            mensagem +=
-                `🕐 Horário: ${item.horario}\n`;
-        }
-
-
-        if (item.tipo === "cupcakes") {
-
-            mensagem +=
-                `🧁 Tipo: ${item.nome}\n`;
-
-            mensagem +=
-                `🔢 Cupcakes: ${item.unidades} unidade(s)\n`;
-
-            if (item.sabores?.length) {
-                mensagem +=
-                    `🍫 Sabores: ${item.sabores.join(", ")}\n`;
-            }
-
-            mensagem +=
-                `💵 Valor unitário: ${formatarMoeda(item.precoUnitario)}\n`;
-
-            mensagem +=
-                `📅 Retirada: ${formatarData(item.data)}\n`;
-
-            mensagem +=
-                `🕐 Horário: ${item.horario}\n`;
-        }
-
-
-        if (item.tipo === "caseirinho") {
-
-            mensagem +=
-                `🍊 Sabor: ${item.sabor}\n`;
-
-            mensagem +=
-                `📏 Tamanho: ${item.tamanho}\n`;
-
-            mensagem +=
-                `📅 Retirada: ${formatarData(item.data)}\n`;
-
-            mensagem +=
-                `🕐 Horário: ${item.horario}\n`;
-        }
-
-
-        mensagem +=
-            `🔢 Quantidade do pedido: ${item.quantidade}\n`;
-
-
-        mensagem +=
-            `💰 Valor: ${formatarMoeda(
-                item.preco *
-                item.quantidade
-            )}\n\n`;
-
+        return {
+            tipo_produto: item.tipo || "produto",
+            nome_produto: item.nome || "Produto",
+            quantidade: quantidadePedido,
+            valor_unitario: valorUnitario,
+            valor_total: valorTotal,
+            data_retirada: item.data || null,
+            horario_retirada: item.horario || null,
+            detalhes: montarDetalhesItemPedido(item),
+            imagens: montarImagensItemPedido(item)
+        };
     });
+}
 
-
-    const total =
-        carrinho.reduce(
-            (soma, item) =>
-                soma +
-                (
-                    item.preco *
-                    item.quantidade
-                ),
-            0
-        );
-
-
-    mensagem +=
-        `💰 *TOTAL DO PEDIDO: ${formatarMoeda(total)}*\n`;
-
-
-    if (observacao) {
-
-        mensagem +=
-            `\n📝 *Observações:*\n${observacao}\n`;
-
-    }
-
-
-    mensagem +=
-        `\n📍 Retirada no local - Bairro Caju`;
-
-
-    /*
-       WHATSAPP DA GORETE FESTAS
-       (21) 99417-4117
-    */
-
-    const numeroWhatsApp =
-        "5521994174117";
-
-
-    const url =
-        "https://wa.me/" +
-        numeroWhatsApp +
-        "?text=" +
-        encodeURIComponent(mensagem);
-
-
-    window.open(
-        url,
-        "_blank"
+async function salvarPedidoNoSupabase(nome, telefone, observacao) {
+    const total = carrinho.reduce(
+        (soma, item) =>
+            soma + Number(item.preco || 0) * Number(item.quantidade || 1),
+        0
     );
 
+    const payload = {
+        p_cliente_nome: nome,
+        p_cliente_whatsapp: telefone,
+        p_valor_total: total,
+        p_observacoes: observacao || null,
+        p_itens: montarItensParaSalvarPedido()
+    };
+
+    const resposta = await fetch(
+        `${SUPABASE_URL}/rest/v1/rpc/criar_pedido_publico`,
+        {
+            method: "POST",
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        }
+    );
+
+    if (!resposta.ok) {
+        let detalhesErro = "";
+
+        try {
+            const erro = await resposta.json();
+            detalhesErro =
+                erro.message ||
+                erro.error ||
+                erro.hint ||
+                JSON.stringify(erro);
+        } catch {
+            detalhesErro = await resposta.text();
+        }
+
+        throw new Error(
+            "Não foi possível salvar o pedido." +
+            (detalhesErro ? ` ${detalhesErro}` : "")
+        );
+    }
+
+    return await resposta.json();
+}
+
+
+/* =====================================================
+   FINALIZAR PELO WHATSAPP
+===================================================== */
+
+async function finalizarPedidoWhatsApp() {
+
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio.");
+        return;
+    }
+
+    const nome =
+        document.getElementById("nomeCliente")?.value.trim();
+
+    const telefone =
+        document.getElementById("telefoneCliente")?.value.trim();
+
+    const observacao =
+        document.getElementById("observacaoPedido")?.value.trim();
+
+    if (!nome) {
+        alert("Informe seu nome.");
+        document.getElementById("nomeCliente")?.focus();
+        return;
+    }
+
+    if (!telefone) {
+        alert("Informe seu WhatsApp.");
+        document.getElementById("telefoneCliente")?.focus();
+        return;
+    }
+
+    const botao =
+        document.querySelector(".btn-whatsapp-checkout");
+
+    const textoOriginal =
+        botao?.textContent || "Finalizar pelo WhatsApp";
+
+    try {
+        if (botao) {
+            botao.disabled = true;
+            botao.textContent = "Salvando pedido...";
+        }
+
+        const pedido =
+            await salvarPedidoNoSupabase(
+                nome,
+                telefone,
+                observacao
+            );
+
+        const codigo =
+            pedido.codigo || "Pedido";
+
+        const token =
+            pedido.public_token;
+
+        if (!token) {
+            throw new Error(
+                "O pedido foi salvo, mas o link público não foi gerado."
+            );
+        }
+
+        const linkPedido =
+            `${SITE_PUBLICO_URL}/pedido.html?token=${encodeURIComponent(token)}`;
+
+        const quantidadeItens =
+            carrinho.reduce(
+                (total, item) =>
+                    total + Number(item.quantidade || 1),
+                0
+            );
+
+        const total =
+            carrinho.reduce(
+                (soma, item) =>
+                    soma +
+                    Number(item.preco || 0) *
+                    Number(item.quantidade || 1),
+                0
+            );
+
+        let mensagem =
+            `🎂 *NOVO PEDIDO - GORETE FESTAS*\n\n`;
+
+        mensagem +=
+            `🧾 *Pedido:* ${codigo}\n`;
+
+        mensagem +=
+            `👤 *Cliente:* ${nome}\n`;
+
+        mensagem +=
+            `📱 *WhatsApp:* ${telefone}\n`;
+
+        mensagem +=
+            `🛒 *Itens:* ${quantidadeItens}\n`;
+
+        mensagem +=
+            `💰 *Total:* ${formatarMoeda(total)}\n`;
+
+        if (observacao) {
+            mensagem +=
+                `📝 *Observação:* ${observacao}\n`;
+        }
+
+        mensagem +=
+            `\n🔗 *Ver pedido completo:*\n${linkPedido}\n`;
+
+        mensagem +=
+            `\nNo link estão todos os produtos, sabores, quantidades, retirada e imagens de inspiração.`;
+
+        const numeroWhatsApp =
+            "5521994174117";
+
+        const url =
+            "https://wa.me/" +
+            numeroWhatsApp +
+            "?text=" +
+            encodeURIComponent(mensagem);
+
+        localStorage.setItem(
+            "ultimoPedidoGorete",
+            JSON.stringify({
+                codigo,
+                public_token: token,
+                link: linkPedido
+            })
+        );
+
+        carrinho = [];
+        salvarCarrinho();
+
+        window.location.href = url;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao finalizar pedido:",
+            erro
+        );
+
+        alert(
+            erro?.message ||
+            "Não foi possível finalizar o pedido. Tente novamente."
+        );
+
+    } finally {
+
+        if (botao) {
+            botao.disabled = false;
+            botao.textContent = textoOriginal;
+        }
+    }
 }
 
 

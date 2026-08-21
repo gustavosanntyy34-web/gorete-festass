@@ -10092,3 +10092,78 @@ footer div p {
     background: #ffffff !important;
     color: #6f4031 !important;
 }
+
+
+/* =====================================================
+   AJUSTE FINAL - 3 ABAS DO PAINEL
+   Fatias do dia | Encomendas | Pedidos
+===================================================== */
+
+.painel-abas {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    align-items: stretch;
+}
+
+.painel-aba {
+    width: 100%;
+    min-width: 0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .painel-abas {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 5px !important;
+    }
+
+    .painel-aba {
+        padding: 9px 5px !important;
+        font-size: 10px !important;
+        white-space: normal;
+        line-height: 1.25;
+    }
+}
+
+@media (max-width: 420px) {
+    .painel-abas {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        position: static;
+    }
+
+    .painel-aba {
+        min-height: 40px;
+        font-size: 10px !important;
+    }
+}
+/* =====================================================
+   AJUSTE FINAL - 4 OPÇÕES DE ENCOMENDAS NA MESMA LINHA
+===================================================== */
+
+.admin-produtos-encomenda {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+}
+
+.admin-produto-tab {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Tablet */
+@media (max-width: 980px) {
+    .admin-produtos-encomenda {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .admin-produtos-encomenda {
+        grid-template-columns: 1fr !important;
+    }
+}
