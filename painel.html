@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Painel Administrativo | Gorete Festass</title>
+        <title>Painel Administrativo | Gorete Festas</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -689,14 +689,741 @@
                 .pedido-admin-linha { grid-template-columns: 1fr !important; gap: 3px !important; }
                 .modal-regra-grid { grid-template-columns: 1fr !important; }
             }
+        
+            /* =========================================================
+               KIT FESTA - PAINEL ADMINISTRATIVO
+            ========================================================= */
+            .kit-festa-admin-wrapper {
+                display: grid;
+                gap: 18px;
+            }
+
+            .kit-festa-admin-wrapper[hidden] {
+                display: none !important;
+            }
+
+            .kit-admin-bloco {
+                border: 1px solid #d8b75d;
+                border-radius: 15px;
+                background: linear-gradient(145deg, #fffef9 0%, #fff6d9 100%);
+                overflow: hidden;
+            }
+
+            .kit-admin-bloco-topo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 18px;
+                border-bottom: 1px solid #e7d39b;
+                background: linear-gradient(90deg, #fff8df 0%, #f6e4ad 100%);
+            }
+
+            .kit-admin-bloco-topo span {
+                display: block;
+                margin-bottom: 5px;
+                color: #853643;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+
+            .kit-admin-bloco-topo h4 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 20px;
+            }
+
+            .kit-admin-bloco-topo p {
+                margin: 5px 0 0;
+                color: #79655a;
+                font-size: 10px;
+                line-height: 1.5;
+            }
+
+            .lista-kits-admin {
+                display: grid;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .kit-admin-card {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 18px;
+                align-items: center;
+                padding: 16px;
+                border: 1px solid #e1ca84;
+                border-radius: 13px;
+                background: #fffdf5;
+            }
+
+            .kit-admin-card-inativo {
+                opacity: .72;
+            }
+
+            .kit-admin-card-topo {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+
+            .kit-admin-card-topo h5 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 16px;
+            }
+
+            .kit-admin-composicao {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+                margin-bottom: 9px;
+            }
+
+            .kit-admin-composicao span {
+                display: inline-flex;
+                align-items: center;
+                min-height: 27px;
+                padding: 5px 9px;
+                border: 1px solid #dec270;
+                border-radius: 999px;
+                background: #f8e8b2;
+                color: #4e382e;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .kit-admin-descricao {
+                margin: 0;
+                color: #806b62;
+                font-size: 10px;
+                line-height: 1.45;
+            }
+
+            .kit-admin-lateral {
+                min-width: 210px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+            }
+
+            .kit-admin-precos {
+                text-align: right;
+            }
+
+            .kit-admin-precos strong {
+                display: block;
+                color: #6d0c2e;
+                font-size: 19px;
+            }
+
+            .kit-admin-precos small {
+                display: block;
+                margin-top: 3px;
+                color: #79655a;
+                font-size: 9px;
+            }
+
+            .kit-admin-acoes {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 6px;
+            }
+
+            .kit-admin-acoes button {
+                min-height: 35px;
+                padding: 7px 10px;
+                border-radius: 8px;
+                font-size: 9px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .kit-admin-acoes .btn-kit-editar {
+                border: 1px solid #d7b75d;
+                background: #fff9e7;
+                color: #6d0c2e;
+            }
+
+            .kit-admin-acoes .btn-kit-status {
+                border: 1px solid #bd8d27;
+                background: linear-gradient(145deg, #f2d98f, #ddb54a);
+                color: #4e071f;
+            }
+
+            .kit-admin-acoes .btn-kit-excluir {
+                border: 1px solid #e5b5ad;
+                background: #fff8f3;
+                color: #a13b34;
+            }
+
+            .kit-sabores-admin {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .kit-sabor-coluna {
+                min-width: 0;
+                border: 1px solid #e1ca84;
+                border-radius: 13px;
+                background: #fffdf5;
+                overflow: hidden;
+            }
+
+            .kit-sabor-coluna-topo {
+                padding: 13px 14px;
+                border-bottom: 1px solid #ead8a2;
+                background: #f7e6af;
+            }
+
+            .kit-sabor-coluna-topo h5 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 14px;
+            }
+
+            .kit-sabor-coluna-topo p {
+                margin: 4px 0 0;
+                color: #806b62;
+                font-size: 9px;
+            }
+
+            .kit-sabor-lista {
+                display: grid;
+            }
+
+            .kit-sabor-item {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 8px;
+                align-items: center;
+                padding: 12px 14px;
+                border-bottom: 1px solid #f0e2b9;
+            }
+
+            .kit-sabor-item:last-child {
+                border-bottom: 0;
+            }
+
+            .kit-sabor-item strong {
+                display: block;
+                color: #563126;
+                font-size: 11px;
+            }
+
+            .kit-sabor-item small {
+                display: block;
+                margin-top: 3px;
+                color: #8a7065;
+                font-size: 8px;
+                line-height: 1.35;
+            }
+
+            .kit-sabor-item-acoes {
+                display: flex;
+                gap: 5px;
+            }
+
+            .kit-sabor-item-acoes button {
+                min-height: 31px;
+                padding: 6px 8px;
+                border-radius: 7px;
+                font-size: 8px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .kit-sabor-item-acoes .btn-sabor-editar {
+                border: 1px solid #d7b75d;
+                background: #fff9e7;
+                color: #6d0c2e;
+            }
+
+            .kit-sabor-item-acoes .btn-sabor-excluir {
+                border: 1px solid #e5b5ad;
+                background: #fff8f3;
+                color: #a13b34;
+            }
+
+            .kit-sabor-vazio {
+                padding: 16px 14px;
+                color: #8a7065;
+                font-size: 9px;
+            }
+
+            .kit-modal-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .kit-modal-grid-3 {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .kit-modal-grid .campo-admin,
+            .kit-modal-grid-3 .campo-admin {
+                margin: 0;
+            }
+
+            .kit-permissoes {
+                margin-top: 14px;
+                padding: 14px;
+                border: 1px solid #e0c77f;
+                border-radius: 12px;
+                background: #fff9e7;
+            }
+
+            .kit-permissoes > strong {
+                display: block;
+                margin-bottom: 4px;
+                color: #6d0c2e;
+                font-size: 11px;
+            }
+
+            .kit-permissoes > p {
+                margin: 0 0 10px;
+                color: #806b62;
+                font-size: 9px;
+            }
+
+            .kit-permissoes-lista {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .kit-permissao-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                min-height: 40px;
+                padding: 8px 10px;
+                border: 1px solid #ead8a2;
+                border-radius: 9px;
+                background: #fffdf5;
+                color: #563126;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .kit-permissao-item input {
+                accent-color: #6d0c2e;
+            }
+
+            @media (max-width: 900px) {
+                .kit-sabores-admin {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 700px) {
+                .kit-admin-bloco-topo,
+                .kit-admin-card {
+                    grid-template-columns: 1fr;
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .kit-admin-bloco-topo .btn-adicionar-grupo {
+                    width: 100%;
+                }
+
+                .kit-admin-card {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                }
+
+                .kit-admin-lateral {
+                    min-width: 0;
+                    align-items: stretch;
+                }
+
+                .kit-admin-precos {
+                    text-align: left;
+                }
+
+                .kit-admin-acoes {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                }
+
+                .kit-admin-acoes button {
+                    width: 100%;
+                    min-height: 42px;
+                }
+
+                .kit-sabor-item {
+                    grid-template-columns: 1fr;
+                }
+
+                .kit-sabor-item-acoes {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                .kit-sabor-item-acoes button {
+                    min-height: 38px;
+                }
+
+                .kit-modal-grid,
+                .kit-modal-grid-3,
+                .kit-permissoes-lista {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+        
+            /* =========================================================
+               REFINO VISUAL — ENCOMENDAS / KIT FESTA
+               Desktop + tablet + mobile
+            ========================================================= */
+
+            /* Cabeçalho da seção mais compacto */
+            .painel-secao-topo-encomendas {
+                margin-bottom: 18px !important;
+            }
+
+            .painel-secao-topo-encomendas h2 {
+                margin-bottom: 5px !important;
+            }
+
+            .painel-secao-topo-encomendas p {
+                max-width: 760px !important;
+                line-height: 1.5 !important;
+            }
+
+            /* 5 opções na mesma linha no desktop */
+            .admin-produtos-encomenda {
+                display: grid !important;
+                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                gap: 12px !important;
+                margin: 0 0 18px !important;
+            }
+
+            .admin-produto-tab {
+                min-width: 0 !important;
+                min-height: 82px !important;
+                padding: 14px !important;
+
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 11px !important;
+
+                border: 1px solid #ddc270 !important;
+                border-radius: 14px !important;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffef9 0%,
+                        #fff7dc 100%
+                    ) !important;
+
+                color: #563126 !important;
+
+                box-shadow:
+                    0 7px 18px
+                    rgba(118, 82, 19, .06) !important;
+
+                text-align: left !important;
+
+                transition:
+                    transform .18s ease,
+                    border-color .18s ease,
+                    box-shadow .18s ease,
+                    background .18s ease !important;
+            }
+
+            .admin-produto-tab:hover {
+                transform: translateY(-2px) !important;
+
+                border-color: #c99e35 !important;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fff9e5 0%,
+                        #f6e5af 100%
+                    ) !important;
+
+                box-shadow:
+                    0 10px 22px
+                    rgba(118, 82, 19, .10) !important;
+            }
+
+            .admin-produto-tab .admin-produto-icone {
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+
+                border-radius: 12px !important;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #f8e8b0,
+                        #e8c968
+                    ) !important;
+
+                font-size: 22px !important;
+            }
+
+            .admin-produto-tab > span:last-child {
+                min-width: 0 !important;
+            }
+
+            .admin-produto-tab strong {
+                display: block !important;
+                margin: 0 0 4px !important;
+
+                color: #6d0c2e !important;
+
+                font-size: 13px !important;
+                line-height: 1.2 !important;
+            }
+
+            .admin-produto-tab small {
+                display: block !important;
+
+                color: #806b62 !important;
+
+                font-size: 8.5px !important;
+                line-height: 1.35 !important;
+            }
+
+            /* Selecionado: champagne/dourado, sem marrom/terracota */
+            .admin-produto-tab.ativo,
+            .admin-produto-tab.active {
+                border: 2px solid #c79528 !important;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #f6e2a4 0%,
+                        #eac867 100%
+                    ) !important;
+
+                color: #4e071f !important;
+
+                box-shadow:
+                    0 10px 24px
+                    rgba(121, 82, 15, .14) !important;
+            }
+
+            .admin-produto-tab.ativo strong,
+            .admin-produto-tab.ativo small,
+            .admin-produto-tab.active strong,
+            .admin-produto-tab.active small {
+                color: #5d0a25 !important;
+            }
+
+            .admin-produto-tab.ativo .admin-produto-icone,
+            .admin-produto-tab.active .admin-produto-icone {
+                background:
+                    rgba(255, 253, 239, .72) !important;
+
+                box-shadow:
+                    inset 0 0 0 1px
+                    rgba(109, 12, 46, .08) !important;
+            }
+
+            /* Indicadores mais compactos */
+            .painel-indicadores-encomendas {
+                gap: 12px !important;
+                margin: 0 0 18px !important;
+            }
+
+            .painel-indicadores-encomendas .painel-indicador {
+                min-height: 96px !important;
+                padding: 16px 18px !important;
+
+                border-color: #d9b75c !important;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffef9 0%,
+                        #fff5d2 100%
+                    ) !important;
+            }
+
+            .painel-indicadores-encomendas .painel-indicador span {
+                color: #806b62 !important;
+                font-size: 10px !important;
+            }
+
+            .painel-indicadores-encomendas .painel-indicador strong {
+                margin-top: 7px !important;
+                color: #6d0c2e !important;
+                font-size: 28px !important;
+            }
+
+            /* Bloco específico do Kit Festa */
+            #kitFestaAdminWrapper {
+                margin-top: 0 !important;
+            }
+
+            #kitFestaAdminWrapper .kit-admin-bloco {
+                box-shadow:
+                    0 10px 28px
+                    rgba(118, 82, 19, .07) !important;
+            }
+
+            /* -------------------------
+               TABLET
+            ------------------------- */
+            @media (max-width: 1180px) {
+                .admin-produtos-encomenda {
+                    grid-template-columns:
+                        repeat(3, minmax(0, 1fr)) !important;
+                }
+            }
+
+            @media (max-width: 820px) {
+                .admin-produtos-encomenda {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+
+                    gap: 10px !important;
+                }
+
+                .admin-produto-tab {
+                    min-height: 78px !important;
+                    padding: 12px !important;
+                }
+
+                .painel-indicadores-encomendas {
+                    grid-template-columns:
+                        repeat(3, minmax(0, 1fr)) !important;
+                }
+            }
+
+            /* -------------------------
+               MOBILE
+            ------------------------- */
+            @media (max-width: 600px) {
+                .painel-secao-topo-encomendas {
+                    margin-bottom: 14px !important;
+                }
+
+                .admin-produtos-encomenda {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+
+                    gap: 9px !important;
+
+                    margin-bottom: 14px !important;
+                }
+
+                .admin-produto-tab {
+                    min-height: 92px !important;
+
+                    padding: 12px 10px !important;
+
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    justify-content: center !important;
+
+                    gap: 8px !important;
+                }
+
+                .admin-produto-tab .admin-produto-icone {
+                    width: 38px !important;
+                    height: 38px !important;
+                    min-width: 38px !important;
+
+                    font-size: 19px !important;
+                }
+
+                .admin-produto-tab strong {
+                    font-size: 12px !important;
+                }
+
+                .admin-produto-tab small {
+                    font-size: 7.7px !important;
+                }
+
+                .painel-indicadores-encomendas {
+                    grid-template-columns: 1fr !important;
+
+                    gap: 8px !important;
+
+                    margin-bottom: 14px !important;
+                }
+
+                .painel-indicadores-encomendas .painel-indicador {
+                    min-height: 72px !important;
+
+                    padding: 12px 14px !important;
+                }
+
+                .painel-indicadores-encomendas .painel-indicador {
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: space-between !important;
+                    gap: 12px !important;
+                }
+
+                .painel-indicadores-encomendas .painel-indicador strong {
+                    margin-top: 0 !important;
+                    font-size: 24px !important;
+                }
+
+                .kit-admin-bloco-topo {
+                    padding: 15px !important;
+                }
+
+                .lista-kits-admin,
+                .kit-sabores-admin {
+                    padding: 12px !important;
+                }
+            }
+
+            /* Celulares menores: 1 card por linha */
+            @media (max-width: 420px) {
+                .admin-produtos-encomenda {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .admin-produto-tab {
+                    min-height: 72px !important;
+
+                    flex-direction: row !important;
+                    align-items: center !important;
+
+                    padding: 11px 12px !important;
+                }
+
+                .admin-produto-tab .admin-produto-icone {
+                    width: 40px !important;
+                    height: 40px !important;
+                    min-width: 40px !important;
+                }
+            }
+
         </style>
     </head>
     <body class="pagina-painel">
 
     <header class="painel-topo">
         <div>
+            <img class="painel-logo-marca" src="logo-gorete-festas.png" alt="Gorete Festas">
             <span>PAINEL ADMINISTRATIVO</span>
-            <h1>Gorete Festass</h1>
         </div>
 
         <div class="painel-topo-acoes">
@@ -794,6 +1521,14 @@
                         <small>Sabores, tamanhos e valores</small>
                     </span>
                 </button>
+
+                <button class="admin-produto-tab" type="button" data-produto="kit">
+                    <span class="admin-produto-icone">🎉</span>
+                    <span>
+                        <strong>Kit Festa</strong>
+                        <small>Kits, valores e sabores</small>
+                    </span>
+                </button>
             </div>
 
             <section class="painel-indicadores painel-indicadores-encomendas">
@@ -850,6 +1585,74 @@
                     </div>
                 </section>
             </div>
+
+            <section class="kit-festa-admin-wrapper" id="kitFestaAdminWrapper" hidden>
+
+                <section class="kit-admin-bloco">
+                    <div class="kit-admin-bloco-topo">
+                        <div>
+                            <span>KIT FESTA</span>
+                            <h4>Modelos de kit</h4>
+                            <p>
+                                Altere quantidades, valores, limites de sabores e disponibilidade.
+                                As mudanças serão usadas pelo site sem precisar editar código.
+                            </p>
+                        </div>
+
+                        <button class="btn-adicionar-grupo" type="button" id="btnNovoKitFesta">
+                            + Novo kit
+                        </button>
+                    </div>
+
+                    <div id="listaKitsFestaAdmin" class="lista-kits-admin">
+                        <p class="painel-carregando">Carregando kits...</p>
+                    </div>
+                </section>
+
+                <section class="kit-admin-bloco">
+                    <div class="kit-admin-bloco-topo">
+                        <div>
+                            <span>SABORES DO KIT</span>
+                            <h4>Sabores disponíveis</h4>
+                            <p>
+                                Cadastre sabores de bolo, docinho e cupcake e escolha em quais kits
+                                cada sabor poderá aparecer.
+                            </p>
+                        </div>
+
+                        <button class="btn-adicionar-grupo" type="button" id="btnNovoSaborKit">
+                            + Novo sabor
+                        </button>
+                    </div>
+
+                    <div class="kit-sabores-admin">
+                        <section class="kit-sabor-coluna">
+                            <div class="kit-sabor-coluna-topo">
+                                <h5>🎂 Recheio do bolo</h5>
+                                <p>Sabores disponíveis para o bolo do kit.</p>
+                            </div>
+                            <div id="listaSaboresKitBolo" class="kit-sabor-lista"></div>
+                        </section>
+
+                        <section class="kit-sabor-coluna">
+                            <div class="kit-sabor-coluna-topo">
+                                <h5>🍬 Docinhos</h5>
+                                <p>Sabores disponíveis para os docinhos do kit.</p>
+                            </div>
+                            <div id="listaSaboresKitDocinho" class="kit-sabor-lista"></div>
+                        </section>
+
+                        <section class="kit-sabor-coluna">
+                            <div class="kit-sabor-coluna-topo">
+                                <h5>🧁 Cupcakes</h5>
+                                <p>Sabores disponíveis para os cupcakes do kit.</p>
+                            </div>
+                            <div id="listaSaboresKitCupcake" class="kit-sabor-lista"></div>
+                        </section>
+                    </div>
+                </section>
+
+            </section>
         </section>
 
 
@@ -1139,6 +1942,177 @@
         </div>
     </div>
 
+
+    <div class="modal-admin" id="modalKitFesta">
+        <div class="modal-admin-conteudo modal-opcao-simplificado">
+            <div class="modal-admin-topo">
+                <div>
+                    <span>KIT FESTA</span>
+                    <h2 id="tituloModalKitFesta">Novo Kit Festa</h2>
+                    <p class="modal-admin-subtitulo">
+                        Configure o que vem no kit e os respectivos valores.
+                    </p>
+                </div>
+                <button type="button" id="fecharModalKitFesta" class="btn-fechar-modal">×</button>
+            </div>
+
+            <form id="formKitFesta">
+                <input type="hidden" id="kitFestaId">
+
+                <div class="campo-admin">
+                    <label for="nomeKitFesta">Nome do kit</label>
+                    <input type="text" id="nomeKitFesta" placeholder="Ex.: Kit Festa 20 Fatias" required>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="descricaoKitFesta">Descrição <small>(opcional)</small></label>
+                    <textarea id="descricaoKitFesta" rows="3" placeholder="Ex.: 1 bolo + cupcakes + docinhos"></textarea>
+                </div>
+
+                <div class="kit-modal-grid-3">
+                    <div class="campo-admin">
+                        <label for="fatiasKitFesta">Fatias do bolo</label>
+                        <input type="number" id="fatiasKitFesta" min="0" step="1" required>
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="cupcakesKitFesta">Cupcakes</label>
+                        <input type="number" id="cupcakesKitFesta" min="0" step="1" required>
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="docinhosKitFesta">Docinhos</label>
+                        <input type="number" id="docinhosKitFesta" min="0" step="1" required>
+                    </div>
+                </div>
+
+                <div class="kit-modal-grid">
+                    <div class="campo-admin">
+                        <label for="precoKitFesta">Valor do kit</label>
+                        <div class="campo-preco-admin">
+                            <span>R$</span>
+                            <input type="number" id="precoKitFesta" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="precoAvistaKitFesta">Valor à vista <small>(opcional)</small></label>
+                        <div class="campo-preco-admin">
+                            <span>R$</span>
+                            <input type="number" id="precoAvistaKitFesta" min="0" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kit-modal-grid-3">
+                    <div class="campo-admin">
+                        <label for="maxSaboresBoloKit">Máx. sabores do bolo</label>
+                        <input type="number" id="maxSaboresBoloKit" min="0" step="1" value="1">
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="maxSaboresDocinhosKit">Máx. sabores dos docinhos</label>
+                        <input type="number" id="maxSaboresDocinhosKit" min="0" step="1" value="1">
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="maxSaboresCupcakesKit">Máx. sabores dos cupcakes</label>
+                        <input type="number" id="maxSaboresCupcakesKit" min="0" step="1" value="1">
+                    </div>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="ordemKitFesta">Ordem de exibição</label>
+                    <input type="number" id="ordemKitFesta" min="0" step="1" value="0">
+                </div>
+
+                <label class="campo-status-admin campo-status-card">
+                    <input type="checkbox" id="ativoKitFesta" checked>
+                    <span>
+                        <strong>Disponível no site</strong>
+                        <small>Desmarque para ocultar o kit temporariamente.</small>
+                    </span>
+                </label>
+
+                <p id="mensagemKitFesta" class="mensagem-admin"></p>
+
+                <div class="modal-admin-acoes">
+                    <button type="button" id="cancelarKitFesta" class="btn-admin-secundario">Cancelar</button>
+                    <button type="submit" class="btn-admin-principal">Salvar kit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-admin" id="modalSaborKit">
+        <div class="modal-admin-conteudo modal-opcao-simplificado">
+            <div class="modal-admin-topo">
+                <div>
+                    <span>KIT FESTA</span>
+                    <h2 id="tituloModalSaborKit">Novo sabor</h2>
+                    <p class="modal-admin-subtitulo">
+                        Cadastre o sabor e defina em quais kits ele poderá ser escolhido.
+                    </p>
+                </div>
+                <button type="button" id="fecharModalSaborKit" class="btn-fechar-modal">×</button>
+            </div>
+
+            <form id="formSaborKit">
+                <input type="hidden" id="saborKitId">
+
+                <div class="kit-modal-grid">
+                    <div class="campo-admin">
+                        <label for="nomeSaborKit">Nome do sabor</label>
+                        <input type="text" id="nomeSaborKit" placeholder="Ex.: Brigadeiro" required>
+                    </div>
+
+                    <div class="campo-admin">
+                        <label for="categoriaSaborKit">Categoria</label>
+                        <select id="categoriaSaborKit" required>
+                            <option value="bolo">Recheio do bolo</option>
+                            <option value="docinho">Docinho</option>
+                            <option value="cupcake">Cupcake</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="descricaoSaborKit">Descrição <small>(opcional)</small></label>
+                    <textarea id="descricaoSaborKit" rows="3"></textarea>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="ordemSaborKit">Ordem de exibição</label>
+                    <input type="number" id="ordemSaborKit" min="0" step="1" value="0">
+                </div>
+
+                <div class="kit-permissoes">
+                    <strong>Disponível em quais kits?</strong>
+                    <p>Marque os kits nos quais este sabor poderá aparecer.</p>
+                    <div id="kitsPermitidosSabor" class="kit-permissoes-lista">
+                        <span class="painel-carregando">Carregando kits...</span>
+                    </div>
+                </div>
+
+                <label class="campo-status-admin campo-status-card">
+                    <input type="checkbox" id="ativoSaborKit" checked>
+                    <span>
+                        <strong>Sabor disponível</strong>
+                        <small>Desmarque para ocultar temporariamente.</small>
+                    </span>
+                </label>
+
+                <p id="mensagemSaborKit" class="mensagem-admin"></p>
+
+                <div class="modal-admin-acoes">
+                    <button type="button" id="cancelarSaborKit" class="btn-admin-secundario">Cancelar</button>
+                    <button type="submit" class="btn-admin-principal">Salvar sabor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
     const SUPABASE_URL = "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
     const SUPABASE_KEY = "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
@@ -1182,6 +2156,10 @@
     let opcoesCarregadas = [];
     let produtoEncomendaSelecionado = "bolo";
     let regrasCarregadas = [];
+
+    let kitsFestaCarregados = [];
+    let saboresKitCarregados = [];
+    let saboresPermitidosKit = [];
 
     async function verificarLogin() {
         const { data } = await supabasePainel.auth.getSession();
@@ -1759,6 +2737,27 @@
         document.querySelectorAll(".admin-produto-tab").forEach(function(botao) {
             botao.classList.toggle("ativo", botao.dataset.produto === tipo);
         });
+
+        const wrapperPadrao = document.querySelector(".admin-grupos-wrapper");
+        const indicadores = document.querySelector(".painel-indicadores-encomendas");
+        const wrapperKit = document.getElementById("kitFestaAdminWrapper");
+
+        if (tipo === "kit") {
+            if (wrapperPadrao) wrapperPadrao.hidden = true;
+            if (wrapperKit) wrapperKit.hidden = false;
+
+            document.getElementById("rotuloTotalOpcoes").textContent = "Kits cadastrados";
+            document.getElementById("rotuloOpcoesAtivas").textContent = "Ativos no site";
+            document.getElementById("rotuloOpcoesInativas").textContent = "Inativos";
+
+            atualizarIndicadoresKits();
+            carregarKitFestaAdmin();
+            return;
+        }
+
+        if (wrapperPadrao) wrapperPadrao.hidden = false;
+        if (wrapperKit) wrapperKit.hidden = true;
+        if (indicadores) indicadores.hidden = false;
 
         const config = configuracaoProdutos[tipo];
         const btnRegra = document.getElementById("btnNovaRegra");
@@ -3260,6 +4259,634 @@
     document.getElementById("cancelarRegra").addEventListener("click", fecharModalRegra);
 
 
+
+    /* =========================================================
+       KIT FESTA — ADMINISTRAÇÃO
+    ========================================================= */
+
+    const modalKitFesta = document.getElementById("modalKitFesta");
+    const modalSaborKit = document.getElementById("modalSaborKit");
+    const formKitFesta = document.getElementById("formKitFesta");
+    const formSaborKit = document.getElementById("formSaborKit");
+    const mensagemKitFesta = document.getElementById("mensagemKitFesta");
+    const mensagemSaborKit = document.getElementById("mensagemSaborKit");
+
+    function atualizarIndicadoresKits() {
+        const total = kitsFestaCarregados.length;
+        const ativos = kitsFestaCarregados.filter(item => item.ativo).length;
+
+        document.getElementById("totalOpcoes").textContent = total;
+        document.getElementById("totalOpcoesAtivas").textContent = ativos;
+        document.getElementById("totalOpcoesInativas").textContent = total - ativos;
+    }
+
+    async function carregarKitFestaAdmin() {
+        const lista = document.getElementById("listaKitsFestaAdmin");
+
+        if (lista) {
+            lista.innerHTML = '<p class="painel-carregando">Carregando kits...</p>';
+        }
+
+        const [resultadoKits, resultadoSabores, resultadoPermitidos] = await Promise.all([
+            supabasePainel
+                .from("kits_festa")
+                .select("*")
+                .order("ordem", { ascending: true })
+                .order("id", { ascending: true }),
+
+            supabasePainel
+                .from("kit_festa_sabores")
+                .select("*")
+                .order("categoria", { ascending: true })
+                .order("ordem", { ascending: true })
+                .order("id", { ascending: true }),
+
+            supabasePainel
+                .from("kit_festa_sabores_permitidos")
+                .select("*")
+        ]);
+
+        if (resultadoKits.error) {
+            console.error(resultadoKits.error);
+
+            if (lista) {
+                lista.innerHTML = `
+                    <div class="painel-vazio">
+                        <span>⚠️</span>
+                        <h3>Não foi possível carregar os kits</h3>
+                        <p>Confira se o SQL do Kit Festa foi executado no Supabase.</p>
+                    </div>
+                `;
+            }
+
+            return;
+        }
+
+        if (resultadoSabores.error) {
+            console.error(resultadoSabores.error);
+        }
+
+        if (resultadoPermitidos.error) {
+            console.error(resultadoPermitidos.error);
+        }
+
+        kitsFestaCarregados = resultadoKits.data || [];
+        saboresKitCarregados = resultadoSabores.data || [];
+        saboresPermitidosKit = resultadoPermitidos.data || [];
+
+        atualizarIndicadoresKits();
+        renderizarKitsFesta();
+        renderizarSaboresKit();
+    }
+
+    function renderizarKitsFesta() {
+        const lista = document.getElementById("listaKitsFestaAdmin");
+
+        if (!lista) return;
+
+        if (kitsFestaCarregados.length === 0) {
+            lista.innerHTML = `
+                <div class="painel-vazio">
+                    <span>🎉</span>
+                    <h3>Nenhum Kit Festa cadastrado</h3>
+                    <p>Clique em “Novo kit” para cadastrar o primeiro modelo.</p>
+                </div>
+            `;
+            return;
+        }
+
+        lista.innerHTML = "";
+
+        kitsFestaCarregados.forEach(function(kit) {
+            const card = document.createElement("article");
+
+            card.className =
+                `kit-admin-card ${kit.ativo ? "" : "kit-admin-card-inativo"}`;
+
+            const precoAvista = kit.preco_avista !== null && kit.preco_avista !== undefined
+                ? `<small>À vista: <b>${formatarMoeda(kit.preco_avista)}</b></small>`
+                : "";
+
+            card.innerHTML = `
+                <div>
+                    <div class="kit-admin-card-topo">
+                        <h5>${escaparHtml(kit.nome)}</h5>
+                        <span class="${kit.ativo ? "status-ativo" : "status-inativo"}">
+                            ${kit.ativo ? "Ativo" : "Inativo"}
+                        </span>
+                    </div>
+
+                    <div class="kit-admin-composicao">
+                        <span>🎂 ${Number(kit.fatias_bolo || 0)} fatias</span>
+                        <span>🧁 ${Number(kit.quantidade_cupcakes || 0)} cupcakes</span>
+                        <span>🍬 ${Number(kit.quantidade_docinhos || 0)} docinhos</span>
+                    </div>
+
+                    ${kit.descricao
+                        ? `<p class="kit-admin-descricao">${escaparHtml(kit.descricao)}</p>`
+                        : ""
+                    }
+                </div>
+
+                <div class="kit-admin-lateral">
+                    <div class="kit-admin-precos">
+                        <strong>${formatarMoeda(kit.preco)}</strong>
+                        ${precoAvista}
+                    </div>
+
+                    <div class="kit-admin-acoes">
+                        <button
+                            type="button"
+                            class="btn-kit-editar"
+                            data-acao-kit="editar"
+                            data-id="${kit.id}"
+                        >
+                            Editar
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-kit-status"
+                            data-acao-kit="status"
+                            data-id="${kit.id}"
+                            data-status="${!kit.ativo}"
+                        >
+                            ${kit.ativo ? "Desativar" : "Ativar"}
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-kit-excluir"
+                            data-acao-kit="excluir"
+                            data-id="${kit.id}"
+                            data-nome="${escaparHtml(kit.nome)}"
+                        >
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            card._kitDados = kit;
+            lista.appendChild(card);
+        });
+    }
+
+    function renderizarSaboresKit() {
+        const destinos = {
+            bolo: document.getElementById("listaSaboresKitBolo"),
+            docinho: document.getElementById("listaSaboresKitDocinho"),
+            cupcake: document.getElementById("listaSaboresKitCupcake")
+        };
+
+        Object.entries(destinos).forEach(function([categoria, destino]) {
+            if (!destino) return;
+
+            const sabores = saboresKitCarregados.filter(
+                item => item.categoria === categoria
+            );
+
+            if (sabores.length === 0) {
+                destino.innerHTML = `
+                    <div class="kit-sabor-vazio">
+                        Nenhum sabor cadastrado nesta categoria.
+                    </div>
+                `;
+                return;
+            }
+
+            destino.innerHTML = "";
+
+            sabores.forEach(function(sabor) {
+                const quantidadeKits = saboresPermitidosKit.filter(
+                    item => Number(item.sabor_id) === Number(sabor.id)
+                ).length;
+
+                const item = document.createElement("article");
+                item.className = "kit-sabor-item";
+
+                item.innerHTML = `
+                    <div>
+                        <strong>${escaparHtml(sabor.nome)}</strong>
+                        <small>
+                            ${sabor.ativo ? "Ativo" : "Inativo"}
+                            • ${quantidadeKits} ${quantidadeKits === 1 ? "kit" : "kits"}
+                        </small>
+                    </div>
+
+                    <div class="kit-sabor-item-acoes">
+                        <button
+                            type="button"
+                            class="btn-sabor-editar"
+                            data-acao-sabor-kit="editar"
+                            data-id="${sabor.id}"
+                        >
+                            Editar
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-sabor-excluir"
+                            data-acao-sabor-kit="excluir"
+                            data-id="${sabor.id}"
+                            data-nome="${escaparHtml(sabor.nome)}"
+                        >
+                            Excluir
+                        </button>
+                    </div>
+                `;
+
+                item._saborDados = sabor;
+                destino.appendChild(item);
+            });
+        });
+    }
+
+    function abrirNovoKitFesta() {
+        formKitFesta.reset();
+
+        document.getElementById("kitFestaId").value = "";
+        document.getElementById("tituloModalKitFesta").textContent = "Novo Kit Festa";
+        document.getElementById("ativoKitFesta").checked = true;
+        document.getElementById("maxSaboresBoloKit").value = "1";
+        document.getElementById("maxSaboresDocinhosKit").value = "1";
+        document.getElementById("maxSaboresCupcakesKit").value = "1";
+        document.getElementById("ordemKitFesta").value =
+            String(kitsFestaCarregados.length + 1);
+
+        mensagemKitFesta.textContent = "";
+        mensagemKitFesta.className = "mensagem-admin";
+
+        modalKitFesta.classList.add("aberto");
+    }
+
+    function editarKitFesta(kit) {
+        document.getElementById("kitFestaId").value = kit.id;
+        document.getElementById("nomeKitFesta").value = kit.nome || "";
+        document.getElementById("descricaoKitFesta").value = kit.descricao || "";
+        document.getElementById("fatiasKitFesta").value = Number(kit.fatias_bolo || 0);
+        document.getElementById("cupcakesKitFesta").value = Number(kit.quantidade_cupcakes || 0);
+        document.getElementById("docinhosKitFesta").value = Number(kit.quantidade_docinhos || 0);
+        document.getElementById("precoKitFesta").value = Number(kit.preco || 0);
+        document.getElementById("precoAvistaKitFesta").value =
+            kit.preco_avista ?? "";
+        document.getElementById("maxSaboresBoloKit").value =
+            Number(kit.max_sabores_bolo || 0);
+        document.getElementById("maxSaboresDocinhosKit").value =
+            Number(kit.max_sabores_docinhos || 0);
+        document.getElementById("maxSaboresCupcakesKit").value =
+            Number(kit.max_sabores_cupcakes || 0);
+        document.getElementById("ordemKitFesta").value =
+            Number(kit.ordem || 0);
+        document.getElementById("ativoKitFesta").checked = !!kit.ativo;
+
+        document.getElementById("tituloModalKitFesta").textContent = "Editar Kit Festa";
+
+        mensagemKitFesta.textContent = "";
+        mensagemKitFesta.className = "mensagem-admin";
+
+        modalKitFesta.classList.add("aberto");
+    }
+
+    function fecharModalKitFesta() {
+        modalKitFesta.classList.remove("aberto");
+    }
+
+    formKitFesta.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("kitFestaId").value;
+
+        const registro = {
+            nome: document.getElementById("nomeKitFesta").value.trim(),
+            descricao: document.getElementById("descricaoKitFesta").value.trim() || null,
+            fatias_bolo: Number(document.getElementById("fatiasKitFesta").value || 0),
+            quantidade_cupcakes: Number(document.getElementById("cupcakesKitFesta").value || 0),
+            quantidade_docinhos: Number(document.getElementById("docinhosKitFesta").value || 0),
+            preco: Number(document.getElementById("precoKitFesta").value || 0),
+            preco_avista: document.getElementById("precoAvistaKitFesta").value
+                ? Number(document.getElementById("precoAvistaKitFesta").value)
+                : null,
+            max_sabores_bolo: Number(document.getElementById("maxSaboresBoloKit").value || 0),
+            max_sabores_docinhos: Number(document.getElementById("maxSaboresDocinhosKit").value || 0),
+            max_sabores_cupcakes: Number(document.getElementById("maxSaboresCupcakesKit").value || 0),
+            ordem: Number(document.getElementById("ordemKitFesta").value || 0),
+            ativo: document.getElementById("ativoKitFesta").checked
+        };
+
+        mensagemKitFesta.textContent = "Salvando...";
+        mensagemKitFesta.className = "mensagem-admin";
+
+        let resultado;
+
+        if (id) {
+            resultado = await supabasePainel
+                .from("kits_festa")
+                .update(registro)
+                .eq("id", Number(id));
+        } else {
+            resultado = await supabasePainel
+                .from("kits_festa")
+                .insert(registro);
+        }
+
+        if (resultado.error) {
+            console.error(resultado.error);
+            mensagemKitFesta.textContent = "Não foi possível salvar o kit.";
+            mensagemKitFesta.className = "mensagem-admin erro";
+            return;
+        }
+
+        mensagemKitFesta.textContent = "Kit salvo com sucesso.";
+        mensagemKitFesta.className = "mensagem-admin sucesso";
+
+        await carregarKitFestaAdmin();
+
+        setTimeout(fecharModalKitFesta, 450);
+    });
+
+    async function alterarStatusKitFesta(id, ativo) {
+        const { error } = await supabasePainel
+            .from("kits_festa")
+            .update({ ativo })
+            .eq("id", Number(id));
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível alterar o status do kit.");
+            return;
+        }
+
+        await carregarKitFestaAdmin();
+    }
+
+    async function excluirKitFesta(id, nome) {
+        if (!confirm(`Deseja realmente excluir "${nome}"?`)) {
+            return;
+        }
+
+        const { error } = await supabasePainel
+            .from("kits_festa")
+            .delete()
+            .eq("id", Number(id));
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível excluir o kit.");
+            return;
+        }
+
+        await carregarKitFestaAdmin();
+    }
+
+    function montarCheckboxesKitsPermitidos(saborId = null) {
+        const destino = document.getElementById("kitsPermitidosSabor");
+
+        if (!destino) return;
+
+        if (kitsFestaCarregados.length === 0) {
+            destino.innerHTML = '<span class="painel-vazio">Cadastre um kit primeiro.</span>';
+            return;
+        }
+
+        const permitidos = new Set(
+            saboresPermitidosKit
+                .filter(item => Number(item.sabor_id) === Number(saborId))
+                .map(item => Number(item.kit_id))
+        );
+
+        destino.innerHTML = kitsFestaCarregados
+            .map(kit => `
+                <label class="kit-permissao-item">
+                    <input
+                        type="checkbox"
+                        name="kitPermitidoSabor"
+                        value="${kit.id}"
+                        ${permitidos.has(Number(kit.id)) ? "checked" : ""}
+                    >
+                    <span>${escaparHtml(kit.nome)}</span>
+                </label>
+            `)
+            .join("");
+    }
+
+    function abrirNovoSaborKit() {
+        formSaborKit.reset();
+
+        document.getElementById("saborKitId").value = "";
+        document.getElementById("tituloModalSaborKit").textContent = "Novo sabor";
+        document.getElementById("categoriaSaborKit").value = "bolo";
+        document.getElementById("ordemSaborKit").value = "0";
+        document.getElementById("ativoSaborKit").checked = true;
+
+        mensagemSaborKit.textContent = "";
+        mensagemSaborKit.className = "mensagem-admin";
+
+        montarCheckboxesKitsPermitidos(null);
+
+        modalSaborKit.classList.add("aberto");
+    }
+
+    function editarSaborKit(sabor) {
+        document.getElementById("saborKitId").value = sabor.id;
+        document.getElementById("nomeSaborKit").value = sabor.nome || "";
+        document.getElementById("categoriaSaborKit").value = sabor.categoria || "bolo";
+        document.getElementById("descricaoSaborKit").value = sabor.descricao || "";
+        document.getElementById("ordemSaborKit").value = Number(sabor.ordem || 0);
+        document.getElementById("ativoSaborKit").checked = !!sabor.ativo;
+
+        document.getElementById("tituloModalSaborKit").textContent = "Editar sabor";
+
+        mensagemSaborKit.textContent = "";
+        mensagemSaborKit.className = "mensagem-admin";
+
+        montarCheckboxesKitsPermitidos(sabor.id);
+
+        modalSaborKit.classList.add("aberto");
+    }
+
+    function fecharModalSaborKit() {
+        modalSaborKit.classList.remove("aberto");
+    }
+
+    formSaborKit.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const idAtual = document.getElementById("saborKitId").value;
+
+        const registro = {
+            nome: document.getElementById("nomeSaborKit").value.trim(),
+            categoria: document.getElementById("categoriaSaborKit").value,
+            descricao: document.getElementById("descricaoSaborKit").value.trim() || null,
+            ordem: Number(document.getElementById("ordemSaborKit").value || 0),
+            ativo: document.getElementById("ativoSaborKit").checked
+        };
+
+        mensagemSaborKit.textContent = "Salvando...";
+        mensagemSaborKit.className = "mensagem-admin";
+
+        let saborId = idAtual ? Number(idAtual) : null;
+        let resultado;
+
+        if (saborId) {
+            resultado = await supabasePainel
+                .from("kit_festa_sabores")
+                .update(registro)
+                .eq("id", saborId);
+        } else {
+            resultado = await supabasePainel
+                .from("kit_festa_sabores")
+                .insert(registro)
+                .select("id")
+                .single();
+
+            if (!resultado.error) {
+                saborId = Number(resultado.data.id);
+            }
+        }
+
+        if (resultado.error) {
+            console.error(resultado.error);
+            mensagemSaborKit.textContent =
+                resultado.error.code === "23505"
+                    ? "Este sabor já existe nesta categoria."
+                    : "Não foi possível salvar o sabor.";
+            mensagemSaborKit.className = "mensagem-admin erro";
+            return;
+        }
+
+        const kitsMarcados = Array.from(
+            document.querySelectorAll('input[name="kitPermitidoSabor"]:checked')
+        ).map(input => Number(input.value));
+
+        const exclusao = await supabasePainel
+            .from("kit_festa_sabores_permitidos")
+            .delete()
+            .eq("sabor_id", saborId);
+
+        if (exclusao.error) {
+            console.error(exclusao.error);
+            mensagemSaborKit.textContent = "Sabor salvo, mas não foi possível atualizar os kits permitidos.";
+            mensagemSaborKit.className = "mensagem-admin erro";
+            return;
+        }
+
+        if (kitsMarcados.length > 0) {
+            const relacoes = kitsMarcados.map(kitId => ({
+                kit_id: kitId,
+                sabor_id: saborId
+            }));
+
+            const inclusao = await supabasePainel
+                .from("kit_festa_sabores_permitidos")
+                .insert(relacoes);
+
+            if (inclusao.error) {
+                console.error(inclusao.error);
+                mensagemSaborKit.textContent = "Sabor salvo, mas houve erro ao vincular os kits.";
+                mensagemSaborKit.className = "mensagem-admin erro";
+                return;
+            }
+        }
+
+        mensagemSaborKit.textContent = "Sabor salvo com sucesso.";
+        mensagemSaborKit.className = "mensagem-admin sucesso";
+
+        await carregarKitFestaAdmin();
+
+        setTimeout(fecharModalSaborKit, 450);
+    });
+
+    async function excluirSaborKit(id, nome) {
+        if (!confirm(`Deseja realmente excluir o sabor "${nome}"?`)) {
+            return;
+        }
+
+        const { error } = await supabasePainel
+            .from("kit_festa_sabores")
+            .delete()
+            .eq("id", Number(id));
+
+        if (error) {
+            console.error(error);
+            alert("Não foi possível excluir o sabor.");
+            return;
+        }
+
+        await carregarKitFestaAdmin();
+    }
+
+    document.getElementById("btnNovoKitFesta").addEventListener("click", abrirNovoKitFesta);
+    document.getElementById("fecharModalKitFesta").addEventListener("click", fecharModalKitFesta);
+    document.getElementById("cancelarKitFesta").addEventListener("click", fecharModalKitFesta);
+
+    document.getElementById("btnNovoSaborKit").addEventListener("click", abrirNovoSaborKit);
+    document.getElementById("fecharModalSaborKit").addEventListener("click", fecharModalSaborKit);
+    document.getElementById("cancelarSaborKit").addEventListener("click", fecharModalSaborKit);
+
+    document.getElementById("listaKitsFestaAdmin").addEventListener("click", function(event) {
+        const botao = event.target.closest("button[data-acao-kit]");
+
+        if (!botao) return;
+
+        const acao = botao.dataset.acaoKit;
+        const id = Number(botao.dataset.id);
+
+        if (acao === "editar") {
+            const kit = kitsFestaCarregados.find(item => Number(item.id) === id);
+            if (kit) editarKitFesta(kit);
+        }
+
+        if (acao === "status") {
+            alterarStatusKitFesta(
+                id,
+                botao.dataset.status === "true"
+            );
+        }
+
+        if (acao === "excluir") {
+            excluirKitFesta(id, botao.dataset.nome);
+        }
+    });
+
+    document.querySelectorAll(
+        "#listaSaboresKitBolo, #listaSaboresKitDocinho, #listaSaboresKitCupcake"
+    ).forEach(function(lista) {
+        lista.addEventListener("click", function(event) {
+            const botao = event.target.closest("button[data-acao-sabor-kit]");
+
+            if (!botao) return;
+
+            const id = Number(botao.dataset.id);
+            const acao = botao.dataset.acaoSaborKit;
+
+            if (acao === "editar") {
+                const sabor = saboresKitCarregados.find(
+                    item => Number(item.id) === id
+                );
+
+                if (sabor) editarSaborKit(sabor);
+            }
+
+            if (acao === "excluir") {
+                excluirSaborKit(id, botao.dataset.nome);
+            }
+        });
+    });
+
+    modalKitFesta.addEventListener("click", function(event) {
+        if (event.target === modalKitFesta) {
+            fecharModalKitFesta();
+        }
+    });
+
+    modalSaborKit.addEventListener("click", function(event) {
+        if (event.target === modalSaborKit) {
+            fecharModalSaborKit();
+        }
+    });
+
+
     document.querySelectorAll(".admin-produto-tab").forEach(function(botao) {
         botao.addEventListener("click", function() {
             selecionarProdutoEncomenda(botao.dataset.produto);
@@ -3311,7 +4938,8 @@
             carregarFatias(),
             carregarOpcoes(),
             carregarRegras(),
-            carregarPedidosAdmin()
+            carregarPedidosAdmin(),
+            carregarKitFestaAdmin()
         ]);
     }
 

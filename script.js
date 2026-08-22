@@ -1439,6 +1439,91 @@ function renderizarCarrinho() {
         }
 
 
+        /* KIT FESTA */
+
+        else if (
+            item.tipo ===
+            "kit-festa"
+        ) {
+
+            elemento.innerHTML = `
+
+                <div>
+
+                    <h3>
+                        🎉 ${item.nome}
+                    </h3>
+
+                    <div class="detalhes-item">
+
+                        <p>
+                            <strong>Composição:</strong>
+                            ${item.composicao}
+                        </p>
+
+                        ${item.recheiosBolo?.length ? `
+                            <p>
+                                <strong>Recheio do bolo:</strong>
+                                ${item.recheiosBolo.join(", ")}
+                            </p>
+                        ` : ""}
+
+                        ${item.saboresDocinhos?.length ? `
+                            <p>
+                                <strong>Sabores dos docinhos:</strong>
+                                ${item.saboresDocinhos.join(", ")}
+                            </p>
+                        ` : ""}
+
+                        ${item.saboresCupcakes?.length ? `
+                            <p>
+                                <strong>Sabores dos cupcakes:</strong>
+                                ${item.saboresCupcakes.join(", ")}
+                            </p>
+                        ` : ""}
+
+                        <p>
+                            <strong>Condição:</strong>
+                            ${item.formaPagamento || "Valor do kit"}
+                        </p>
+
+                        <p>
+                            <strong>Retirada:</strong>
+                            ${formatarData(item.data)}
+                            às ${item.horario}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="item-acoes">
+
+                    <span class="item-preco">
+                        ${formatarMoeda(
+                            item.preco *
+                            item.quantidade
+                        )}
+                    </span>
+
+                    <div class="controle-quantidade">
+                        <button onclick="alterarQuantidade(${item.id}, -1)">−</button>
+                        <span>${item.quantidade}</span>
+                        <button onclick="alterarQuantidade(${item.id}, 1)">+</button>
+                    </div>
+
+                    <button
+                        class="btn-remover-item"
+                        onclick="removerItemCarrinho(${item.id})"
+                    >
+                        Remover
+                    </button>
+
+                </div>
+            `;
+        }
+
+
         /* BOLO CASEIRINHO */
 
         else if (
@@ -1967,6 +2052,58 @@ function renderizarCheckout() {
                     <p>
                         <strong>Valor unitário:</strong>
                         ${formatarMoeda(item.precoUnitario)}
+                    </p>
+
+                    <p>
+                        <strong>Retirada:</strong>
+                        ${formatarData(item.data)}
+                        às ${item.horario}
+                    </p>
+
+                </div>
+
+                <div class="item-checkout-preco">
+                    ${formatarMoeda(item.preco * item.quantidade)}
+                </div>
+            `;
+
+        } else if (item.tipo === "kit-festa") {
+
+            elemento.innerHTML = `
+
+                <div class="item-checkout-info">
+
+                    <h3>🎉 ${item.nome}</h3>
+
+                    <p>
+                        <strong>Composição:</strong>
+                        ${item.composicao}
+                    </p>
+
+                    ${item.recheiosBolo?.length ? `
+                        <p>
+                            <strong>Recheio do bolo:</strong>
+                            ${item.recheiosBolo.join(", ")}
+                        </p>
+                    ` : ""}
+
+                    ${item.saboresDocinhos?.length ? `
+                        <p>
+                            <strong>Sabores dos docinhos:</strong>
+                            ${item.saboresDocinhos.join(", ")}
+                        </p>
+                    ` : ""}
+
+                    ${item.saboresCupcakes?.length ? `
+                        <p>
+                            <strong>Sabores dos cupcakes:</strong>
+                            ${item.saboresCupcakes.join(", ")}
+                        </p>
+                    ` : ""}
+
+                    <p>
+                        <strong>Condição:</strong>
+                        ${item.formaPagamento || "Valor do kit"}
                     </p>
 
                     <p>
@@ -4589,6 +4726,1102 @@ document.addEventListener(
 
 
 
+
+
+/* =====================================================
+   KIT FESTA - OPÇÕES VINDAS DO SUPABASE
+===================================================== */
+
+let kitsFestaSupabase = [];
+let saboresKitFestaSupabase = [];
+let kitFestaSelecionado = null;
+let kitFestaCarregado = false;
+
+
+async function buscarKitsFestaSupabase() {
+
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/vw_kits_festa_ativos` +
+        `?select=*&order=ordem.asc,id.asc`;
+
+    const resposta = await fetch(
+        endpoint,
+        {
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+        }
+    );
+
+    if (!resposta.ok) {
+        throw new Error("Não foi possível carregar os Kits Festa.");
+    }
+
+    return await resposta.json();
+}
+
+
+async function buscarSaboresKitFestaSupabase(kitId) {
+
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/vw_kit_festa_sabores_ativos` +
+        `?kit_id=eq.${encodeURIComponent(kitId)}` +
+        `&select=*&order=categoria.asc,ordem.asc,nome.asc`;
+
+    const resposta = await fetch(
+        endpoint,
+        {
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+        }
+    );
+
+    if (!resposta.ok) {
+        throw new Error("Não foi possível carregar os sabores do Kit Festa.");
+    }
+
+    return await resposta.json();
+}
+
+
+function composicaoTextoKit(kit) {
+
+    if (!kit) {
+        return "—";
+    }
+
+    return (
+        `1 bolo de ${Number(kit.fatias_bolo || 0)} fatias • ` +
+        `${Number(kit.quantidade_cupcakes || 0)} cupcakes • ` +
+        `${Number(kit.quantidade_docinhos || 0)} docinhos`
+    );
+}
+
+
+function renderizarKitsFesta() {
+
+    const container =
+        document.getElementById("opcoesKitFesta");
+
+    if (!container) {
+        return;
+    }
+
+    if (kitsFestaSupabase.length === 0) {
+        container.innerHTML = `
+            <div class="opcoes-indisponiveis">
+                Nenhum Kit Festa está disponível no momento.
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = "";
+
+    kitsFestaSupabase.forEach(function(kit) {
+
+        const label =
+            document.createElement("label");
+
+        label.className =
+            "opcao-card kit-opcao-card";
+
+        const temAvista =
+            kit.preco_avista !== null &&
+            kit.preco_avista !== undefined &&
+            Number(kit.preco_avista) > 0;
+
+        label.innerHTML = `
+            <input
+                type="radio"
+                name="kitFesta"
+                value="${escaparHtmlSite(kit.nome)}"
+                data-id="${kit.id}"
+            >
+
+            <span>
+                <strong>${escaparHtmlSite(kit.nome)}</strong>
+
+                <div class="kit-composicao">
+                    <span>🎂 1 bolo de ${Number(kit.fatias_bolo || 0)} fatias</span>
+                    <span>🧁 ${Number(kit.quantidade_cupcakes || 0)} cupcakes</span>
+                    <span>🍬 ${Number(kit.quantidade_docinhos || 0)} docinhos</span>
+                </div>
+
+                <div class="kit-precos">
+                    <b>${formatarMoeda(kit.preco)}</b>
+                    ${
+                        temAvista
+                            ? `<em>À vista: ${formatarMoeda(kit.preco_avista)}</em>`
+                            : ""
+                    }
+                </div>
+            </span>
+        `;
+
+        container.appendChild(label);
+    });
+}
+
+
+function saboresSelecionadosKit(categoria) {
+
+    return [
+        ...document.querySelectorAll(
+            `input[name="saborKit_${categoria}"]:checked`
+        )
+    ];
+}
+
+
+function limiteSaboresKit(categoria) {
+
+    if (!kitFestaSelecionado) {
+        return 0;
+    }
+
+    if (categoria === "bolo") {
+        return Number(
+            kitFestaSelecionado.max_sabores_bolo || 0
+        );
+    }
+
+    if (categoria === "docinho") {
+        return Number(
+            kitFestaSelecionado.max_sabores_docinhos || 0
+        );
+    }
+
+    if (categoria === "cupcake") {
+        return Number(
+            kitFestaSelecionado.max_sabores_cupcakes || 0
+        );
+    }
+
+    return 0;
+}
+
+
+function criarOpcaoSaborKit(sabor, categoria, limite) {
+
+    const label =
+        document.createElement("label");
+
+    label.className =
+        "opcao-card";
+
+    const tipoInput =
+        limite === 1
+            ? "radio"
+            : "checkbox";
+
+    label.innerHTML = `
+        <input
+            type="${tipoInput}"
+            name="saborKit_${categoria}"
+            value="${escaparHtmlSite(sabor.nome)}"
+            data-id="${sabor.sabor_id}"
+        >
+
+        <span>
+            <strong>${escaparHtmlSite(sabor.nome)}</strong>
+            ${
+                sabor.descricao
+                    ? `<small>${escaparHtmlSite(sabor.descricao)}</small>`
+                    : ""
+            }
+        </span>
+    `;
+
+    return label;
+}
+
+
+function renderizarSaboresCategoriaKit(
+    categoria,
+    idContainer,
+    idContador,
+    idLimite,
+    idAjuda,
+    idMensagem
+) {
+
+    const container =
+        document.getElementById(idContainer);
+
+    if (!container) {
+        return;
+    }
+
+    const sabores =
+        saboresKitFestaSupabase.filter(
+            item => item.categoria === categoria
+        );
+
+    const limite =
+        limiteSaboresKit(categoria);
+
+    const contador =
+        document.getElementById(idContador);
+
+    const textoLimite =
+        document.getElementById(idLimite);
+
+    const ajuda =
+        document.getElementById(idAjuda);
+
+    const mensagem =
+        document.getElementById(idMensagem);
+
+    if (contador) {
+        contador.textContent = "0";
+    }
+
+    if (textoLimite) {
+        textoLimite.textContent =
+            limite > 0
+                ? `/${limite} selecionados`
+                : " selecionados";
+    }
+
+    if (ajuda) {
+        ajuda.textContent =
+            limite > 0
+                ? (
+                    limite === 1
+                        ? "Escolha 1 sabor."
+                        : `Escolha até ${limite} sabores.`
+                )
+                : "Escolha entre os sabores disponíveis.";
+    }
+
+    if (mensagem) {
+        mensagem.textContent = "";
+    }
+
+    if (sabores.length === 0) {
+
+        container.innerHTML = `
+            <div class="opcoes-indisponiveis">
+                Nenhum sabor cadastrado nesta categoria.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    sabores.forEach(function(sabor) {
+        container.appendChild(
+            criarOpcaoSaborKit(
+                sabor,
+                categoria,
+                limite
+            )
+        );
+    });
+}
+
+
+function atualizarEstadoSaboresKit(categoria) {
+
+    const selecionados =
+        saboresSelecionadosKit(categoria);
+
+    const limite =
+        limiteSaboresKit(categoria);
+
+    const mapa = {
+        bolo: {
+            contador: "quantidadeSaboresBoloKit",
+            mensagem: "mensagemSaboresBoloKit"
+        },
+        docinho: {
+            contador: "quantidadeSaboresDocinhosKit",
+            mensagem: "mensagemSaboresDocinhosKit"
+        },
+        cupcake: {
+            contador: "quantidadeSaboresCupcakesKit",
+            mensagem: "mensagemSaboresCupcakesKit"
+        }
+    };
+
+    const config = mapa[categoria];
+
+    if (!config) {
+        return;
+    }
+
+    const contador =
+        document.getElementById(config.contador);
+
+    const mensagem =
+        document.getElementById(config.mensagem);
+
+    if (contador) {
+        contador.textContent =
+            selecionados.length;
+    }
+
+    const inputs =
+        document.querySelectorAll(
+            `input[name="saborKit_${categoria}"]`
+        );
+
+    if (limite > 1) {
+
+        inputs.forEach(function(input) {
+            input.disabled =
+                selecionados.length >= limite &&
+                !input.checked;
+        });
+
+        if (mensagem) {
+            mensagem.textContent =
+                selecionados.length >= limite
+                    ? `Você já escolheu os ${limite} sabores permitidos.`
+                    : "";
+        }
+
+    } else {
+
+        inputs.forEach(function(input) {
+            input.disabled = false;
+        });
+
+        if (mensagem) {
+            mensagem.textContent = "";
+        }
+    }
+}
+
+
+function renderizarPagamentoKit() {
+
+    const container =
+        document.getElementById(
+            "opcoesPagamentoKit"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    if (!kitFestaSelecionado) {
+
+        container.innerHTML = `
+            <div class="opcoes-indisponiveis">
+                Escolha primeiro um Kit Festa.
+            </div>
+        `;
+
+        return;
+    }
+
+    const precoNormal =
+        Number(
+            kitFestaSelecionado.preco || 0
+        );
+
+    const precoAvista =
+        Number(
+            kitFestaSelecionado.preco_avista || 0
+        );
+
+    container.innerHTML = `
+        <label class="opcao-card">
+            <input
+                type="radio"
+                name="pagamentoKitFesta"
+                value="Valor normal"
+                data-preco="${precoNormal}"
+            >
+            <span>
+                <strong>Valor do kit</strong>
+                <small>${formatarMoeda(precoNormal)}</small>
+            </span>
+        </label>
+
+        ${
+            precoAvista > 0
+                ? `
+                    <label class="opcao-card">
+                        <input
+                            type="radio"
+                            name="pagamentoKitFesta"
+                            value="Pagamento à vista"
+                            data-preco="${precoAvista}"
+                        >
+                        <span>
+                            <strong>Pagamento à vista</strong>
+                            <small>${formatarMoeda(precoAvista)}</small>
+                        </span>
+                    </label>
+                `
+                : ""
+        }
+    `;
+}
+
+
+function renumerarEtapasKitFesta() {
+
+    const etapas =
+        document.querySelectorAll(
+            "#painelKitFesta .opcoes-bolo .etapa-bolo"
+        );
+
+    let numero = 1;
+
+    etapas.forEach(function(etapa) {
+
+        const oculta =
+            etapa.hidden ||
+            getComputedStyle(etapa).display === "none";
+
+        if (oculta) {
+            return;
+        }
+
+        const marcador =
+            etapa.querySelector(
+                ".numero-etapa"
+            );
+
+        if (marcador) {
+            marcador.textContent =
+                numero;
+        }
+
+        numero++;
+    });
+}
+
+
+function atualizarResumoKitFesta() {
+
+    const resumoNome =
+        document.getElementById(
+            "resumoNomeKitFesta"
+        );
+
+    const resumoComposicao =
+        document.getElementById(
+            "resumoComposicaoKitFesta"
+        );
+
+    const resumoBolo =
+        document.getElementById(
+            "resumoSaborBoloKit"
+        );
+
+    const resumoDocinhos =
+        document.getElementById(
+            "resumoSaboresDocinhosKit"
+        );
+
+    const resumoCupcakes =
+        document.getElementById(
+            "resumoSaboresCupcakesKit"
+        );
+
+    const linhaCupcakes =
+        document.getElementById(
+            "linhaResumoCupcakesKit"
+        );
+
+    const resumoPagamento =
+        document.getElementById(
+            "resumoPagamentoKitFesta"
+        );
+
+    const campoTotal =
+        document.getElementById(
+            "valorTotalKitFesta"
+        );
+
+    const textoAvista =
+        document.getElementById(
+            "textoValorAvistaKit"
+        );
+
+    const saboresBolo =
+        saboresSelecionadosKit("bolo");
+
+    const saboresDocinhos =
+        saboresSelecionadosKit("docinho");
+
+    const saboresCupcakes =
+        saboresSelecionadosKit("cupcake");
+
+    const pagamento =
+        document.querySelector(
+            'input[name="pagamentoKitFesta"]:checked'
+        );
+
+    if (resumoNome) {
+        resumoNome.textContent =
+            kitFestaSelecionado
+                ? kitFestaSelecionado.nome
+                : "—";
+    }
+
+    if (resumoComposicao) {
+        resumoComposicao.textContent =
+            kitFestaSelecionado
+                ? composicaoTextoKit(
+                    kitFestaSelecionado
+                )
+                : "Escolha um kit para visualizar.";
+    }
+
+    if (resumoBolo) {
+        resumoBolo.textContent =
+            saboresBolo.length
+                ? saboresBolo
+                    .map(item => item.value)
+                    .join(", ")
+                : "—";
+    }
+
+    if (resumoDocinhos) {
+        resumoDocinhos.textContent =
+            saboresDocinhos.length
+                ? saboresDocinhos
+                    .map(item => item.value)
+                    .join(", ")
+                : "—";
+    }
+
+    const temSaboresCupcake =
+        saboresKitFestaSupabase.some(
+            item => item.categoria === "cupcake"
+        );
+
+    if (linhaCupcakes) {
+        linhaCupcakes.hidden =
+            !temSaboresCupcake;
+    }
+
+    if (resumoCupcakes) {
+        resumoCupcakes.textContent =
+            saboresCupcakes.length
+                ? saboresCupcakes
+                    .map(item => item.value)
+                    .join(", ")
+                : "—";
+    }
+
+    if (resumoPagamento) {
+        resumoPagamento.textContent =
+            pagamento
+                ? pagamento.value
+                : "—";
+    }
+
+    const total =
+        pagamento
+            ? Number(
+                pagamento.dataset.preco || 0
+            )
+            : 0;
+
+    if (campoTotal) {
+        campoTotal.textContent =
+            formatarMoeda(total);
+    }
+
+    if (textoAvista) {
+
+        const precoAvista =
+            Number(
+                kitFestaSelecionado
+                    ?.preco_avista || 0
+            );
+
+        textoAvista.hidden =
+            !kitFestaSelecionado ||
+            precoAvista <= 0;
+
+        if (!textoAvista.hidden) {
+            textoAvista.textContent =
+                `Valor especial à vista disponível: ${formatarMoeda(precoAvista)}`;
+        }
+    }
+}
+
+
+async function selecionarKitFesta(id) {
+
+    kitFestaSelecionado =
+        kitsFestaSupabase.find(
+            item => Number(item.id) === Number(id)
+        ) || null;
+
+    saboresKitFestaSupabase = [];
+
+    [
+        "opcoesSaboresBoloKit",
+        "opcoesSaboresDocinhosKit",
+        "opcoesSaboresCupcakesKit"
+    ].forEach(function(idContainer) {
+
+        const container =
+            document.getElementById(idContainer);
+
+        if (container) {
+            container.innerHTML =
+                '<p class="opcoes-carregando">Carregando sabores...</p>';
+        }
+    });
+
+    renderizarPagamentoKit();
+    atualizarResumoKitFesta();
+
+    if (!kitFestaSelecionado) {
+        return;
+    }
+
+    try {
+
+        saboresKitFestaSupabase =
+            await buscarSaboresKitFestaSupabase(
+                kitFestaSelecionado.id
+            );
+
+        renderizarSaboresCategoriaKit(
+            "bolo",
+            "opcoesSaboresBoloKit",
+            "quantidadeSaboresBoloKit",
+            "limiteSaboresBoloKit",
+            "ajudaSaborBoloKit",
+            "mensagemSaboresBoloKit"
+        );
+
+        renderizarSaboresCategoriaKit(
+            "docinho",
+            "opcoesSaboresDocinhosKit",
+            "quantidadeSaboresDocinhosKit",
+            "limiteSaboresDocinhosKit",
+            "ajudaSaboresDocinhosKit",
+            "mensagemSaboresDocinhosKit"
+        );
+
+        const saboresCupcake =
+            saboresKitFestaSupabase.filter(
+                item => item.categoria === "cupcake"
+            );
+
+        const etapaCupcakes =
+            document.getElementById(
+                "etapaSaboresCupcakesKit"
+            );
+
+        if (etapaCupcakes) {
+            etapaCupcakes.hidden =
+                saboresCupcake.length === 0;
+        }
+
+        if (saboresCupcake.length > 0) {
+
+            renderizarSaboresCategoriaKit(
+                "cupcake",
+                "opcoesSaboresCupcakesKit",
+                "quantidadeSaboresCupcakesKit",
+                "limiteSaboresCupcakesKit",
+                "ajudaSaboresCupcakesKit",
+                "mensagemSaboresCupcakesKit"
+            );
+        }
+
+        renumerarEtapasKitFesta();
+        atualizarResumoKitFesta();
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar sabores do Kit Festa:",
+            erro
+        );
+
+        [
+            "opcoesSaboresBoloKit",
+            "opcoesSaboresDocinhosKit"
+        ].forEach(function(idContainer) {
+
+            const container =
+                document.getElementById(idContainer);
+
+            if (container) {
+                container.innerHTML = `
+                    <div class="opcoes-indisponiveis">
+                        Não foi possível carregar os sabores.
+                    </div>
+                `;
+            }
+        });
+    }
+}
+
+
+function configurarEventosKitFesta() {
+
+    const painel =
+        document.getElementById(
+            "painelKitFesta"
+        );
+
+    if (!painel) {
+        return;
+    }
+
+    painel.addEventListener(
+        "change",
+        async function(event) {
+
+            const input =
+                event.target.closest(
+                    'input[type="radio"], input[type="checkbox"]'
+                );
+
+            if (!input) {
+                return;
+            }
+
+            if (input.name === "kitFesta") {
+                await selecionarKitFesta(
+                    input.dataset.id
+                );
+                return;
+            }
+
+            if (
+                input.name === "saborKit_bolo" ||
+                input.name === "saborKit_docinho" ||
+                input.name === "saborKit_cupcake"
+            ) {
+
+                const categoria =
+                    input.name.replace(
+                        "saborKit_",
+                        ""
+                    );
+
+                const limite =
+                    limiteSaboresKit(
+                        categoria
+                    );
+
+                const selecionados =
+                    saboresSelecionadosKit(
+                        categoria
+                    );
+
+                if (
+                    limite > 1 &&
+                    selecionados.length > limite
+                ) {
+                    input.checked = false;
+
+                    alert(
+                        `Você pode escolher no máximo ${limite} sabores.`
+                    );
+                }
+
+                atualizarEstadoSaboresKit(
+                    categoria
+                );
+            }
+
+            atualizarResumoKitFesta();
+        }
+    );
+}
+
+
+async function carregarKitFestaCliente() {
+
+    const painel =
+        document.getElementById(
+            "painelKitFesta"
+        );
+
+    if (!painel || kitFestaCarregado) {
+        return;
+    }
+
+    try {
+
+        kitsFestaSupabase =
+            await buscarKitsFestaSupabase();
+
+        renderizarKitsFesta();
+        configurarEventosKitFesta();
+
+        kitFestaCarregado = true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar Kit Festa:",
+            erro
+        );
+
+        const container =
+            document.getElementById(
+                "opcoesKitFesta"
+            );
+
+        if (container) {
+            container.innerHTML = `
+                <div class="opcoes-indisponiveis">
+                    Não foi possível carregar os Kits Festa.
+                    Atualize a página e tente novamente.
+                </div>
+            `;
+        }
+    }
+}
+
+
+function validarSelecaoSaboresKit(
+    categoria,
+    nomeExibicao
+) {
+
+    const disponiveis =
+        saboresKitFestaSupabase.filter(
+            item => item.categoria === categoria
+        );
+
+    if (disponiveis.length === 0) {
+        return true;
+    }
+
+    const selecionados =
+        saboresSelecionadosKit(
+            categoria
+        );
+
+    if (selecionados.length === 0) {
+        alert(
+            `Escolha pelo menos 1 sabor para ${nomeExibicao}.`
+        );
+        return false;
+    }
+
+    const limite =
+        limiteSaboresKit(
+            categoria
+        );
+
+    if (
+        limite > 0 &&
+        selecionados.length > limite
+    ) {
+        alert(
+            `Escolha no máximo ${limite} sabor(es) para ${nomeExibicao}.`
+        );
+        return false;
+    }
+
+    return true;
+}
+
+
+function adicionarKitFestaCarrinho() {
+
+    if (!kitFestaSelecionado) {
+        alert("Escolha um Kit Festa.");
+        return;
+    }
+
+    if (
+        !validarSelecaoSaboresKit(
+            "bolo",
+            "o recheio do bolo"
+        )
+    ) {
+        return;
+    }
+
+    if (
+        !validarSelecaoSaboresKit(
+            "docinho",
+            "os docinhos"
+        )
+    ) {
+        return;
+    }
+
+    if (
+        !validarSelecaoSaboresKit(
+            "cupcake",
+            "os cupcakes"
+        )
+    ) {
+        return;
+    }
+
+    const pagamento =
+        document.querySelector(
+            'input[name="pagamentoKitFesta"]:checked'
+        );
+
+    if (!pagamento) {
+        alert(
+            "Escolha a condição de pagamento do Kit Festa."
+        );
+        return;
+    }
+
+    const data =
+        document.getElementById(
+            "dataRetiradaKitFesta"
+        )?.value;
+
+    const horario =
+        document.getElementById(
+            "horaRetiradaKitFesta"
+        )?.value;
+
+    if (!data) {
+        alert("Escolha a data da retirada.");
+        return;
+    }
+
+    if (!horario) {
+        alert("Escolha o horário da retirada.");
+        return;
+    }
+
+    const saboresBolo =
+        saboresSelecionadosKit("bolo")
+            .map(item => item.value);
+
+    const saboresDocinhos =
+        saboresSelecionadosKit("docinho")
+            .map(item => item.value);
+
+    const saboresCupcakes =
+        saboresSelecionadosKit("cupcake")
+            .map(item => item.value);
+
+    const precoEscolhido =
+        Number(
+            pagamento.dataset.preco || 0
+        );
+
+    const item = {
+
+        id: Date.now(),
+
+        tipo: "kit-festa",
+
+        kitId:
+            Number(
+                kitFestaSelecionado.id
+            ),
+
+        nome:
+            kitFestaSelecionado.nome,
+
+        composicao:
+            composicaoTextoKit(
+                kitFestaSelecionado
+            ),
+
+        fatiasBolo:
+            Number(
+                kitFestaSelecionado.fatias_bolo || 0
+            ),
+
+        cupcakes:
+            Number(
+                kitFestaSelecionado.quantidade_cupcakes || 0
+            ),
+
+        docinhos:
+            Number(
+                kitFestaSelecionado.quantidade_docinhos || 0
+            ),
+
+        recheiosBolo:
+            saboresBolo,
+
+        saboresDocinhos:
+            saboresDocinhos,
+
+        saboresCupcakes:
+            saboresCupcakes,
+
+        formaPagamento:
+            pagamento.value,
+
+        precoNormal:
+            Number(
+                kitFestaSelecionado.preco || 0
+            ),
+
+        precoAvista:
+            kitFestaSelecionado.preco_avista !== null
+                ? Number(
+                    kitFestaSelecionado.preco_avista || 0
+                )
+                : null,
+
+        data:
+            data,
+
+        horario:
+            horario,
+
+        preco:
+            precoEscolhido,
+
+        quantidade:
+            1
+    };
+
+    carrinho.push(item);
+
+    salvarCarrinho();
+
+    alert(
+        "Kit Festa adicionado ao carrinho!\n\n" +
+        `${item.nome}\n` +
+        `Total: ${formatarMoeda(item.preco)}`
+    );
+}
+
+
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const painelKit =
+            document.getElementById(
+                "painelKitFesta"
+            );
+
+        if (!painelKit) {
+            return;
+        }
+
+        /* O carregamento é antecipado para a troca de aba ficar instantânea. */
+        carregarKitFestaCliente();
+
+    }
+);
+
+
 /* =====================================================
    CENTRAL DE ENCOMENDAS
 ===================================================== */
@@ -4606,6 +5839,9 @@ function selecionarTipoEncomenda(tipo) {
 
     const painelCaseirinhos =
         document.getElementById("painelCaseirinhos");
+
+    const painelKitFesta =
+        document.getElementById("painelKitFesta");
 
     const aviso =
         document.getElementById("avisoEncomenda");
@@ -4642,6 +5878,11 @@ function selecionarTipoEncomenda(tipo) {
             tipo !== "caseirinhos";
     }
 
+    if (painelKitFesta) {
+        painelKitFesta.hidden =
+            tipo !== "kit-festa";
+    }
+
     if (aviso) {
         aviso.hidden = true;
     }
@@ -4658,6 +5899,11 @@ function selecionarTipoEncomenda(tipo) {
 
     if (tipo === "caseirinhos") {
         atualizarResumoCaseirinho();
+    }
+
+    if (tipo === "kit-festa") {
+        carregarKitFestaCliente();
+        atualizarResumoKitFesta();
     }
 }
 

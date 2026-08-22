@@ -5,23 +5,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Faça sua Encomenda | Gorete Festass</title>
+    <title>Faça sua Encomenda | Gorete Festas</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================================
+           KIT FESTA — PÁGINA DO CLIENTE
+           Desktop + tablet + mobile
+        ========================================================= */
+
+        .seletor-encomenda {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .montagem-kit-festa[hidden],
+        .etapa-kit-cupcakes[hidden] {
+            display: none !important;
+        }
+
+        .kit-opcao-card {
+            position: relative;
+        }
+
+        .kit-opcao-card .kit-composicao {
+            display: grid;
+            gap: 4px;
+            margin-top: 8px;
+            color: #79655a;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .kit-opcao-card .kit-precos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        .kit-opcao-card .kit-precos b,
+        .kit-opcao-card .kit-precos em {
+            display: inline-flex;
+            align-items: center;
+            min-height: 28px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 9px;
+            font-style: normal;
+        }
+
+        .kit-opcao-card .kit-precos b {
+            background: #6d0c2e;
+            color: #fff8df;
+        }
+
+        .kit-opcao-card .kit-precos em {
+            border: 1px solid #d4ad4d;
+            background: #f6e2a4;
+            color: #6d0c2e;
+        }
+
+        .kit-limite {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            padding: 5px 8px;
+            border: 1px solid #dcc270;
+            border-radius: 999px;
+            background: #fff8df;
+            color: #6d0c2e;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .kit-aviso-preco {
+            margin-top: 10px;
+            padding: 11px 12px;
+            border: 1px solid #dfc67c;
+            border-radius: 10px;
+            background: #fff8df;
+            color: #725c50;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .resumo-kit-composicao {
+            margin: 10px 0 14px;
+            padding: 11px 12px;
+            border: 1px solid #e1c97f;
+            border-radius: 10px;
+            background: #fff9e7;
+        }
+
+        .resumo-kit-composicao span {
+            display: block;
+            margin-bottom: 5px;
+            color: #853643;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+        }
+
+        .resumo-kit-composicao p {
+            margin: 0;
+            color: #604b40;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .valor-kit-avista {
+            margin-top: -4px;
+            padding: 8px 0 0;
+            color: #6d0c2e;
+            font-size: 10px;
+            text-align: right;
+        }
+
+        @media (max-width: 1180px) {
+            .seletor-encomenda {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .seletor-encomenda {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .seletor-encomenda {
+                grid-template-columns: 1fr;
+            }
+
+            .kit-opcao-card .kit-precos {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .kit-opcao-card .kit-precos b,
+            .kit-opcao-card .kit-precos em {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .valor-kit-avista {
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <header class="topo">
 
-        <div class="marca">
-            <h1>Gorete Festass</h1>
-            <span>BOLOS • DOCES • CUPCAKES</span>
-        </div>
+        <a href="index.html" class="marca marca-logo" aria-label="Gorete Festas - Início">
+            <img src="logo-gorete-festas.png" alt="Gorete Festas">
+        </a>
 
         <nav class="menu">
             <a href="index.html">Início</a>
-            <a href="index.html#cardapio">Fatias</a>
+            <a href="index.html#cardapio">Cardápio</a>
             <a href="montar-bolo.html">Faça sua encomenda</a>
 
             <a href="carrinho.html" class="btn-carrinho">
@@ -43,7 +190,7 @@
 
             <p>
                 Escolha o que deseja encomendar para sua comemoração.
-                Bolos personalizados, docinhos, cupcakes e bolos caseirinhos preparados com carinho.
+                Bolos personalizados, docinhos, cupcakes, bolos caseirinhos e Kit Festa preparados com carinho.
             </p>
 
         </section>
@@ -109,6 +256,21 @@
                     conforme as opções disponíveis.
                 </small>
                 <span class="acao-encomenda">Ver encomenda →</span>
+            </button>
+
+            <button
+                type="button"
+                class="card-tipo-encomenda"
+                data-encomenda="kit-festa"
+                onclick="selecionarTipoEncomenda('kit-festa')"
+            >
+                <span class="icone-encomenda">🎉</span>
+                <strong>Kit Festa</strong>
+                <small>
+                    Escolha um kit completo com bolo, cupcakes
+                    e docinhos para sua comemoração.
+                </small>
+                <span class="acao-encomenda">Escolher kit →</span>
             </button>
 
         </section>
@@ -522,6 +684,222 @@
             </aside>
 
         </section>
+
+
+
+        <!-- KIT FESTA -->
+        <section class="montagem-container montagem-kit-festa" id="painelKitFesta" hidden>
+
+            <div class="opcoes-bolo">
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">1</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha o Kit Festa</h2>
+                        <p>
+                            Selecione o tamanho desejado. A composição e os valores
+                            são definidos no painel administrativo.
+                        </p>
+
+                        <div class="opcoes-selecao" id="opcoesKitFesta">
+                            <p class="opcoes-carregando">Carregando kits...</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">2</div>
+
+                    <div class="conteudo-etapa">
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Recheio do bolo</h2>
+                                <p id="ajudaSaborBoloKit">
+                                    Escolha primeiro um Kit Festa.
+                                </p>
+                            </div>
+
+                            <span class="contador-recheios">
+                                <strong id="quantidadeSaboresBoloKit">0</strong>
+                                <span id="limiteSaboresBoloKit"> selecionados</span>
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesSaboresBoloKit">
+                            <div class="opcoes-indisponiveis">
+                                Escolha primeiro um Kit Festa.
+                            </div>
+                        </div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemSaboresBoloKit"></p>
+                    </div>
+                </div>
+
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">3</div>
+
+                    <div class="conteudo-etapa">
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Sabores dos docinhos</h2>
+                                <p id="ajudaSaboresDocinhosKit">
+                                    Escolha primeiro um Kit Festa.
+                                </p>
+                            </div>
+
+                            <span class="contador-recheios">
+                                <strong id="quantidadeSaboresDocinhosKit">0</strong>
+                                <span id="limiteSaboresDocinhosKit"> selecionados</span>
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesSaboresDocinhosKit">
+                            <div class="opcoes-indisponiveis">
+                                Escolha primeiro um Kit Festa.
+                            </div>
+                        </div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemSaboresDocinhosKit"></p>
+                    </div>
+                </div>
+
+
+                <div class="etapa-bolo etapa-kit-cupcakes" id="etapaSaboresCupcakesKit" hidden>
+                    <div class="numero-etapa">4</div>
+
+                    <div class="conteudo-etapa">
+                        <div class="titulo-etapa-com-limite">
+                            <div>
+                                <h2>Sabores dos cupcakes</h2>
+                                <p id="ajudaSaboresCupcakesKit">
+                                    Escolha os sabores disponíveis.
+                                </p>
+                            </div>
+
+                            <span class="contador-recheios">
+                                <strong id="quantidadeSaboresCupcakesKit">0</strong>
+                                <span id="limiteSaboresCupcakesKit"> selecionados</span>
+                            </span>
+                        </div>
+
+                        <div class="opcoes-selecao" id="opcoesSaboresCupcakesKit"></div>
+
+                        <p class="mensagem-limite-recheios" id="mensagemSaboresCupcakesKit"></p>
+                    </div>
+                </div>
+
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">5</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Escolha a condição de pagamento</h2>
+                        <p>
+                            Se o kit tiver valor especial à vista, você poderá escolher
+                            qual valor deseja utilizar no pedido.
+                        </p>
+
+                        <div class="opcoes-selecao" id="opcoesPagamentoKit">
+                            <div class="opcoes-indisponiveis">
+                                Escolha primeiro um Kit Festa.
+                            </div>
+                        </div>
+
+                        <div class="kit-aviso-preco">
+                            O pagamento será combinado diretamente com a Gorete Festas.
+                            Esta escolha serve para registrar corretamente o valor do pedido.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="etapa-bolo">
+                    <div class="numero-etapa">6</div>
+
+                    <div class="conteudo-etapa">
+                        <h2>Quando deseja retirar?</h2>
+
+                        <div class="campos-retirada">
+                            <div>
+                                <label>Data</label>
+                                <input
+                                    type="date"
+                                    id="dataRetiradaKitFesta"
+                                    class="campo-bolo"
+                                >
+                            </div>
+
+                            <div>
+                                <label>Horário</label>
+                                <input
+                                    type="time"
+                                    id="horaRetiradaKitFesta"
+                                    class="campo-bolo"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <aside class="resumo-bolo resumo-kit-festa">
+
+                <span>SEU PEDIDO</span>
+                <h2>Resumo do Kit Festa</h2>
+
+                <div class="linha-resumo">
+                    <span>Kit escolhido</span>
+                    <strong id="resumoNomeKitFesta">—</strong>
+                </div>
+
+                <div class="resumo-kit-composicao">
+                    <span>O KIT INCLUI</span>
+                    <p id="resumoComposicaoKitFesta">Escolha um kit para visualizar.</p>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Recheio do bolo</span>
+                    <strong id="resumoSaborBoloKit">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Sabores dos docinhos</span>
+                    <strong id="resumoSaboresDocinhosKit">—</strong>
+                </div>
+
+                <div class="linha-resumo" id="linhaResumoCupcakesKit" hidden>
+                    <span>Sabores dos cupcakes</span>
+                    <strong id="resumoSaboresCupcakesKit">—</strong>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Condição</span>
+                    <strong id="resumoPagamentoKitFesta">—</strong>
+                </div>
+
+                <div class="total-bolo">
+                    <span>Total do Kit Festa</span>
+                    <strong id="valorTotalKitFesta">R$ 0,00</strong>
+                </div>
+
+                <div class="valor-kit-avista" id="textoValorAvistaKit" hidden></div>
+
+                <button
+                    class="btn-adicionar-bolo"
+                    onclick="adicionarKitFestaCarrinho()"
+                >
+                    Adicionar Kit Festa ao carrinho
+                </button>
+
+            </aside>
+
+        </section>
+
 
         <section class="montagem-container" id="painelBolo">
 

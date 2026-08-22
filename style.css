@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
 /* ==============================
    CONFIGURAÇÕES GERAIS
 ================================ */
@@ -11490,5 +11492,3192 @@ body { overflow-x: hidden; }
 
     .banner-info-item small {
         font-size: 7px !important;
+    }
+}
+
+
+/* =====================================================================
+   IDENTIDADE VISUAL OFICIAL — GORETE FESTAS
+   Champagne/amarelo como protagonista + bordô como contraste
+   Aplicação global: desktop, tablet e mobile
+===================================================================== */
+
+:root {
+    --gf-champagne-50: #fffdf4;
+    --gf-champagne-100: #fff8df;
+    --gf-champagne-200: #f9edc6;
+    --gf-champagne-300: #f3dda0;
+    --gf-champagne-400: #e9c96f;
+    --gf-champagne-500: #d9b24f;
+    --gf-dourado: #bc8f32;
+    --gf-bordo: #7b1028;
+    --gf-bordo-escuro: #57091b;
+    --gf-bordo-suave: #9d3b50;
+    --gf-texto: #46342d;
+    --gf-texto-suave: #7e6a60;
+    --gf-branco: #fffefa;
+    --gf-borda: #e3cd8f;
+    --gf-sombra: rgba(109, 77, 23, .10);
+}
+
+/* TIPOGRAFIA */
+body {
+    font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+    background: var(--gf-champagne-50) !important;
+    color: var(--gf-texto) !important;
+}
+
+h1, h2, h3, h4,
+.banner h2,
+.titulo-secao h2,
+.cabecalho-montagem h1,
+.cabecalho-carrinho h1,
+.cabecalho-checkout h1,
+.orcamento h2,
+.sobre h2,
+.pedido-publico-topo h1,
+.painel-secao-topo h2,
+.admin-marca h1 {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+    color: var(--gf-bordo) !important;
+    letter-spacing: -.4px;
+}
+
+/* LOGO */
+.marca-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    text-decoration: none !important;
+}
+
+.marca-logo img {
+    display: block;
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+.admin-logo-marca {
+    display: block;
+    width: 190px;
+    max-width: 82%;
+    height: auto;
+    margin: 0 auto 16px;
+}
+
+.painel-logo-marca {
+    display: block;
+    width: 130px;
+    max-height: 62px;
+    object-fit: contain;
+}
+
+/* CABEÇALHO */
+.topo {
+    min-height: 86px !important;
+    padding: 8px 8% !important;
+    background: linear-gradient(90deg, #fffdf4 0%, #fff6d8 50%, #f8e7b2 100%) !important;
+    border-bottom: 1px solid var(--gf-borda) !important;
+    box-shadow: 0 4px 18px rgba(115, 83, 23, .05);
+}
+
+.menu a {
+    color: var(--gf-bordo-escuro) !important;
+    font-weight: 600 !important;
+}
+
+.menu a:hover {
+    color: var(--gf-dourado) !important;
+}
+
+.btn-carrinho {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+    box-shadow: 0 7px 18px rgba(123, 16, 40, .13);
+}
+
+.btn-carrinho:hover {
+    background: var(--gf-bordo-escuro) !important;
+}
+
+.btn-carrinho span {
+    background: var(--gf-champagne-200) !important;
+    color: var(--gf-bordo) !important;
+}
+
+/* HOME — AMARELO/CHAMPAGNE DOMINANTE */
+.banner,
+.banner.banner-sem-foto {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.72), transparent 28%),
+        radial-gradient(circle at 88% 30%, rgba(223,184,88,.20), transparent 34%),
+        linear-gradient(135deg, #fff8df 0%, #f8e9bc 48%, #efd68e 100%) !important;
+}
+
+.mini-titulo,
+.titulo-secao span,
+.sobre > span,
+.cabecalho-montagem > span,
+.cabecalho-carrinho > span,
+.cabecalho-checkout > span,
+.orcamento-conteudo > span {
+    color: var(--gf-bordo) !important;
+    font-family: "Montserrat", sans-serif !important;
+    letter-spacing: 4px !important;
+}
+
+.banner h2 {
+    color: var(--gf-bordo-escuro) !important;
+}
+
+.banner p,
+.titulo-secao p,
+.sobre p,
+.cabecalho-montagem p,
+.cabecalho-carrinho p,
+.cabecalho-checkout p {
+    color: #66564d !important;
+}
+
+/* Botões */
+.btn-principal,
+.btn-adicionar-bolo,
+.btn-finalizar-pedido,
+.btn-whatsapp-checkout,
+.btn-admin-principal {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+.btn-principal:hover,
+.btn-adicionar-bolo:hover,
+.btn-finalizar-pedido:hover,
+.btn-whatsapp-checkout:hover,
+.btn-admin-principal:hover {
+    background: var(--gf-bordo-escuro) !important;
+}
+
+.btn-secundario {
+    background: rgba(255, 253, 244, .58) !important;
+    color: var(--gf-bordo) !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+.btn-secundario:hover {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+}
+
+/* Informações do hero */
+.banner-info-item,
+.info-retirada {
+    background: rgba(255, 252, 232, .82) !important;
+    border-color: #dfc77f !important;
+}
+
+.banner-info-item > span,
+.tipo-icone {
+    background: var(--gf-champagne-300) !important;
+}
+
+.banner-info-item strong {
+    color: var(--gf-bordo-escuro) !important;
+}
+
+/* Cards de acesso e produtos */
+.tipos-produtos,
+.cardapio,
+.pagina-montar-bolo,
+.pagina-carrinho,
+.pagina-checkout,
+.pagina-pedido-publico {
+    background: var(--gf-champagne-50) !important;
+}
+
+.tipo-card,
+.produto,
+.etapa-bolo,
+.resumo-bolo,
+.item-carrinho,
+.resumo-carrinho,
+.checkout-card,
+.resumo-checkout,
+.pedido-publico-card {
+    background: var(--gf-branco) !important;
+    border-color: var(--gf-borda) !important;
+    box-shadow: 0 10px 28px var(--gf-sombra) !important;
+}
+
+.tipo-card-destaque {
+    background:
+        linear-gradient(145deg, #f3dda0 0%, #e6c368 100%) !important;
+    color: var(--gf-bordo-escuro) !important;
+    border-color: #d6ae4d !important;
+}
+
+.tipo-card-destaque h3,
+.tipo-card-destaque p,
+.tipo-card-destaque .tipo-acao,
+.tipo-card-destaque .tipo-mini-titulo {
+    color: var(--gf-bordo-escuro) !important;
+}
+
+.tipo-card h3,
+.produto h3,
+.checkout-card-titulo h2,
+.resumo-bolo h2,
+.resumo-carrinho h2,
+.resumo-checkout h2 {
+    color: var(--gf-bordo) !important;
+}
+
+/* Áreas champagne */
+.cardapio,
+.sobre {
+    background:
+        linear-gradient(180deg, var(--gf-champagne-50) 0%, #fff7dc 100%) !important;
+}
+
+.sobre {
+    border-top: 1px solid var(--gf-borda);
+}
+
+.informacoes-loja > div {
+    background: rgba(255, 250, 225, .85) !important;
+    border-color: var(--gf-borda) !important;
+}
+
+/* Produto / controles */
+.produto-imagem {
+    background: linear-gradient(145deg, #f9ecc3, #efd893) !important;
+}
+
+.produto-categoria,
+.produto-rodape strong {
+    color: var(--gf-bordo) !important;
+}
+
+.produto-rodape button {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+}
+
+.produto-rodape button:hover {
+    background: var(--gf-bordo-escuro) !important;
+}
+
+.categorias button {
+    background: #fffdf4 !important;
+    color: var(--gf-bordo) !important;
+    border-color: var(--gf-borda) !important;
+}
+
+.categorias .categoria-ativa {
+    background: var(--gf-champagne-400) !important;
+    color: var(--gf-bordo-escuro) !important;
+    border-color: var(--gf-dourado) !important;
+}
+
+/* Encomenda */
+.numero-etapa,
+.numero-checkout {
+    background: var(--gf-champagne-400) !important;
+    color: var(--gf-bordo-escuro) !important;
+    border: 1px solid var(--gf-dourado);
+}
+
+.opcao-card,
+.upload-box,
+.campo-bolo,
+.campo-checkout input,
+.campo-checkout textarea {
+    background: #fffdf4 !important;
+    border-color: #e1ca86 !important;
+}
+
+.opcao-card:hover,
+.upload-box:hover {
+    background: #fff5cf !important;
+    border-color: var(--gf-dourado) !important;
+}
+
+.opcao-card:has(input:checked) {
+    background: var(--gf-champagne-200) !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+input,
+textarea,
+select {
+    accent-color: var(--gf-bordo) !important;
+}
+
+.total-bolo,
+.total-final,
+.total-checkout {
+    background: linear-gradient(135deg, #f7e9b9, #efda97) !important;
+}
+
+.total-bolo strong,
+.total-final strong,
+.total-checkout strong {
+    color: var(--gf-bordo) !important;
+}
+
+/* ENCOMENDAS — bloco de chamada amarelo com bordô */
+.orcamento {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.32), transparent 30%),
+        linear-gradient(135deg, #e9ca72 0%, #dcb458 100%) !important;
+}
+
+.orcamento h2 {
+    color: var(--gf-bordo-escuro) !important;
+}
+
+.orcamento p {
+    color: #654b38 !important;
+}
+
+.btn-whatsapp {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+    border: 1px solid var(--gf-bordo) !important;
+}
+
+/* RODAPÉ */
+footer {
+    background: var(--gf-bordo-escuro) !important;
+    color: #fff9df !important;
+    border-top: 5px solid var(--gf-champagne-400);
+}
+
+footer h3 {
+    font-family: "Cormorant Garamond", Georgia, serif !important;
+    color: var(--gf-champagne-200) !important;
+}
+
+footer div p,
+.copyright {
+    color: #eddca8 !important;
+}
+
+/* PEDIDO PÚBLICO */
+.pedido-publico-topo > span,
+.pedido-publico-codigo,
+.pedido-publico-total strong {
+    color: var(--gf-bordo) !important;
+}
+
+.pedido-status {
+    background: var(--gf-champagne-300) !important;
+    color: var(--gf-bordo-escuro) !important;
+}
+
+/* LOGIN ADMINISTRATIVO */
+.pagina-admin {
+    background:
+        radial-gradient(circle at 12% 12%, rgba(255,255,255,.78), transparent 32%),
+        linear-gradient(145deg, #fff8df, #efd78f) !important;
+}
+
+.admin-login-card {
+    background: rgba(255,254,248,.94) !important;
+    border: 1px solid var(--gf-borda) !important;
+    box-shadow: 0 24px 60px rgba(112, 82, 26, .14) !important;
+}
+
+.admin-marca {
+    text-align: center;
+}
+
+.admin-marca > span {
+    color: var(--gf-bordo) !important;
+}
+
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea {
+    background: #fffdf4 !important;
+    border-color: var(--gf-borda) !important;
+}
+
+/* PAINEL ADMINISTRATIVO */
+.painel-topo {
+    background: linear-gradient(90deg, #fffdf4, #f5e5b0) !important;
+    border-bottom-color: var(--gf-borda) !important;
+}
+
+.painel-container,
+.pagina-painel {
+    background: var(--gf-champagne-50) !important;
+}
+
+.painel-abas {
+    background: #f4e2a7 !important;
+    border-color: var(--gf-borda) !important;
+}
+
+.painel-aba {
+    color: var(--gf-bordo-escuro) !important;
+}
+
+.painel-aba.ativo,
+.painel-aba.active {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+}
+
+.painel-indicador,
+.painel-lista,
+.admin-grupos-wrapper,
+.admin-regras-wrapper,
+.admin-grupo-card,
+.regra-admin-card,
+.fatia-admin-card,
+.pedido-admin-card,
+.pedido-admin-item,
+.modal-admin-conteudo {
+    background: #fffef8 !important;
+    border-color: var(--gf-borda) !important;
+}
+
+.painel-indicador strong,
+.pedido-admin-codigo strong,
+.pedido-admin-total,
+.pedido-admin-item-valor {
+    color: var(--gf-bordo) !important;
+}
+
+.pedido-admin-status {
+    background: var(--gf-champagne-200) !important;
+    color: var(--gf-bordo-escuro) !important;
+}
+
+.pedido-admin-detalhes {
+    background: #fff8df !important;
+}
+
+.pedido-admin-acoes .btn-pedido-principal,
+.painel-topo-acoes button,
+.painel-secao-topo button,
+.admin-regras-topo button,
+.admin-grupos-cabecalho button {
+    background: var(--gf-bordo) !important;
+    color: #fff !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .topo {
+        background: linear-gradient(90deg, #fffdf4, #f5e4aa) !important;
+    }
+
+    .marca-logo img {
+        width: 122px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topo {
+        min-height: 70px !important;
+        padding: 6px 14px !important;
+    }
+
+    .marca-logo img {
+        width: 108px !important;
+        max-height: 58px;
+    }
+
+    .banner,
+    .banner.banner-sem-foto {
+        background:
+            radial-gradient(circle at 12% 8%, rgba(255,255,255,.72), transparent 30%),
+            linear-gradient(165deg, #fff8df 0%, #f5e3aa 56%, #ebcc78 100%) !important;
+    }
+
+    .banner-info-item {
+        background: rgba(255,253,239,.82) !important;
+        border-color: #d9bd67 !important;
+    }
+
+    .tipo-card-destaque {
+        background: linear-gradient(150deg, #f3dda0, #e1ba56) !important;
+    }
+
+    .admin-logo-marca {
+        width: 155px !important;
+    }
+
+    .painel-logo-marca {
+        width: 105px !important;
+        max-height: 52px !important;
+    }
+
+    .painel-abas {
+        background: #f4e2a7 !important;
+    }
+
+    .pedido-admin-card,
+    .pedido-admin-item,
+    .checkout-card,
+    .resumo-checkout,
+    .resumo-carrinho,
+    .resumo-bolo {
+        border-color: #ddc57a !important;
+    }
+}
+
+
+/* =====================================================================
+   REFORÇO DE IDENTIDADE — CHAMPAGNE / AMARELO MAIS PRESENTE
+   Objetivo visual aproximado:
+   70% champagne/amarelo • 20% creme/branco • 10% bordô
+   Aplicado em desktop, tablet e mobile
+===================================================================== */
+
+:root {
+    --gf-champagne-25: #fffef8;
+    --gf-champagne-50: #fffaf0;
+    --gf-champagne-100: #fff3cf;
+    --gf-champagne-150: #fceab8;
+    --gf-champagne-200: #f7dfa0;
+    --gf-champagne-250: #f1d584;
+    --gf-champagne-300: #e9c96c;
+    --gf-champagne-350: #dfbb57;
+    --gf-champagne-400: #d5aa42;
+    --gf-dourado: #b98a28;
+    --gf-bordo: #7b1028;
+    --gf-bordo-escuro: #56091b;
+    --gf-bordo-suave: #9a4354;
+    --gf-texto: #4e3d31;
+    --gf-texto-suave: #7c6757;
+    --gf-branco: #fffef9;
+    --gf-borda: #d9b85b;
+    --gf-sombra: rgba(118, 83, 20, .12);
+}
+
+/* FUNDO GLOBAL */
+html,
+body {
+    background:
+        linear-gradient(
+            180deg,
+            #fffaf0 0%,
+            #fff5d9 55%,
+            #fce8b0 100%
+        ) !important;
+}
+
+/* CABEÇALHO MAIS CHAMPAGNE */
+.topo {
+    background:
+        linear-gradient(
+            90deg,
+            #fff8df 0%,
+            #f7e4ad 50%,
+            #ebca72 100%
+        ) !important;
+    border-bottom: 1px solid #d4ad4a !important;
+    box-shadow: 0 5px 18px rgba(145, 101, 24, .09) !important;
+}
+
+/* HERO MAIS AMARELO */
+.banner,
+.banner.banner-sem-foto {
+    background:
+        radial-gradient(circle at 8% 14%, rgba(255,255,255,.72), transparent 25%),
+        radial-gradient(circle at 88% 30%, rgba(255,250,220,.42), transparent 28%),
+        linear-gradient(
+            140deg,
+            #fff4ca 0%,
+            #f5dfa0 42%,
+            #e9c66a 100%
+        ) !important;
+}
+
+.banner-info-item {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,244,.90),
+            rgba(248,226,164,.92)
+        ) !important;
+    border-color: #d7b65a !important;
+    box-shadow: 0 8px 20px rgba(128, 91, 22, .08) !important;
+}
+
+.banner-info-item > span,
+.tipo-icone {
+    background: linear-gradient(
+        145deg,
+        #f8e6af,
+        #e7c366
+    ) !important;
+    color: var(--gf-bordo) !important;
+}
+
+/* HOME / ÁREAS CLARAS MAIS CHAMPAGNE */
+.tipos-produtos,
+.cardapio,
+.sobre,
+.pagina-montar-bolo,
+.pagina-carrinho,
+.pagina-checkout,
+.pagina-pedido-publico,
+.painel-container,
+.pagina-painel {
+    background:
+        linear-gradient(
+            180deg,
+            #fffaf0 0%,
+            #fff2c9 100%
+        ) !important;
+}
+
+/* CARDS COM CHAMPAGNE CLARO */
+.tipo-card,
+.produto,
+.etapa-bolo,
+.resumo-bolo,
+.item-carrinho,
+.resumo-carrinho,
+.checkout-card,
+.resumo-checkout,
+.pedido-publico-card,
+.painel-indicador,
+.painel-lista,
+.admin-grupos-wrapper,
+.admin-regras-wrapper,
+.admin-grupo-card,
+.regra-admin-card,
+.fatia-admin-card,
+.pedido-admin-card,
+.pedido-admin-item,
+.modal-admin-conteudo {
+    background:
+        linear-gradient(
+            145deg,
+            #fffef9 0%,
+            #fff7dd 100%
+        ) !important;
+    border-color: #ddbd64 !important;
+    box-shadow: 0 10px 28px rgba(124, 89, 25, .10) !important;
+}
+
+/* CARD DE DESTAQUE QUASE TODO CHAMPAGNE */
+.tipo-card-destaque {
+    background:
+        linear-gradient(
+            145deg,
+            #f7e3a7 0%,
+            #edcf78 55%,
+            #dfb84f 100%
+        ) !important;
+    border-color: #c99e34 !important;
+}
+
+/* SEÇÃO PRONTA ENTREGA */
+.cardapio {
+    background:
+        linear-gradient(
+            180deg,
+            #fff9e8 0%,
+            #f8e7b6 100%
+        ) !important;
+}
+
+.produto-imagem {
+    background:
+        linear-gradient(
+            145deg,
+            #fae8b7 0%,
+            #edcf78 100%
+        ) !important;
+}
+
+/* SOBRE */
+.sobre {
+    background:
+        linear-gradient(
+            180deg,
+            #f8e8b9 0%,
+            #efd48a 100%
+        ) !important;
+    border-top: 1px solid #d0a94a !important;
+}
+
+.informacoes-loja > div {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,253,240,.92),
+            rgba(247,226,166,.90)
+        ) !important;
+    border-color: #d3ae51 !important;
+}
+
+/* ENCOMENDAS — CHAMPAGNE FORTE, BORDÔ SÓ NO CTA */
+.orcamento {
+    background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,.32), transparent 30%),
+        linear-gradient(
+            135deg,
+            #efd488 0%,
+            #dfb84f 52%,
+            #cfa13a 100%
+        ) !important;
+}
+
+/* CAMPOS E OPÇÕES */
+.opcao-card,
+.upload-box,
+.campo-bolo,
+.campo-checkout input,
+.campo-checkout textarea,
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea,
+select,
+textarea,
+input {
+    background: #fff9e7 !important;
+    border-color: #dabb63 !important;
+}
+
+.opcao-card:hover,
+.upload-box:hover {
+    background: #f9e9b7 !important;
+    border-color: #c59832 !important;
+}
+
+.opcao-card:has(input:checked) {
+    background:
+        linear-gradient(
+            145deg,
+            #f7e2a2,
+            #ebc969
+        ) !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+/* TOTAIS E RESUMOS */
+.total-bolo,
+.total-final,
+.total-checkout {
+    background:
+        linear-gradient(
+            135deg,
+            #f5dc91 0%,
+            #e9c55f 100%
+        ) !important;
+    border: 1px solid #cea23d !important;
+}
+
+/* CATEGORIAS */
+.categorias button {
+    background: #fff6d5 !important;
+    border-color: #d8b657 !important;
+}
+
+.categorias .categoria-ativa {
+    background:
+        linear-gradient(
+            145deg,
+            #efcf76,
+            #dfb34b
+        ) !important;
+    color: var(--gf-bordo-escuro) !important;
+}
+
+/* LOGIN ADMIN — AMARELO MAIS FORTE */
+.pagina-admin {
+    background:
+        radial-gradient(circle at 12% 12%, rgba(255,255,255,.66), transparent 30%),
+        linear-gradient(
+            145deg,
+            #fff4cc 0%,
+            #f0d58d 52%,
+            #dcb04c 100%
+        ) !important;
+}
+
+.admin-login-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,247,.97),
+            rgba(255,244,207,.97)
+        ) !important;
+    border-color: #d7b354 !important;
+}
+
+/* PAINEL ADMINISTRATIVO */
+.painel-topo {
+    background:
+        linear-gradient(
+            90deg,
+            #fff6d7 0%,
+            #f2dda0 55%,
+            #e1bd59 100%
+        ) !important;
+    border-bottom-color: #cfa33c !important;
+}
+
+.painel-abas {
+    background:
+        linear-gradient(
+            90deg,
+            #f5dfa0,
+            #e8c76a
+        ) !important;
+    border-color: #cba03a !important;
+}
+
+.painel-indicador {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf5,
+            #f8e8b6
+        ) !important;
+}
+
+.pedido-admin-detalhes {
+    background:
+        linear-gradient(
+            180deg,
+            #fff6d6,
+            #f8e3a6
+        ) !important;
+}
+
+/* PEDIDO PÚBLICO */
+.pagina-pedido-publico {
+    background:
+        linear-gradient(
+            180deg,
+            #fff9e8 0%,
+            #f4dda0 100%
+        ) !important;
+}
+
+.pedido-status {
+    background:
+        linear-gradient(
+            145deg,
+            #f1d47f,
+            #dfb64d
+        ) !important;
+}
+
+/* RODAPÉ: continua bordô para dar assinatura visual,
+   mas recebe faixa champagne mais marcante */
+footer {
+    border-top: 8px solid #e3be58 !important;
+}
+
+/* MOBILE — manter o amarelo predominante */
+@media (max-width: 900px) {
+    .topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff5d1 0%,
+                #efd68f 100%
+            ) !important;
+    }
+
+    .painel-topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff5d2,
+                #e6c466
+            ) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        background:
+            linear-gradient(
+                180deg,
+                #fffaf0,
+                #f7e4ae
+            ) !important;
+    }
+
+    .banner,
+    .banner.banner-sem-foto {
+        background:
+            radial-gradient(circle at 12% 8%, rgba(255,255,255,.70), transparent 27%),
+            linear-gradient(
+                165deg,
+                #fff4ca 0%,
+                #f0d78e 58%,
+                #dfb64d 100%
+            ) !important;
+    }
+
+    .banner-info-item {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,254,245,.93),
+                rgba(244,220,150,.93)
+            ) !important;
+    }
+
+    .tipos-produtos,
+    .cardapio,
+    .sobre,
+    .pagina-montar-bolo,
+    .pagina-carrinho,
+    .pagina-checkout,
+    .pagina-pedido-publico {
+        background:
+            linear-gradient(
+                180deg,
+                #fff9e8,
+                #f5dfa3
+            ) !important;
+    }
+
+    .tipo-card,
+    .produto,
+    .etapa-bolo,
+    .resumo-bolo,
+    .item-carrinho,
+    .resumo-carrinho,
+    .checkout-card,
+    .resumo-checkout,
+    .pedido-publico-card {
+        background:
+            linear-gradient(
+                145deg,
+                #fffef9,
+                #f8e9b9
+            ) !important;
+    }
+
+    .tipo-card-destaque {
+        background:
+            linear-gradient(
+                145deg,
+                #f5dfa0,
+                #ddb247
+            ) !important;
+    }
+
+    .orcamento {
+        background:
+            linear-gradient(
+                145deg,
+                #efd487,
+                #d9aa3f
+            ) !important;
+    }
+
+    .painel-container,
+    .pagina-painel {
+        background:
+            linear-gradient(
+                180deg,
+                #fff9e7,
+                #f4dda0
+            ) !important;
+    }
+
+    .painel-abas {
+        background:
+            linear-gradient(
+                90deg,
+                #f0d685,
+                #dcaf45
+            ) !important;
+    }
+
+    .pedido-admin-detalhes {
+        background:
+            linear-gradient(
+                180deg,
+                #fff5d1,
+                #f1d88e
+            ) !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff4cb,
+                #e9cb72
+            ) !important;
+    }
+
+    .banner,
+    .banner.banner-sem-foto {
+        background:
+            linear-gradient(
+                165deg,
+                #fff2c1,
+                #edcf7a
+            ) !important;
+    }
+}
+
+
+/* =====================================================================
+   PALETA OFICIAL GORETE FESTAS — VERSÃO DEFINITIVA
+   Predominância: AMARELO + CHAMPANHE
+   Apoio/contraste: VINHO + BORDÔ
+   Bordeaux de referência: #6D0C2E
+   Aplicação global: desktop, tablet e mobile
+===================================================================== */
+
+:root {
+    --gf-amarelo-50: #fffdf3;
+    --gf-amarelo-100: #fff7d6;
+    --gf-amarelo-200: #f9ebaf;
+    --gf-amarelo-300: #f1db83;
+    --gf-amarelo-400: #e7c65c;
+    --gf-amarelo-500: #d7ad37;
+
+    --gf-champanhe-50: #fffaf0;
+    --gf-champanhe-100: #fdf1d7;
+    --gf-champanhe-200: #f5e2bd;
+    --gf-champanhe-300: #ead19d;
+    --gf-champanhe-400: #ddbd78;
+
+    --gf-bordeaux: #6D0C2E;
+    --gf-vinho: #853643;
+    --gf-vinho-claro: #a85b66;
+    --gf-bordeaux-escuro: #4e071f;
+
+    --gf-marrom-texto: #4a382f;
+    --gf-marrom-suave: #756057;
+    --gf-branco: #fffef9;
+    --gf-borda: #d8bc74;
+    --gf-sombra: rgba(116, 80, 18, .10);
+}
+
+/* BASE GERAL */
+html,
+body {
+    background:
+        linear-gradient(
+            180deg,
+            var(--gf-amarelo-50) 0%,
+            var(--gf-champanhe-100) 55%,
+            var(--gf-amarelo-200) 100%
+        ) !important;
+    color: var(--gf-marrom-texto) !important;
+}
+
+/* TÍTULOS: vinho/bordô apenas como contraste */
+h1, h2, h3, h4,
+.banner h2,
+.titulo-secao h2,
+.cabecalho-montagem h1,
+.cabecalho-carrinho h1,
+.cabecalho-checkout h1,
+.orcamento h2,
+.sobre h2,
+.pedido-publico-topo h1,
+.painel-secao-topo h2,
+.admin-marca h1 {
+    color: var(--gf-bordeaux) !important;
+}
+
+/* CABEÇALHO */
+.topo {
+    background:
+        linear-gradient(
+            90deg,
+            #fff9df 0%,
+            #f6e4ad 52%,
+            #e9cb74 100%
+        ) !important;
+    border-bottom: 1px solid #d0ac50 !important;
+    box-shadow: 0 5px 18px rgba(113, 78, 18, .08) !important;
+}
+
+.menu a {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.menu a:hover {
+    color: var(--gf-vinho) !important;
+}
+
+.btn-carrinho {
+    background: var(--gf-bordeaux) !important;
+    color: #fff !important;
+}
+
+.btn-carrinho:hover {
+    background: var(--gf-bordeaux-escuro) !important;
+}
+
+.btn-carrinho span {
+    background: var(--gf-amarelo-100) !important;
+    color: var(--gf-bordeaux) !important;
+}
+
+/* HERO PRINCIPAL — AMARELO/CHAMPANHE DOMINANTE */
+.banner,
+.banner.banner-sem-foto {
+    background:
+        radial-gradient(circle at 10% 12%, rgba(255,255,255,.72), transparent 26%),
+        radial-gradient(circle at 87% 28%, rgba(255,249,213,.42), transparent 30%),
+        linear-gradient(
+            140deg,
+            #fff5c8 0%,
+            #f4dfa0 46%,
+            #e8c66d 100%
+        ) !important;
+}
+
+.banner h2 {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.banner p {
+    color: #65524a !important;
+}
+
+.mini-titulo,
+.titulo-secao > span,
+.sobre > span,
+.cabecalho-montagem > span,
+.cabecalho-carrinho > span,
+.cabecalho-checkout > span,
+.orcamento-conteudo > span {
+    color: var(--gf-vinho) !important;
+}
+
+/* BOTÕES */
+.btn-principal,
+.btn-adicionar-bolo,
+.btn-finalizar-pedido,
+.btn-whatsapp-checkout,
+.btn-admin-principal,
+.produto-rodape button,
+.btn-whatsapp {
+    background: var(--gf-bordeaux) !important;
+    color: #fff !important;
+    border-color: var(--gf-bordeaux) !important;
+}
+
+.btn-principal:hover,
+.btn-adicionar-bolo:hover,
+.btn-finalizar-pedido:hover,
+.btn-whatsapp-checkout:hover,
+.btn-admin-principal:hover,
+.produto-rodape button:hover,
+.btn-whatsapp:hover {
+    background: var(--gf-bordeaux-escuro) !important;
+}
+
+.btn-secundario {
+    background: rgba(255,250,231,.75) !important;
+    color: var(--gf-bordeaux) !important;
+    border-color: var(--gf-bordeaux) !important;
+}
+
+.btn-secundario:hover {
+    background: var(--gf-bordeaux) !important;
+    color: #fff !important;
+}
+
+/* MINI INFORMAÇÕES DO HERO */
+.banner-info-item,
+.info-retirada {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,245,.94),
+            rgba(247,226,165,.92)
+        ) !important;
+    border-color: #d3b156 !important;
+}
+
+.banner-info-item > span,
+.tipo-icone {
+    background:
+        linear-gradient(
+            145deg,
+            #f8e8b2,
+            #e8c86a
+        ) !important;
+    color: var(--gf-bordeaux) !important;
+}
+
+.banner-info-item strong {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+/* FUNDOS PRINCIPAIS */
+.tipos-produtos,
+.cardapio,
+.sobre,
+.pagina-montar-bolo,
+.pagina-carrinho,
+.pagina-checkout,
+.pagina-pedido-publico,
+.painel-container,
+.pagina-painel {
+    background:
+        linear-gradient(
+            180deg,
+            #fffaf0 0%,
+            #f8e9bc 100%
+        ) !important;
+}
+
+/* CARDS */
+.tipo-card,
+.produto,
+.etapa-bolo,
+.resumo-bolo,
+.item-carrinho,
+.resumo-carrinho,
+.checkout-card,
+.resumo-checkout,
+.pedido-publico-card,
+.painel-indicador,
+.painel-lista,
+.admin-grupos-wrapper,
+.admin-regras-wrapper,
+.admin-grupo-card,
+.regra-admin-card,
+.fatia-admin-card,
+.pedido-admin-card,
+.pedido-admin-item,
+.modal-admin-conteudo {
+    background:
+        linear-gradient(
+            145deg,
+            #fffef9 0%,
+            #fff6d8 100%
+        ) !important;
+    border-color: var(--gf-borda) !important;
+    box-shadow: 0 10px 28px var(--gf-sombra) !important;
+}
+
+/* CARD DE DESTAQUE — amarelo/champanhe */
+.tipo-card-destaque {
+    background:
+        linear-gradient(
+            145deg,
+            #f6e1a3 0%,
+            #edcf76 55%,
+            #dfb84d 100%
+        ) !important;
+    color: var(--gf-bordeaux-escuro) !important;
+    border-color: #c99e35 !important;
+}
+
+.tipo-card-destaque h3,
+.tipo-card-destaque p,
+.tipo-card-destaque .tipo-acao,
+.tipo-card-destaque .tipo-mini-titulo {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+/* CARDÁPIO */
+.cardapio {
+    background:
+        linear-gradient(
+            180deg,
+            #fff9e6 0%,
+            #f7e6b3 100%
+        ) !important;
+}
+
+.produto-imagem {
+    background:
+        linear-gradient(
+            145deg,
+            #fae9b8,
+            #edcf78
+        ) !important;
+}
+
+.produto-categoria,
+.produto-rodape strong {
+    color: var(--gf-bordeaux) !important;
+}
+
+/* SOBRE */
+.sobre {
+    background:
+        linear-gradient(
+            180deg,
+            #f8e8b9 0%,
+            #efd48a 100%
+        ) !important;
+    border-top: 1px solid #cfa84c !important;
+}
+
+.informacoes-loja > div {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,245,.94),
+            rgba(247,225,164,.90)
+        ) !important;
+    border-color: #d2ad50 !important;
+}
+
+/* CHAMADA DE ENCOMENDAS */
+.orcamento {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.30), transparent 30%),
+        linear-gradient(
+            135deg,
+            #efd487 0%,
+            #dfb84d 56%,
+            #cea03b 100%
+        ) !important;
+}
+
+.orcamento h2 {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.orcamento p {
+    color: #624d3f !important;
+}
+
+/* CAMPOS / OPÇÕES */
+.opcao-card,
+.upload-box,
+.campo-bolo,
+.campo-checkout input,
+.campo-checkout textarea,
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea,
+select,
+textarea,
+input {
+    background: #fff9e8 !important;
+    border-color: #d8b960 !important;
+}
+
+.opcao-card:hover,
+.upload-box:hover {
+    background: #f9e9b7 !important;
+    border-color: #bd902d !important;
+}
+
+.opcao-card:has(input:checked) {
+    background:
+        linear-gradient(
+            145deg,
+            #f7e1a0,
+            #eac86a
+        ) !important;
+    border-color: var(--gf-bordeaux) !important;
+}
+
+input,
+textarea,
+select {
+    accent-color: var(--gf-bordeaux) !important;
+}
+
+/* TOTAIS */
+.total-bolo,
+.total-final,
+.total-checkout {
+    background:
+        linear-gradient(
+            135deg,
+            #f4dc91 0%,
+            #e8c45e 100%
+        ) !important;
+    border: 1px solid #cba03a !important;
+}
+
+.total-bolo strong,
+.total-final strong,
+.total-checkout strong {
+    color: var(--gf-bordeaux) !important;
+}
+
+/* CATEGORIAS */
+.categorias button {
+    background: #fff6d6 !important;
+    color: var(--gf-bordeaux) !important;
+    border-color: #d8b657 !important;
+}
+
+.categorias .categoria-ativa {
+    background:
+        linear-gradient(
+            145deg,
+            #efcf76,
+            #dfb34a
+        ) !important;
+    color: var(--gf-bordeaux-escuro) !important;
+    border-color: #bc8c28 !important;
+}
+
+/* LOGIN ADMINISTRATIVO */
+.pagina-admin {
+    background:
+        radial-gradient(circle at 12% 12%, rgba(255,255,255,.66), transparent 30%),
+        linear-gradient(
+            145deg,
+            #fff4cb 0%,
+            #efd58c 52%,
+            #dcb04b 100%
+        ) !important;
+}
+
+.admin-login-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,247,.97),
+            rgba(255,243,204,.97)
+        ) !important;
+    border-color: #d5b150 !important;
+}
+
+/* PAINEL ADMIN */
+.painel-topo {
+    background:
+        linear-gradient(
+            90deg,
+            #fff6d6 0%,
+            #f1dc9d 56%,
+            #dfba57 100%
+        ) !important;
+    border-bottom-color: #cda038 !important;
+}
+
+.painel-abas {
+    background:
+        linear-gradient(
+            90deg,
+            #f4dda0,
+            #e6c468
+        ) !important;
+    border-color: #c99d35 !important;
+}
+
+.painel-aba {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.painel-aba.ativo,
+.painel-aba.active {
+    background: var(--gf-bordeaux) !important;
+    color: #fff !important;
+}
+
+.pedido-admin-status {
+    background: #f1d98c !important;
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.pedido-admin-detalhes {
+    background:
+        linear-gradient(
+            180deg,
+            #fff6d4,
+            #f5dda0
+        ) !important;
+}
+
+.pedido-admin-acoes .btn-pedido-principal,
+.painel-topo-acoes button,
+.painel-secao-topo button,
+.admin-regras-topo button,
+.admin-grupos-cabecalho button {
+    background: var(--gf-bordeaux) !important;
+    color: #fff !important;
+    border-color: var(--gf-bordeaux) !important;
+}
+
+/* PEDIDO PÚBLICO */
+.pagina-pedido-publico {
+    background:
+        linear-gradient(
+            180deg,
+            #fff9e7 0%,
+            #f4dda0 100%
+        ) !important;
+}
+
+.pedido-publico-topo > span,
+.pedido-publico-codigo,
+.pedido-publico-total strong {
+    color: var(--gf-bordeaux) !important;
+}
+
+.pedido-status {
+    background:
+        linear-gradient(
+            145deg,
+            #efd27b,
+            #dfb64c
+        ) !important;
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+/* RODAPÉ */
+footer {
+    background: var(--gf-bordeaux-escuro) !important;
+    color: #fff6d6 !important;
+    border-top: 8px solid #e2bc56 !important;
+}
+
+footer h3 {
+    color: #f7e4a9 !important;
+}
+
+footer div p,
+.copyright {
+    color: #ecd89a !important;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff5d0 0%,
+                #efd58b 100%
+            ) !important;
+    }
+
+    .painel-topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff5d1,
+                #e4c263
+            ) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        background:
+            linear-gradient(
+                180deg,
+                #fffaf0,
+                #f6e3ac
+            ) !important;
+    }
+
+    .banner,
+    .banner.banner-sem-foto {
+        background:
+            radial-gradient(circle at 12% 8%, rgba(255,255,255,.68), transparent 27%),
+            linear-gradient(
+                165deg,
+                #fff4c9 0%,
+                #efd68c 58%,
+                #dfb64c 100%
+            ) !important;
+    }
+
+    .banner-info-item {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,254,245,.94),
+                rgba(244,219,148,.93)
+            ) !important;
+    }
+
+    .tipos-produtos,
+    .cardapio,
+    .sobre,
+    .pagina-montar-bolo,
+    .pagina-carrinho,
+    .pagina-checkout,
+    .pagina-pedido-publico {
+        background:
+            linear-gradient(
+                180deg,
+                #fff9e8,
+                #f5dfa2
+            ) !important;
+    }
+
+    .tipo-card,
+    .produto,
+    .etapa-bolo,
+    .resumo-bolo,
+    .item-carrinho,
+    .resumo-carrinho,
+    .checkout-card,
+    .resumo-checkout,
+    .pedido-publico-card {
+        background:
+            linear-gradient(
+                145deg,
+                #fffef9,
+                #f8e9b8
+            ) !important;
+    }
+
+    .tipo-card-destaque {
+        background:
+            linear-gradient(
+                145deg,
+                #f5dfa0,
+                #ddb246
+            ) !important;
+    }
+
+    .orcamento {
+        background:
+            linear-gradient(
+                145deg,
+                #efd486,
+                #d9aa3e
+            ) !important;
+    }
+
+    .painel-container,
+    .pagina-painel {
+        background:
+            linear-gradient(
+                180deg,
+                #fff9e7,
+                #f4dc9e
+            ) !important;
+    }
+
+    .painel-abas {
+        background:
+            linear-gradient(
+                90deg,
+                #f0d583,
+                #dcaf44
+            ) !important;
+    }
+
+    .pedido-admin-detalhes {
+        background:
+            linear-gradient(
+                180deg,
+                #fff5d0,
+                #f1d78b
+            ) !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .topo {
+        background:
+            linear-gradient(
+                90deg,
+                #fff4ca,
+                #e9ca70
+            ) !important;
+    }
+
+    .banner,
+    .banner.banner-sem-foto {
+        background:
+            linear-gradient(
+                165deg,
+                #fff2bf,
+                #edcf78
+            ) !important;
+    }
+}
+
+
+/* =====================================================================
+   AJUSTE GLOBAL FINAL — IDENTIDADE VISUAL GORETE FESTAS
+   Objetivos:
+   • padronizar TODAS as páginas (web + mobile)
+   • amarelo/champanhe predominantes
+   • vinho/bordô somente como contraste
+   • corrigir páginas que ainda exibem a marca antiga em texto
+   • ampliar e alinhar a logo no painel administrativo
+   • remover fundos marrons/terracota dos itens selecionados
+===================================================================== */
+
+:root {
+    --gf-amarelo-claro: #FFF8D8;
+    --gf-amarelo: #E7C45C;
+    --gf-amarelo-forte: #D6AA38;
+
+    --gf-champanhe-claro: #FFFDF4;
+    --gf-champanhe: #F4E3B4;
+    --gf-champanhe-medio: #EBD292;
+    --gf-champanhe-forte: #DDBA61;
+
+    --gf-bordeaux: #6D0C2E;
+    --gf-vinho: #853643;
+    --gf-bordeaux-escuro: #50071F;
+
+    --gf-marrom-texto: #4B392F;
+    --gf-marrom-suave: #79665B;
+
+    --gf-branco: #FFFEF9;
+    --gf-borda: #D7B75D;
+    --gf-sombra: rgba(118, 82, 19, .10);
+}
+
+/* =========================================================
+   1. IDENTIDADE GERAL
+========================================================= */
+
+html,
+body,
+.pagina-montar-bolo,
+.pagina-carrinho,
+.pagina-checkout,
+.pagina-pedido-publico,
+.pagina-painel,
+.painel-container {
+    background:
+        linear-gradient(
+            180deg,
+            #FFFDF5 0%,
+            #FFF6D9 52%,
+            #F7E6B2 100%
+        ) !important;
+
+    color: var(--gf-marrom-texto) !important;
+}
+
+body {
+    font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+.banner h2,
+.titulo-secao h2,
+.sobre h2,
+.orcamento h2,
+.cabecalho-montagem h1,
+.cabecalho-carrinho h1,
+.cabecalho-checkout h1,
+.pedido-publico-topo h1,
+.painel-secao-topo h2,
+.admin-marca h1 {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+    color: var(--gf-bordeaux) !important;
+}
+
+p {
+    color: var(--gf-marrom-suave);
+}
+
+
+/* =========================================================
+   2. LOGO EM TODAS AS PÁGINAS
+   Também corrige HTMLs antigos que ainda possuem
+   <div class="marca"><h1>Gorete Festass...</h1></div>
+========================================================= */
+
+.marca-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    flex: 0 0 auto !important;
+}
+
+.marca-logo img {
+    display: block !important;
+    width: 158px !important;
+    max-height: 66px !important;
+    object-fit: contain !important;
+}
+
+/* Compatibilidade automática com páginas antigas */
+.marca:not(.marca-logo) {
+    display: block !important;
+    width: 158px !important;
+    height: 66px !important;
+    min-width: 158px !important;
+
+    background-image: url("logo-gorete-festas.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: left center !important;
+    background-size: contain !important;
+}
+
+.marca:not(.marca-logo) h1,
+.marca:not(.marca-logo) span {
+    display: none !important;
+}
+
+
+/* =========================================================
+   3. CABEÇALHO DO SITE
+========================================================= */
+
+.topo {
+    min-height: 86px !important;
+    padding: 9px 7.5% !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #FFF9DF 0%,
+            #F5E2A9 52%,
+            #E8C96E 100%
+        ) !important;
+
+    border-bottom: 1px solid #CFA63E !important;
+
+    box-shadow:
+        0 5px 18px
+        rgba(117, 81, 18, .07) !important;
+}
+
+.menu a {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.menu a:hover {
+    color: var(--gf-vinho) !important;
+}
+
+.btn-carrinho {
+    background: var(--gf-bordeaux) !important;
+    color: #FFFFFF !important;
+}
+
+.btn-carrinho:hover {
+    background: var(--gf-bordeaux-escuro) !important;
+}
+
+.btn-carrinho span {
+    background: var(--gf-amarelo-claro) !important;
+    color: var(--gf-bordeaux) !important;
+}
+
+
+/* =========================================================
+   4. BANNERS / CABEÇALHOS DAS PÁGINAS
+========================================================= */
+
+.banner,
+.banner.banner-sem-foto,
+.cabecalho-encomenda,
+.cabecalho-montagem,
+.cabecalho-carrinho,
+.cabecalho-checkout {
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.68),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #FFF5C9 0%,
+            #F2D98F 58%,
+            #E3BD55 100%
+        ) !important;
+}
+
+.banner h2 {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.banner p,
+.cabecalho-montagem p,
+.cabecalho-carrinho p,
+.cabecalho-checkout p {
+    color: #675448 !important;
+}
+
+.mini-titulo,
+.titulo-secao > span,
+.sobre > span,
+.cabecalho-montagem > span,
+.cabecalho-carrinho > span,
+.cabecalho-checkout > span,
+.orcamento-conteudo > span,
+.painel-secao-topo > span {
+    color: var(--gf-vinho) !important;
+}
+
+
+/* =========================================================
+   5. CARDS / PAINÉIS GERAIS
+========================================================= */
+
+.tipo-card,
+.produto,
+.etapa-bolo,
+.resumo-bolo,
+.item-carrinho,
+.carrinho-vazio,
+.resumo-carrinho,
+.checkout-card,
+.resumo-checkout,
+.pedido-publico-card,
+.painel-indicador,
+.painel-lista,
+.admin-grupos-wrapper,
+.admin-regras-wrapper,
+.admin-grupo-card,
+.regra-admin-card,
+.fatia-admin-card,
+.pedido-admin-card,
+.pedido-admin-item,
+.modal-admin-conteudo,
+.admin-login-card {
+    background:
+        linear-gradient(
+            145deg,
+            #FFFEF9 0%,
+            #FFF6D9 100%
+        ) !important;
+
+    border-color: var(--gf-borda) !important;
+
+    box-shadow:
+        0 10px 28px
+        var(--gf-sombra) !important;
+}
+
+
+/* =========================================================
+   6. BOTÕES PRINCIPAIS
+========================================================= */
+
+.btn-principal,
+.btn-adicionar-bolo,
+.btn-finalizar-pedido,
+.btn-whatsapp-checkout,
+.btn-admin-principal,
+.produto-rodape button,
+.btn-whatsapp,
+.painel-topo-acoes button,
+.painel-secao-topo button,
+.admin-regras-topo button,
+.admin-grupos-cabecalho button,
+.pedido-admin-acoes .btn-pedido-principal,
+.btn-atualizar-lista {
+    background: var(--gf-bordeaux) !important;
+    color: #FFFFFF !important;
+    border-color: var(--gf-bordeaux) !important;
+}
+
+.btn-principal:hover,
+.btn-adicionar-bolo:hover,
+.btn-finalizar-pedido:hover,
+.btn-whatsapp-checkout:hover,
+.btn-admin-principal:hover,
+.produto-rodape button:hover,
+.btn-whatsapp:hover,
+.painel-topo-acoes button:hover,
+.painel-secao-topo button:hover,
+.admin-regras-topo button:hover,
+.admin-grupos-cabecalho button:hover,
+.pedido-admin-acoes .btn-pedido-principal:hover,
+.btn-atualizar-lista:hover {
+    background: var(--gf-bordeaux-escuro) !important;
+}
+
+.btn-secundario,
+.continuar-comprando,
+.voltar-carrinho,
+.admin-voltar-site {
+    color: var(--gf-bordeaux) !important;
+}
+
+
+/* =========================================================
+   7. HOME / CARDÁPIO
+========================================================= */
+
+.tipos-produtos,
+.cardapio,
+.sobre {
+    background:
+        linear-gradient(
+            180deg,
+            #FFFDF4 0%,
+            #F7E7B6 100%
+        ) !important;
+}
+
+.tipo-card-destaque {
+    background:
+        linear-gradient(
+            145deg,
+            #F6E2A4 0%,
+            #EDCF76 55%,
+            #DEB64C 100%
+        ) !important;
+
+    border-color: #C89B30 !important;
+}
+
+.tipo-card-destaque,
+.tipo-card-destaque h3,
+.tipo-card-destaque p,
+.tipo-card-destaque .tipo-acao,
+.tipo-card-destaque .tipo-mini-titulo {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.tipo-icone,
+.banner-info-item > span {
+    background:
+        linear-gradient(
+            145deg,
+            #F8E8B0,
+            #E6C467
+        ) !important;
+}
+
+.produto-imagem {
+    background:
+        linear-gradient(
+            145deg,
+            #F8E8B5,
+            #EBCB72
+        ) !important;
+}
+
+.produto-categoria,
+.produto-rodape strong {
+    color: var(--gf-bordeaux) !important;
+}
+
+.informacoes-loja > div,
+.banner-info-item,
+.info-retirada {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,244,.95),
+            rgba(247,225,162,.92)
+        ) !important;
+
+    border-color: #D1AD50 !important;
+}
+
+.sobre {
+    background:
+        linear-gradient(
+            180deg,
+            #F8E8B7,
+            #EFD488
+        ) !important;
+}
+
+.orcamento {
+    background:
+        linear-gradient(
+            140deg,
+            #F0D58B 0%,
+            #DFB84C 58%,
+            #CFA23B 100%
+        ) !important;
+}
+
+.orcamento h2 {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.orcamento p {
+    color: #654E40 !important;
+}
+
+
+/* =========================================================
+   8. CAMPOS
+========================================================= */
+
+input,
+textarea,
+select,
+.campo-bolo,
+.campo-checkout input,
+.campo-checkout textarea,
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea,
+.upload-box,
+.opcao-card {
+    background: #FFF9E7 !important;
+
+    color: var(--gf-marrom-texto) !important;
+
+    border-color: #D8B85D !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.campo-bolo:focus,
+.campo-checkout input:focus,
+.campo-checkout textarea:focus {
+    border-color: var(--gf-amarelo-forte) !important;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(214,170,56,.16) !important;
+}
+
+input,
+textarea,
+select {
+    accent-color: var(--gf-bordeaux) !important;
+}
+
+
+/* =========================================================
+   9. TODOS OS ESTADOS SELECIONADOS / ATIVOS
+   Nada de fundo marrom/terracota.
+   Seleção = amarelo/champanhe + bordô.
+========================================================= */
+
+/* Opções de montagem */
+.opcao-card:has(input:checked),
+#opcoesRecheio .opcao-card:has(input:checked),
+#opcoesAdicionais .opcao-card:has(input:checked),
+#opcoesSaboresDocinho .opcao-card:has(input:checked) {
+    background:
+        linear-gradient(
+            145deg,
+            #F9E9B8 0%,
+            #EBCB72 100%
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    border:
+        2px solid
+        var(--gf-amarelo-forte) !important;
+
+    box-shadow:
+        0 6px 16px
+        rgba(129,91,20,.10) !important;
+}
+
+.opcao-card:has(input:checked) strong,
+.opcao-card:has(input:checked) small {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+/* Checkboxes especiais */
+.opcao-card input[type="checkbox"]:checked,
+#opcoesSaboresDocinho .opcao-card input[type="checkbox"]:checked {
+    border-color: var(--gf-bordeaux) !important;
+    background: var(--gf-bordeaux) !important;
+}
+
+/* Tipo da encomenda */
+.card-tipo-encomenda {
+    background:
+        linear-gradient(
+            145deg,
+            #FFFEF9,
+            #FFF4D4
+        ) !important;
+
+    color: var(--gf-marrom-texto) !important;
+
+    border-color: #D8B85E !important;
+}
+
+.card-tipo-encomenda:hover {
+    border-color: var(--gf-amarelo-forte) !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #FFF8DF,
+            #F3D98F
+        ) !important;
+}
+
+.card-tipo-encomenda.ativo {
+    background:
+        linear-gradient(
+            145deg,
+            #F5DEA0 0%,
+            #E6C35F 100%
+        ) !important;
+
+    border:
+        2px solid
+        var(--gf-amarelo-forte) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    box-shadow:
+        0 8px 20px
+        rgba(128,89,18,.12) !important;
+}
+
+.card-tipo-encomenda.ativo strong,
+.card-tipo-encomenda.ativo small,
+.card-tipo-encomenda.ativo .acao-encomenda {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.card-tipo-encomenda.ativo .icone-encomenda {
+    background:
+        rgba(255,253,237,.68) !important;
+}
+
+/* Categoria do cardápio */
+.categorias .categoria-ativa,
+.categorias button.ativo {
+    background:
+        linear-gradient(
+            145deg,
+            #EFD078,
+            #DCB046
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    border-color: #BE8E28 !important;
+}
+
+/* Abas do painel */
+.painel-abas {
+    background:
+        linear-gradient(
+            90deg,
+            #F5E0A3,
+            #E8C86C
+        ) !important;
+
+    border-color: #C99D35 !important;
+}
+
+.painel-aba {
+    background: transparent !important;
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+.painel-aba.ativa,
+.painel-aba.ativo,
+.painel-aba.active {
+    background:
+        linear-gradient(
+            145deg,
+            #F4DB94,
+            #DFAF43
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    border:
+        1px solid
+        #BD8B25 !important;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.28) !important;
+}
+
+/* Abas internas de produtos do admin */
+.admin-produto-tab.ativo,
+.admin-produto-tab.active {
+    background:
+        linear-gradient(
+            145deg,
+            #F5DFA0,
+            #E5BF5C
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    border-color: #C4952D !important;
+}
+
+.admin-produto-tab.ativo strong,
+.admin-produto-tab.ativo small,
+.admin-produto-tab.active strong,
+.admin-produto-tab.active small {
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+
+/* =========================================================
+   10. NÚMEROS, TOTAIS E RESUMOS
+========================================================= */
+
+.numero-etapa,
+.numero-checkout {
+    background:
+        linear-gradient(
+            145deg,
+            #EAC869,
+            #D8A936
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+
+    border:
+        1px solid
+        #B98521 !important;
+}
+
+.total-bolo,
+.total-final,
+.total-checkout {
+    background:
+        linear-gradient(
+            135deg,
+            #F3DA8E,
+            #E4BE56
+        ) !important;
+
+    border:
+        1px solid
+        #C69931 !important;
+}
+
+.total-bolo strong,
+.total-final strong,
+.total-checkout strong,
+.item-preco {
+    color: var(--gf-bordeaux) !important;
+}
+
+
+/* =========================================================
+   11. PEDIDO PÚBLICO
+========================================================= */
+
+.pagina-pedido-publico {
+    background:
+        linear-gradient(
+            180deg,
+            #FFF9E6,
+            #F3DB9A
+        ) !important;
+}
+
+.pedido-publico-topo > span,
+.pedido-publico-codigo,
+.pedido-publico-total strong {
+    color: var(--gf-bordeaux) !important;
+}
+
+.pedido-status,
+.pedido-admin-status {
+    background:
+        linear-gradient(
+            145deg,
+            #F0D47C,
+            #DFB64A
+        ) !important;
+
+    color: var(--gf-bordeaux-escuro) !important;
+}
+
+
+/* =========================================================
+   12. LOGIN ADMINISTRATIVO
+========================================================= */
+
+.pagina-admin {
+    background:
+        radial-gradient(
+            circle at 12% 12%,
+            rgba(255,255,255,.68),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #FFF4CB,
+            #EFD58A 53%,
+            #DCB04A
+        ) !important;
+}
+
+.admin-login-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,254,247,.98),
+            rgba(255,243,203,.97)
+        ) !important;
+
+    border-color: #D5B04F !important;
+}
+
+.admin-logo-marca {
+    width: 210px !important;
+    max-width: 86% !important;
+    height: auto !important;
+    margin: 0 auto 16px !important;
+}
+
+
+/* =========================================================
+   13. PAINEL ADMINISTRATIVO — LOGO E ALINHAMENTO
+========================================================= */
+
+.painel-topo {
+    min-height: 110px !important;
+
+    padding:
+        12px 7% !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #FFF5D1 0%,
+            #F0D88F 56%,
+            #E0BA56 100%
+        ) !important;
+
+    border-bottom:
+        1px solid
+        #C99B31 !important;
+}
+
+.painel-topo > div:first-child {
+    min-width: 225px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+}
+
+.painel-logo-marca {
+    display: block !important;
+
+    width: 195px !important;
+    max-width: 195px !important;
+    max-height: none !important;
+
+    height: auto !important;
+
+    margin:
+        0 auto 5px !important;
+
+    object-fit: contain !important;
+}
+
+.painel-topo > div:first-child > span {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin:
+        2px 0 0 !important;
+
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    color: var(--gf-vinho) !important;
+
+    font-family:
+        "Montserrat",
+        Arial,
+        sans-serif !important;
+
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 700 !important;
+
+    letter-spacing:
+        2.4px !important;
+
+    white-space: nowrap !important;
+
+    transform: none !important;
+}
+
+.painel-container,
+.pagina-painel {
+    background:
+        linear-gradient(
+            180deg,
+            #FFF9E5,
+            #F5DFA2
+        ) !important;
+}
+
+.pedido-admin-detalhes {
+    background:
+        linear-gradient(
+            180deg,
+            #FFF5CF,
+            #F1D689
+        ) !important;
+}
+
+
+/* =========================================================
+   14. STATUS ADMINISTRATIVOS
+   Mantemos verde/vermelho apenas onde o significado
+   operacional exige identificação imediata.
+========================================================= */
+
+.status-ativo {
+    background: #E9F6EC !important;
+    color: #286C40 !important;
+}
+
+.status-inativo {
+    background: #FAEAE7 !important;
+    color: #A03A31 !important;
+}
+
+
+/* =========================================================
+   15. RODAPÉ
+========================================================= */
+
+footer {
+    background:
+        var(--gf-bordeaux-escuro) !important;
+
+    color: #FFF5D0 !important;
+
+    border-top:
+        7px solid
+        #E2BC54 !important;
+}
+
+footer h3 {
+    color: #F8E5AA !important;
+}
+
+footer div p,
+.copyright {
+    color: #EAD596 !important;
+}
+
+
+/* =========================================================
+   16. TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .topo {
+        background:
+            linear-gradient(
+                90deg,
+                #FFF5CF,
+                #EED386
+            ) !important;
+    }
+
+    .marca-logo img {
+        width: 132px !important;
+    }
+
+    .marca:not(.marca-logo) {
+        width: 132px !important;
+        min-width: 132px !important;
+        height: 58px !important;
+    }
+
+    .painel-logo-marca {
+        width: 175px !important;
+        max-width: 175px !important;
+    }
+}
+
+
+/* =========================================================
+   17. MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        background:
+            linear-gradient(
+                180deg,
+                #FFF9E9,
+                #F5E0A5
+            ) !important;
+    }
+
+    .topo {
+        min-height: 70px !important;
+
+        padding:
+            6px 14px !important;
+
+        background:
+            linear-gradient(
+                90deg,
+                #FFF4CB,
+                #E8C96D
+            ) !important;
+    }
+
+    .marca-logo img {
+        width: 108px !important;
+        max-height: 55px !important;
+    }
+
+    .marca:not(.marca-logo) {
+        width: 108px !important;
+        min-width: 108px !important;
+        height: 55px !important;
+    }
+
+    .banner,
+    .banner.banner-sem-foto,
+    .cabecalho-encomenda,
+    .cabecalho-montagem,
+    .cabecalho-carrinho,
+    .cabecalho-checkout {
+        background:
+            radial-gradient(
+                circle at 12% 8%,
+                rgba(255,255,255,.68),
+                transparent 27%
+            ),
+            linear-gradient(
+                165deg,
+                #FFF3C4,
+                #EFD485 58%,
+                #DFB54A
+            ) !important;
+    }
+
+    .tipos-produtos,
+    .cardapio,
+    .sobre,
+    .pagina-montar-bolo,
+    .pagina-carrinho,
+    .pagina-checkout,
+    .pagina-pedido-publico {
+        background:
+            linear-gradient(
+                180deg,
+                #FFF9E8,
+                #F5DEA0
+            ) !important;
+    }
+
+    .tipo-card,
+    .produto,
+    .etapa-bolo,
+    .resumo-bolo,
+    .item-carrinho,
+    .carrinho-vazio,
+    .resumo-carrinho,
+    .checkout-card,
+    .resumo-checkout,
+    .pedido-publico-card {
+        background:
+            linear-gradient(
+                145deg,
+                #FFFEF9,
+                #F8E8B6
+            ) !important;
+    }
+
+    .tipo-card-destaque {
+        background:
+            linear-gradient(
+                145deg,
+                #F4DD9A,
+                #DCB044
+            ) !important;
+    }
+
+    .painel-topo {
+        min-height: 96px !important;
+
+        padding:
+            9px 16px !important;
+    }
+
+    .painel-topo > div:first-child {
+        min-width: 160px !important;
+        width: auto !important;
+    }
+
+    .painel-logo-marca {
+        width: 148px !important;
+        max-width: 148px !important;
+
+        margin-bottom:
+            3px !important;
+    }
+
+    .painel-topo > div:first-child > span {
+        font-size: 6.5px !important;
+
+        letter-spacing:
+            1.6px !important;
+
+        white-space: nowrap !important;
+    }
+
+    .painel-container,
+    .pagina-painel {
+        background:
+            linear-gradient(
+                180deg,
+                #FFF8E2,
+                #F3DC98
+            ) !important;
+    }
+
+    .painel-abas {
+        background:
+            linear-gradient(
+                90deg,
+                #F0D580,
+                #DCAD40
+            ) !important;
+    }
+
+    .painel-aba.ativa,
+    .painel-aba.ativo,
+    .painel-aba.active {
+        background:
+            linear-gradient(
+                145deg,
+                #F8E2A4,
+                #E4BC56
+            ) !important;
+    }
+
+    .card-tipo-encomenda.ativo {
+        background:
+            linear-gradient(
+                145deg,
+                #F7E1A4,
+                #E5BF5C
+            ) !important;
+    }
+
+    .opcao-card:has(input:checked) {
+        background:
+            linear-gradient(
+                145deg,
+                #F8E6AC,
+                #E7C260
+            ) !important;
+    }
+}
+
+
+/* =========================================================
+   18. CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .marca-logo img {
+        width: 98px !important;
+    }
+
+    .marca:not(.marca-logo) {
+        width: 98px !important;
+        min-width: 98px !important;
+    }
+
+    .painel-logo-marca {
+        width: 132px !important;
+        max-width: 132px !important;
+    }
+
+    .painel-topo > div:first-child {
+        min-width: 140px !important;
+    }
+
+    .painel-topo > div:first-child > span {
+        font-size: 5.8px !important;
+
+        letter-spacing:
+            1.25px !important;
+    }
+}
+
+
+/* =====================================================================
+   AJUSTE FINAL — BOTÕES E CARDS DO PAINEL ADMINISTRATIVO
+   Padronização com a identidade amarelo + champanhe + vinho/bordô
+   Aplicação em desktop e mobile
+===================================================================== */
+
+/* Cabeçalhos dos grupos */
+.admin-grupo-card,
+.admin-grupos-wrapper {
+    background:
+        linear-gradient(
+            145deg,
+            #FFFEF8 0%,
+            #FFF5D2 100%
+        ) !important;
+
+    border-color: #D8B75A !important;
+}
+
+.admin-grupo-card-topo {
+    background:
+        linear-gradient(
+            90deg,
+            #FFF8DF 0%,
+            #F6E4AD 100%
+        ) !important;
+
+    border-bottom-color: #D8B75A !important;
+}
+
+.admin-grupo-icone {
+    background:
+        linear-gradient(
+            145deg,
+            #F7E7B4,
+            #E9C86A
+        ) !important;
+}
+
+.admin-grupo-titulo h4,
+.admin-opcao-principal h5 {
+    color: #6D0C2E !important;
+}
+
+.admin-grupo-titulo p,
+.admin-opcao-principal p {
+    color: #79655A !important;
+}
+
+.admin-opcao-linha {
+    border-bottom-color: #E7D39B !important;
+}
+
+.admin-opcao-preco {
+    color: #6D0C2E !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   BOTÕES DE ADICIONAR
+========================================================= */
+
+.btn-adicionar-grupo,
+.btn-nova-fatia,
+.btn-atualizar-lista {
+    background:
+        linear-gradient(
+            145deg,
+            #E7C45C,
+            #D8A936
+        ) !important;
+
+    color: #4E071F !important;
+
+    border:
+        1px solid
+        #B98723 !important;
+
+    box-shadow:
+        0 5px 14px
+        rgba(114,78,15,.10) !important;
+}
+
+.btn-adicionar-grupo:hover,
+.btn-nova-fatia:hover,
+.btn-atualizar-lista:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #F0D57E,
+            #E0B84D
+        ) !important;
+
+    color: #4E071F !important;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÃO EDITAR
+========================================================= */
+
+.btn-editar-fatia,
+.admin-opcao-acoes button:first-child {
+    background:
+        #FFF9E7 !important;
+
+    color:
+        #6D0C2E !important;
+
+    border:
+        1px solid
+        #D7B75D !important;
+}
+
+.btn-editar-fatia:hover,
+.admin-opcao-acoes button:first-child:hover {
+    background:
+        #F6E5B2 !important;
+
+    border-color:
+        #C3952C !important;
+}
+
+
+/* =========================================================
+   BOTÃO ATIVAR / DESATIVAR
+========================================================= */
+
+.btn-status-fatia,
+.admin-opcao-acoes button:nth-child(2) {
+    background:
+        linear-gradient(
+            145deg,
+            #F2D98F,
+            #DDB54A
+        ) !important;
+
+    color:
+        #4E071F !important;
+
+    border:
+        1px solid
+        #BD8D27 !important;
+}
+
+.btn-status-fatia:hover,
+.admin-opcao-acoes button:nth-child(2):hover {
+    background:
+        linear-gradient(
+            145deg,
+            #F7E4AA,
+            #E5BF5C
+        ) !important;
+}
+
+
+/* =========================================================
+   BOTÃO EXCLUIR
+========================================================= */
+
+.btn-excluir-fatia,
+.admin-opcao-acoes button:nth-child(3) {
+    background:
+        #FFF8F3 !important;
+
+    color:
+        #A13B34 !important;
+
+    border:
+        1px solid
+        #E5B5AD !important;
+}
+
+.btn-excluir-fatia:hover,
+.admin-opcao-acoes button:nth-child(3):hover {
+    background:
+        #FDE9E4 !important;
+
+    color:
+        #8C2F2A !important;
+
+    border-color:
+        #D99489 !important;
+}
+
+
+/* =========================================================
+   STATUS ATIVO / INATIVO
+========================================================= */
+
+.status-ativo,
+.fatia-admin-status.status-ativo {
+    background:
+        #E9F5E9 !important;
+
+    color:
+        #2A6A3D !important;
+
+    border:
+        1px solid
+        #CDE6D1 !important;
+}
+
+.status-inativo,
+.fatia-admin-status.status-inativo {
+    background:
+        #FFF0E8 !important;
+
+    color:
+        #9B4C32 !important;
+
+    border:
+        1px solid
+        #EBC9BB !important;
+}
+
+
+/* =========================================================
+   CARDS / CONTEXTOS ADMIN
+========================================================= */
+
+.admin-contexto-cadastro,
+.campo-status-card,
+.aviso-topo-orcamento,
+.aviso-valor-topo,
+.opcoes-carregando,
+.opcoes-indisponiveis {
+    background:
+        linear-gradient(
+            145deg,
+            #FFF9E5,
+            #F6E3A9
+        ) !important;
+
+    border-color:
+        #D7B75D !important;
+
+    color:
+        #5A453A !important;
+}
+
+.admin-contexto-cadastro span {
+    background:
+        #6D0C2E !important;
+
+    color:
+        #FFFFFF !important;
+}
+
+.admin-contexto-cadastro strong {
+    background:
+        #F1D98E !important;
+
+    color:
+        #6D0C2E !important;
+}
+
+.admin-grupo-aviso,
+.contador-recheios {
+    background:
+        #F4DFA0 !important;
+
+    color:
+        #6D0C2E !important;
+
+    border:
+        1px solid
+        #D5AE4D !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .btn-adicionar-grupo,
+    .btn-nova-fatia,
+    .btn-atualizar-lista {
+        width: 100% !important;
+
+        min-height:
+            42px !important;
+    }
+
+    .admin-opcao-acoes {
+        gap:
+            7px !important;
+    }
+
+    .admin-opcao-acoes button {
+        min-height:
+            40px !important;
+
+        font-size:
+            8px !important;
+    }
+
+    .admin-grupo-card-topo {
+        background:
+            linear-gradient(
+                180deg,
+                #FFF8DF,
+                #F4DEA0
+            ) !important;
+    }
+}
+
+
+/* =====================================================
+   CORREÇÃO FINAL — TEXTO DO BOTÃO CARRINHO
+   Desktop + Mobile
+===================================================== */
+
+.btn-carrinho,
+.menu .btn-carrinho,
+a.btn-carrinho {
+    color: #FFF8E1 !important;
+}
+
+.btn-carrinho:hover,
+.menu .btn-carrinho:hover,
+a.btn-carrinho:hover {
+    color: #FFFFFF !important;
+}
+
+.btn-carrinho #quantidadeCarrinho,
+.btn-carrinho span {
+    background: #FFF8E1 !important;
+    color: #6D0C2E !important;
+}
+
+@media (max-width: 900px) {
+    .btn-carrinho,
+    .menu .btn-carrinho,
+    a.btn-carrinho {
+        color: #FFF8E1 !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-carrinho,
+    .menu .btn-carrinho,
+    a.btn-carrinho {
+        color: #FFF8E1 !important;
+    }
+
+    .btn-carrinho #quantidadeCarrinho,
+    .btn-carrinho span {
+        background: #FFF8E1 !important;
+        color: #6D0C2E !important;
     }
 }
