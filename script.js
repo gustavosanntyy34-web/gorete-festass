@@ -189,7 +189,8 @@ function formatarMoeda(valor) {
 function adicionarCarrinho(
     nome = "Produto",
     preco = 0,
-    categoria = "Produto"
+    categoria = "Produto",
+    quantidade = 1
 ) {
 
     const itemExistente =
@@ -200,9 +201,14 @@ function adicionarCarrinho(
         );
 
 
+    const quantidadeAdicionar =
+        Math.max(1, Number(quantidade || 1));
+
     if (itemExistente) {
 
-        itemExistente.quantidade++;
+        itemExistente.quantidade =
+            Number(itemExistente.quantidade || 1) +
+            quantidadeAdicionar;
 
     } else {
 
@@ -218,7 +224,8 @@ function adicionarCarrinho(
 
             preco: Number(preco),
 
-            quantidade: 1
+            quantidade:
+                quantidadeAdicionar
 
         });
 
@@ -281,6 +288,42 @@ async function buscarFatiasAtivasSupabase() {
     }
 
     return await resposta.json();
+}
+
+
+function alterarQuantidadeFatiaCard(id, delta) {
+
+    const campo =
+        document.getElementById(
+            `quantidadeFatia_${id}`
+        );
+
+    if (!campo) {
+        return;
+    }
+
+    const atual =
+        Number(campo.textContent || 1);
+
+    const novaQuantidade =
+        Math.max(1, atual + Number(delta || 0));
+
+    campo.textContent =
+        novaQuantidade;
+}
+
+
+function obterQuantidadeFatiaCard(id) {
+
+    const campo =
+        document.getElementById(
+            `quantidadeFatia_${id}`
+        );
+
+    return Math.max(
+        1,
+        Number(campo?.textContent || 1)
+    );
 }
 
 
@@ -383,14 +426,47 @@ function renderizarFatiasInicio(fatias) {
                     }
                 </p>
 
-                <div class="produto-rodape">
+                <div class="produto-quantidade-area">
+
+                    <span>Quantidade</span>
+
+                    <div class="produto-controle-quantidade">
+
+                        <button
+                            type="button"
+                            data-acao-quantidade="menos"
+                            aria-label="Diminuir quantidade"
+                        >
+                            −
+                        </button>
+
+                        <strong id="quantidadeFatia_${fatia.id}">
+                            1
+                        </strong>
+
+                        <button
+                            type="button"
+                            data-acao-quantidade="mais"
+                            aria-label="Aumentar quantidade"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="produto-rodape produto-rodape-fatia">
 
                     <strong>
                         ${formatarMoeda(fatia.preco)}
                     </strong>
 
-                    <button type="button">
-                        + Adicionar
+                    <button
+                        type="button"
+                        data-acao="adicionar-fatia"
+                    >
+                        Adicionar ao carrinho
                     </button>
 
                 </div>
@@ -398,23 +474,61 @@ function renderizarFatiasInicio(fatias) {
             </div>
         `;
 
-        const botao =
+        const botaoMenos =
             artigo.querySelector(
-                ".produto-rodape button"
+                '[data-acao-quantidade="menos"]'
             );
 
-        botao.addEventListener(
+        const botaoMais =
+            artigo.querySelector(
+                '[data-acao-quantidade="mais"]'
+            );
+
+        const botaoAdicionar =
+            artigo.querySelector(
+                '[data-acao="adicionar-fatia"]'
+            );
+
+        botaoMenos?.addEventListener(
             "click",
             function() {
+                alterarQuantidadeFatiaCard(
+                    fatia.id,
+                    -1
+                );
+            }
+        );
+
+        botaoMais?.addEventListener(
+            "click",
+            function() {
+                alterarQuantidadeFatiaCard(
+                    fatia.id,
+                    1
+                );
+            }
+        );
+
+        botaoAdicionar?.addEventListener(
+            "click",
+            function() {
+
+                const quantidade =
+                    obterQuantidadeFatiaCard(
+                        fatia.id
+                    );
 
                 adicionarCarrinho(
                     fatia.nome,
                     Number(fatia.preco || 0),
-                    "Fatia"
+                    "Fatia",
+                    quantidade
                 );
 
                 alert(
-                    `${fatia.nome} adicionada ao carrinho.`
+                    quantidade === 1
+                        ? `${fatia.nome} adicionada ao carrinho.`
+                        : `${quantidade} unidades de ${fatia.nome} adicionadas ao carrinho.`
                 );
             }
         );
@@ -922,11 +1036,48 @@ function atualizarResumoBolo() {
 
     if (resumoAdicionais) {
 
+        const adicionaisComValor = [];
+
+        if (
+            massa &&
+            Number(massa.dataset.preco || 0) > 0
+        ) {
+            adicionaisComValor.push(
+                `${massa.value} (+ ${formatarMoeda(
+                    Number(massa.dataset.preco || 0)
+                )})`
+            );
+        }
+
+        recheios.forEach(item => {
+
+            const preco =
+                Number(item.dataset.preco || 0);
+
+            if (preco > 0) {
+                adicionaisComValor.push(
+                    `${item.value} (+ ${formatarMoeda(preco)})`
+                );
+            }
+
+        });
+
+        adicionais.forEach(item => {
+
+            const preco =
+                Number(item.dataset.preco || 0);
+
+            adicionaisComValor.push(
+                preco > 0
+                    ? `${item.value} (+ ${formatarMoeda(preco)})`
+                    : item.value
+            );
+
+        });
+
         resumoAdicionais.textContent =
-            adicionais.length
-                ? adicionais
-                    .map(item => item.value)
-                    .join(", ")
+            adicionaisComValor.length
+                ? adicionaisComValor.join(", ")
                 : "Nenhum";
 
     }
@@ -1123,6 +1274,44 @@ async function adicionarBoloCarrinho() {
         valorRecheios +
         valorAdicionais;
 
+    const adicionaisCobrados = [];
+
+    if (valorMassa > 0) {
+        adicionaisCobrados.push({
+            origem: "Massa",
+            nome: massa.value,
+            valor: valorMassa
+        });
+    }
+
+    recheios.forEach(item => {
+
+        const valor =
+            Number(item.dataset.preco || 0);
+
+        if (valor > 0) {
+            adicionaisCobrados.push({
+                origem: "Recheio",
+                nome: item.value,
+                valor
+            });
+        }
+
+    });
+
+    adicionais.forEach(item => {
+
+        const valor =
+            Number(item.dataset.preco || 0);
+
+        adicionaisCobrados.push({
+            origem: "Adicional",
+            nome: item.value,
+            valor
+        });
+
+    });
+
 
     const fotoBolo =
         document.getElementById(
@@ -1241,6 +1430,9 @@ async function adicionarBoloCarrinho() {
             adicionais
                 .map(item => item.value),
 
+        adicionaisCobrados:
+            adicionaisCobrados,
+
         cor:
             cor,
 
@@ -1336,6 +1528,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function renderizarCarrinho() {
 
+    /* Compatibilidade com carrinhos antigos */
+    carrinho.forEach(item => {
+
+        if (
+            item.tipo === "bolo-personalizado" &&
+            !Array.isArray(item.adicionaisCobrados)
+        ) {
+
+            item.adicionaisCobrados = [];
+
+            if (Number(item.valorMassa || 0) > 0) {
+                item.adicionaisCobrados.push({
+                    origem: "Massa",
+                    nome: item.massa || "Massa",
+                    valor: Number(item.valorMassa || 0)
+                });
+            }
+
+            if (Number(item.valorRecheios || 0) > 0) {
+                item.adicionaisCobrados.push({
+                    origem: "Recheio",
+                    nome: item.recheio || "Recheio",
+                    valor: Number(item.valorRecheios || 0)
+                });
+            }
+
+            if (
+                Number(item.valorAdicionais || 0) > 0 &&
+                Array.isArray(item.adicionais) &&
+                item.adicionais.length
+            ) {
+                item.adicionaisCobrados.push({
+                    origem: "Adicional",
+                    nome: item.adicionais.join(", "),
+                    valor: Number(item.valorAdicionais || 0)
+                });
+            }
+
+        }
+
+    });
+
     const lista =
         document.getElementById("listaCarrinho");
 
@@ -1426,24 +1660,16 @@ function renderizarCarrinho() {
                             </p>
                         ` : ""}
 
-                        ${Number(item.valorMassa || 0) > 0 ? `
+                        ${item.adicionaisCobrados?.length ? `
                             <p>
-                                <strong>Adicional da massa:</strong>
-                                + ${formatarMoeda(item.valorMassa)}
-                            </p>
-                        ` : ""}
-
-                        ${Number(item.valorRecheios || 0) > 0 ? `
-                            <p>
-                                <strong>Adicional de recheio:</strong>
-                                + ${formatarMoeda(item.valorRecheios)}
-                            </p>
-                        ` : ""}
-
-                        ${Number(item.valorAdicionais || 0) > 0 ? `
-                            <p>
-                                <strong>Valor dos adicionais:</strong>
-                                + ${formatarMoeda(item.valorAdicionais)}
+                                <strong>Adicionais cobrados:</strong>
+                                ${
+                                    item.adicionaisCobrados
+                                        .map(adicional =>
+                                            `${adicional.nome} (+ ${formatarMoeda(adicional.valor)})`
+                                        )
+                                        .join(", ")
+                                }
                             </p>
                         ` : ""}
 
@@ -2211,24 +2437,16 @@ function renderizarCheckout() {
                         </p>
                     ` : ""}
 
-                    ${Number(item.valorMassa || 0) > 0 ? `
+                    ${item.adicionaisCobrados?.length ? `
                         <p>
-                            <strong>Adicional da massa:</strong>
-                            + ${formatarMoeda(item.valorMassa)}
-                        </p>
-                    ` : ""}
-
-                    ${Number(item.valorRecheios || 0) > 0 ? `
-                        <p>
-                            <strong>Adicional de recheio:</strong>
-                            + ${formatarMoeda(item.valorRecheios)}
-                        </p>
-                    ` : ""}
-
-                    ${Number(item.valorAdicionais || 0) > 0 ? `
-                        <p>
-                            <strong>Valor dos adicionais:</strong>
-                            + ${formatarMoeda(item.valorAdicionais)}
+                            <strong>Adicionais cobrados:</strong>
+                            ${
+                                item.adicionaisCobrados
+                                    .map(adicional =>
+                                        `${adicional.nome} (+ ${formatarMoeda(adicional.valor)})`
+                                    )
+                                    .join(", ")
+                            }
                         </p>
                     ` : ""}
 

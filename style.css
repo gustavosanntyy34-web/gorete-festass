@@ -15376,3 +15376,165 @@ a.btn-carrinho:hover {
         margin-top: 24px !important;
     }
 }
+
+
+
+/* =====================================================================
+   AJUSTE FINAL — FUNDO DO CARRINHO / CHECKOUT
+   Mantém a mesma identidade visual no desktop e no mobile.
+===================================================================== */
+
+:root {
+    --gf-fundo-claro: #fff9e7;
+    --gf-champagne: #f8e6a8;
+    --gf-amarelo: #edcb69;
+    --gf-vinho: #7f0732;
+}
+
+body:has(.pagina-carrinho),
+body:has(.pagina-checkout),
+.pagina-carrinho,
+.pagina-checkout {
+    background:
+        linear-gradient(
+            135deg,
+            #fff9e7 0%,
+            #f8e6a8 55%,
+            #edcb69 100%
+        ) !important;
+}
+
+.resumo-bolo,
+.resumo-carrinho,
+.resumo-checkout {
+    background:
+        linear-gradient(
+            145deg,
+            #fffef9 0%,
+            #fff7dc 100%
+        ) !important;
+}
+
+@media (max-width: 700px) {
+    body:has(.pagina-carrinho),
+    body:has(.pagina-checkout),
+    .pagina-carrinho,
+    .pagina-checkout {
+        background:
+            linear-gradient(
+                135deg,
+                #fff9e7 0%,
+                #f8e6a8 55%,
+                #edcb69 100%
+            ) !important;
+    }
+}
+
+
+
+/* =====================================================================
+   AJUSTE FINAL — FATIAS + ESPAÇAMENTO DO CARRINHO
+   • quantidade da fatia antes de adicionar
+   • cabeçalho "Meu carrinho" sem sobrepor o primeiro item
+   • responsivo para desktop e mobile
+===================================================================== */
+
+.produto-quantidade-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 18px;
+    padding-top: 16px;
+
+    border-top: 1px solid rgba(109, 12, 46, .10);
+}
+
+.produto-quantidade-area > span {
+    color: #6d0c2e;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.produto-controle-quantidade {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.produto-controle-quantidade button {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #d3ad4d;
+    border-radius: 50%;
+
+    background: #fffaf0;
+    color: #6d0c2e;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.produto-controle-quantidade button:hover {
+    background: #f3dda0;
+}
+
+.produto-controle-quantidade strong {
+    min-width: 26px;
+    text-align: center;
+
+    color: #4f2d25;
+    font-size: 15px;
+}
+
+.produto-rodape.produto-rodape-fatia {
+    margin-top: 12px;
+}
+
+.produto-rodape.produto-rodape-fatia button {
+    width: 100%;
+}
+
+/* garante distância entre o bloco "Meu carrinho" e o primeiro item */
+.cabecalho-carrinho {
+    margin-bottom: 22px !important;
+}
+
+.carrinho-container {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 700px) {
+
+    .cabecalho-carrinho {
+        margin-bottom: 26px !important;
+    }
+
+    .carrinho-container {
+        padding-top: 0 !important;
+    }
+
+    .produto-quantidade-area {
+        margin-top: 16px;
+        padding-top: 14px;
+    }
+
+    .produto-controle-quantidade button {
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+    }
+
+    .produto-controle-quantidade strong {
+        font-size: 16px;
+    }
+}
