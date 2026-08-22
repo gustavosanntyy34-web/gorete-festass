@@ -344,7 +344,7 @@
         
 
             /* =========================================================
-               PEDIDOS
+               PEDIDOS — DETALHES SIMPLES E FÁCEIS DE LER
             ========================================================= */
 
             .painel-lista-topo-pedidos {
@@ -372,7 +372,7 @@
 
             .lista-pedidos-admin {
                 display: grid;
-                gap: 12px;
+                gap: 14px;
             }
 
             .pedido-admin-card {
@@ -386,7 +386,7 @@
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) auto;
                 gap: 18px;
-                padding: 16px;
+                padding: 17px 18px;
             }
 
             .pedido-admin-codigo {
@@ -394,7 +394,7 @@
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 8px;
-                margin-bottom: 7px;
+                margin-bottom: 8px;
             }
 
             .pedido-admin-codigo strong {
@@ -426,7 +426,7 @@
             }
 
             .pedido-admin-lateral {
-                min-width: 170px;
+                min-width: 180px;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
@@ -435,8 +435,8 @@
 
             .pedido-admin-total {
                 color: #6f4031;
-                font-size: 19px;
-                font-weight: 700;
+                font-size: 20px;
+                font-weight: 800;
             }
 
             .pedido-admin-acoes {
@@ -466,54 +466,16 @@
                 color: #ffffff;
             }
 
-            .pedido-admin-detalhes {
-                padding: 0 16px 16px;
-                border-top: 1px solid #f0e2db;
-                background: #fffaf7;
+            .pedido-admin-acoes .btn-pedido-excluir {
+                background: #fff6f4;
+                border-color: #d9a79b;
+                color: #a43d2f;
             }
 
-            .pedido-admin-detalhes[hidden] {
-                display: none !important;
-            }
-
-            .pedido-admin-item {
-                padding: 14px 0;
-                border-bottom: 1px solid #efe2dc;
-            }
-
-            .pedido-admin-item:last-child {
-                border-bottom: 0;
-            }
-
-            .pedido-admin-item h4 {
-                margin: 0 0 8px;
-                color: #563126;
-                font-size: 13px;
-            }
-
-            .pedido-admin-item p {
-                margin: 3px 0;
-                color: #806b62;
-                font-size: 10px;
-                line-height: 1.45;
-            }
-
-            .pedido-admin-imagens {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 9px;
-            }
-
-            .pedido-admin-imagens a {
-                display: inline-flex;
-                padding: 7px 10px;
-                border-radius: 8px;
-                background: #f4e2d8;
-                color: #6f4031;
-                text-decoration: none;
-                font-size: 9px;
-                font-weight: 700;
+            .pedido-admin-acoes .btn-pedido-excluir:hover {
+                background: #a43d2f;
+                border-color: #a43d2f;
+                color: #ffffff;
             }
 
             .pedido-admin-status-select {
@@ -525,6 +487,147 @@
                 color: #6f4031;
                 font-size: 9px;
                 font-weight: 700;
+            }
+
+            .pedido-admin-detalhes {
+                padding: 20px;
+                border-top: 1px solid #eadbd3;
+                background: #fff9f6;
+            }
+
+            .pedido-admin-detalhes[hidden] {
+                display: none !important;
+            }
+
+            .pedido-admin-detalhes-titulo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 14px;
+                margin-bottom: 14px;
+            }
+
+            .pedido-admin-detalhes-titulo span {
+                display: block;
+                margin-bottom: 4px;
+                color: #b66f54;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+
+            .pedido-admin-detalhes-titulo h4 {
+                margin: 0;
+                color: #563126;
+                font-size: 18px;
+            }
+
+            .pedido-admin-detalhes-titulo small {
+                color: #9a7668;
+                font-size: 10px;
+            }
+
+            .pedido-admin-itens {
+                display: grid;
+                gap: 12px;
+            }
+
+            .pedido-admin-item {
+                border: 1px solid #eadbd3;
+                border-radius: 13px;
+                background: #ffffff;
+                overflow: hidden;
+            }
+
+            .pedido-admin-item-topo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 15px 17px;
+                border-bottom: 1px solid #f0e2db;
+                background: #fffdfb;
+            }
+
+            .pedido-admin-item-identificacao span {
+                display: block;
+                margin-bottom: 4px;
+                color: #b66f54;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+            }
+
+            .pedido-admin-item h4 {
+                margin: 0;
+                color: #563126;
+                font-size: 17px;
+            }
+
+            .pedido-admin-item-valor {
+                color: #6f4031;
+                font-size: 18px;
+                font-weight: 800;
+                white-space: nowrap;
+            }
+
+            .pedido-admin-ficha {
+                padding: 4px 17px 12px;
+            }
+
+            .pedido-admin-linha {
+                display: grid;
+                grid-template-columns: 180px minmax(0, 1fr);
+                gap: 16px;
+                align-items: start;
+                padding: 10px 0;
+                border-bottom: 1px solid #f1e5df;
+            }
+
+            .pedido-admin-linha:last-child {
+                border-bottom: 0;
+            }
+
+            .pedido-admin-linha span {
+                color: #9b7465;
+                font-size: 10px;
+                font-weight: 700;
+            }
+
+            .pedido-admin-linha strong {
+                color: #563126;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1.45;
+                overflow-wrap: anywhere;
+            }
+
+            .pedido-admin-imagens {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 0 17px 16px;
+            }
+
+            .pedido-admin-imagens a {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                min-height: 34px;
+                padding: 7px 11px;
+                border: 1px solid #e6cfc4;
+                border-radius: 9px;
+                background: #f4e2d8;
+                color: #6f4031;
+                text-decoration: none;
+                font-size: 10px;
+                font-weight: 700;
+            }
+
+            .pedido-admin-imagens a:hover {
+                background: #6f4031;
+                border-color: #6f4031;
+                color: #ffffff;
             }
 
             @media (max-width: 700px) {
@@ -549,8 +652,43 @@
                 .pedido-admin-acoes {
                     justify-content: flex-start;
                 }
+
+                .pedido-admin-detalhes {
+                    padding: 14px;
+                }
+
+                .pedido-admin-detalhes-titulo,
+                .pedido-admin-item-topo {
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+
+                .pedido-admin-linha {
+                    grid-template-columns: 1fr;
+                    gap: 3px;
+                }
+
+                .pedido-admin-item-valor {
+                    font-size: 17px;
+                }
             }
 
+
+        
+            /* MOBILE FINAL - PAINEL ADMINISTRATIVO */
+            @media (max-width: 600px) {
+                .admin-produtos-encomenda { grid-template-columns: 1fr !important; }
+                .regra-admin-card { grid-template-columns: 1fr !important; }
+                .regra-admin-acoes { grid-template-columns: 1fr !important; }
+                .pedido-admin-resumo { grid-template-columns: 1fr !important; }
+                .pedido-admin-lateral { min-width: 0 !important; width: 100%; align-items: stretch !important; }
+                .pedido-admin-acoes { display: grid !important; grid-template-columns: 1fr !important; }
+                .pedido-admin-acoes button,
+                .pedido-admin-acoes a,
+                .pedido-admin-status-select { width: 100% !important; min-height: 42px !important; }
+                .pedido-admin-linha { grid-template-columns: 1fr !important; gap: 3px !important; }
+                .modal-regra-grid { grid-template-columns: 1fr !important; }
+            }
         </style>
     </head>
     <body class="pagina-painel">
@@ -2555,7 +2693,18 @@
             "precoPacote",
             "quantidadePacote",
             "tipoCobranca",
-            "regraNome"
+            "regraNome",
+            "categoriaId",
+            "categoria_id",
+            "tipo",
+            "tipoNome",
+            "tipoCupcake",
+            "nome",
+            "data",
+            "horario",
+            "dataRetirada",
+            "horarioRetirada",
+            "quantidadeMinimaPorSabor"
         ]);
 
         const rotulos = {
@@ -2564,41 +2713,83 @@
             recheio: "Recheio",
             recheios: "Recheios",
             adicionais: "Adicionais",
-            cor: "Cor",
+            cor: "Cor / decoração",
             topo: "Topo",
             categoria: "Categoria",
-            unidades: "Unidades",
+            unidades: "Quantidade",
             sabores: "Sabores",
             sabor: "Sabor",
-            tipoNome: "Tipo",
-            tipoCupcake: "Tipo",
-            quantidadeMinimaPorSabor: "Mínimo por sabor"
+            descricao: "Descrição",
+            observacao: "Observação",
+            observacoes: "Observações"
         };
 
+        const prioridade = [
+            "categoria",
+            "tamanho",
+            "massa",
+            "recheio",
+            "recheios",
+            "sabores",
+            "sabor",
+            "unidades",
+            "cor",
+            "topo",
+            "adicionais",
+            "descricao",
+            "observacao",
+            "observacoes"
+        ];
+
         return Object.entries(detalhes)
-            .filter(([chave, valor]) =>
-                !ignorar.has(chave) &&
-                valor !== null &&
-                valor !== undefined &&
-                valor !== "" &&
-                !(Array.isArray(valor) && valor.length === 0)
-            )
+            .filter(([chave, valor]) => {
+                if (ignorar.has(chave)) {
+                    return false;
+                }
+
+                if (
+                    valor === null ||
+                    valor === undefined ||
+                    valor === "" ||
+                    (Array.isArray(valor) && valor.length === 0)
+                ) {
+                    return false;
+                }
+
+                return true;
+            })
             .map(([chave, valor]) => {
-                const texto =
-                    Array.isArray(valor)
-                        ? valor.join(", ")
-                        : typeof valor === "object"
-                            ? JSON.stringify(valor)
-                            : String(valor);
+                let texto;
+
+                if (Array.isArray(valor)) {
+                    texto = valor.join(", ");
+                } else if (typeof valor === "object") {
+                    texto = Object.values(valor)
+                        .filter(item => item !== null && item !== undefined && item !== "")
+                        .join(", ");
+                } else {
+                    texto = String(valor);
+                }
 
                 return {
+                    chave,
                     rotulo:
                         rotulos[chave] ||
                         chave
                             .replaceAll("_", " ")
+                            .replace(/([a-z])([A-Z])/g, "$1 $2")
                             .replace(/\b\w/g, letra => letra.toUpperCase()),
                     valor: texto
                 };
+            })
+            .sort((a, b) => {
+                const posA = prioridade.indexOf(a.chave);
+                const posB = prioridade.indexOf(b.chave);
+
+                const ordemA = posA === -1 ? 999 : posA;
+                const ordemB = posB === -1 ? 999 : posB;
+
+                return ordemA - ordemB;
             });
     }
 
@@ -2671,38 +2862,61 @@
                             ? item.imagens_pedido
                             : [];
 
+                    const linhas = [];
+
+                    if (item.data_retirada) {
+                        linhas.push({
+                            rotulo: "Retirada",
+                            valor:
+                                `${formatarDataPedido(item.data_retirada)}` +
+                                `${item.horario_retirada ? ` às ${String(item.horario_retirada).slice(0, 5)}` : ""}`
+                        });
+                    }
+
+                    detalhes.forEach(detalhe => {
+                        linhas.push({
+                            rotulo: detalhe.rotulo,
+                            valor: detalhe.valor
+                        });
+                    });
+
+                    if (Number(item.quantidade || 1) > 1) {
+                        linhas.push({
+                            rotulo: "Quantidade deste item",
+                            valor: Number(item.quantidade)
+                        });
+                    }
+
                     return `
                         <div class="pedido-admin-item">
-                            <h4>
-                                ${escaparHtml(item.nome_produto)}
-                                — ${formatarMoeda(item.valor_total)}
-                            </h4>
+                            <div class="pedido-admin-item-topo">
+                                <div class="pedido-admin-item-identificacao">
+                                    <span>ITEM DA ENCOMENDA</span>
+                                    <h4>${escaparHtml(item.nome_produto)}</h4>
+                                </div>
 
-                            <p>
-                                <strong>Quantidade:</strong>
-                                ${Number(item.quantidade || 1)}
-                            </p>
+                                <div class="pedido-admin-item-valor">
+                                    ${formatarMoeda(item.valor_total)}
+                                </div>
+                            </div>
 
-                            ${
-                                item.data_retirada
-                                    ? `
-                                        <p>
-                                            <strong>Retirada:</strong>
-                                            ${formatarDataPedido(item.data_retirada)}
-                                            ${item.horario_retirada ? ` às ${String(item.horario_retirada).slice(0, 5)}` : ""}
-                                        </p>
-                                    `
-                                    : ""
-                            }
-
-                            ${
-                                detalhes.map(detalhe => `
-                                    <p>
-                                        <strong>${escaparHtml(detalhe.rotulo)}:</strong>
-                                        ${escaparHtml(detalhe.valor)}
-                                    </p>
-                                `).join("")
-                            }
+                            <div class="pedido-admin-ficha">
+                                ${
+                                    linhas.length
+                                        ? linhas.map(linha => `
+                                            <div class="pedido-admin-linha">
+                                                <span>${escaparHtml(linha.rotulo)}</span>
+                                                <strong>${escaparHtml(linha.valor)}</strong>
+                                            </div>
+                                        `).join("")
+                                        : `
+                                            <div class="pedido-admin-linha">
+                                                <span>Informações</span>
+                                                <strong>Sem detalhes adicionais.</strong>
+                                            </div>
+                                        `
+                                }
+                            </div>
 
                             ${
                                 imagens.length
@@ -2802,6 +3016,16 @@
                             >
                                 Abrir link
                             </a>
+
+                            <button
+                                type="button"
+                                class="btn-pedido-excluir"
+                                data-acao="excluir-pedido"
+                                data-pedido-id="${pedido.id}"
+                                data-pedido-codigo="${escaparHtml(pedido.codigo || `Pedido ${pedido.id}`)}"
+                            >
+                                Excluir
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2811,7 +3035,17 @@
                     id="detalhesPedidoAdmin-${pedido.id}"
                     hidden
                 >
-                    ${detalhesItens || '<p class="painel-carregando">Nenhum item registrado.</p>'}
+                    <div class="pedido-admin-detalhes-titulo">
+                        <div>
+                            <span>DETALHES DA ENCOMENDA</span>
+                            <h4>Resumo da encomenda</h4>
+                        </div>
+                        <small>${itens.length} ${itens.length === 1 ? "item" : "itens"}</small>
+                    </div>
+
+                    <div class="pedido-admin-itens">
+                        ${detalhesItens || '<p class="painel-carregando">Nenhum item registrado.</p>'}
+                    </div>
                 </div>
             `;
 
@@ -2881,40 +3115,93 @@
         renderizarPedidosAdmin();
     }
 
+    async function excluirPedidoAdmin(id, codigo) {
+        const confirmar = confirm(
+            `Tem certeza que deseja excluir o pedido ${codigo}?\n\n` +
+            "Todos os itens e registros de imagens vinculados a este pedido também serão removidos.\n" +
+            "Esta ação não poderá ser desfeita."
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        const { error } =
+            await supabasePainel.rpc(
+                "excluir_pedido_admin",
+                {
+                    p_pedido_id: Number(id)
+                }
+            );
+
+        if (error) {
+            console.error(error);
+            alert(
+                "Não foi possível excluir o pedido. " +
+                "Confira se o SQL de exclusão foi executado no Supabase."
+            );
+            return;
+        }
+
+        pedidosAdminCarregados =
+            pedidosAdminCarregados.filter(
+                pedido => String(pedido.id) !== String(id)
+            );
+
+        atualizarIndicadoresPedidos();
+        renderizarPedidosAdmin();
+
+        alert(`Pedido ${codigo} excluído com sucesso.`);
+    }
+
     listaPedidosAdmin?.addEventListener(
         "click",
         function(event) {
             const botao =
                 event.target.closest(
-                    'button[data-acao="detalhes-pedido"]'
+                    "button[data-acao]"
                 );
 
             if (!botao) {
                 return;
             }
 
+            const acao =
+                botao.dataset.acao;
+
             const id =
                 botao.dataset.pedidoId;
 
-            const detalhes =
-                document.getElementById(
-                    `detalhesPedidoAdmin-${id}`
-                );
+            if (acao === "detalhes-pedido") {
+                const detalhes =
+                    document.getElementById(
+                        `detalhesPedidoAdmin-${id}`
+                    );
 
-            if (!detalhes) {
+                if (!detalhes) {
+                    return;
+                }
+
+                const abrir =
+                    detalhes.hidden;
+
+                detalhes.hidden =
+                    !abrir;
+
+                botao.textContent =
+                    abrir
+                        ? "Ocultar detalhes"
+                        : "Ver detalhes";
+
                 return;
             }
 
-            const abrir =
-                detalhes.hidden;
-
-            detalhes.hidden =
-                !abrir;
-
-            botao.textContent =
-                abrir
-                    ? "Ocultar detalhes"
-                    : "Ver detalhes";
+            if (acao === "excluir-pedido") {
+                excluirPedidoAdmin(
+                    Number(id),
+                    botao.dataset.pedidoCodigo || `Pedido ${id}`
+                );
+            }
         }
     );
 

@@ -1,103 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Carrinho | Gorete Festass</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <header class="topo">
-
-        <div class="marca">
-            <h1>Gorete Festass</h1>
-            <span>BOLOS • DOCES • CUPCAKES</span>
-        </div>
-
-        <nav class="menu">
-            <a href="index.html">Início</a>
-            <a href="index.html#cardapio">Fatias</a>
-            <a href="montar-bolo.html">Faça sua encomenda</a>
-
-            <a href="carrinho.html" class="btn-carrinho">
-                🛒 Carrinho
-                <span id="quantidadeCarrinho">0</span>
-            </a>
-        </nav>
-
-    </header>
-
-
-    <main class="pagina-carrinho">
-
-        <section class="cabecalho-carrinho">
-
-            <span>SEU PEDIDO</span>
-
-            <h1>Meu carrinho</h1>
-
-            <p>
-                Confira os itens escolhidos antes de finalizar o pedido.
-            </p>
-
-        </section>
-
-
-        <section class="carrinho-container">
-
-            <!-- ITENS -->
-            <div class="lista-carrinho" id="listaCarrinho">
-                <!-- Os produtos serão inseridos pelo JavaScript -->
-            </div>
-
-
-            <!-- RESUMO -->
-            <aside class="resumo-carrinho">
-
-                <span>RESUMO</span>
-
-                <h2>Resumo do pedido</h2>
-
-                <div class="linha-total">
-                    <span>Itens</span>
-                    <strong id="totalItens">0</strong>
-                </div>
-
-                <div class="linha-total">
-                    <span>Subtotal</span>
-                    <strong id="subtotalCarrinho">R$ 0,00</strong>
-                </div>
-
-                <div class="total-final">
-                    <span>Total</span>
-                    <strong id="totalCarrinho">R$ 0,00</strong>
-                </div>
-
-                <button
-                    class="btn-finalizar-pedido"
-                    onclick="irParaCheckout()"
-                >
-                    Continuar pedido
-                </button>
-
-                <a href="index.html" class="continuar-comprando">
-                    ← Continuar comprando
-                </a>
-
-            </aside>
-
-        </section>
-
-    </main>
-
-
-    <script src="script.js"></script>
-
+<header class="topo">
+    <div class="marca"><h1>Gorete Festass</h1><span>BOLOS • DOCES • CUPCAKES</span></div>
+    <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="index.html#cardapio">Fatias</a>
+        <a href="montar-bolo.html">Faça sua encomenda</a>
+        <a href="carrinho.html" class="btn-carrinho">🛒 Carrinho <span id="quantidadeCarrinho">0</span></a>
+    </nav>
+</header>
+<main class="pagina-carrinho">
+    <section class="cabecalho-carrinho">
+        <span>SEU PEDIDO</span><h1>Meu carrinho</h1><p>Confira os itens escolhidos antes de finalizar o pedido.</p>
+    </section>
+    <section class="carrinho-container">
+        <div class="lista-carrinho" id="listaCarrinho"></div>
+        <aside class="resumo-carrinho">
+            <span>RESUMO</span><h2>Resumo do pedido</h2>
+            <div class="linha-total"><span>Itens</span><strong id="totalItens">0</strong></div>
+            <div class="linha-total"><span>Subtotal</span><strong id="subtotalCarrinho">R$ 0,00</strong></div>
+            <div class="total-final"><span>Total</span><strong id="totalCarrinho">R$ 0,00</strong></div>
+            <button class="btn-finalizar-pedido" onclick="irParaCheckout()">Continuar pedido</button>
+            <a href="index.html" class="continuar-comprando">← Continuar comprando</a>
+        </aside>
+    </section>
+</main>
+<script src="script.js"></script>
 </body>
-
 </html>
