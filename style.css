@@ -14681,3 +14681,610 @@ a.btn-carrinho:hover {
         color: #6D0C2E !important;
     }
 }
+
+
+
+/* =====================================================================
+   CORREÇÃO MOBILE FINAL — GORETE FESTAS
+   Ajustes aplicados:
+   • retirada/data/horário sem estouro lateral
+   • cards e containers alinhados no celular
+   • painel administrativo sem blocos sobrepostos
+   • abas do painel organizadas
+   • botão "Ver loja" visível no mobile
+   • logo + ações do painel alinhadas
+   • encomendas e indicadores responsivos
+===================================================================== */
+
+@media (max-width: 700px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+    }
+
+    body {
+        min-width: 0 !important;
+    }
+
+    /* =========================================================
+       SITE DO CLIENTE — ENCOMENDAS
+    ========================================================= */
+
+    .pagina-montar-bolo {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        padding-bottom: 55px !important;
+    }
+
+    .cabecalho-montagem,
+    .cabecalho-encomenda {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+    }
+
+    .seletor-encomenda {
+        width: calc(100% - 32px) !important;
+        max-width: none !important;
+        margin: 0 auto 20px !important;
+        padding: 0 !important;
+
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .card-tipo-encomenda {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 138px !important;
+        padding: 18px 16px !important;
+        margin: 0 !important;
+    }
+
+    .montagem-container {
+        width: calc(100% - 32px) !important;
+        max-width: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .opcoes-bolo {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .etapa-bolo {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        grid-template-columns: 58px minmax(0, 1fr) !important;
+        gap: 14px !important;
+
+        padding: 18px 16px !important;
+        margin: 0 0 14px !important;
+    }
+
+    .numero-etapa {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+    }
+
+    .conteudo-etapa {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .conteudo-etapa h2 {
+        overflow-wrap: anywhere;
+    }
+
+    /* UPLOADS */
+    .uploads-bolo {
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .upload-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 16px 12px !important;
+    }
+
+    .upload-box input[type="file"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        font-size: 10px !important;
+    }
+
+    /* DATA E HORÁRIO */
+    .campos-retirada {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+
+        margin: 0 !important;
+    }
+
+    .campos-retirada > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .campos-retirada label {
+        width: 100% !important;
+        margin: 0 0 7px !important;
+        font-size: 11px !important;
+    }
+
+    .campos-retirada input,
+    .campos-retirada .campo-bolo,
+    input[type="date"].campo-bolo,
+    input[type="time"].campo-bolo {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        height: 52px !important;
+
+        margin: 0 !important;
+        padding: 0 13px !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 12px !important;
+    }
+
+    /* Safari/iPhone */
+    .campos-retirada input[type="date"],
+    .campos-retirada input[type="time"] {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* RESUMO */
+    .resumo-bolo {
+        position: static !important;
+        top: auto !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 22px 18px !important;
+    }
+
+    .linha-resumo {
+        width: 100% !important;
+        min-width: 0 !important;
+        gap: 10px !important;
+    }
+
+    .linha-resumo span,
+    .linha-resumo strong {
+        min-width: 0 !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    .linha-resumo strong {
+        max-width: 55% !important;
+    }
+
+    .total-bolo {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .btn-adicionar-bolo {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    /* =========================================================
+       PAINEL ADMINISTRATIVO — CABEÇALHO
+    ========================================================= */
+
+    .pagina-painel {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .painel-topo {
+        width: 100% !important;
+        min-height: 132px !important;
+
+        padding: 12px 18px !important;
+
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .painel-topo > div:first-child {
+        width: auto !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+
+        text-align: left !important;
+    }
+
+    .painel-logo-marca {
+        width: 185px !important;
+        max-width: 100% !important;
+        height: auto !important;
+
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: left center !important;
+    }
+
+    .painel-topo > div:first-child > span {
+        width: auto !important;
+
+        margin: 5px 0 0 !important;
+
+        font-size: 7px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 2px !important;
+
+        text-align: left !important;
+        white-space: nowrap !important;
+    }
+
+    .painel-topo-acoes {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 7px !important;
+
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    /* força "Ver loja" a aparecer */
+    .painel-topo-acoes a {
+        display: inline-flex !important;
+    }
+
+    .painel-topo-acoes a,
+    .painel-topo-acoes button {
+        min-width: 70px !important;
+        min-height: 42px !important;
+
+        padding: 8px 10px !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        text-align: center !important;
+
+        font-size: 9px !important;
+        line-height: 1.15 !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    /* =========================================================
+       PAINEL — CONTAINER E ABAS PRINCIPAIS
+    ========================================================= */
+
+    .painel-container {
+        width: calc(100% - 32px) !important;
+        max-width: none !important;
+
+        margin: 0 auto !important;
+        padding: 22px 0 55px !important;
+    }
+
+    .painel-abas {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 6px !important;
+
+        margin: 0 0 24px !important;
+        padding: 6px !important;
+
+        overflow: visible !important;
+    }
+
+    .painel-aba {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 50px !important;
+
+        padding: 9px 5px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        text-align: center !important;
+
+        font-size: 9px !important;
+        line-height: 1.2 !important;
+
+        white-space: normal !important;
+    }
+
+    .painel-secao {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .painel-secao-topo,
+    .painel-secao-topo-encomendas {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 12px !important;
+
+        margin-bottom: 18px !important;
+    }
+
+    .painel-secao-topo > div,
+    .painel-secao-topo-encomendas > div {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+
+    /* =========================================================
+       PAINEL — TIPOS DE ENCOMENDA
+    ========================================================= */
+
+    .admin-produtos-encomenda {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+
+        gap: 10px !important;
+
+        margin: 0 0 16px !important;
+    }
+
+    .admin-produto-tab {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 82px !important;
+
+        padding: 13px 14px !important;
+
+        display: grid !important;
+        grid-template-columns: 48px minmax(0, 1fr) !important;
+        align-items: center !important;
+
+        gap: 12px !important;
+
+        text-align: left !important;
+    }
+
+    .admin-produto-tab .admin-produto-icone {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+
+        margin: 0 !important;
+    }
+
+    .admin-produto-tab > span:last-child {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .admin-produto-tab strong,
+    .admin-produto-tab small {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        text-align: left !important;
+        overflow-wrap: anywhere !important;
+    }
+
+
+    /* =========================================================
+       PAINEL — INDICADORES
+    ========================================================= */
+
+    .painel-indicadores,
+    .painel-indicadores-encomendas {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+
+        gap: 9px !important;
+
+        margin-bottom: 18px !important;
+    }
+
+    .painel-indicador,
+    .painel-indicadores-encomendas .painel-indicador {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        min-height: 78px !important;
+
+        padding: 14px 16px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        gap: 12px !important;
+    }
+
+    .painel-indicador strong,
+    .painel-indicadores-encomendas .painel-indicador strong {
+        margin: 0 !important;
+        font-size: 25px !important;
+    }
+
+
+    /* =========================================================
+       PAINEL — LISTAS, CARDS E KIT FESTA
+    ========================================================= */
+
+    .painel-lista,
+    .admin-grupos-wrapper,
+    .admin-regras-wrapper,
+    .kit-festa-admin-wrapper,
+    .kit-admin-bloco,
+    .kit-admin-card,
+    .lista-kits-admin,
+    .kit-sabores-admin {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .kit-admin-card {
+        grid-template-columns: 1fr !important;
+    }
+
+    .kit-admin-lateral {
+        width: 100% !important;
+        min-width: 0 !important;
+        align-items: stretch !important;
+    }
+
+    .kit-admin-precos {
+        text-align: left !important;
+    }
+
+    .kit-admin-acoes {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .kit-admin-acoes button {
+        width: 100% !important;
+        min-height: 42px !important;
+    }
+
+    .kit-sabores-admin {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* =========================================================
+       MODAIS
+    ========================================================= */
+
+    .modal-admin {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px !important;
+    }
+
+    .modal-admin-conteudo {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 18px 15px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE MUITO PEQUENO — IPHONE / TELAS ESTREITAS
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .painel-topo {
+        min-height: 145px !important;
+
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    .painel-topo > div:first-child {
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .painel-logo-marca {
+        width: 175px !important;
+        margin: 0 auto !important;
+        object-position: center !important;
+    }
+
+    .painel-topo > div:first-child > span {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+    }
+
+    .painel-topo-acoes {
+        width: 100% !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .painel-topo-acoes a,
+    .painel-topo-acoes button {
+        width: 100% !important;
+    }
+
+    .painel-abas {
+        grid-template-columns: 1fr !important;
+        gap: 7px !important;
+    }
+
+    .painel-aba {
+        min-height: 46px !important;
+    }
+
+    .montagem-container,
+    .seletor-encomenda {
+        width: calc(100% - 24px) !important;
+    }
+
+    .etapa-bolo {
+        grid-template-columns: 1fr !important;
+    }
+
+    .numero-etapa {
+        margin-bottom: 4px !important;
+    }
+}
