@@ -2130,7 +2130,7 @@ function atualizarResumoCheckout() {
    PEDIDOS - SUPABASE
 ===================================================== */
 
-const SITE_PUBLICO_URL = "https://gorete-festass.netlify.app";
+const SITE_PUBLICO_URL = "https://gorete-festas.netlify.app";
 
 function montarDetalhesItemPedido(item) {
     const detalhes = { ...item };
