@@ -7,95 +7,337 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="topo">
     <div class="marca">
         <h1>Gorete Festass</h1>
         <span>BOLOS • DOCES • CUPCAKES</span>
     </div>
+
     <nav class="menu">
         <a href="#inicio">Início</a>
-        <a href="#cardapio">Fatias do dia</a>
+        <a href="#cardapio">Cardápio</a>
         <a href="montar-bolo.html">Faça sua encomenda</a>
-        <a href="carrinho.html" class="btn-carrinho">🛒 Carrinho <span id="quantidadeCarrinho">0</span></a>
+
+        <a href="carrinho.html" class="btn-carrinho">
+            🛒 Carrinho
+            <span id="quantidadeCarrinho">0</span>
+        </a>
     </nav>
 </header>
+
 <main>
-    <section class="banner" id="inicio">
-        <div class="banner-conteudo">
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="banner banner-sem-foto" id="inicio">
+
+        <div class="banner-conteudo banner-conteudo-central">
+
             <span class="mini-titulo">FEITO COM CARINHO</span>
-            <h2>Seu momento especial merece um sabor inesquecível.</h2>
-            <p>Fatias fresquinhas disponíveis para você pedir pelo site. Para sua comemoração, também preparamos bolos personalizados, docinhos e cupcakes sob encomenda.</p>
-            <div class="acoes-banner"><a href="#cardapio" class="btn-principal">Ver fatias do dia</a></div>
-            <div class="info-retirada">📍 Retirada no local — Bairro Caju</div>
-        </div>
-        <div class="banner-foto">
-            <div class="foto-placeholder">🎂<span>Foto de um bolo em destaque</span></div>
-        </div>
-    </section>
 
-    <section class="tipos-produtos">
-        <a href="#cardapio" class="tipo-card tipo-card-link">
-            <div class="tipo-icone">🍰</div>
-            <h3>Fatias do dia</h3>
-            <p>Confira os sabores disponíveis hoje e faça seu pedido diretamente pelo site.</p>
-            <span class="tipo-acao">Ver sabores →</span>
-        </a>
-        <a href="montar-bolo.html" class="tipo-card tipo-card-link tipo-card-destaque">
-            <div class="tipo-icone">🎉</div>
-            <h3>Faça sua encomenda</h3>
-            <p>Escolha entre bolos personalizados, docinhos e cupcakes para sua festa ou ocasião especial.</p>
-            <span class="tipo-acao">Ver opções →</span>
-        </a>
-    </section>
+            <h2>
+                Seu momento especial merece um sabor inesquecível.
+            </h2>
 
-    <section class="cardapio" id="cardapio">
-        <div class="titulo-secao">
-            <span>PRONTA ENTREGA</span>
-            <h2>Fatias do dia</h2>
-            <p>Escolha entre os sabores disponíveis e faça seu pedido diretamente pelo site.</p>
-        </div>
-        <div class="categorias"><button class="categoria-ativa">Fatias</button></div>
-        <div class="produtos produtos-fatias">
-            <article class="produto">
-                <div class="produto-imagem">🍰</div>
-                <div class="produto-info">
-                    <span class="produto-categoria">Fatia</span>
-                    <h3>Ninho com Nutella</h3>
-                    <p>Fatia recheada com creme de Ninho e Nutella.</p>
-                    <div class="produto-rodape">
-                        <strong>R$ 18,00</strong>
-                        <button onclick="adicionarCarrinho('Ninho com Nutella', 18, 'Fatia')">+ Adicionar</button>
+            <p>
+                Doces feitos com carinho para deixar cada comemoração ainda mais especial.
+                Escolha entre opções para pronta entrega ou encomendas personalizadas
+                para o seu momento.
+            </p>
+
+            <div class="acoes-banner">
+                <a href="#cardapio" class="btn-principal">
+                    Ver cardápio
+                </a>
+
+                <a href="montar-bolo.html" class="btn-secundario">
+                    Fazer encomenda
+                </a>
+            </div>
+
+            <div class="banner-infos">
+
+                <div class="banner-info-item">
+                    <span>📍</span>
+                    <div>
+                        <strong>Retirada no local</strong>
+                        <small>Bairro Caju</small>
                     </div>
                 </div>
+
+                <div class="banner-info-item">
+                    <span>🎂</span>
+                    <div>
+                        <strong>Feito sob encomenda</strong>
+                        <small>Bolos, doces e cupcakes</small>
+                    </div>
+                </div>
+
+                <div class="banner-info-item">
+                    <span>💛</span>
+                    <div>
+                        <strong>Produção artesanal</strong>
+                        <small>Preparado com carinho</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACESSOS PRINCIPAIS -->
+    <section class="tipos-produtos tipos-produtos-home">
+
+        <a href="#cardapio" class="tipo-card tipo-card-link">
+
+            <div class="tipo-icone">
+                🍰
+            </div>
+
+            <div class="tipo-card-conteudo">
+                <span class="tipo-mini-titulo">
+                    PARA HOJE
+                </span>
+
+                <h3>Pronta entrega</h3>
+
+                <p>
+                    Confira o que está disponível hoje
+                    e faça seu pedido diretamente pelo site.
+                </p>
+
+                <span class="tipo-acao">
+                    Ver disponibilidade →
+                </span>
+            </div>
+
+        </a>
+
+
+        <a
+            href="montar-bolo.html"
+            class="tipo-card tipo-card-link tipo-card-destaque"
+        >
+
+            <div class="tipo-icone">
+                🎉
+            </div>
+
+            <div class="tipo-card-conteudo">
+                <span class="tipo-mini-titulo">
+                    PARA SUA COMEMORAÇÃO
+                </span>
+
+                <h3>Faça sua encomenda</h3>
+
+                <p>
+                    Escolha entre bolos personalizados, docinhos
+                    e cupcakes para sua festa ou ocasião especial.
+                </p>
+
+                <span class="tipo-acao">
+                    Ver opções →
+                </span>
+            </div>
+
+        </a>
+
+    </section>
+
+
+    <!-- FATIAS DISPONÍVEIS -->
+    <section class="cardapio" id="cardapio">
+
+        <div class="titulo-secao">
+
+            <span>
+                PRONTA ENTREGA
+            </span>
+
+            <h2>
+                Fatias do dia
+            </h2>
+
+            <p>
+                Escolha entre os sabores disponíveis
+                e faça seu pedido diretamente pelo site.
+            </p>
+
+        </div>
+
+
+        <div class="produtos produtos-fatias">
+
+            <article class="produto">
+
+                <div class="produto-imagem">
+                    🍰
+                </div>
+
+                <div class="produto-info">
+
+                    <span class="produto-categoria">
+                        Fatia
+                    </span>
+
+                    <h3>
+                        Ninho com Nutella
+                    </h3>
+
+                    <p>
+                        Fatia recheada com creme de Ninho e Nutella.
+                    </p>
+
+                    <div class="produto-rodape">
+
+                        <strong>
+                            R$ 18,00
+                        </strong>
+
+                        <button
+                            onclick="adicionarCarrinho('Ninho com Nutella', 18, 'Fatia')"
+                        >
+                            + Adicionar
+                        </button>
+
+                    </div>
+
+                </div>
+
             </article>
+
         </div>
+
     </section>
 
+
+    <!-- CHAMADA PARA ENCOMENDAS -->
     <section class="orcamento" id="encomendas">
+
         <div class="orcamento-conteudo">
-            <span>ENCOMENDAS</span>
-            <h2>Deixe sua comemoração ainda mais especial.</h2>
-            <p>Bolos personalizados, docinhos e cupcakes preparados sob encomenda. Escolha o que deseja e personalize os detalhes do seu pedido.</p>
-            <a href="montar-bolo.html" class="btn-whatsapp">🎉 Fazer minha encomenda</a>
+
+            <span>
+                ENCOMENDAS
+            </span>
+
+            <h2>
+                Deixe sua comemoração ainda mais especial.
+            </h2>
+
+            <p>
+                Bolos personalizados, docinhos e cupcakes preparados
+                sob encomenda. Escolha o que deseja e personalize
+                os detalhes do seu pedido.
+            </p>
+
+            <a
+                href="montar-bolo.html"
+                class="btn-whatsapp"
+            >
+                🎉 Fazer minha encomenda
+            </a>
+
         </div>
+
     </section>
 
+
+    <!-- INFORMAÇÕES DA LOJA -->
     <section class="sobre" id="informacoes">
-        <span>GORETE FESTASS</span>
-        <h2>Feito com carinho para tornar cada momento mais doce.</h2>
-        <p>Trabalhamos com fatias para pronta entrega e com bolos, docinhos e cupcakes preparados sob encomenda para seus momentos especiais.</p>
+
+        <span>
+            GORETE FESTASS
+        </span>
+
+        <h2>
+            Feito com carinho para tornar cada momento mais doce.
+        </h2>
+
+        <p>
+            Trabalhamos com opções para pronta entrega
+            e também com bolos, docinhos e cupcakes preparados
+            sob encomenda para seus momentos especiais.
+        </p>
+
         <div class="informacoes-loja">
-            <div><strong>📍 Retirada</strong><p>Bairro Caju</p></div>
-            <div><strong>🚚 Entregas</strong><p>Não trabalhamos com entrega</p></div>
-            <div><strong>📱 Instagram</strong><p>@gorete_festass</p></div>
+
+            <div>
+                <strong>
+                    📍 Retirada
+                </strong>
+
+                <p>
+                    Bairro Caju
+                </p>
+            </div>
+
+
+            <div>
+                <strong>
+                    🚚 Entregas
+                </strong>
+
+                <p>
+                    Não trabalhamos com entrega
+                </p>
+            </div>
+
+
+            <div>
+                <strong>
+                    📱 Instagram
+                </strong>
+
+                <p>
+                    @gorete_festass
+                </p>
+            </div>
+
         </div>
+
     </section>
+
 </main>
+
+
+<!-- RODAPÉ -->
 <footer>
-    <div><h3>Gorete Festass</h3><p>Bolos • Doces • Cupcakes</p></div>
-    <div class="footer-instagram"><a href="https://www.instagram.com/gorete_festass" target="_blank" rel="noopener noreferrer">Instagram</a></div>
-    <p class="copyright">© 2026 Gorete Festass. Todos os direitos reservados.</p>
+
+    <div>
+        <h3>
+            Gorete Festass
+        </h3>
+
+        <p>
+            Bolos • Doces • Cupcakes
+        </p>
+    </div>
+
+
+    <div class="footer-instagram">
+
+        <a
+            href="https://www.instagram.com/gorete_festass"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Instagram
+        </a>
+
+    </div>
+
+
+    <p class="copyright">
+        © 2026 Gorete Festass. Todos os direitos reservados.
+    </p>
+
 </footer>
+
+
 <script src="script.js"></script>
+
 </body>
 </html>
