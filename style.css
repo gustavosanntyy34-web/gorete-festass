@@ -15538,3 +15538,106 @@ body:has(.pagina-checkout),
         font-size: 16px;
     }
 }
+
+
+
+/* =====================================================================
+   PADRONIZAÇÃO FINAL DOS BOTÕES — BORDÔ / VINHO
+   Mantém amarelo e champagne como base visual,
+   mas todos os CTAs principais passam a usar o mesmo bordô.
+===================================================================== */
+
+:root {
+    --gf-bordo: #7f0732;
+    --gf-bordo-escuro: #650526;
+    --gf-champagne-claro: #fff9e7;
+}
+
+/* Botões principais do site */
+.btn-carrinho,
+.btn-principal,
+.btn-whatsapp,
+.btn-finalizar-pedido,
+.btn-whatsapp-checkout,
+.btn-adicionar-bolo,
+.produto-rodape button,
+.produto-orcamento a,
+.btn-admin-principal,
+.painel-topo-acoes button,
+.painel-topo-acoes a.btn-admin-principal {
+    background: var(--gf-bordo) !important;
+    color: #ffffff !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+/* Hover dos botões principais */
+.btn-carrinho:hover,
+.btn-principal:hover,
+.btn-whatsapp:hover,
+.btn-finalizar-pedido:hover,
+.btn-whatsapp-checkout:hover,
+.btn-adicionar-bolo:hover,
+.produto-rodape button:hover,
+.produto-orcamento a:hover,
+.btn-admin-principal:hover,
+.painel-topo-acoes button:hover,
+.painel-topo-acoes a.btn-admin-principal:hover {
+    background: var(--gf-bordo-escuro) !important;
+    color: #ffffff !important;
+    border-color: var(--gf-bordo-escuro) !important;
+}
+
+/* Botões secundários continuam claros, com borda bordô */
+.btn-secundario,
+.continuar-comprando,
+.voltar-carrinho,
+.admin-voltar-site,
+.btn-admin-secundario {
+    color: var(--gf-bordo) !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+/* Botão "Ver cardápio" do carrinho vazio */
+.carrinho-vazio a {
+    background: var(--gf-bordo) !important;
+    color: #ffffff !important;
+    border-color: var(--gf-bordo) !important;
+}
+
+.carrinho-vazio a:hover {
+    background: var(--gf-bordo-escuro) !important;
+    color: #ffffff !important;
+}
+
+/* Ícone/contador do carrinho mantém contraste */
+.btn-carrinho span {
+    background: #ffffff !important;
+    color: var(--gf-bordo) !important;
+}
+
+/* Mobile e desktop com a mesma regra */
+@media (max-width: 700px) {
+    .btn-carrinho,
+    .btn-principal,
+    .btn-whatsapp,
+    .btn-finalizar-pedido,
+    .btn-whatsapp-checkout,
+    .btn-adicionar-bolo,
+    .produto-rodape button,
+    .carrinho-vazio a {
+        background: var(--gf-bordo) !important;
+        color: #ffffff !important;
+        border-color: var(--gf-bordo) !important;
+    }
+
+    .btn-carrinho:hover,
+    .btn-principal:hover,
+    .btn-whatsapp:hover,
+    .btn-finalizar-pedido:hover,
+    .btn-whatsapp-checkout:hover,
+    .btn-adicionar-bolo:hover,
+    .produto-rodape button:hover,
+    .carrinho-vazio a:hover {
+        background: var(--gf-bordo-escuro) !important;
+    }
+}
