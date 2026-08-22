@@ -15641,3 +15641,77 @@ body:has(.pagina-checkout),
         background: var(--gf-bordo-escuro) !important;
     }
 }
+
+
+
+/* =====================================================================
+   CORREÇÃO DEFINITIVA — BOTÃO CARRINHO
+   Mesma cor bordô do botão "Ver cardápio" em desktop e mobile.
+===================================================================== */
+
+header.topo .menu .btn-carrinho,
+.topo .btn-carrinho,
+a.btn-carrinho,
+.btn-carrinho {
+    background-color: #7f0732 !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border-color: #7f0732 !important;
+}
+
+header.topo .menu .btn-carrinho:hover,
+header.topo .menu .btn-carrinho:focus,
+header.topo .menu .btn-carrinho:active,
+.topo .btn-carrinho:hover,
+.topo .btn-carrinho:focus,
+.topo .btn-carrinho:active,
+a.btn-carrinho:hover,
+a.btn-carrinho:focus,
+a.btn-carrinho:active,
+.btn-carrinho:hover,
+.btn-carrinho:focus,
+.btn-carrinho:active {
+    background-color: #650526 !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border-color: #650526 !important;
+}
+
+header.topo .menu .btn-carrinho #quantidadeCarrinho,
+.topo .btn-carrinho #quantidadeCarrinho,
+.btn-carrinho #quantidadeCarrinho,
+.btn-carrinho span {
+    background: #ffffff !important;
+    color: #7f0732 !important;
+}
+
+/* Reforço específico para celular/tablet */
+@media (max-width: 900px) {
+    header.topo .menu .btn-carrinho,
+    .topo .btn-carrinho,
+    a.btn-carrinho,
+    .btn-carrinho {
+        background-color: #7f0732 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+        border-color: #7f0732 !important;
+    }
+
+    header.topo .menu .btn-carrinho:hover,
+    header.topo .menu .btn-carrinho:focus,
+    header.topo .menu .btn-carrinho:active,
+    .topo .btn-carrinho:hover,
+    .topo .btn-carrinho:focus,
+    .topo .btn-carrinho:active,
+    a.btn-carrinho:hover,
+    a.btn-carrinho:focus,
+    a.btn-carrinho:active,
+    .btn-carrinho:hover,
+    .btn-carrinho:focus,
+    .btn-carrinho:active {
+        background-color: #650526 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+        border-color: #650526 !important;
+    }
+}
