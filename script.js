@@ -230,6 +230,251 @@ function adicionarCarrinho(
 }
 
 
+
+
+/* =====================================================
+   FATIAS DO DIA - SUPABASE
+   A página inicial mostra somente fatias ATIVAS cadastradas
+   no painel administrativo. Nenhuma fatia de exemplo é usada.
+===================================================== */
+
+async function buscarFatiasAtivasSupabase() {
+
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/fatias` +
+        `?ativo=eq.true&select=id,nome,descricao,preco,imagem_url` +
+        `&order=id.desc`;
+
+    const resposta =
+        await fetch(
+            endpoint,
+            {
+                headers: {
+                    "apikey": SUPABASE_PUBLISHABLE_KEY,
+                    "Authorization":
+                        `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+                }
+            }
+        );
+
+    if (!resposta.ok) {
+
+        let detalhes = "";
+
+        try {
+            const erro =
+                await resposta.json();
+
+            detalhes =
+                erro.message ||
+                erro.error ||
+                "";
+        } catch {
+            detalhes =
+                await resposta.text();
+        }
+
+        throw new Error(
+            "Não foi possível carregar as fatias." +
+            (detalhes ? ` ${detalhes}` : "")
+        );
+    }
+
+    return await resposta.json();
+}
+
+
+function renderizarFatiasInicio(fatias) {
+
+    const lista =
+        document.getElementById("listaFatias");
+
+    if (!lista) {
+        return;
+    }
+
+    if (!Array.isArray(fatias) || fatias.length === 0) {
+
+        lista.innerHTML = `
+            <div class="fatias-vazio" style="
+                grid-column: 1 / -1;
+                width: 100%;
+                padding: 34px 22px;
+                border: 1px solid #dfc270;
+                border-radius: 16px;
+                background: #fff9e7;
+                text-align: center;
+            ">
+                <div style="font-size: 30px; margin-bottom: 10px;">🍰</div>
+
+                <h3 style="
+                    margin: 0 0 7px;
+                    color: #6d0c2e;
+                ">
+                    Nenhuma fatia disponível no momento
+                </h3>
+
+                <p style="
+                    margin: 0;
+                    color: #806b62;
+                    line-height: 1.55;
+                ">
+                    Quando novas fatias forem cadastradas,
+                    elas aparecerão aqui automaticamente.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    lista.innerHTML = "";
+
+    fatias.forEach(function(fatia) {
+
+        const artigo =
+            document.createElement("article");
+
+        artigo.className =
+            "produto";
+
+        const imagem =
+            fatia.imagem_url
+                ? `
+                    <div class="produto-imagem produto-imagem-foto">
+                        <img
+                            src="${escaparHtmlSite(fatia.imagem_url)}"
+                            alt="${escaparHtmlSite(fatia.nome)}"
+                            loading="lazy"
+                            style="
+                                width:100%;
+                                height:100%;
+                                object-fit:cover;
+                                display:block;
+                            "
+                        >
+                    </div>
+                `
+                : `
+                    <div class="produto-imagem">
+                        🍰
+                    </div>
+                `;
+
+        artigo.innerHTML = `
+            ${imagem}
+
+            <div class="produto-info">
+
+                <span class="produto-categoria">
+                    Fatia
+                </span>
+
+                <h3>
+                    ${escaparHtmlSite(fatia.nome)}
+                </h3>
+
+                <p>
+                    ${
+                        escaparHtmlSite(
+                            fatia.descricao ||
+                            "Fatia disponível para pronta entrega."
+                        )
+                    }
+                </p>
+
+                <div class="produto-rodape">
+
+                    <strong>
+                        ${formatarMoeda(fatia.preco)}
+                    </strong>
+
+                    <button type="button">
+                        + Adicionar
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        const botao =
+            artigo.querySelector(
+                ".produto-rodape button"
+            );
+
+        botao.addEventListener(
+            "click",
+            function() {
+
+                adicionarCarrinho(
+                    fatia.nome,
+                    Number(fatia.preco || 0),
+                    "Fatia"
+                );
+
+                alert(
+                    `${fatia.nome} adicionada ao carrinho.`
+                );
+            }
+        );
+
+        lista.appendChild(artigo);
+    });
+}
+
+
+async function carregarFatiasInicio() {
+
+    const lista =
+        document.getElementById("listaFatias");
+
+    if (!lista) {
+        return;
+    }
+
+    try {
+
+        const fatias =
+            await buscarFatiasAtivasSupabase();
+
+        renderizarFatiasInicio(
+            fatias
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar fatias:",
+            erro
+        );
+
+        lista.innerHTML = `
+            <div style="
+                grid-column: 1 / -1;
+                padding: 28px 20px;
+                border: 1px solid #dfc270;
+                border-radius: 16px;
+                background: #fff9e7;
+                text-align: center;
+                color: #6d0c2e;
+            ">
+                Não foi possível carregar as fatias disponíveis.
+            </div>
+        `;
+    }
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+        carregarFatiasInicio();
+    }
+);
+
+
+
 /* =====================================================
    MONTE SEU BOLO - OPÇÕES VINDAS DO SUPABASE
 ===================================================== */
@@ -846,27 +1091,37 @@ async function adicionarBoloCarrinho() {
     }
 
 
-    let valorTotal =
-        Number(
-            tamanho.dataset.preco || 0
-        ) +
-        Number(
-            massa.dataset.preco || 0
+    /* =================================================
+       VALORES DO BOLO
+       Mantemos cada parte separada para garantir que qualquer
+       adicional selecionado entre no carrinho, checkout e pedido.
+    ================================================= */
+
+    const valorTamanho =
+        Number(tamanho.dataset.preco || 0);
+
+    const valorMassa =
+        Number(massa.dataset.preco || 0);
+
+    const valorRecheios =
+        recheios.reduce(
+            (soma, item) =>
+                soma + Number(item.dataset.preco || 0),
+            0
         );
 
-    recheios.forEach(item => {
-        valorTotal +=
-            Number(
-                item.dataset.preco || 0
-            );
-    });
+    const valorAdicionais =
+        adicionais.reduce(
+            (soma, item) =>
+                soma + Number(item.dataset.preco || 0),
+            0
+        );
 
-    adicionais.forEach(item => {
-        valorTotal +=
-            Number(
-                item.dataset.preco || 0
-            );
-    });
+    const valorTotal =
+        valorTamanho +
+        valorMassa +
+        valorRecheios +
+        valorAdicionais;
 
 
     const fotoBolo =
@@ -1021,6 +1276,19 @@ async function adicionarBoloCarrinho() {
         fotoTopoUrl:
             fotoTopoUrl,
 
+        /* detalhamento financeiro do bolo */
+        valorTamanho:
+            valorTamanho,
+
+        valorMassa:
+            valorMassa,
+
+        valorRecheios:
+            valorRecheios,
+
+        valorAdicionais:
+            valorAdicionais,
+
         preco:
             valorTotal,
 
@@ -1155,6 +1423,27 @@ function renderizarCarrinho() {
                             <p>
                                 <strong>Adicionais:</strong>
                                 ${item.adicionais.join(", ")}
+                            </p>
+                        ` : ""}
+
+                        ${Number(item.valorMassa || 0) > 0 ? `
+                            <p>
+                                <strong>Adicional da massa:</strong>
+                                + ${formatarMoeda(item.valorMassa)}
+                            </p>
+                        ` : ""}
+
+                        ${Number(item.valorRecheios || 0) > 0 ? `
+                            <p>
+                                <strong>Adicional de recheio:</strong>
+                                + ${formatarMoeda(item.valorRecheios)}
+                            </p>
+                        ` : ""}
+
+                        ${Number(item.valorAdicionais || 0) > 0 ? `
+                            <p>
+                                <strong>Valor dos adicionais:</strong>
+                                + ${formatarMoeda(item.valorAdicionais)}
                             </p>
                         ` : ""}
 
@@ -1919,6 +2208,27 @@ function renderizarCheckout() {
                         <p>
                             <strong>Adicionais:</strong>
                             ${item.adicionais.join(", ")}
+                        </p>
+                    ` : ""}
+
+                    ${Number(item.valorMassa || 0) > 0 ? `
+                        <p>
+                            <strong>Adicional da massa:</strong>
+                            + ${formatarMoeda(item.valorMassa)}
+                        </p>
+                    ` : ""}
+
+                    ${Number(item.valorRecheios || 0) > 0 ? `
+                        <p>
+                            <strong>Adicional de recheio:</strong>
+                            + ${formatarMoeda(item.valorRecheios)}
+                        </p>
+                    ` : ""}
+
+                    ${Number(item.valorAdicionais || 0) > 0 ? `
+                        <p>
+                            <strong>Valor dos adicionais:</strong>
+                            + ${formatarMoeda(item.valorAdicionais)}
                         </p>
                     ` : ""}
 

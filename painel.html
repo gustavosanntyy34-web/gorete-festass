@@ -1416,6 +1416,75 @@
                 }
             }
 
+        
+            /* =========================================================
+               FOTO DA FATIA — UPLOAD PELO CELULAR / COMPUTADOR
+            ========================================================= */
+            .upload-fatia-admin {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 150px;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .upload-fatia-admin input[type="file"] {
+                width: 100%;
+                min-height: 48px;
+                padding: 10px;
+                border: 1px dashed #d3ad4d;
+                border-radius: 10px;
+                background: #fff9e7;
+                color: #6d0c2e;
+                font-size: 10px;
+                cursor: pointer;
+            }
+
+            .preview-imagem-fatia-admin {
+                min-height: 105px;
+                border: 1px solid #e0c575;
+                border-radius: 11px;
+                background: #fffdf5;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                text-align: center;
+            }
+
+            .preview-imagem-fatia-admin img {
+                width: 100%;
+                height: 105px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .preview-imagem-fatia-admin span {
+                font-size: 25px;
+            }
+
+            .preview-imagem-fatia-admin p {
+                margin: 0;
+                padding: 0 8px;
+                color: #8a7065;
+                font-size: 8px;
+            }
+
+            @media (max-width: 600px) {
+                .upload-fatia-admin {
+                    grid-template-columns: 1fr;
+                }
+
+                .preview-imagem-fatia-admin {
+                    min-height: 150px;
+                }
+
+                .preview-imagem-fatia-admin img {
+                    height: 150px;
+                }
+            }
+
         </style>
     </head>
     <body class="pagina-painel">
@@ -1743,9 +1812,26 @@
                 </div>
 
                 <div class="campo-admin">
-                    <label for="imagemFatia">URL da imagem</label>
-                    <input type="url" id="imagemFatia" placeholder="https://...">
-                    <small>Depois podemos trocar este campo por envio direto de foto pelo celular.</small>
+                    <label for="arquivoImagemFatia">Foto da fatia</label>
+
+                    <div class="upload-fatia-admin">
+                        <input
+                            type="file"
+                            id="arquivoImagemFatia"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                        <div class="preview-imagem-fatia-admin" id="previewImagemFatiaAdmin">
+                            <span>🍰</span>
+                            <p>Nenhuma foto selecionada</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="imagemFatiaAtual">
+
+                    <small>
+                        Escolha uma foto do celular ou computador. Formatos: JPG, PNG ou WebP.
+                    </small>
                 </div>
 
                 <label class="campo-status-admin">
@@ -2122,6 +2208,95 @@
         SUPABASE_KEY
     );
 
+    const BUCKET_IMAGENS_FATIAS = "inspiracoes";
+    const TIPOS_IMAGEM_FATIA = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+    const TAMANHO_MAXIMO_IMAGEM_FATIA = 5 * 1024 * 1024;
+
+    function normalizarNomeArquivoFatia(nome) {
+        const partes = String(nome || "imagem.jpg").split(".");
+        const extensao = partes.length > 1
+            ? partes.pop().toLowerCase()
+            : "jpg";
+
+        const base = partes.join(".")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_-]/g, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "")
+            .toLowerCase() || "imagem";
+
+        return { base, extensao };
+    }
+
+    function validarArquivoImagemFatia(arquivo) {
+        if (!arquivo) return;
+
+        if (!TIPOS_IMAGEM_FATIA.includes(arquivo.type)) {
+            throw new Error("Use uma imagem JPG, PNG ou WebP.");
+        }
+
+        if (arquivo.size > TAMANHO_MAXIMO_IMAGEM_FATIA) {
+            throw new Error("A imagem deve ter no máximo 5 MB.");
+        }
+    }
+
+    async function enviarImagemFatiaParaStorage(arquivo) {
+        validarArquivoImagemFatia(arquivo);
+
+        const { base, extensao } =
+            normalizarNomeArquivoFatia(arquivo.name);
+
+        const caminho =
+            `fatias/${Date.now()}-${Math.random().toString(36).slice(2, 9)}-${base}.${extensao}`;
+
+        const { error } =
+            await supabasePainel.storage
+                .from(BUCKET_IMAGENS_FATIAS)
+                .upload(
+                    caminho,
+                    arquivo,
+                    {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: arquivo.type
+                    }
+                );
+
+        if (error) {
+            throw error;
+        }
+
+        const { data } =
+            supabasePainel.storage
+                .from(BUCKET_IMAGENS_FATIAS)
+                .getPublicUrl(caminho);
+
+        return data.publicUrl;
+    }
+
+    function atualizarPreviewImagemFatia(url = "") {
+        const preview =
+            document.getElementById("previewImagemFatiaAdmin");
+
+        if (!preview) return;
+
+        if (url) {
+            preview.innerHTML = `
+                <img src="${escaparHtml(url)}" alt="Prévia da fatia">
+            `;
+        } else {
+            preview.innerHTML = `
+                <span>🍰</span>
+                <p>Nenhuma foto selecionada</p>
+            `;
+        }
+    }
+
     function formatarMoeda(valor) {
         return Number(valor || 0).toLocaleString(
             "pt-BR",
@@ -2286,8 +2461,11 @@
     function abrirNovaFatia() {
         formFatia.reset();
         document.getElementById("fatiaId").value = "";
+        document.getElementById("imagemFatiaAtual").value = "";
+        document.getElementById("arquivoImagemFatia").value = "";
         document.getElementById("ativoFatia").checked = true;
         document.getElementById("tituloModalFatia").textContent = "Nova fatia";
+        atualizarPreviewImagemFatia("");
         mensagemFatia.textContent = "";
         mensagemFatia.className = "mensagem-admin";
         modalFatia.classList.add("aberto");
@@ -2298,9 +2476,11 @@
         document.getElementById("nomeFatia").value = fatia.nome || "";
         document.getElementById("descricaoFatia").value = fatia.descricao || "";
         document.getElementById("precoFatia").value = fatia.preco || "";
-        document.getElementById("imagemFatia").value = fatia.imagem_url || "";
+        document.getElementById("imagemFatiaAtual").value = fatia.imagem_url || "";
+        document.getElementById("arquivoImagemFatia").value = "";
         document.getElementById("ativoFatia").checked = !!fatia.ativo;
         document.getElementById("tituloModalFatia").textContent = "Editar fatia";
+        atualizarPreviewImagemFatia(fatia.imagem_url || "");
         mensagemFatia.textContent = "";
         mensagemFatia.className = "mensagem-admin";
         modalFatia.classList.add("aberto");
@@ -2313,46 +2493,113 @@
     formFatia.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        const id = document.getElementById("fatiaId").value;
+        const id =
+            document.getElementById("fatiaId").value;
 
-        const produto = {
-            nome: document.getElementById("nomeFatia").value.trim(),
-            descricao: document.getElementById("descricaoFatia").value.trim(),
-            preco: Number(document.getElementById("precoFatia").value),
-            imagem_url: document.getElementById("imagemFatia").value.trim() || null,
-            ativo: document.getElementById("ativoFatia").checked
-        };
+        const arquivo =
+            document.getElementById("arquivoImagemFatia").files[0];
 
-        mensagemFatia.textContent = "Salvando...";
+        let imagemUrl =
+            document.getElementById("imagemFatiaAtual").value || null;
+
+        mensagemFatia.textContent =
+            arquivo ? "Enviando foto..." : "Salvando...";
         mensagemFatia.className = "mensagem-admin";
 
-        let resultado;
+        try {
+            if (arquivo) {
+                imagemUrl =
+                    await enviarImagemFatiaParaStorage(arquivo);
+            }
 
-        if (id) {
-            resultado = await supabasePainel
-                .from("fatias")
-                .update(produto)
-                .eq("id", id);
-        } else {
-            resultado = await supabasePainel
-                .from("fatias")
-                .insert(produto);
+            const produto = {
+                nome:
+                    document.getElementById("nomeFatia").value.trim(),
+
+                descricao:
+                    document.getElementById("descricaoFatia").value.trim(),
+
+                preco:
+                    Number(document.getElementById("precoFatia").value),
+
+                imagem_url:
+                    imagemUrl,
+
+                ativo:
+                    document.getElementById("ativoFatia").checked
+            };
+
+            let resultado;
+
+            if (id) {
+                resultado =
+                    await supabasePainel
+                        .from("fatias")
+                        .update(produto)
+                        .eq("id", id);
+            } else {
+                resultado =
+                    await supabasePainel
+                        .from("fatias")
+                        .insert(produto);
+            }
+
+            if (resultado.error) {
+                throw resultado.error;
+            }
+
+            document.getElementById("imagemFatiaAtual").value =
+                imagemUrl || "";
+
+            mensagemFatia.textContent =
+                "Produto salvo com sucesso.";
+
+            mensagemFatia.className =
+                "mensagem-admin sucesso";
+
+            await carregarFatias();
+
+            setTimeout(fecharModalFatia, 450);
+
+        } catch (erro) {
+            console.error(erro);
+
+            mensagemFatia.textContent =
+                erro?.message ||
+                "Não foi possível salvar a fatia.";
+
+            mensagemFatia.className =
+                "mensagem-admin erro";
         }
-
-        if (resultado.error) {
-            console.error(resultado.error);
-            mensagemFatia.textContent = "Não foi possível salvar.";
-            mensagemFatia.className = "mensagem-admin erro";
-            return;
-        }
-
-        mensagemFatia.textContent = "Produto salvo com sucesso.";
-        mensagemFatia.className = "mensagem-admin sucesso";
-
-        await carregarFatias();
-
-        setTimeout(fecharModalFatia, 450);
     });
+
+    document.getElementById("arquivoImagemFatia")
+        .addEventListener("change", function() {
+
+            const arquivo = this.files[0];
+
+            if (!arquivo) {
+                atualizarPreviewImagemFatia(
+                    document.getElementById("imagemFatiaAtual").value || ""
+                );
+                return;
+            }
+
+            try {
+                validarArquivoImagemFatia(arquivo);
+            } catch (erro) {
+                alert(erro.message);
+                this.value = "";
+                return;
+            }
+
+            const urlTemporaria =
+                URL.createObjectURL(arquivo);
+
+            atualizarPreviewImagemFatia(
+                urlTemporaria
+            );
+        });
 
     async function alterarStatusFatia(id, novoStatus) {
         const { error } = await supabasePainel
