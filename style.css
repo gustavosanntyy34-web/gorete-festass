@@ -10764,3 +10764,179 @@ body { overflow-x: hidden; }
     .banner h2 { font-size: 31px; }
     .painel-topo-acoes a { display: none; }
 }
+
+/* =========================================================
+   AJUSTE FINAL — CABEÇALHO MOBILE IGUAL AO DESKTOP
+   Mantém logo à esquerda, carrinho à direita e remove a
+   segunda linha de navegação no celular.
+========================================================= */
+
+@media (max-width: 900px) {
+    .topo {
+        min-height: 72px !important;
+        padding: 10px 5% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .marca {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+    }
+
+    .marca h1 {
+        font-size: 22px !important;
+        white-space: nowrap !important;
+    }
+
+    .marca span {
+        font-size: 8px !important;
+        letter-spacing: 2.2px !important;
+        white-space: nowrap !important;
+    }
+
+    .menu {
+        flex: 0 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+    }
+
+    .menu > a:not(.btn-carrinho) {
+        display: none !important;
+    }
+
+    .menu .btn-carrinho {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+        min-width: 132px !important;
+        min-height: 46px !important;
+        padding: 10px 16px !important;
+        border-radius: 28px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        color: #ffffff !important;
+        background: #6f4031 !important;
+    }
+
+    .menu .btn-carrinho::before {
+        content: none !important;
+    }
+
+    .menu .btn-carrinho span {
+        display: inline-flex !important;
+        min-width: 22px !important;
+        height: 22px !important;
+        margin-left: 7px !important;
+        padding: 0 5px !important;
+        font-size: 11px !important;
+        background: #ffffff !important;
+        color: #6f4031 !important;
+        border-radius: 50% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .topo {
+        min-height: 68px !important;
+        padding: 9px 14px !important;
+    }
+
+    .marca h1 {
+        font-size: 18px !important;
+    }
+
+    .marca span {
+        margin-top: 2px !important;
+        font-size: 6.6px !important;
+        letter-spacing: 1.35px !important;
+    }
+
+    .menu .btn-carrinho {
+        min-width: 104px !important;
+        min-height: 42px !important;
+        padding: 8px 12px !important;
+        font-size: 11px !important;
+    }
+
+    .menu .btn-carrinho span {
+        min-width: 20px !important;
+        height: 20px !important;
+        margin-left: 6px !important;
+        font-size: 10px !important;
+    }
+
+    /* A página de encomendas mantém a mesma identidade do desktop,
+       apenas empilhando os cards para caber no celular. */
+    .cabecalho-encomenda {
+        padding-top: 34px !important;
+    }
+
+    .cabecalho-encomenda h1 {
+        font-size: 31px !important;
+        line-height: 1.1 !important;
+    }
+
+    .cabecalho-encomenda p {
+        max-width: 92% !important;
+        font-size: 13px !important;
+        line-height: 1.55 !important;
+    }
+
+    .seletor-encomenda {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .card-tipo-encomenda {
+        min-height: 0 !important;
+        padding: 20px 18px !important;
+        border-radius: 16px !important;
+        text-align: center !important;
+    }
+
+    .card-tipo-encomenda .icone-encomenda {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .card-tipo-encomenda strong {
+        font-size: 17px !important;
+    }
+
+    .card-tipo-encomenda small {
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+    }
+
+    .card-tipo-encomenda .acao-encomenda {
+        font-size: 10px !important;
+    }
+}
+
+@media (max-width: 390px) {
+    .marca h1 {
+        font-size: 16px !important;
+    }
+
+    .marca span {
+        font-size: 5.8px !important;
+        letter-spacing: 1px !important;
+    }
+
+    .menu .btn-carrinho {
+        min-width: 92px !important;
+        padding: 8px 10px !important;
+        font-size: 10px !important;
+    }
+}
