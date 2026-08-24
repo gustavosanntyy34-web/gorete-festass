@@ -13,6 +13,775 @@ const SUPABASE_URL = "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
 const SUPABASE_BUCKET_INSPIRACOES = "inspiracoes";
 
+
+/* =====================================================
+   DATAS BLOQUEADAS PARA NOVAS ENCOMENDAS
+===================================================== */
+
+let datasBloqueadasEncomenda = new Set();
+
+const IDS_CAMPOS_DATA_ENCOMENDA = [
+    "dataRetirada",
+    "dataRetiradaDocinhos",
+    "dataRetiradaCupcakes",
+    "dataRetiradaCaseirinho",
+    "dataRetiradaKitFesta"
+];
+
+function hojeISOSite() {
+    const agora = new Date();
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, "0");
+    const dia = String(agora.getDate()).padStart(2, "0");
+    return `${ano}-${mes}-${dia}`;
+}
+
+function formatarDataSite(dataISO) {
+    if (!dataISO) return "";
+    const [ano, mes, dia] = String(dataISO).split("-");
+    return `${dia}/${mes}/${ano}`;
+}
+
+function aplicarLimiteMinimoDatasEncomenda() {
+    const hoje = hojeISOSite();
+
+    IDS_CAMPOS_DATA_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+        if (campo) {
+            campo.min = hoje;
+        }
+    });
+}
+
+function dataEncomendaEstaBloqueada(dataISO) {
+    return Boolean(dataISO && datasBloqueadasEncomenda.has(dataISO));
+}
+
+function obterMensagemDataCampo(campo) {
+    if (!campo) return null;
+
+    const wrapper =
+        campo.closest(".campo-data-retirada-wrapper") ||
+        campo.parentElement;
+
+    if (!wrapper) return null;
+
+    let mensagem =
+        wrapper.querySelector(".mensagem-data-indisponivel");
+
+    if (!mensagem) {
+        mensagem = document.createElement("div");
+        mensagem.className = "mensagem-data-indisponivel";
+        mensagem.hidden = true;
+        wrapper.appendChild(mensagem);
+    }
+
+    return mensagem;
+}
+
+function mostrarMensagemDataCampo(campo, texto, tipo = "erro") {
+    const mensagem =
+        obterMensagemDataCampo(campo);
+
+    if (!mensagem) return;
+
+    mensagem.className =
+        `mensagem-data-indisponivel ${tipo === "ok" ? "ok" : "erro"}`;
+
+    mensagem.innerHTML =
+        tipo === "ok"
+            ? `✓ ${texto}`
+            : `⚠ ${texto}`;
+
+    mensagem.hidden = false;
+}
+
+function limparMensagemDataCampo(campo) {
+    const mensagem =
+        obterMensagemDataCampo(campo);
+
+    if (!mensagem) return;
+
+    mensagem.hidden = true;
+    mensagem.textContent = "";
+}
+
+function validarDataRetiradaDisponivel(campo, mostrarAviso = true) {
+    if (!campo) {
+        return true;
+    }
+
+    const valor =
+        String(campo.value || "");
+
+    if (!valor) {
+        limparMensagemDataCampo(campo);
+        return true;
+    }
+
+    // Só valida quando o navegador já tiver uma data completa.
+    // Isso evita disparar erro enquanto a pessoa ainda está digitando
+    // dia, mês e principalmente o ano.
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+        return true;
+    }
+
+    if (valor < hojeISOSite()) {
+        if (mostrarAviso) {
+            mostrarMensagemDataCampo(
+                campo,
+                "Escolha uma data de retirada a partir de hoje."
+            );
+        }
+
+        // Não limpamos o campo automaticamente.
+        // Assim o usuário consegue terminar/corrigir a digitação.
+        return false;
+    }
+
+    if (dataEncomendaEstaBloqueada(valor)) {
+        if (mostrarAviso) {
+            mostrarMensagemDataCampo(
+                campo,
+                `A data ${formatarDataSite(valor)} não está disponível para novas encomendas. Escolha outra data.`
+            );
+        }
+
+        // Mantém a data visível para o usuário entender qual foi bloqueada.
+        return false;
+    }
+
+    mostrarMensagemDataCampo(
+        campo,
+        `${formatarDataSite(valor)} está disponível para retirada.`,
+        "ok"
+    );
+
+    return true;
+}
+
+async function carregarDatasBloqueadasEncomenda() {
+    try {
+        const endpoint =
+            `${SUPABASE_URL}/rest/v1/datas_bloqueadas_encomenda` +
+            `?data=gte.${hojeISOSite()}` +
+            `&select=data` +
+            `&order=data.asc`;
+
+        const resposta = await fetch(endpoint, {
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+        });
+
+        if (!resposta.ok) {
+            throw new Error(await resposta.text());
+        }
+
+        const registros = await resposta.json();
+
+        datasBloqueadasEncomenda = new Set(
+            (registros || [])
+                .map(item => item.data)
+                .filter(Boolean)
+        );
+    } catch (erro) {
+        console.error("Erro ao carregar datas indisponíveis:", erro);
+        datasBloqueadasEncomenda = new Set();
+    }
+}
+
+function configurarValidacaoDatasEncomenda() {
+    aplicarLimiteMinimoDatasEncomenda();
+
+    IDS_CAMPOS_DATA_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+
+        if (
+            !campo ||
+            campo.dataset.validacaoBloqueioAtiva === "true"
+        ) {
+            return;
+        }
+
+        campo.dataset.validacaoBloqueioAtiva = "true";
+
+        // Enquanto a pessoa está digitando, apenas removemos mensagens antigas.
+        // Não validamos aqui para não interromper o preenchimento do ano.
+        campo.addEventListener("input", function() {
+            limparMensagemDataCampo(campo);
+        });
+
+        // A validação acontece quando a pessoa termina de preencher o campo.
+        campo.addEventListener("blur", function() {
+            validarDataRetiradaDisponivel(campo, true);
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", async function() {
+    configurarValidacaoDatasEncomenda();
+
+    await Promise.all([
+        carregarDatasBloqueadasEncomenda(),
+        carregarHorariosRetiradaSite()
+    ]);
+
+    configurarValidacaoCapacidadeDatas();
+});
+
+
+
+
+
+
+/* =====================================================
+   LIMITE DE PEDIDOS POR DIA DA SEMANA
+   Configurado uma única vez no painel administrativo.
+===================================================== */
+
+const cacheCapacidadeDatas = new Map();
+
+function datasRetiradaDoCarrinho() {
+    return [
+        ...new Set(
+            carrinho
+                .map(item => String(item?.data || "").trim())
+                .filter(data => /^\d{4}-\d{2}-\d{2}$/.test(data))
+        )
+    ];
+}
+
+async function consultarCapacidadeDataEncomenda(dataISO, usarCache = false) {
+    if (!dataISO) return null;
+
+    if (usarCache && cacheCapacidadeDatas.has(dataISO)) {
+        return cacheCapacidadeDatas.get(dataISO);
+    }
+
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/rpc/capacidade_data_encomenda`;
+
+    const resposta = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "apikey": SUPABASE_PUBLISHABLE_KEY,
+            "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            p_data: dataISO
+        })
+    });
+
+    if (!resposta.ok) {
+        throw new Error(await resposta.text());
+    }
+
+    const dados = await resposta.json();
+
+    const capacidade =
+        Array.isArray(dados)
+            ? dados[0]
+            : dados;
+
+    if (capacidade) {
+        cacheCapacidadeDatas.set(dataISO, capacidade);
+    }
+
+    return capacidade || null;
+}
+
+async function validarCapacidadeDataCampo(campo, mostrarAviso = true) {
+    if (!campo) return true;
+
+    const dataISO = String(campo.value || "");
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dataISO)) {
+        return true;
+    }
+
+    if (!validarDataRetiradaDisponivel(campo, mostrarAviso)) {
+        return false;
+    }
+
+    try {
+        const capacidade =
+            await consultarCapacidadeDataEncomenda(dataISO, false);
+
+        if (!capacidade) {
+            return true;
+        }
+
+        const disponivel =
+            Boolean(capacidade.disponivel);
+
+        const limite =
+            Number(capacidade.limite || 0);
+
+        const pedidos =
+            Number(capacidade.pedidos || 0);
+
+        const vagas =
+            Math.max(0, Number(capacidade.vagas || 0));
+
+        if (!disponivel) {
+            if (mostrarAviso) {
+                const texto =
+                    limite === 0
+                        ? `Não estamos recebendo novos pedidos para ${formatarDataSite(dataISO)}. Escolha outra data.`
+                        : `A agenda de ${formatarDataSite(dataISO)} já atingiu o limite de ${limite} pedido${limite === 1 ? "" : "s"}. Escolha outra data.`;
+
+                mostrarMensagemDataCampo(campo, texto);
+            }
+
+            return false;
+        }
+
+        if (mostrarAviso) {
+            mostrarMensagemDataCampo(
+                campo,
+                `${formatarDataSite(dataISO)} está disponível para retirada.`,
+                "ok"
+            );
+        }
+
+        return true;
+
+    } catch (erro) {
+        console.error("Erro ao consultar capacidade da data:", erro);
+
+        if (mostrarAviso) {
+            mostrarMensagemDataCampo(
+                campo,
+                "Não foi possível conferir a disponibilidade dessa data agora. Tente novamente."
+            );
+        }
+
+        return false;
+    }
+}
+
+function configurarValidacaoCapacidadeDatas() {
+    IDS_CAMPOS_DATA_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+
+        if (
+            !campo ||
+            campo.dataset.validacaoCapacidadeAtiva === "true"
+        ) {
+            return;
+        }
+
+        campo.dataset.validacaoCapacidadeAtiva = "true";
+
+        campo.addEventListener("change", async function() {
+            await validarCapacidadeDataCampo(campo, true);
+        });
+
+        campo.addEventListener("blur", async function() {
+            if (!campo.value) return;
+            await validarCapacidadeDataCampo(campo, true);
+        });
+    });
+}
+
+async function validarCapacidadeCarrinhoAntesDoPedido() {
+    const datas = datasRetiradaDoCarrinho();
+
+    for (const dataISO of datas) {
+        const capacidade =
+            await consultarCapacidadeDataEncomenda(dataISO, false);
+
+        if (!capacidade) continue;
+
+        if (!Boolean(capacidade.disponivel)) {
+            const limite =
+                Number(capacidade.limite || 0);
+
+            if (limite === 0) {
+                throw new Error(
+                    `Não estamos recebendo novos pedidos para ${formatarDataSite(dataISO)}. Escolha outra data de retirada.`
+                );
+            }
+
+            throw new Error(
+                `A agenda de ${formatarDataSite(dataISO)} acabou de atingir o limite de ${limite} pedido${limite === 1 ? "" : "s"}. Volte ao carrinho e escolha outra data de retirada.`
+            );
+        }
+    }
+
+    return true;
+}
+
+
+/* =====================================================
+   HORÁRIO DE RETIRADA — INTERVALO EDITÁVEL PELO PAINEL
+   Ex.: 07:00 até 18:00
+===================================================== */
+
+const IDS_CAMPOS_HORARIO_ENCOMENDA = [
+    "horaRetirada",
+    "horaRetiradaDocinhos",
+    "horaRetiradaCupcakes",
+    "horaRetiradaCaseirinho",
+    "horaRetiradaKitFesta"
+];
+
+let configuracaoHorarioRetirada = {
+    inicio: "",
+    fim: ""
+};
+
+function formatarHorarioSite(valor) {
+    return String(valor || "").slice(0, 5);
+}
+
+/* =====================================================
+   TEXTO DINÂMICO DO HORÁRIO DE RETIRADA
+   Mostra no site o mesmo intervalo configurado no painel.
+   Ex.: Escolha um horário entre 07:00 e 18:00 para retirada.
+===================================================== */
+
+function atualizarTextosHorarioRetiradaSite() {
+    const inicio = configuracaoHorarioRetirada.inicio;
+    const fim = configuracaoHorarioRetirada.fim;
+
+    IDS_CAMPOS_HORARIO_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+        if (!campo) return;
+
+        /*
+         * No HTML atual, o texto de orientação fica logo abaixo
+         * do input de horário, dentro do mesmo bloco/coluna.
+         * Procuramos primeiro elementos já existentes para não
+         * alterar a estrutura visual das páginas.
+         */
+        const wrapper = campo.parentElement;
+        if (!wrapper) return;
+
+        let texto =
+            wrapper.querySelector(".texto-horario-retirada-dinamico") ||
+            wrapper.querySelector(".campo-ajuda") ||
+            wrapper.querySelector(".texto-ajuda") ||
+            wrapper.querySelector("small");
+
+        /*
+         * Caso a página não possua um elemento específico,
+         * aproveitamos um texto existente que mencione horário.
+         */
+        if (!texto) {
+            const candidatos = [...wrapper.querySelectorAll("div, p, span")];
+
+            texto = candidatos.find(elemento => {
+                if (
+                    elemento === campo ||
+                    elemento.classList.contains("mensagem-horario-indisponivel")
+                ) {
+                    return false;
+                }
+
+                const conteudo =
+                    String(elemento.textContent || "")
+                        .trim()
+                        .toLowerCase();
+
+                return (
+                    conteudo.includes("horário") ||
+                    conteudo.includes("horario")
+                );
+            });
+        }
+
+        /*
+         * Se ainda não existir texto de ajuda, criamos somente
+         * esse pequeno aviso, sem remover nenhum elemento da página.
+         */
+        if (!texto) {
+            texto = document.createElement("div");
+            texto.className = "texto-horario-retirada-dinamico";
+
+            Object.assign(texto.style, {
+                marginTop: "8px",
+                padding: "9px 11px",
+                border: "1px solid #e2c36d",
+                borderRadius: "10px",
+                background: "#fff9e7",
+                color: "#806b62",
+                fontSize: "12px",
+                lineHeight: "1.4"
+            });
+
+            wrapper.appendChild(texto);
+        }
+
+        texto.classList.add("texto-horario-retirada-dinamico");
+
+        if (inicio && fim) {
+            texto.textContent =
+                `Escolha um horário entre ${inicio} e ${fim} para retirada.`;
+        } else {
+            texto.textContent =
+                "Carregando horário disponível para retirada...";
+        }
+    });
+}
+
+function obterMensagemHorarioCampo(campo) {
+    if (!campo) return null;
+
+    const wrapper = campo.parentElement;
+    if (!wrapper) return null;
+
+    let mensagem = wrapper.querySelector(".mensagem-horario-indisponivel");
+
+    if (!mensagem) {
+        mensagem = document.createElement("div");
+        mensagem.className = "mensagem-horario-indisponivel";
+        mensagem.hidden = true;
+
+        Object.assign(mensagem.style, {
+            marginTop: "8px",
+            padding: "9px 11px",
+            borderRadius: "10px",
+            fontSize: "12px",
+            fontWeight: "700",
+            lineHeight: "1.4"
+        });
+
+        wrapper.appendChild(mensagem);
+    }
+
+    return mensagem;
+}
+
+function mostrarMensagemHorarioCampo(campo, texto, tipo = "erro") {
+    const mensagem = obterMensagemHorarioCampo(campo);
+    if (!mensagem) return;
+
+    const ehOk = tipo === "ok";
+
+    mensagem.textContent = `${ehOk ? "✓" : "⚠"} ${texto}`;
+    mensagem.hidden = false;
+
+    mensagem.style.background = ehOk ? "#edf8f0" : "#fff0ee";
+    mensagem.style.border = ehOk ? "1px solid #b9dfc2" : "1px solid #e0aaa4";
+    mensagem.style.color = ehOk ? "#26733a" : "#a13b34";
+}
+
+function limparMensagemHorarioCampo(campo) {
+    const mensagem = obterMensagemHorarioCampo(campo);
+    if (!mensagem) return;
+
+    mensagem.hidden = true;
+    mensagem.textContent = "";
+}
+
+function horarioEstaDentroDoIntervalo(valor) {
+    const inicio = configuracaoHorarioRetirada.inicio;
+    const fim = configuracaoHorarioRetirada.fim;
+
+    if (!valor || !inicio || !fim) {
+        return false;
+    }
+
+    return valor >= inicio && valor <= fim;
+}
+
+function aplicarIntervaloHorarioRetiradaSite() {
+    const inicio = configuracaoHorarioRetirada.inicio;
+    const fim = configuracaoHorarioRetirada.fim;
+
+    IDS_CAMPOS_HORARIO_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+        if (!campo) return;
+
+        campo.min = inicio || "";
+        campo.max = fim || "";
+        campo.disabled = !inicio || !fim;
+
+        if (
+            campo.value &&
+            inicio &&
+            fim &&
+            !horarioEstaDentroDoIntervalo(campo.value)
+        ) {
+            campo.value = "";
+        }
+    });
+
+    atualizarTextosHorarioRetiradaSite();
+}
+
+function validarHorarioRetiradaCampo(
+    campo,
+    {
+        mostrarAviso = true,
+        limparSeInvalido = false,
+        exigirPreenchimento = true
+    } = {}
+) {
+    if (!campo) return true;
+
+    const valor = String(campo.value || "").slice(0, 5);
+    const inicio = configuracaoHorarioRetirada.inicio;
+    const fim = configuracaoHorarioRetirada.fim;
+
+    if (!inicio || !fim) {
+        if (mostrarAviso) {
+            mostrarMensagemHorarioCampo(
+                campo,
+                "Os horários de retirada ainda não estão disponíveis. Tente novamente em instantes."
+            );
+        }
+
+        return false;
+    }
+
+    if (!valor) {
+        limparMensagemHorarioCampo(campo);
+
+        if (exigirPreenchimento && mostrarAviso) {
+            mostrarMensagemHorarioCampo(
+                campo,
+                `Escolha um horário de retirada entre ${inicio} e ${fim}.`
+            );
+        }
+
+        return !exigirPreenchimento;
+    }
+
+    if (!horarioEstaDentroDoIntervalo(valor)) {
+        if (limparSeInvalido) {
+            campo.value = "";
+        }
+
+        if (mostrarAviso) {
+            mostrarMensagemHorarioCampo(
+                campo,
+                `Horário indisponível. Escolha um horário entre ${inicio} e ${fim}.`
+            );
+        }
+
+        return false;
+    }
+
+    mostrarMensagemHorarioCampo(
+        campo,
+        `${valor} está dentro do horário disponível para retirada.`,
+        "ok"
+    );
+
+    return true;
+}
+
+function configurarValidacaoHorariosRetirada() {
+    IDS_CAMPOS_HORARIO_ENCOMENDA.forEach(id => {
+        const campo = document.getElementById(id);
+
+        if (
+            !campo ||
+            campo.dataset.validacaoHorarioAtiva === "true"
+        ) {
+            return;
+        }
+
+        campo.dataset.validacaoHorarioAtiva = "true";
+
+        /*
+         * "change" é disparado quando o usuário conclui a escolha
+         * no seletor nativo de horário. Se estiver fora do intervalo,
+         * o valor é removido imediatamente.
+         */
+        campo.addEventListener("change", function() {
+            validarHorarioRetiradaCampo(campo, {
+                mostrarAviso: true,
+                limparSeInvalido: true,
+                exigirPreenchimento: false
+            });
+        });
+
+        /*
+         * Alguns navegadores permitem digitar manualmente um horário.
+         * Ao sair do campo, fazemos a mesma validação.
+         */
+        campo.addEventListener("blur", function() {
+            if (!campo.value) return;
+
+            validarHorarioRetiradaCampo(campo, {
+                mostrarAviso: true,
+                limparSeInvalido: true,
+                exigirPreenchimento: false
+            });
+        });
+    });
+}
+
+async function carregarHorariosRetiradaSite() {
+    try {
+        const endpoint =
+            `${SUPABASE_URL}/rest/v1/configuracao_retirada` +
+            `?id=eq.1` +
+            `&select=hora_inicio,hora_fim`;
+
+        const resposta = await fetch(endpoint, {
+            headers: {
+                "apikey": SUPABASE_PUBLISHABLE_KEY,
+                "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+        });
+
+        if (!resposta.ok) {
+            throw new Error(await resposta.text());
+        }
+
+        const dados = await resposta.json();
+
+        const configuracao =
+            Array.isArray(dados) && dados.length
+                ? dados[0]
+                : null;
+
+        configuracaoHorarioRetirada = {
+            inicio: formatarHorarioSite(configuracao?.hora_inicio),
+            fim: formatarHorarioSite(configuracao?.hora_fim)
+        };
+
+        aplicarIntervaloHorarioRetiradaSite();
+        configurarValidacaoHorariosRetirada();
+
+    } catch (erro) {
+        console.error(
+            "Erro ao carregar horário de retirada:",
+            erro
+        );
+
+        configuracaoHorarioRetirada = {
+            inicio: "",
+            fim: ""
+        };
+
+        aplicarIntervaloHorarioRetiradaSite();
+        configurarValidacaoHorariosRetirada();
+    }
+}
+
+function horarioRetiradaValido(campo) {
+    const valido = validarHorarioRetiradaCampo(campo, {
+        mostrarAviso: true,
+        limparSeInvalido: true,
+        exigirPreenchimento: true
+    });
+
+    if (!valido && campo) {
+        campo.focus();
+    }
+
+    return valido;
+}
+
+
 const TIPOS_IMAGEM_PERMITIDOS = [
     "image/jpeg",
     "image/png",
@@ -190,25 +959,86 @@ function adicionarCarrinho(
     nome = "Produto",
     preco = 0,
     categoria = "Produto",
-    quantidade = 1
+    quantidade = 1,
+    produtoId = null,
+    estoqueMax = null
 ) {
+
+    const quantidadeAdicionar =
+        Math.max(
+            1,
+            Number(quantidade || 1)
+        );
+
+    const estoqueDisponivel =
+        estoqueMax === null ||
+        estoqueMax === undefined
+            ? null
+            : Math.max(
+                0,
+                Number(estoqueMax || 0)
+            );
 
     const itemExistente =
         carrinho.find(
             item =>
                 item.tipo === "produto" &&
-                item.nome === nome
+                (
+                    produtoId !== null &&
+                    produtoId !== undefined
+                        ? Number(item.produtoId) === Number(produtoId)
+                        : item.nome === nome
+                )
         );
 
+    const quantidadeAtual =
+        Number(
+            itemExistente?.quantidade || 0
+        );
 
-    const quantidadeAdicionar =
-        Math.max(1, Number(quantidade || 1));
+    if (
+        estoqueDisponivel !== null &&
+        quantidadeAtual + quantidadeAdicionar > estoqueDisponivel
+    ) {
+
+        const restante =
+            Math.max(
+                0,
+                estoqueDisponivel - quantidadeAtual
+            );
+
+        if (restante === 0) {
+            alert(
+                "Você já adicionou ao carrinho toda a quantidade disponível deste produto."
+            );
+        } else {
+            alert(
+                `Só existem mais ${restante} unidade${restante === 1 ? "" : "s"} disponível${restante === 1 ? "" : "is"} deste produto.`
+            );
+        }
+
+        return false;
+    }
+
 
     if (itemExistente) {
 
         itemExistente.quantidade =
-            Number(itemExistente.quantidade || 1) +
+            quantidadeAtual +
             quantidadeAdicionar;
+
+        if (estoqueDisponivel !== null) {
+            itemExistente.estoqueMax =
+                estoqueDisponivel;
+        }
+
+        if (
+            produtoId !== null &&
+            produtoId !== undefined
+        ) {
+            itemExistente.produtoId =
+                Number(produtoId);
+        }
 
     } else {
 
@@ -218,6 +1048,12 @@ function adicionarCarrinho(
 
             tipo: "produto",
 
+            produtoId:
+                produtoId !== null &&
+                produtoId !== undefined
+                    ? Number(produtoId)
+                    : null,
+
             nome: nome,
 
             categoria: categoria,
@@ -225,7 +1061,10 @@ function adicionarCarrinho(
             preco: Number(preco),
 
             quantidade:
-                quantidadeAdicionar
+                quantidadeAdicionar,
+
+            estoqueMax:
+                estoqueDisponivel
 
         });
 
@@ -234,23 +1073,25 @@ function adicionarCarrinho(
 
     salvarCarrinho();
 
+    return true;
 }
 
 
 
 
 /* =====================================================
-   FATIAS DO DIA - SUPABASE
-   A página inicial mostra somente fatias ATIVAS cadastradas
-   no painel administrativo. Nenhuma fatia de exemplo é usada.
+   PRONTA ENTREGA - SUPABASE
+   Exibe qualquer produto ativo cadastrado no painel:
+   fatias, bolo de pote, pavê, mousse, brownie etc.
 ===================================================== */
 
-async function buscarFatiasAtivasSupabase() {
+async function buscarProdutosProntaEntregaSupabase() {
 
     const endpoint =
-        `${SUPABASE_URL}/rest/v1/fatias` +
-        `?ativo=eq.true&select=id,nome,descricao,preco,imagem_url` +
-        `&order=id.desc`;
+        `${SUPABASE_URL}/rest/v1/produtos_pronta_entrega` +
+        `?ativo=eq.true` +
+        `&select=id,nome,categoria,descricao,preco,imagem_url,ordem,estoque` +
+        `&order=ordem.asc,created_at.desc`;
 
     const resposta =
         await fetch(
@@ -269,6 +1110,7 @@ async function buscarFatiasAtivasSupabase() {
         let detalhes = "";
 
         try {
+
             const erro =
                 await resposta.json();
 
@@ -276,13 +1118,16 @@ async function buscarFatiasAtivasSupabase() {
                 erro.message ||
                 erro.error ||
                 "";
+
         } catch {
+
             detalhes =
                 await resposta.text();
+
         }
 
         throw new Error(
-            "Não foi possível carregar as fatias." +
+            "Não foi possível carregar os produtos de pronta entrega." +
             (detalhes ? ` ${detalhes}` : "")
         );
     }
@@ -291,11 +1136,15 @@ async function buscarFatiasAtivasSupabase() {
 }
 
 
-function alterarQuantidadeFatiaCard(id, delta) {
+function alterarQuantidadeProdutoCard(
+    id,
+    delta,
+    estoqueMax = null
+) {
 
     const campo =
         document.getElementById(
-            `quantidadeFatia_${id}`
+            `quantidadeProduto_${id}`
         );
 
     if (!campo) {
@@ -305,19 +1154,40 @@ function alterarQuantidadeFatiaCard(id, delta) {
     const atual =
         Number(campo.textContent || 1);
 
-    const novaQuantidade =
-        Math.max(1, atual + Number(delta || 0));
+    let novaQuantidade =
+        Math.max(
+            1,
+            atual + Number(delta || 0)
+        );
+
+    if (
+        estoqueMax !== null &&
+        estoqueMax !== undefined
+    ) {
+
+        const limite =
+            Math.max(
+                0,
+                Number(estoqueMax || 0)
+            );
+
+        novaQuantidade =
+            Math.min(
+                novaQuantidade,
+                Math.max(1, limite)
+            );
+    }
 
     campo.textContent =
         novaQuantidade;
 }
 
 
-function obterQuantidadeFatiaCard(id) {
+function obterQuantidadeProdutoCard(id) {
 
     const campo =
         document.getElementById(
-            `quantidadeFatia_${id}`
+            `quantidadeProduto_${id}`
         );
 
     return Math.max(
@@ -327,16 +1197,21 @@ function obterQuantidadeFatiaCard(id) {
 }
 
 
-function renderizarFatiasInicio(fatias) {
+function renderizarProdutosProntaEntrega(produtos) {
 
     const lista =
-        document.getElementById("listaFatias");
+        document.getElementById(
+            "listaProdutosProntaEntrega"
+        );
 
     if (!lista) {
         return;
     }
 
-    if (!Array.isArray(fatias) || fatias.length === 0) {
+    if (
+        !Array.isArray(produtos) ||
+        produtos.length === 0
+    ) {
 
         lista.innerHTML = `
             <div class="fatias-vazio" style="
@@ -348,13 +1223,19 @@ function renderizarFatiasInicio(fatias) {
                 background: #fff9e7;
                 text-align: center;
             ">
-                <div style="font-size: 30px; margin-bottom: 10px;">🍰</div>
+
+                <div style="
+                    font-size: 30px;
+                    margin-bottom: 10px;
+                ">
+                    ✨
+                </div>
 
                 <h3 style="
                     margin: 0 0 7px;
                     color: #6d0c2e;
                 ">
-                    Nenhuma fatia disponível no momento
+                    Nenhum produto disponível no momento
                 </h3>
 
                 <p style="
@@ -362,73 +1243,118 @@ function renderizarFatiasInicio(fatias) {
                     color: #806b62;
                     line-height: 1.55;
                 ">
-                    Quando novas fatias forem cadastradas,
-                    elas aparecerão aqui automaticamente.
+                    Quando houver produtos disponíveis para pronta entrega,
+                    eles aparecerão aqui automaticamente.
                 </p>
+
             </div>
         `;
 
         return;
     }
 
+
     lista.innerHTML = "";
 
-    fatias.forEach(function(fatia) {
+
+    produtos.forEach(function(produto) {
+
+        const estoque =
+            Math.max(
+                0,
+                Number(produto.estoque || 0)
+            );
+
+        const esgotado =
+            estoque <= 0;
 
         const artigo =
-            document.createElement("article");
+            document.createElement(
+                "article"
+            );
 
         artigo.className =
             "produto";
 
+
         const imagem =
-            fatia.imagem_url
+            produto.imagem_url
                 ? `
                     <div class="produto-imagem produto-imagem-foto">
                         <img
-                            src="${escaparHtmlSite(fatia.imagem_url)}"
-                            alt="${escaparHtmlSite(fatia.nome)}"
+                            src="${escaparHtmlSite(produto.imagem_url)}"
+                            alt="${escaparHtmlSite(produto.nome)}"
                             loading="lazy"
                             style="
-                                width:100%;
-                                height:100%;
-                                object-fit:cover;
-                                display:block;
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                display: block;
                             "
                         >
                     </div>
                 `
                 : `
                     <div class="produto-imagem">
-                        🍰
+                        ✨
                     </div>
                 `;
 
+
         artigo.innerHTML = `
+
             ${imagem}
 
             <div class="produto-info">
 
                 <span class="produto-categoria">
-                    Fatia
+                    ${escaparHtmlSite(
+                        produto.categoria ||
+                        "Pronta entrega"
+                    )}
                 </span>
 
+                <div
+                    class="produto-estoque-site ${esgotado ? "produto-esgotado" : estoque <= 3 ? "produto-estoque-baixo" : ""}"
+                    style="
+                        margin-top: 10px;
+                        display: inline-flex;
+                        width: fit-content;
+                        padding: 6px 10px;
+                        border-radius: 999px;
+                        border: 1px solid ${esgotado ? "#e0aaa4" : "#dec270"};
+                        background: ${esgotado ? "#fff0ee" : estoque <= 3 ? "#fff1bd" : "#fff8df"};
+                        color: ${esgotado ? "#a13b34" : "#6d0c2e"};
+                        font-size: 10px;
+                        font-weight: 800;
+                    "
+                >
+                    ${
+                        esgotado
+                            ? "Esgotado"
+                            : `${estoque} ${estoque === 1 ? "unidade disponível" : "unidades disponíveis"}`
+                    }
+                </div>
+
                 <h3>
-                    ${escaparHtmlSite(fatia.nome)}
+                    ${escaparHtmlSite(produto.nome)}
                 </h3>
 
                 <p>
                     ${
                         escaparHtmlSite(
-                            fatia.descricao ||
-                            "Fatia disponível para pronta entrega."
+                            produto.descricao ||
+                            "Produto disponível para pronta entrega."
                         )
                     }
                 </p>
 
+
                 <div class="produto-quantidade-area">
 
-                    <span>Quantidade</span>
+                    <span>
+                        Quantidade
+                    </span>
 
                     <div class="produto-controle-quantidade">
 
@@ -436,11 +1362,14 @@ function renderizarFatiasInicio(fatias) {
                             type="button"
                             data-acao-quantidade="menos"
                             aria-label="Diminuir quantidade"
+                            ${esgotado ? "disabled" : ""}
                         >
                             −
                         </button>
 
-                        <strong id="quantidadeFatia_${fatia.id}">
+                        <strong
+                            id="quantidadeProduto_${produto.id}"
+                        >
                             1
                         </strong>
 
@@ -448,6 +1377,7 @@ function renderizarFatiasInicio(fatias) {
                             type="button"
                             data-acao-quantidade="mais"
                             aria-label="Aumentar quantidade"
+                            ${esgotado ? "disabled" : ""}
                         >
                             +
                         </button>
@@ -456,23 +1386,27 @@ function renderizarFatiasInicio(fatias) {
 
                 </div>
 
+
                 <div class="produto-rodape produto-rodape-fatia">
 
                     <strong>
-                        ${formatarMoeda(fatia.preco)}
+                        ${formatarMoeda(produto.preco)}
                     </strong>
 
                     <button
                         type="button"
-                        data-acao="adicionar-fatia"
+                        data-acao="adicionar-produto"
+                        ${esgotado ? "disabled" : ""}
+                        style="${esgotado ? "opacity:.55; cursor:not-allowed;" : ""}"
                     >
-                        Adicionar ao carrinho
+                        ${esgotado ? "Esgotado" : "Adicionar ao carrinho"}
                     </button>
 
                 </div>
 
             </div>
         `;
+
 
         const botaoMenos =
             artigo.querySelector(
@@ -486,62 +1420,90 @@ function renderizarFatiasInicio(fatias) {
 
         const botaoAdicionar =
             artigo.querySelector(
-                '[data-acao="adicionar-fatia"]'
+                '[data-acao="adicionar-produto"]'
             );
+
 
         botaoMenos?.addEventListener(
             "click",
             function() {
-                alterarQuantidadeFatiaCard(
-                    fatia.id,
-                    -1
+
+                alterarQuantidadeProdutoCard(
+                    produto.id,
+                    -1,
+                    estoque
                 );
+
             }
         );
+
 
         botaoMais?.addEventListener(
             "click",
             function() {
-                alterarQuantidadeFatiaCard(
-                    fatia.id,
-                    1
+
+                alterarQuantidadeProdutoCard(
+                    produto.id,
+                    1,
+                    estoque
                 );
+
             }
         );
+
 
         botaoAdicionar?.addEventListener(
             "click",
             function() {
 
                 const quantidade =
-                    obterQuantidadeFatiaCard(
-                        fatia.id
+                    obterQuantidadeProdutoCard(
+                        produto.id
                     );
 
-                adicionarCarrinho(
-                    fatia.nome,
-                    Number(fatia.preco || 0),
-                    "Fatia",
-                    quantidade
-                );
+                if (esgotado) {
+                    alert("Este produto está esgotado.");
+                    return;
+                }
+
+                const adicionado =
+                    adicionarCarrinho(
+                        produto.nome,
+                        Number(produto.preco || 0),
+                        produto.categoria || "Pronta entrega",
+                        quantidade,
+                        produto.id,
+                        estoque
+                    );
+
+                if (!adicionado) {
+                    return;
+                }
 
                 alert(
                     quantidade === 1
-                        ? `${fatia.nome} adicionada ao carrinho.`
-                        : `${quantidade} unidades de ${fatia.nome} adicionadas ao carrinho.`
+                        ? `${produto.nome} adicionado ao carrinho.`
+                        : `${quantidade} unidades de ${produto.nome} adicionadas ao carrinho.`
                 );
+
             }
         );
 
-        lista.appendChild(artigo);
+
+        lista.appendChild(
+            artigo
+        );
+
     });
 }
 
 
-async function carregarFatiasInicio() {
+async function carregarProdutosProntaEntrega() {
 
     const lista =
-        document.getElementById("listaFatias");
+        document.getElementById(
+            "listaProdutosProntaEntrega"
+        );
 
     if (!lista) {
         return;
@@ -549,17 +1511,17 @@ async function carregarFatiasInicio() {
 
     try {
 
-        const fatias =
-            await buscarFatiasAtivasSupabase();
+        const produtos =
+            await buscarProdutosProntaEntregaSupabase();
 
-        renderizarFatiasInicio(
-            fatias
+        renderizarProdutosProntaEntrega(
+            produtos
         );
 
     } catch (erro) {
 
         console.error(
-            "Erro ao carregar fatias:",
+            "Erro ao carregar produtos de pronta entrega:",
             erro
         );
 
@@ -573,9 +1535,10 @@ async function carregarFatiasInicio() {
                 text-align: center;
                 color: #6d0c2e;
             ">
-                Não foi possível carregar as fatias disponíveis.
+                Não foi possível carregar os produtos disponíveis.
             </div>
         `;
+
     }
 }
 
@@ -583,7 +1546,9 @@ async function carregarFatiasInicio() {
 document.addEventListener(
     "DOMContentLoaded",
     function() {
-        carregarFatiasInicio();
+
+        carregarProdutosProntaEntrega();
+
     }
 );
 
@@ -1156,6 +2121,15 @@ function atualizarResumoBolo() {
 ===================================================== */
 
 async function adicionarBoloCarrinho() {
+    if (!horarioRetiradaValido(document.getElementById("horaRetirada"))) {
+        return;
+    }
+
+    const campoDataBloqueioAtual = document.getElementById("dataRetirada");
+    if (!validarDataRetiradaDisponivel(campoDataBloqueioAtual, true)) {
+        return;
+    }
+
 
     const tamanho =
         document.querySelector(
@@ -1591,8 +2565,8 @@ function renderizarCarrinho() {
                 <h2>Seu carrinho está vazio</h2>
 
                 <p>
-                    Escolha suas fatias ou monte um bolo
-                    personalizado.
+                    Escolha um produto de pronta entrega
+                    ou faça uma encomenda personalizada.
                 </p>
 
                 <a href="index.html">
@@ -2103,7 +3077,7 @@ function renderizarCarrinho() {
         }
 
 
-        /* PRODUTO / FATIA */
+        /* PRODUTO DE PRONTA ENTREGA */
 
         else {
 
@@ -2112,7 +3086,7 @@ function renderizarCarrinho() {
                 <div>
 
                     <h3>
-                        🍰 ${item.nome}
+                        ✨ ${item.nome}
                     </h3>
 
                     <div class="detalhes-item">
@@ -2121,6 +3095,18 @@ function renderizarCarrinho() {
                             <strong>Categoria:</strong>
                             ${item.categoria}
                         </p>
+
+                        ${
+                            item.estoqueMax !== null &&
+                            item.estoqueMax !== undefined
+                                ? `
+                                    <p>
+                                        <strong>Disponível:</strong>
+                                        ${Number(item.estoqueMax)} unidade${Number(item.estoqueMax) === 1 ? "" : "s"}
+                                    </p>
+                                `
+                                : ""
+                        }
 
                     </div>
 
@@ -2209,18 +3195,33 @@ function alterarQuantidade(id, alteracao) {
         return;
     }
 
+    const novaQuantidade =
+        Number(item.quantidade || 1) +
+        Number(alteracao || 0);
 
-    item.quantidade += alteracao;
-
-
-    if (item.quantidade <= 0) {
+    if (novaQuantidade <= 0) {
 
         removerItemCarrinho(id);
 
         return;
-
     }
 
+    if (
+        item.tipo === "produto" &&
+        item.estoqueMax !== null &&
+        item.estoqueMax !== undefined &&
+        novaQuantidade > Number(item.estoqueMax)
+    ) {
+
+        alert(
+            `Só existem ${Number(item.estoqueMax)} unidade${Number(item.estoqueMax) === 1 ? "" : "s"} disponível${Number(item.estoqueMax) === 1 ? "" : "is"} deste produto.`
+        );
+
+        return;
+    }
+
+    item.quantidade =
+        novaQuantidade;
 
     salvarCarrinho();
 
@@ -2685,7 +3686,7 @@ function renderizarCheckout() {
                 <div class="item-checkout-info">
 
                     <h3>
-                        🍰 ${item.nome}
+                        ✨ ${item.nome}
                     </h3>
 
                     <p>
@@ -2852,7 +3853,151 @@ function montarItensParaSalvarPedido() {
     });
 }
 
+async function consultarEstoqueProdutoProntaEntrega(produtoId) {
+
+    const endpoint =
+        `${SUPABASE_URL}/rest/v1/produtos_pronta_entrega` +
+        `?id=eq.${encodeURIComponent(produtoId)}` +
+        `&select=id,nome,estoque,ativo` +
+        `&limit=1`;
+
+    const resposta =
+        await fetch(
+            endpoint,
+            {
+                headers: {
+                    "apikey": SUPABASE_PUBLISHABLE_KEY,
+                    "Authorization":
+                        `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+                }
+            }
+        );
+
+    if (!resposta.ok) {
+        throw new Error(
+            "Não foi possível conferir o estoque antes de finalizar o pedido."
+        );
+    }
+
+    const dados =
+        await resposta.json();
+
+    return dados?.[0] || null;
+}
+
+
+async function validarEstoqueCarrinhoAntesDoPedido() {
+
+    const produtos =
+        carrinho.filter(
+            item =>
+                item.tipo === "produto" &&
+                item.produtoId !== null &&
+                item.produtoId !== undefined
+        );
+
+    for (const item of produtos) {
+
+        const produto =
+            await consultarEstoqueProdutoProntaEntrega(
+                item.produtoId
+            );
+
+        if (!produto || !produto.ativo) {
+            throw new Error(
+                `${item.nome} não está mais disponível para venda.`
+            );
+        }
+
+        const estoqueAtual =
+            Math.max(
+                0,
+                Number(produto.estoque || 0)
+            );
+
+        item.estoqueMax =
+            estoqueAtual;
+
+        if (
+            Number(item.quantidade || 1) >
+            estoqueAtual
+        ) {
+            throw new Error(
+                estoqueAtual === 0
+                    ? `${item.nome} está esgotado. Remova o produto do carrinho para continuar.`
+                    : `${item.nome} possui somente ${estoqueAtual} unidade${estoqueAtual === 1 ? "" : "s"} disponível${estoqueAtual === 1 ? "" : "is"}. Ajuste a quantidade no carrinho.`
+            );
+        }
+    }
+
+    salvarCarrinho();
+}
+
+
+async function baixarEstoqueItensProntaEntrega() {
+
+    const produtos =
+        carrinho.filter(
+            item =>
+                item.tipo === "produto" &&
+                item.produtoId !== null &&
+                item.produtoId !== undefined
+        );
+
+    for (const item of produtos) {
+
+        const resposta =
+            await fetch(
+                `${SUPABASE_URL}/rest/v1/rpc/baixar_estoque_pronta_entrega`,
+                {
+                    method: "POST",
+                    headers: {
+                        "apikey": SUPABASE_PUBLISHABLE_KEY,
+                        "Authorization":
+                            `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        p_produto_id:
+                            Number(item.produtoId),
+
+                        p_quantidade:
+                            Number(item.quantidade || 1)
+                    })
+                }
+            );
+
+        if (!resposta.ok) {
+
+            let detalhe = "";
+
+            try {
+                const erro =
+                    await resposta.json();
+
+                detalhe =
+                    erro.message ||
+                    erro.error ||
+                    "";
+            } catch {
+                detalhe =
+                    await resposta.text();
+            }
+
+            throw new Error(
+                `Não foi possível atualizar o estoque de ${item.nome}.` +
+                (detalhe ? ` ${detalhe}` : "")
+            );
+        }
+    }
+}
+
+
 async function salvarPedidoNoSupabase(nome, telefone, observacao) {
+
+    await validarEstoqueCarrinhoAntesDoPedido();
+    await validarCapacidadeCarrinhoAntesDoPedido();
+
     const total = carrinho.reduce(
         (soma, item) =>
             soma + Number(item.preco || 0) * Number(item.quantidade || 1),
@@ -2900,7 +4045,12 @@ async function salvarPedidoNoSupabase(nome, telefone, observacao) {
         );
     }
 
-    return await resposta.json();
+    const pedidoCriado =
+        await resposta.json();
+
+    await baixarEstoqueItensProntaEntrega();
+
+    return pedidoCriado;
 }
 
 
@@ -4165,6 +5315,15 @@ async function carregarMontagemDocinhos() {
 }
 
 function adicionarDocinhosCarrinho() {
+    if (!horarioRetiradaValido(document.getElementById("horaRetiradaDocinhos"))) {
+        return;
+    }
+
+    const campoDataBloqueioAtual = document.getElementById("dataRetiradaDocinhos");
+    if (!validarDataRetiradaDisponivel(campoDataBloqueioAtual, true)) {
+        return;
+    }
+
 
     const categoria =
         categoriaDocinhoSelecionada();
@@ -4861,6 +6020,15 @@ async function carregarCupcakes() {
 }
 
 function adicionarCupcakesCarrinho() {
+    if (!horarioRetiradaValido(document.getElementById("horaRetiradaCupcakes"))) {
+        return;
+    }
+
+    const campoDataBloqueioAtual = document.getElementById("dataRetiradaCupcakes");
+    if (!validarDataRetiradaDisponivel(campoDataBloqueioAtual, true)) {
+        return;
+    }
+
     const tipo = tipoCupcakeSelecionado();
     const quantidade = Number(document.getElementById("quantidadeCupcakes")?.value || 0);
     const sabores = saboresCupcakeSelecionados();
@@ -5177,6 +6345,15 @@ async function carregarMontagemCaseirinhos() {
 }
 
 function adicionarCaseirinhoCarrinho() {
+    if (!horarioRetiradaValido(document.getElementById("horaRetiradaCaseirinho"))) {
+        return;
+    }
+
+    const campoDataBloqueioAtual = document.getElementById("dataRetiradaCaseirinho");
+    if (!validarDataRetiradaDisponivel(campoDataBloqueioAtual, true)) {
+        return;
+    }
+
 
     const sabor =
         document.querySelector(
@@ -6162,6 +7339,15 @@ function validarSelecaoSaboresKit(
 
 
 function adicionarKitFestaCarrinho() {
+    if (!horarioRetiradaValido(document.getElementById("horaRetiradaKitFesta"))) {
+        return;
+    }
+
+    const campoDataBloqueioAtual = document.getElementById("dataRetiradaKitFesta");
+    if (!validarDataRetiradaDisponivel(campoDataBloqueioAtual, true)) {
+        return;
+    }
+
 
     if (!kitFestaSelecionado) {
         alert("Escolha um Kit Festa.");
@@ -6354,7 +7540,49 @@ document.addEventListener(
    CENTRAL DE ENCOMENDAS
 ===================================================== */
 
+
+/* =====================================================
+   PERSISTÊNCIA DA ÚLTIMA CATEGORIA DE ENCOMENDA
+   Funciona no desktop e no mobile.
+===================================================== */
+
+const CHAVE_TIPO_ENCOMENDA_ATUAL =
+    "goreteFestasTipoEncomendaAtual";
+
+const TIPOS_ENCOMENDA_VALIDOS = [
+    "bolo",
+    "docinhos",
+    "cupcakes",
+    "caseirinhos",
+    "kit-festa"
+];
+
+function salvarTipoEncomendaAtual(tipo) {
+    if (!TIPOS_ENCOMENDA_VALIDOS.includes(tipo)) {
+        return;
+    }
+
+    localStorage.setItem(
+        CHAVE_TIPO_ENCOMENDA_ATUAL,
+        tipo
+    );
+}
+
+function obterTipoEncomendaSalvo() {
+    const salvo =
+        localStorage.getItem(
+            CHAVE_TIPO_ENCOMENDA_ATUAL
+        );
+
+    return TIPOS_ENCOMENDA_VALIDOS.includes(salvo)
+        ? salvo
+        : "bolo";
+}
+
 function selecionarTipoEncomenda(tipo) {
+
+    salvarTipoEncomendaAtual(tipo);
+
 
     const painelBolo =
         document.getElementById("painelBolo");
@@ -6451,7 +7679,7 @@ document.addEventListener(
             return;
         }
 
-        selecionarTipoEncomenda("bolo");
+        selecionarTipoEncomenda(obterTipoEncomendaSalvo());
 
     }
 );

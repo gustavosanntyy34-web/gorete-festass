@@ -5,35 +5,367 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho | Gorete Festas</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           CARRINHO - VISUAL REFINADO
+           Mantém a lógica atual do script.js
+        ===================================================== */
+
+        .pagina-carrinho {
+            min-height: 100vh;
+            padding-bottom: 80px;
+            background:
+                radial-gradient(circle at top left, rgba(255,255,255,.78), transparent 35%),
+                linear-gradient(135deg, #fff8df 0%, #f8dfa0 100%);
+        }
+
+        .cabecalho-carrinho {
+            padding: 42px 20px 34px;
+        }
+
+        .cabecalho-carrinho > span {
+            display: block;
+            margin-bottom: 8px;
+            color: #8f002d;
+            font-family: "Montserrat", sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .cabecalho-carrinho h1 {
+            margin: 0;
+            color: #8f002d;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        .cabecalho-carrinho p {
+            margin-top: 12px;
+            color: #765c51;
+            font-family: "Montserrat", sans-serif;
+            font-size: 12px;
+        }
+
+        .carrinho-container {
+            max-width: 1140px;
+            gap: 24px;
+        }
+
+        .lista-carrinho {
+            gap: 16px;
+        }
+
+        /* CARD DO PRODUTO */
+        .item-carrinho {
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            border: 1px solid #e2b23f;
+            border-radius: 18px;
+            background: rgba(255, 253, 247, .96);
+            box-shadow: 0 12px 28px rgba(91, 57, 18, .08);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .item-carrinho:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(91, 57, 18, .12);
+        }
+
+        .item-carrinho > div:first-child {
+            padding: 22px 24px;
+        }
+
+        .item-carrinho h3 {
+            margin: 0 0 16px;
+            color: #8f002d;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .detalhes-item {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px 28px;
+        }
+
+        .detalhes-item p {
+            margin: 0;
+            color: #725f55;
+            font-family: "Montserrat", sans-serif;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+        .detalhes-item strong {
+            color: #4f2f25;
+            font-weight: 700;
+        }
+
+        /* ÁREA DE PREÇO / QUANTIDADE */
+        .item-acoes {
+            min-width: 180px;
+            padding: 22px 20px;
+            border-left: 1px solid #efd99f;
+            background: linear-gradient(180deg, #fff9e9 0%, #fff4d4 100%);
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .item-preco {
+            color: #8f002d;
+            font-family: "Montserrat", sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .controle-quantidade {
+            padding: 5px;
+            gap: 10px;
+            border: 1px solid #ead18c;
+            border-radius: 999px;
+            background: #fffdf8;
+        }
+
+        .controle-quantidade button {
+            width: 31px;
+            height: 31px;
+            border-color: #e2c777;
+            background: #fff;
+            color: #8f002d;
+            transition: .2s ease;
+        }
+
+        .controle-quantidade button:hover {
+            border-color: #8f002d;
+            background: #8f002d;
+            color: #fff;
+        }
+
+        .controle-quantidade span {
+            min-width: 24px;
+            color: #5d3327;
+            font-size: 12px;
+        }
+
+        .btn-remover-item {
+            padding: 6px 10px;
+            border-radius: 20px;
+            color: #a85050;
+            font-size: 10px;
+            transition: .2s ease;
+        }
+
+        .btn-remover-item:hover {
+            background: #fff0ee;
+            text-decoration: none;
+        }
+
+        /* RESUMO */
+        .resumo-carrinho {
+            top: 92px;
+            overflow: hidden;
+            padding: 24px;
+            border: 1px solid #e2b23f;
+            border-radius: 18px;
+            background: rgba(255, 253, 247, .97);
+            box-shadow: 0 14px 34px rgba(91, 57, 18, .10);
+        }
+
+        .resumo-carrinho > span {
+            display: block;
+            color: #a65c42;
+            font-family: "Montserrat", sans-serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+        }
+
+        .resumo-carrinho h2 {
+            margin: 8px 0 18px;
+            color: #8f002d;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 22px;
+        }
+
+        .linha-total {
+            padding: 13px 0;
+        }
+
+        .linha-total span {
+            color: #806d63;
+            font-family: "Montserrat", sans-serif;
+            font-size: 10px;
+        }
+
+        .linha-total strong {
+            color: #4d2e25;
+            font-family: "Montserrat", sans-serif;
+            font-size: 11px;
+        }
+
+        .total-final {
+            margin-top: 18px;
+            padding: 17px;
+            border: 1px solid #d8a728;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #f6d97f 0%, #e9bd4b 100%);
+        }
+
+        .total-final span {
+            color: #8b6038;
+            font-family: "Montserrat", sans-serif;
+            font-size: 9px;
+        }
+
+        .total-final strong {
+            display: block;
+            margin-top: 3px;
+            color: #8f002d;
+            font-family: "Montserrat", sans-serif;
+            font-size: 25px;
+        }
+
+        .btn-finalizar-pedido {
+            min-height: 44px;
+            margin-top: 15px;
+            background: #970033;
+            font-family: "Montserrat", sans-serif;
+            font-size: 11px;
+            transition: .2s ease;
+        }
+
+        .btn-finalizar-pedido:hover {
+            background: #790029;
+            transform: translateY(-1px);
+        }
+
+        .continuar-comprando {
+            margin-top: 15px;
+            color: #9b3655;
+            font-family: "Montserrat", sans-serif;
+            font-size: 10px;
+        }
+
+        .continuar-comprando:hover {
+            color: #790029;
+        }
+
+        .carrinho-vazio {
+            border-color: #e2b23f;
+            border-radius: 18px;
+            background: rgba(255, 253, 247, .96);
+        }
+
+        @media (max-width: 900px) {
+            .carrinho-container {
+                grid-template-columns: 1fr;
+            }
+
+            .resumo-carrinho {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cabecalho-carrinho {
+                padding: 30px 6% 24px;
+            }
+
+            .cabecalho-carrinho h1 {
+                font-size: 34px;
+            }
+
+            .item-carrinho {
+                grid-template-columns: 1fr;
+            }
+
+            .item-carrinho > div:first-child {
+                padding: 18px;
+            }
+
+            .detalhes-item {
+                grid-template-columns: 1fr;
+            }
+
+            .item-acoes {
+                width: 100%;
+                min-width: 0;
+                padding: 16px 18px;
+                border-top: 1px solid #efd99f;
+                border-left: none;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
+
 <header class="topo">
     <a href="index.html" class="marca marca-logo" aria-label="Gorete Festas - Início">
-            <img src="logo-gorete-festas.png" alt="Gorete Festas">
-        </a>
+        <img src="logo-gorete-festas.png" alt="Gorete Festas">
+    </a>
+
     <nav class="menu">
         <a href="index.html">Início</a>
         <a href="index.html#cardapio">Cardápio</a>
         <a href="montar-bolo.html">Faça sua encomenda</a>
-        <a href="carrinho.html" class="btn-carrinho">🛒 Carrinho <span id="quantidadeCarrinho">0</span></a>
+        <a href="carrinho.html" class="btn-carrinho">
+            🛒 Carrinho <span id="quantidadeCarrinho">0</span>
+        </a>
     </nav>
 </header>
+
 <main class="pagina-carrinho">
+
     <section class="cabecalho-carrinho">
-        <span>SEU PEDIDO</span><h1>Meu carrinho</h1><p>Confira os itens escolhidos antes de finalizar o pedido.</p>
+        <span>SEU PEDIDO</span>
+        <h1>Meu carrinho</h1>
+        <p>Confira os itens escolhidos antes de finalizar o pedido.</p>
     </section>
+
     <section class="carrinho-container">
+
         <div class="lista-carrinho" id="listaCarrinho"></div>
+
         <aside class="resumo-carrinho">
-            <span>RESUMO</span><h2>Resumo do pedido</h2>
-            <div class="linha-total"><span>Itens</span><strong id="totalItens">0</strong></div>
-            <div class="linha-total"><span>Subtotal</span><strong id="subtotalCarrinho">R$ 0,00</strong></div>
-            <div class="total-final"><span>Total</span><strong id="totalCarrinho">R$ 0,00</strong></div>
-            <button class="btn-finalizar-pedido" onclick="irParaCheckout()">Continuar pedido</button>
-            <a href="index.html" class="continuar-comprando">← Continuar comprando</a>
+            <span>RESUMO</span>
+            <h2>Resumo do pedido</h2>
+
+            <div class="linha-total">
+                <span>Itens</span>
+                <strong id="totalItens">0</strong>
+            </div>
+
+            <div class="linha-total">
+                <span>Subtotal</span>
+                <strong id="subtotalCarrinho">R$ 0,00</strong>
+            </div>
+
+            <div class="total-final">
+                <span>Total</span>
+                <strong id="totalCarrinho">R$ 0,00</strong>
+            </div>
+
+            <button class="btn-finalizar-pedido" onclick="irParaCheckout()">
+                Continuar pedido
+            </button>
+
+            <a href="index.html" class="continuar-comprando">
+                ← Continuar comprando
+            </a>
         </aside>
+
     </section>
 </main>
+
 <script src="script.js"></script>
+
 </body>
 </html>

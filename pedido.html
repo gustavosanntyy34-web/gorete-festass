@@ -10,175 +10,544 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        :root {
+            --gf-bordo: #7f0732;
+            --gf-bordo-escuro: #650526;
+            --gf-champanhe: #fff7dc;
+            --gf-amarelo: #efd16d;
+            --gf-amarelo-claro: #f9e7a7;
+            --gf-fundo: #fffaf0;
+            --gf-card: #fffdf8;
+            --gf-borda: #dfc270;
+            --gf-texto: #57392f;
+            --gf-texto-suave: #8b746a;
+            --gf-verde: #2f7a4d;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    180deg,
+                    #fff7dc 0%,
+                    #fffaf0 46%,
+                    #f8e6a7 100%
+                );
+        }
+
         .pagina-pedido-publico {
             min-height: 100vh;
-            padding: 55px 20px 80px;
-            background: #fffaf7;
+            padding: 42px 20px 80px;
         }
 
         .pedido-publico-container {
             width: 100%;
-            max-width: 950px;
+            max-width: 1080px;
             margin: 0 auto;
         }
 
+        .pedido-publico-aviso-link {
+            max-width: 1080px;
+            margin: 18px auto 0;
+            padding: 11px 16px;
+            border: 1px solid rgba(127, 7, 50, .12);
+            border-radius: 12px;
+            background: rgba(255, 253, 248, .86);
+            color: var(--gf-texto-suave);
+            font-size: 10px;
+            line-height: 1.45;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
         .pedido-publico-topo {
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             text-align: center;
         }
 
         .pedido-publico-topo > span {
-            color: #ad6952;
+            display: inline-block;
+            color: var(--gf-bordo);
             font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 4px;
+            font-weight: 800;
+            letter-spacing: 5px;
         }
 
         .pedido-publico-topo h1 {
-            margin: 9px 0 7px;
-            color: #4e2e24;
-            font-size: 34px;
+            margin: 10px 0 8px;
+            color: var(--gf-bordo);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 42px;
+            line-height: 1.05;
         }
 
         .pedido-publico-topo p {
-            margin: 0;
-            color: #806b62;
-            font-size: 12px;
+            max-width: 620px;
+            margin: 0 auto;
+            color: var(--gf-texto-suave);
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         .pedido-publico-card {
-            margin-bottom: 14px;
-            padding: 22px;
-            border: 1px solid #eaded8;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 8px 25px rgba(75, 44, 33, 0.05);
+            margin-bottom: 16px;
+            padding: 24px;
+            border: 1px solid var(--gf-borda);
+            border-radius: 22px;
+            background: rgba(255, 253, 248, .93);
+            box-shadow: 0 14px 40px rgba(90, 63, 24, .08);
         }
 
         .pedido-publico-resumo {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 20px;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 22px;
             align-items: start;
         }
 
         .pedido-publico-codigo {
-            margin-bottom: 12px;
-            color: #563126;
-            font-size: 24px;
+            margin-bottom: 14px;
+            color: var(--gf-bordo);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 31px;
+            font-weight: 700;
+            line-height: 1;
         }
 
         .pedido-publico-dados {
             display: grid;
-            gap: 7px;
-            color: #806b62;
+            gap: 8px;
+            color: var(--gf-texto-suave);
             font-size: 12px;
         }
 
         .pedido-publico-dados strong {
-            color: #5c4036;
+            color: var(--gf-texto);
         }
 
         .pedido-publico-total {
-            padding: 16px 18px;
-            border-radius: 12px;
-            background: #f8e9e0;
-            color: #6f4031;
+            min-width: 180px;
+            padding: 18px 20px;
+            border: 1px solid #d9b33e;
+            border-radius: 16px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fae69a 0%,
+                    #edca58 100%
+                );
+            color: var(--gf-bordo);
             text-align: right;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
         }
 
         .pedido-publico-total span {
             display: block;
             margin-bottom: 4px;
+            color: #806232;
             font-size: 10px;
         }
 
         .pedido-publico-total strong {
+            font-size: 27px;
+        }
+
+        .pedido-publico-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 12px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: #f8e7a9;
+            color: var(--gf-bordo);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .pedido-publico-status::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* ACOMPANHAMENTO */
+        .pedido-publico-acompanhamento {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(127, 7, 50, .08);
+            text-align: center;
+        }
+
+        .pedido-publico-acompanhamento-titulo {
+            margin-bottom: 13px;
+            color: var(--gf-bordo);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .pedido-publico-etapas {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .pedido-publico-etapas-simples {
+            width: 100%;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pedido-publico-etapa {
+            position: relative;
+            padding: 13px 10px;
+            border: 1px solid #ead9a4;
+            border-radius: 14px;
+            background: #fffaf0;
+            color: #9d877d;
+            font-size: 9px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .pedido-publico-etapa.ativa {
+            border-color: #d5a90f;
+            background: #f5d873;
+            color: var(--gf-bordo);
+        }
+
+        .pedido-publico-etapa.concluida {
+            border-color: #b7dbc4;
+            background: #eaf7ef;
+            color: var(--gf-verde);
+        }
+
+        .pedido-publico-etapa.cancelada {
+            border-color: #e4b5b5;
+            background: #fff0f0;
+            color: #a33a3a;
+        }
+
+        /* ITENS */
+        .pedido-publico-card-itens {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .pedido-publico-card-cabecalho {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(127, 7, 50, .08);
+            background: linear-gradient(90deg, #fff9e8, #fffdf8);
+        }
+
+        .pedido-publico-card-cabecalho span {
+            color: #b17a52;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .pedido-publico-card-cabecalho h2 {
+            margin-top: 5px;
+            color: var(--gf-bordo);
+            font-family: "Cormorant Garamond", Georgia, serif;
             font-size: 25px;
         }
 
+        .pedido-publico-itens-lista {
+            padding: 0 24px;
+        }
+
         .pedido-publico-item {
-            padding: 18px 0;
-            border-bottom: 1px solid #efe2dc;
+            padding: 24px 0;
+            border-bottom: 1px solid #efe6cf;
         }
 
         .pedido-publico-item:last-child {
             border-bottom: 0;
         }
 
-        .pedido-publico-item h2 {
-            margin: 0 0 10px;
-            color: #563126;
-            font-size: 17px;
+        .pedido-publico-item-topo {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 14px;
         }
 
-        .pedido-publico-item p {
-            margin: 5px 0;
-            color: #806b62;
+        .pedido-publico-item-identificacao {
+            min-width: 0;
+        }
+
+        .pedido-publico-item-categoria {
+            display: inline-flex;
+            margin-bottom: 6px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: #fff0bd;
+            color: #8c642f;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+        }
+
+        .pedido-publico-item h3 {
+            margin: 0;
+            color: var(--gf-bordo);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 24px;
+            line-height: 1.05;
+        }
+
+        .pedido-publico-item-valor {
+            flex: 0 0 auto;
+            color: var(--gf-bordo);
+            font-size: 19px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .pedido-publico-grade-detalhes {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px 12px;
+        }
+
+        .pedido-publico-detalhe {
+            min-width: 0;
+            padding: 11px 12px;
+            border: 1px solid #eee1ba;
+            border-radius: 12px;
+            background: #fffaf0;
+        }
+
+        .pedido-publico-detalhe span {
+            display: block;
+            margin-bottom: 3px;
+            color: #a08a7f;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .3px;
+            text-transform: uppercase;
+        }
+
+        .pedido-publico-detalhe strong {
+            display: block;
+            color: var(--gf-texto);
             font-size: 11px;
-            line-height: 1.5;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
         }
 
-        .pedido-publico-item p strong {
-            color: #5c4036;
+        .pedido-publico-detalhe-largo {
+            grid-column: 1 / -1;
+        }
+
+        .pedido-publico-sabores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .pedido-publico-sabor {
+            display: inline-flex;
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: #f9e4a0;
+            color: var(--gf-bordo);
+            font-size: 9px;
+            font-weight: 700;
         }
 
         .pedido-publico-imagens {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
         .pedido-publico-imagem {
             overflow: hidden;
-            border: 1px solid #eadbd3;
-            border-radius: 12px;
-            background: #fffaf7;
+            border: 1px solid #e6d49d;
+            border-radius: 14px;
+            background: #fffaf0;
         }
 
         .pedido-publico-imagem img {
             display: block;
             width: 100%;
-            height: 250px;
+            height: 270px;
             object-fit: cover;
         }
 
         .pedido-publico-imagem a {
             display: block;
             padding: 10px;
-            color: #6f4031;
+            color: var(--gf-bordo);
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 800;
             text-align: center;
             text-decoration: none;
         }
 
-        .pedido-publico-status {
-            display: inline-flex;
-            margin-top: 8px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            background: #f3e3db;
-            color: #754434;
-            font-size: 9px;
+
+
+        /* RESUMO VISUAL DOS ITENS */
+        .pedido-publico-resumo-item-grid {
+            display: grid;
+            grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pedido-publico-quantidade-destaque,
+        .pedido-publico-retirada-destaque {
+            min-width: 0;
+            padding: 15px 16px;
+            border: 1px solid #e8d596;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fff9e7 0%, #fffdf8 100%);
+        }
+
+        .pedido-publico-quantidade-destaque > span,
+        .pedido-publico-retirada-destaque > span,
+        .pedido-publico-sabores-bloco > span {
+            display: block;
+            margin-bottom: 7px;
+            color: #a07a43;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .pedido-publico-quantidade-destaque strong {
+            display: block;
+            color: var(--gf-bordo);
+            font-size: 20px;
+            line-height: 1.15;
+        }
+
+        .pedido-publico-retirada-info {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .pedido-publico-retirada-info > div {
+            min-width: 0;
+            padding: 10px 11px;
+            border-radius: 11px;
+            background: #fffaf0;
+        }
+
+        .pedido-publico-retirada-info small {
+            display: block;
+            margin-bottom: 3px;
+            color: #9a8378;
+            font-size: 8px;
             font-weight: 700;
+        }
+
+        .pedido-publico-retirada-info strong {
+            display: block;
+            color: var(--gf-texto);
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .pedido-publico-sabores-bloco {
+            margin-bottom: 12px;
+            padding: 15px 16px;
+            border: 1px solid #ead99f;
+            border-radius: 14px;
+            background: #fffaf0;
+        }
+
+        .pedido-publico-sabor {
+            padding: 7px 11px;
+            font-size: 10px;
+        }
+
+        .pedido-publico-resumo-item-grid-simples {
+            grid-template-columns: minmax(220px, 430px);
+        }
+
+        .pedido-publico-resumo-item-grid-simples .pedido-publico-quantidade-destaque {
+            padding: 14px 16px;
+        }
+
+        .pedido-publico-grade-detalhes-secundarios {
+            margin-top: 0;
+        }
+
+        .pedido-publico-grade-detalhes-secundarios:empty {
+            display: none;
+        }
+
+        /* OBSERVAÇÕES */
+        .pedido-publico-observacoes {
+            margin-top: 16px;
+            padding: 15px 16px;
+            border: 1px solid #ead3a0;
+            border-left: 4px solid #d5a90f;
+            border-radius: 12px;
+            background: #fff9e6;
+        }
+
+        .pedido-publico-observacoes span {
+            display: block;
+            margin-bottom: 5px;
+            color: #9c7843;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .pedido-publico-observacoes p {
+            margin: 0;
+            color: var(--gf-texto);
+            font-size: 11px;
+            line-height: 1.55;
         }
 
         .pedido-publico-erro,
         .pedido-publico-carregando {
-            padding: 40px 20px;
-            border: 1px dashed #dfc7bb;
-            border-radius: 14px;
-            background: #ffffff;
-            color: #806b62;
+            padding: 48px 22px;
+            border: 1px dashed #d9ba67;
+            border-radius: 18px;
+            background: rgba(255, 253, 248, .9);
+            color: var(--gf-texto-suave);
             text-align: center;
             font-size: 12px;
         }
 
-        @media (max-width: 700px) {
+        .pedido-publico-rodape {
+            margin-top: 18px;
+            padding: 18px;
+            color: #927d73;
+            font-size: 10px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
             .pagina-pedido-publico {
-                padding: 35px 5% 60px;
+                padding: 28px 14px 60px;
+            }
+
+            .pedido-publico-aviso-link {
+                margin: 10px 14px 0;
+            }
+
+            .pedido-publico-topo h1 {
+                font-size: 34px;
             }
 
             .pedido-publico-resumo {
@@ -186,7 +555,38 @@
             }
 
             .pedido-publico-total {
+                width: 100%;
                 text-align: left;
+            }
+
+            .pedido-publico-etapas {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .pedido-publico-item-topo {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .pedido-publico-item-valor {
+                font-size: 21px;
+            }
+
+
+            .pedido-publico-resumo-item-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-retirada-info {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pedido-publico-grade-detalhes {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-detalhe-largo {
+                grid-column: auto;
             }
 
             .pedido-publico-imagens {
@@ -195,36 +595,256 @@
 
             .pedido-publico-imagem img {
                 height: auto;
-                max-height: 380px;
+                max-height: 420px;
+                object-fit: contain;
             }
         }
-    
 
-        .pedido-publico-aviso-link {
-            margin: 0 auto 18px;
-            max-width: 950px;
-            padding: 10px 14px;
-            border: 1px solid #eadbd3;
+        @media (max-width: 480px) {
+            .pagina-pedido-publico {
+                padding: 24px 10px 50px;
+            }
+
+            .pedido-publico-card {
+                padding: 17px;
+                border-radius: 18px;
+            }
+
+            .pedido-publico-card-itens {
+                padding: 0;
+            }
+
+            .pedido-publico-card-cabecalho {
+                padding: 17px;
+            }
+
+            .pedido-publico-itens-lista {
+                padding: 0 17px;
+            }
+
+            .pedido-publico-topo h1 {
+                font-size: 30px;
+            }
+
+            .pedido-publico-codigo {
+                font-size: 28px;
+            }
+
+            .pedido-publico-etapas {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-etapa {
+                text-align: center;
+            }
+
+            .pedido-publico-item h3 {
+                font-size: 22px;
+            }
+
+
+            .pedido-publico-retirada-info {
+                grid-template-columns: 1fr;
+            }
+
+            .pedido-publico-quantidade-destaque strong {
+                font-size: 19px;
+            }
+
+            .pedido-publico-sabor {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+
+        }
+    
+        /* =========================================================
+           PEDIDO PÚBLICO — REFINAMENTO VISUAL FINAL
+        ========================================================= */
+        .pagina-pedido-publico {
+            padding-top: 30px;
+        }
+
+        .pedido-publico-topo {
+            margin-bottom: 18px;
+        }
+
+        .pedido-publico-topo h1 {
+            margin-top: 7px;
+        }
+
+        .pedido-publico-card {
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(90, 63, 24, .07);
+        }
+
+        .pedido-publico-resumo {
+            align-items: center;
+        }
+
+        .pedido-publico-codigo {
+            margin-bottom: 10px;
+            font-size: 29px;
+        }
+
+        .pedido-publico-total {
+            min-width: 205px;
+            padding: 15px 18px;
+            text-align: left;
+        }
+
+        .pedido-publico-total strong {
+            font-size: 25px;
+        }
+
+        .pedido-publico-acompanhamento {
+            margin-top: 17px;
+            padding-top: 15px;
+        }
+
+        .pedido-publico-etapa {
+            padding: 11px 10px;
+        }
+
+        .pedido-publico-card-cabecalho {
+            padding: 17px 21px;
+        }
+
+        .pedido-publico-itens-lista {
+            padding: 0 21px;
+        }
+
+        .pedido-publico-item {
+            padding: 19px 0;
+        }
+
+        .pedido-publico-item-topo {
+            align-items: center;
+            margin-bottom: 11px;
+        }
+
+        .pedido-publico-item-categoria {
+            margin-bottom: 5px;
+        }
+
+        .pedido-publico-item h3 {
+            font-size: 22px;
+        }
+
+        .pedido-publico-item-valor {
+            padding: 7px 11px;
+            border: 1px solid #ead596;
             border-radius: 10px;
-            background: #fffdfb;
-            color: #806b62;
-            font-size: 10px;
-            text-align: center;
+            background: #fff9e8;
+            font-size: 17px;
         }
 
-    
-        /* MOBILE FINAL - PEDIDO PÚBLICO */
-        @media (max-width: 600px) {
-            .pagina-pedido-publico { padding: 28px 14px 50px; }
-            .pedido-publico-aviso-link { margin: 12px 14px 0; padding: 9px 11px; font-size: 9px; line-height: 1.4; }
-            .pedido-publico-topo h1 { font-size: 28px; line-height: 1.1; }
-            .pedido-publico-card { padding: 16px; border-radius: 14px; }
-            .pedido-publico-resumo { grid-template-columns: 1fr; gap: 14px; }
-            .pedido-publico-total { width: 100%; text-align: left; }
-            .pedido-publico-imagens { grid-template-columns: 1fr; }
-            .pedido-publico-imagem img { width: 100%; height: auto; max-height: none; object-fit: contain; }
-            .pedido-publico-item p { overflow-wrap: anywhere; }
+        .pedido-publico-resumo-item-grid {
+            grid-template-columns: minmax(180px, .72fr) minmax(0, 1.28fr);
+            gap: 9px;
+            margin-bottom: 9px;
         }
+
+        .pedido-publico-resumo-item-grid-simples {
+            grid-template-columns: minmax(180px, 310px);
+        }
+
+        .pedido-publico-quantidade-destaque,
+        .pedido-publico-retirada-destaque {
+            padding: 11px 13px;
+            border-radius: 11px;
+        }
+
+        .pedido-publico-quantidade-destaque > span,
+        .pedido-publico-retirada-destaque > span,
+        .pedido-publico-sabores-bloco > span {
+            margin-bottom: 5px;
+        }
+
+        .pedido-publico-quantidade-destaque strong {
+            font-size: 17px;
+        }
+
+        .pedido-publico-retirada-info > div {
+            padding: 8px 10px;
+        }
+
+        .pedido-publico-sabores-bloco {
+            margin-bottom: 9px;
+            padding: 11px 13px;
+            border-radius: 11px;
+        }
+
+        .pedido-publico-grade-detalhes {
+            gap: 7px 9px;
+        }
+
+        .pedido-publico-detalhe {
+            padding: 9px 10px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 760px) {
+            .pedido-publico-card {
+                padding: 18px;
+            }
+
+            .pedido-publico-total {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .pedido-publico-resumo-item-grid,
+            .pedido-publico-resumo-item-grid-simples {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pedido-publico-aviso-link {
+                padding: 9px 12px;
+                font-size: 9px;
+            }
+
+            .pedido-publico-topo {
+                margin-bottom: 15px;
+            }
+
+            .pedido-publico-topo p {
+                font-size: 11px;
+            }
+
+            .pedido-publico-card {
+                padding: 14px;
+            }
+
+            .pedido-publico-card-itens {
+                padding: 0;
+            }
+
+            .pedido-publico-card-cabecalho {
+                padding: 14px;
+            }
+
+            .pedido-publico-itens-lista {
+                padding: 0 14px;
+            }
+
+            .pedido-publico-item {
+                padding: 15px 0;
+            }
+
+            .pedido-publico-item-topo {
+                gap: 7px;
+                margin-bottom: 9px;
+            }
+
+            .pedido-publico-item-valor {
+                font-size: 16px;
+            }
+        }
+
     </style>
 </head>
 
@@ -243,17 +863,18 @@
     </header>
 
     <div class="pedido-publico-aviso-link">
-        Este link mostra os detalhes completos do pedido registrado no site.
+        Este é o link de acompanhamento do seu pedido na Gorete Festas.
     </div>
 
     <main class="pagina-pedido-publico">
         <div class="pedido-publico-container">
 
             <section class="pedido-publico-topo">
-                <span>PEDIDO</span>
+                <span>SEU PEDIDO</span>
                 <h1>Detalhes da encomenda</h1>
                 <p>
-                    Aqui estão todas as informações registradas no pedido.
+                    Confira os itens escolhidos, informações de retirada
+                    e o andamento do seu pedido.
                 </p>
             </section>
 
@@ -261,6 +882,10 @@
                 <div class="pedido-publico-carregando">
                     Carregando pedido...
                 </div>
+            </div>
+
+            <div class="pedido-publico-rodape">
+                Gorete Festas • Feito com carinho para os seus momentos especiais.
             </div>
 
         </div>
@@ -305,16 +930,48 @@
                 : data;
         }
 
-        function nomeStatus(status) {
-            const nomes = {
-                novo: "Novo",
-                confirmado: "Confirmado",
-                em_producao: "Em produção",
-                concluido: "Concluído",
-                cancelado: "Cancelado"
-            };
+        function formatarHorario(valor) {
+            if (!valor) {
+                return "";
+            }
 
-            return nomes[status] || status || "Novo";
+            return String(valor).slice(0, 5);
+        }
+
+        function normalizarStatusPedido(status) {
+            /*
+             * Novo fluxo público:
+             * - novo = Pedido recebido
+             * - confirmado = Pedido confirmado
+             *
+             * Estados antigos de pedidos já existentes são mantidos
+             * compatíveis visualmente.
+             */
+            if (
+                status === "confirmado" ||
+                status === "em_producao" ||
+                status === "concluido"
+            ) {
+                return "confirmado";
+            }
+
+            return "novo";
+        }
+
+        function nomeStatus(status) {
+            return normalizarStatusPedido(status) === "confirmado"
+                ? "Pedido confirmado"
+                : "Pedido recebido";
+        }
+
+        function categoriaProduto(item, detalhes) {
+            return (
+                detalhes.categoria ||
+                detalhes.tipoNome ||
+                detalhes.tipo ||
+                item.tipo_produto ||
+                "Item do pedido"
+            );
         }
 
         function formatarRotulo(chave) {
@@ -324,20 +981,65 @@
                 recheio: "Recheio",
                 recheios: "Recheios",
                 adicionais: "Adicionais",
-                cor: "Cor",
+                adicionaisCobrados: "Adicionais",
+                cor: "Cor principal",
                 topo: "Topo",
                 categoria: "Categoria",
                 unidades: "Unidades",
                 sabores: "Sabores",
                 sabor: "Sabor",
                 tipoNome: "Tipo",
-                tipoCupcake: "Tipo"
+                tipoCupcake: "Tipo",
+                formaPagamento: "Pagamento",
+                composicao: "Composição",
+                recheiosBolo: "Recheios do bolo",
+                saboresDocinhos: "Sabores dos docinhos",
+                saboresCupcakes: "Sabores dos cupcakes",
+                fatiasBolo: "Bolo",
+                cupcakes: "Cupcakes",
+                docinhos: "Docinhos"
             };
 
             return nomes[chave] ||
                 chave
                     .replaceAll("_", " ")
+                    .replace(/([a-z])([A-Z])/g, "$1 $2")
                     .replace(/\b\w/g, letra => letra.toUpperCase());
+        }
+
+        function valorAmigavel(chave, valor) {
+            if (Array.isArray(valor)) {
+                return valor
+                    .map(item => {
+                        if (typeof item === "object" && item !== null) {
+                            if (item.nome && item.valor !== undefined) {
+                                return `${item.nome} (+ ${formatarMoeda(item.valor)})`;
+                            }
+                            return Object.values(item).join(" ");
+                        }
+                        return String(item);
+                    })
+                    .join(", ");
+            }
+
+            if (typeof valor === "object" && valor !== null) {
+                if (valor.nome) {
+                    return valor.nome;
+                }
+                return Object.values(valor).join(" ");
+            }
+
+            if (
+                chave.toLowerCase().includes("preco") ||
+                chave.toLowerCase().includes("valor")
+            ) {
+                const numero = Number(valor);
+                if (!Number.isNaN(numero)) {
+                    return formatarMoeda(numero);
+                }
+            }
+
+            return String(valor);
         }
 
         function detalhesVisiveis(detalhes) {
@@ -354,26 +1056,123 @@
                 "precoPacote",
                 "quantidadePacote",
                 "tipoCobranca",
-                "regraNome"
+                "regraNome",
+                "categoriaId",
+                "categoria_id",
+                "quantidadeMinimaPorSabor",
+                "quantidade_minima_por_sabor",
+                "maxSabores",
+                "max_sabores",
+                "id",
+                "data",
+                "horario",
+                "tipo",
+                "kitId",
+                "topoValorPendente",
+                "nome",
+                "categoria",
+                "unidades",
+                "quantidadeTotal",
+                "quantidade_total",
+                "produtoId",
+                "produto_id",
+                "produtoID",
+                "estoqueMax",
+                "estoque_max",
+                "estoque",
+                "stock",
+                "idProduto",
+                "id_produto"
             ]);
 
             return Object.entries(detalhes)
-                .filter(([chave, valor]) =>
-                    !ignorar.has(chave) &&
-                    valor !== null &&
-                    valor !== undefined &&
-                    valor !== "" &&
-                    !(Array.isArray(valor) && valor.length === 0)
-                )
+                .filter(([chave, valor]) => {
+                    const chaveNormalizada =
+                        String(chave)
+                            .toLowerCase()
+                            .replaceAll("_", "");
+
+                    const campoInterno =
+                        chaveNormalizada === "id" ||
+                        chaveNormalizada.includes("produtoid") ||
+                        chaveNormalizada.includes("idproduto") ||
+                        chaveNormalizada.includes("estoquemax") ||
+                        chaveNormalizada === "estoque" ||
+                        chaveNormalizada === "stock";
+
+                    return (
+                        !ignorar.has(chave) &&
+                        !campoInterno &&
+                        valor !== null &&
+                        valor !== undefined &&
+                        valor !== "" &&
+                        !(Array.isArray(valor) && valor.length === 0)
+                    );
+                })
                 .map(([chave, valor]) => ({
+                    chave,
                     rotulo: formatarRotulo(chave),
-                    valor:
-                        Array.isArray(valor)
-                            ? valor.join(", ")
-                            : typeof valor === "object"
-                                ? JSON.stringify(valor)
-                                : String(valor)
+                    valor: valorAmigavel(chave, valor)
                 }));
+        }
+
+        function htmlAcompanhamento(status) {
+            const statusNormalizado =
+                normalizarStatusPedido(status);
+
+            const confirmado =
+                statusNormalizado === "confirmado";
+
+            return `
+                <div class="pedido-publico-acompanhamento">
+                    <div class="pedido-publico-acompanhamento-titulo">
+                        Andamento do pedido
+                    </div>
+
+                    <div class="pedido-publico-etapas pedido-publico-etapas-simples">
+
+                        <div class="pedido-publico-etapa concluida">
+                            ✓ Pedido recebido
+                        </div>
+
+                        <div class="pedido-publico-etapa ${confirmado ? "concluida" : "ativa"}">
+                            ${confirmado ? "✓ " : ""}Pedido confirmado
+                        </div>
+
+                    </div>
+                </div>
+            `;
+        }
+
+        function separarSabores(detalhes) {
+            const chavesSabores = new Set([
+                "sabores",
+                "recheios",
+                "recheio",
+                "recheiosBolo",
+                "saboresDocinhos",
+                "saboresCupcakes"
+            ]);
+
+            const sabores = [];
+            const demais = [];
+
+            detalhes.forEach(item => {
+                if (chavesSabores.has(item.chave)) {
+                    String(item.valor)
+                        .split(",")
+                        .map(valor => valor.trim())
+                        .filter(Boolean)
+                        .forEach(valor => sabores.push(valor));
+                } else {
+                    demais.push(item);
+                }
+            });
+
+            return {
+                sabores,
+                demais
+            };
         }
 
         async function buscarPedido(token) {
@@ -401,6 +1200,77 @@
             return await resposta.json();
         }
 
+
+        function obterUnidadesDetalhes(detalhesObjeto) {
+            const valor =
+                detalhesObjeto?.unidades ??
+                detalhesObjeto?.quantidadeTotal ??
+                detalhesObjeto?.quantidade_total ??
+                null;
+
+            const numero = Number(valor);
+
+            return Number.isFinite(numero) && numero > 0
+                ? numero
+                : null;
+        }
+
+        function htmlQuantidadePrincipal(item, detalhesObjeto) {
+            const unidades =
+                obterUnidadesDetalhes(detalhesObjeto);
+
+            const quantidade =
+                unidades || Number(item.quantidade || 1);
+
+            const textoQuantidade =
+                unidades
+                    ? `${quantidade} ${quantidade === 1 ? "unidade" : "unidades"}`
+                    : String(quantidade);
+
+            return `
+                <div class="pedido-publico-quantidade-destaque">
+                    <span>Quantidade</span>
+                    <strong>
+                        ${escaparHtml(textoQuantidade)}
+                    </strong>
+                </div>
+            `;
+        }
+
+        function htmlRetiradaDestaque(item) {
+            if (!item.data_retirada) {
+                return "";
+            }
+
+            return `
+                <div class="pedido-publico-retirada-destaque">
+                    <span>RETIRADA</span>
+
+                    <div class="pedido-publico-retirada-info">
+                        <div>
+                            <small>📅 Data</small>
+                            <strong>
+                                ${formatarData(item.data_retirada)}
+                            </strong>
+                        </div>
+
+                        ${
+                            item.horario_retirada
+                                ? `
+                                    <div>
+                                        <small>🕐 Horário</small>
+                                        <strong>
+                                            ${escaparHtml(formatarHorario(item.horario_retirada))}
+                                        </strong>
+                                    </div>
+                                `
+                                : ""
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
         function renderizarPedido(resultado) {
             const container =
                 document.getElementById(
@@ -425,77 +1295,139 @@
                     : [];
 
             const htmlItens =
-                itens.map(item => {
+                itens.map((item, indice) => {
+                    const detalhesObjeto =
+                        item.detalhes &&
+                        typeof item.detalhes === "object"
+                            ? item.detalhes
+                            : {};
+
                     const detalhes =
-                        detalhesVisiveis(item.detalhes);
+                        detalhesVisiveis(detalhesObjeto);
+
+                    const {
+                        sabores,
+                        demais
+                    } = separarSabores(detalhes);
 
                     const imagens =
                         Array.isArray(item.imagens)
                             ? item.imagens
                             : [];
 
+                    const categoria =
+                        categoriaProduto(
+                            item,
+                            detalhesObjeto
+                        );
+
                     return `
                         <article class="pedido-publico-item">
-                            <h2>
-                                ${escaparHtml(item.nome_produto)}
-                                — ${formatarMoeda(item.valor_total)}
-                            </h2>
 
-                            <p>
-                                <strong>Quantidade:</strong>
-                                ${Number(item.quantidade || 1)}
-                            </p>
+                            <div class="pedido-publico-item-topo">
+
+                                <div class="pedido-publico-item-identificacao">
+                                    <span class="pedido-publico-item-categoria">
+                                        ${escaparHtml(categoria)}
+                                    </span>
+
+                                    <h3>
+                                        ${escaparHtml(item.nome_produto)}
+                                    </h3>
+                                </div>
+
+                                <div class="pedido-publico-item-valor">
+                                    ${formatarMoeda(item.valor_total)}
+                                </div>
+
+                            </div>
+
+                            <div class="pedido-publico-resumo-item-grid ${item.data_retirada ? "" : "pedido-publico-resumo-item-grid-simples"}">
+
+                                ${htmlQuantidadePrincipal(item, detalhesObjeto)}
+
+                                ${htmlRetiradaDestaque(item)}
+
+                            </div>
 
                             ${
-                                item.data_retirada
+                                sabores.length
                                     ? `
-                                        <p>
-                                            <strong>Retirada:</strong>
-                                            ${formatarData(item.data_retirada)}
-                                            ${item.horario_retirada ? ` às ${escaparHtml(String(item.horario_retirada).slice(0, 5))}` : ""}
-                                        </p>
+                                        <div class="pedido-publico-sabores-bloco">
+                                            <span>Sabores escolhidos</span>
+
+                                            <div class="pedido-publico-sabores">
+                                                ${
+                                                    sabores.map(sabor => `
+                                                        <span class="pedido-publico-sabor">
+                                                            ${escaparHtml(sabor)}
+                                                        </span>
+                                                    `).join("")
+                                                }
+                                            </div>
+                                        </div>
                                     `
                                     : ""
                             }
 
-                            ${detalhes.map(detalhe => `
-                                <p>
-                                    <strong>${escaparHtml(detalhe.rotulo)}:</strong>
-                                    ${escaparHtml(detalhe.valor)}
-                                </p>
-                            `).join("")}
+                            ${
+                                demais.length
+                                    ? `
+                                        <div class="pedido-publico-grade-detalhes pedido-publico-grade-detalhes-secundarios">
+                                            ${
+                                                demais.map(detalhe => `
+                                                    <div class="pedido-publico-detalhe">
+                                                        <span>
+                                                            ${escaparHtml(detalhe.rotulo)}
+                                                        </span>
+
+                                                        <strong>
+                                                            ${escaparHtml(detalhe.valor)}
+                                                        </strong>
+                                                    </div>
+                                                `).join("")
+                                            }
+                                        </div>
+                                    `
+                                    : ""
+                            }
 
                             ${
                                 imagens.length
                                     ? `
                                         <div class="pedido-publico-imagens">
-                                            ${imagens.map((imagem, indice) => `
-                                                <div class="pedido-publico-imagem">
-                                                    <img
-                                                        src="${escaparHtml(imagem.url)}"
-                                                        alt="${escaparHtml(imagem.nome_arquivo || `Imagem ${indice + 1}`)}"
-                                                    >
+                                            ${
+                                                imagens.map((imagem, indiceImagem) => `
+                                                    <div class="pedido-publico-imagem">
+                                                        <img
+                                                            src="${escaparHtml(imagem.url)}"
+                                                            alt="${escaparHtml(imagem.nome_arquivo || `Imagem ${indiceImagem + 1}`)}"
+                                                        >
 
-                                                    <a
-                                                        href="${escaparHtml(imagem.url)}"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                    >
-                                                        Abrir imagem original
-                                                    </a>
-                                                </div>
-                                            `).join("")}
+                                                        <a
+                                                            href="${escaparHtml(imagem.url)}"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Abrir imagem
+                                                        </a>
+                                                    </div>
+                                                `).join("")
+                                            }
                                         </div>
                                     `
                                     : ""
                             }
+
                         </article>
                     `;
                 }).join("");
 
             container.innerHTML = `
                 <section class="pedido-publico-card">
+
                     <div class="pedido-publico-resumo">
+
                         <div>
                             <div class="pedido-publico-codigo">
                                 ${escaparHtml(pedido.codigo)}
@@ -511,22 +1443,7 @@
                                     <strong>WhatsApp:</strong>
                                     ${escaparHtml(pedido.cliente_whatsapp)}
                                 </span>
-
-                                ${
-                                    pedido.observacoes
-                                        ? `
-                                            <span>
-                                                <strong>Observações:</strong>
-                                                ${escaparHtml(pedido.observacoes)}
-                                            </span>
-                                        `
-                                        : ""
-                                }
                             </div>
-
-                            <span class="pedido-publico-status">
-                                ${escaparHtml(nomeStatus(pedido.status))}
-                            </span>
                         </div>
 
                         <div class="pedido-publico-total">
@@ -535,11 +1452,44 @@
                                 ${formatarMoeda(pedido.valor_total)}
                             </strong>
                         </div>
+
                     </div>
+
+                    ${htmlAcompanhamento(pedido.status)}
+
+                    ${
+                        pedido.observacoes
+                            ? `
+                                <div class="pedido-publico-observacoes">
+                                    <span>Observações do pedido</span>
+                                    <p>
+                                        ${escaparHtml(pedido.observacoes)}
+                                    </p>
+                                </div>
+                            `
+                            : ""
+                    }
+
                 </section>
 
-                <section class="pedido-publico-card">
-                    ${htmlItens || "Nenhum item registrado."}
+                <section class="pedido-publico-card pedido-publico-card-itens">
+
+                    <div class="pedido-publico-card-cabecalho">
+                        <span>ITENS DO PEDIDO</span>
+                        <h2>Sua encomenda</h2>
+                    </div>
+
+                    <div class="pedido-publico-itens-lista">
+                        ${
+                            htmlItens ||
+                            `
+                                <div class="pedido-publico-item">
+                                    Nenhum item registrado.
+                                </div>
+                            `
+                        }
+                    </div>
+
                 </section>
             `;
         }
@@ -569,6 +1519,7 @@
                     await buscarPedido(token);
 
                 renderizarPedido(resultado);
+
             } catch (erro) {
                 console.error(erro);
 

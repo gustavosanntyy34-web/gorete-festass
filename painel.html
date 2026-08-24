@@ -1485,6 +1485,2750 @@
                 }
             }
 
+        
+            /* =========================================================
+               PRONTA ENTREGA — CATEGORIA LIVRE
+            ========================================================= */
+            .produto-pronta-entrega-categoria {
+                display: inline-flex;
+                align-items: center;
+                min-height: 24px;
+                padding: 4px 8px;
+                border: 1px solid #dfc270;
+                border-radius: 999px;
+                background: #fff8df;
+                color: #6d0c2e;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: .4px;
+            }
+
+            .fatia-admin-status {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 6px;
+            }
+
+        
+
+            /* =========================================================
+               PRONTA ENTREGA — CONTROLE DE ESTOQUE
+               Desktop + mobile
+            ========================================================= */
+            .produto-pronta-entrega-estoque {
+                display: inline-flex;
+                align-items: center;
+                min-height: 24px;
+                padding: 4px 8px;
+                border: 1px solid #d9bd67;
+                border-radius: 999px;
+                background: #fff7d8;
+                color: #6d0c2e;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: .3px;
+            }
+
+            .produto-pronta-entrega-estoque.estoque-baixo {
+                border-color: #e1b04d;
+                background: #fff1bd;
+                color: #8a4d00;
+            }
+
+            .produto-pronta-entrega-estoque.estoque-zero {
+                border-color: #e3aaa4;
+                background: #fff0ee;
+                color: #a13b34;
+            }
+
+            .campo-admin-estoque {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 150px;
+                gap: 12px;
+                align-items: end;
+            }
+
+            .campo-admin-estoque > div {
+                min-width: 0;
+            }
+
+            .campo-admin-estoque-ajuda {
+                min-height: 46px;
+                padding: 10px 12px;
+                border: 1px solid #ead7a0;
+                border-radius: 10px;
+                background: #fff9e7;
+                color: #806b62;
+                font-size: 9px;
+                line-height: 1.45;
+            }
+
+            @media (max-width: 600px) {
+                .campo-admin-estoque {
+                    grid-template-columns: 1fr;
+                }
+
+                .campo-admin-estoque-ajuda {
+                    min-height: 0;
+                }
+            }
+
+        
+
+            /* =========================================================
+               PRONTA ENTREGA — ESTOQUE RÁPIDO
+               Desktop + tablet + mobile
+            ========================================================= */
+
+            .estoque-admin-resumo {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 7px;
+                margin-top: 10px;
+            }
+
+            .estoque-admin-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                min-height: 27px;
+                padding: 5px 9px;
+                border-radius: 999px;
+                font-size: 8px;
+                font-weight: 800;
+                line-height: 1.2;
+            }
+
+            .estoque-admin-badge-normal {
+                border: 1px solid #d8bd66;
+                background: #fff7d8;
+                color: #6d0c2e;
+            }
+
+            .estoque-admin-badge-baixo {
+                border: 1px solid #e0ad43;
+                background: #fff1bd;
+                color: #8a4d00;
+            }
+
+            .estoque-admin-badge-esgotado {
+                border: 1px solid #e0aaa4;
+                background: #fff0ee;
+                color: #a13b34;
+            }
+
+            .btn-repor-estoque {
+                min-height: 36px;
+                padding: 8px 11px;
+                border: 1px solid #c69a31;
+                border-radius: 9px;
+                background: linear-gradient(145deg, #f4d87f, #dfba4f);
+                color: #5d0a25;
+                font-size: 9px;
+                font-weight: 800;
+                cursor: pointer;
+                transition:
+                    transform .18s ease,
+                    box-shadow .18s ease,
+                    background .18s ease;
+            }
+
+            .btn-repor-estoque:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 7px 16px rgba(121, 82, 15, .12);
+            }
+
+            .modal-repor-estoque .modal-admin-conteudo {
+                max-width: 470px;
+            }
+
+            .estoque-rapido-produto {
+                margin: 0 0 14px;
+                padding: 12px 13px;
+                border: 1px solid #ead8a2;
+                border-radius: 11px;
+                background: #fff9e7;
+            }
+
+            .estoque-rapido-produto span {
+                display: block;
+                margin-bottom: 4px;
+                color: #9a7668;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            .estoque-rapido-produto strong {
+                display: block;
+                color: #6d0c2e;
+                font-size: 16px;
+                line-height: 1.25;
+            }
+
+            .estoque-rapido-atual {
+                margin-top: 4px;
+                color: #806b62;
+                font-size: 10px;
+            }
+
+            @media (max-width: 600px) {
+                .estoque-admin-resumo {
+                    align-items: stretch;
+                    flex-direction: column;
+                }
+
+                .estoque-admin-badge {
+                    width: 100%;
+                    justify-content: center;
+                    min-height: 34px;
+                    font-size: 9px;
+                }
+
+                .btn-repor-estoque {
+                    width: 100%;
+                    min-height: 42px;
+                }
+
+                .modal-repor-estoque .modal-admin-conteudo {
+                    width: calc(100% - 22px);
+                    max-width: none;
+                }
+            }
+
+        
+
+            /* =========================================================
+               REFINO — STATUS DE ESTOQUE + MODAL REPOSIÇÃO
+               Desktop + mobile
+            ========================================================= */
+
+            .status-esgotado-admin {
+                border: 1px solid #e0aaa4 !important;
+                background: #fff0ee !important;
+                color: #a13b34 !important;
+            }
+
+            .modal-repor-estoque .modal-admin-conteudo {
+                max-width: 470px !important;
+                border: 1px solid #d7ba62 !important;
+                border-radius: 20px !important;
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffef9 0%,
+                        #fff7dc 100%
+                    ) !important;
+                box-shadow:
+                    0 24px 60px rgba(74, 42, 11, .22) !important;
+            }
+
+            .modal-repor-estoque .modal-admin-topo {
+                margin-bottom: 16px !important;
+            }
+
+            .modal-repor-estoque .modal-admin-topo > div > span {
+                color: #a86d50 !important;
+                font-size: 9px !important;
+                font-weight: 800 !important;
+                letter-spacing: 2px !important;
+            }
+
+            .modal-repor-estoque .modal-admin-topo h3 {
+                margin: 3px 0 4px !important;
+                color: #6d0c2e !important;
+                font-size: 21px !important;
+            }
+
+            .modal-repor-estoque .modal-admin-topo p {
+                margin: 0 !important;
+                max-width: 350px !important;
+                color: #806b62 !important;
+                font-size: 10px !important;
+                line-height: 1.45 !important;
+            }
+
+            .modal-repor-estoque .modal-admin-fechar {
+                width: 34px !important;
+                height: 34px !important;
+                min-width: 34px !important;
+                border: 1px solid #dccb99 !important;
+                border-radius: 10px !important;
+                background: #fffaf0 !important;
+                color: #6d0c2e !important;
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                cursor: pointer !important;
+            }
+
+            .modal-repor-estoque .estoque-rapido-produto {
+                padding: 14px !important;
+                border-color: #e2ca83 !important;
+                border-radius: 13px !important;
+                background: #fffaf0 !important;
+            }
+
+            .modal-repor-estoque .estoque-rapido-produto strong {
+                color: #6d0c2e !important;
+            }
+
+            .modal-repor-estoque .campo-admin label {
+                color: #5f4036 !important;
+                font-weight: 700 !important;
+            }
+
+            .modal-repor-estoque #novoEstoqueProduto {
+                min-height: 48px !important;
+                border: 1px solid #d6b34e !important;
+                border-radius: 11px !important;
+                background: #fffdf7 !important;
+                color: #4e382e !important;
+                font-size: 14px !important;
+                outline: none !important;
+            }
+
+            .modal-repor-estoque #novoEstoqueProduto:focus {
+                border-color: #9a6c13 !important;
+                box-shadow: 0 0 0 3px rgba(221, 181, 74, .18) !important;
+            }
+
+            .modal-repor-estoque .modal-admin-acoes {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+                margin-top: 18px !important;
+            }
+
+            .modal-repor-estoque .btn-cancelar-admin,
+            .modal-repor-estoque .btn-salvar-admin {
+                width: 100% !important;
+                min-height: 46px !important;
+                border-radius: 12px !important;
+                font-size: 10px !important;
+                font-weight: 800 !important;
+                cursor: pointer !important;
+            }
+
+            .modal-repor-estoque .btn-cancelar-admin {
+                border: 1px solid #d9c690 !important;
+                background: #fffdf8 !important;
+                color: #6d0c2e !important;
+            }
+
+            .modal-repor-estoque .btn-cancelar-admin:hover {
+                background: #fff5d6 !important;
+            }
+
+            .modal-repor-estoque .btn-salvar-admin {
+                border: 1px solid #7b0b31 !important;
+                background: #7b0b31 !important;
+                color: #ffffff !important;
+                box-shadow: 0 8px 18px rgba(123, 11, 49, .14) !important;
+            }
+
+            .modal-repor-estoque .btn-salvar-admin:hover {
+                background: #640827 !important;
+                border-color: #640827 !important;
+            }
+
+            @media (max-width: 600px) {
+
+                .modal-repor-estoque .modal-admin-conteudo {
+                    width: calc(100% - 22px) !important;
+                    max-width: none !important;
+                    padding: 18px !important;
+                    border-radius: 18px !important;
+                }
+
+                .modal-repor-estoque .modal-admin-topo {
+                    align-items: flex-start !important;
+                    gap: 12px !important;
+                }
+
+                .modal-repor-estoque .modal-admin-topo h3 {
+                    font-size: 20px !important;
+                }
+
+                .modal-repor-estoque .modal-admin-acoes {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .modal-repor-estoque .btn-cancelar-admin,
+                .modal-repor-estoque .btn-salvar-admin {
+                    min-height: 48px !important;
+                }
+            }
+
+        
+
+            /* Oculta o contador de estoque quando o produto estiver esgotado */
+            .estoque-admin-resumo .estoque-admin-badge:empty {
+                display: none !important;
+            }
+
+            .estoque-admin-resumo span:empty {
+                display: none !important;
+            }
+
+        
+            /* =========================================================
+               DATAS INDISPONÍVEIS PARA NOVAS ENCOMENDAS
+            ========================================================= */
+            .bloqueio-datas-admin {
+                margin: 0 0 24px;
+                padding: 20px;
+                border: 1px solid #d7a92e;
+                border-radius: 16px;
+                background: #fffaf0;
+            }
+
+            .bloqueio-datas-topo {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 18px;
+                margin-bottom: 16px;
+            }
+
+            .bloqueio-datas-topo span {
+                display: block;
+                margin-bottom: 5px;
+                color: #b66f54;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1.8px;
+            }
+
+            .bloqueio-datas-topo h3 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 22px;
+            }
+
+            .bloqueio-datas-topo p {
+                max-width: 720px;
+                margin: 6px 0 0;
+                color: #725c50;
+                font-size: 13px;
+                line-height: 1.55;
+            }
+
+            .bloqueio-data-form {
+                display: grid;
+                grid-template-columns: minmax(190px, 260px) minmax(220px, 1fr) auto;
+                gap: 10px;
+                align-items: end;
+                margin-bottom: 16px;
+            }
+
+            .bloqueio-data-campo {
+                display: grid;
+                gap: 6px;
+            }
+
+            .bloqueio-data-campo label {
+                color: #6d0c2e;
+                font-size: 12px;
+                font-weight: 800;
+            }
+
+            .bloqueio-data-campo input {
+                width: 100%;
+                min-height: 44px;
+                padding: 0 12px;
+                border: 1px solid #d7b04a;
+                border-radius: 10px;
+                background: #fffdf7;
+                color: #4f2e25;
+                font: inherit;
+                outline: none;
+            }
+
+            .bloqueio-data-campo input:focus {
+                border-color: #8d0034;
+                box-shadow: 0 0 0 3px rgba(141, 0, 52, .08);
+            }
+
+            .btn-bloquear-data {
+                min-height: 44px;
+                padding: 0 18px;
+                border: 1px solid #8d0034;
+                border-radius: 10px;
+                background: #8d0034;
+                color: #fff;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .lista-datas-bloqueadas {
+                display: grid;
+                gap: 9px;
+            }
+
+            .data-bloqueada-card {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 14px;
+                padding: 12px 14px;
+                border: 1px solid #e3c46d;
+                border-radius: 12px;
+                background: #fff;
+            }
+
+            .data-bloqueada-card strong {
+                display: block;
+                color: #6d0c2e;
+                font-size: 14px;
+            }
+
+            .data-bloqueada-card small {
+                display: block;
+                margin-top: 3px;
+                color: #725c50;
+                font-size: 11px;
+            }
+
+            .btn-liberar-data {
+                min-height: 36px;
+                padding: 0 12px;
+                border: 1px solid #d6a940;
+                border-radius: 9px;
+                background: #fff8df;
+                color: #6d0c2e;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .datas-bloqueadas-vazio {
+                padding: 14px;
+                border: 1px dashed #d7b04a;
+                border-radius: 10px;
+                color: #725c50;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            @media (max-width: 760px) {
+                .bloqueio-datas-admin {
+                    padding: 15px;
+                }
+
+                .bloqueio-datas-topo {
+                    display: block;
+                }
+
+                .bloqueio-data-form {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-bloquear-data {
+                    width: 100%;
+                }
+
+                .data-bloqueada-card {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-liberar-data {
+                    width: 100%;
+                }
+            }
+
+        
+
+            /* =========================================================
+               REFINO VISUAL — DATAS INDISPONÍVEIS
+            ========================================================= */
+
+            .bloqueio-datas-admin {
+                padding: 22px !important;
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffdf7 0%,
+                        #fff4cf 100%
+                    ) !important;
+                box-shadow:
+                    0 10px 26px rgba(109, 12, 46, .05) !important;
+            }
+
+            .bloqueio-datas-topo {
+                margin-bottom: 18px !important;
+                padding-bottom: 14px !important;
+                border-bottom: 1px solid #ead69a !important;
+            }
+
+            .bloqueio-data-form {
+                padding: 14px !important;
+                margin-bottom: 18px !important;
+                border: 1px solid #e0c879 !important;
+                border-radius: 13px !important;
+                background: rgba(255,255,255,.62) !important;
+            }
+
+            .bloqueio-data-campo input {
+                background: #fffef9 !important;
+            }
+
+            .btn-bloquear-data {
+                min-width: 140px !important;
+                box-shadow:
+                    0 8px 18px rgba(141, 0, 52, .12) !important;
+            }
+
+            .lista-datas-bloqueadas {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+            }
+
+            .data-bloqueada-card {
+                position: relative;
+                min-height: 88px;
+                padding: 14px 14px 14px 18px !important;
+                border-radius: 13px !important;
+                background: #fffefb !important;
+                overflow: hidden;
+            }
+
+            .data-bloqueada-card::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 5px;
+                background: #8d0034;
+            }
+
+            .data-bloqueada-info {
+                min-width: 0;
+            }
+
+            .data-bloqueada-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 5px;
+                color: #a86d50;
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: 1.2px;
+            }
+
+            .data-bloqueada-card strong {
+                font-size: 17px !important;
+                line-height: 1.2 !important;
+            }
+
+            .data-bloqueada-card small {
+                margin-top: 5px !important;
+                font-size: 11px !important;
+                line-height: 1.4 !important;
+            }
+
+            .btn-liberar-data {
+                min-width: 104px;
+                background: #fff8df !important;
+            }
+
+            .btn-liberar-data:hover {
+                background: #f6e2a4 !important;
+            }
+
+            @media (max-width: 900px) {
+                .lista-datas-bloqueadas {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            @media (max-width: 760px) {
+                .bloqueio-datas-admin {
+                    padding: 16px !important;
+                }
+
+                .bloqueio-data-form {
+                    padding: 12px !important;
+                }
+
+                .data-bloqueada-card {
+                    grid-template-columns: 1fr !important;
+                    gap: 10px !important;
+                }
+            }
+
+        
+
+            /* =========================================================
+               HORÁRIOS DE RETIRADA — CONFIGURAÇÃO EDITÁVEL
+            ========================================================= */
+            .horarios-retirada-admin {
+                margin: 0 0 24px;
+                padding: 22px;
+                border: 1px solid #d7a92e;
+                border-radius: 16px;
+                background: linear-gradient(145deg, #fffdf7 0%, #fff4cf 100%);
+                box-shadow: 0 10px 26px rgba(109, 12, 46, .05);
+            }
+
+            .horarios-retirada-topo {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 18px;
+                margin-bottom: 18px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid #ead69a;
+            }
+
+            .horarios-retirada-topo span {
+                display: block;
+                margin-bottom: 5px;
+                color: #b66f54;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1.8px;
+            }
+
+            .horarios-retirada-topo h3 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 22px;
+            }
+
+            .horarios-retirada-topo p {
+                max-width: 760px;
+                margin: 6px 0 0;
+                color: #725c50;
+                font-size: 13px;
+                line-height: 1.55;
+            }
+
+            .horario-retirada-form {
+                display: grid;
+                grid-template-columns: minmax(180px, 260px) auto;
+                gap: 10px;
+                align-items: end;
+                max-width: 470px;
+                margin-bottom: 18px;
+                padding: 14px;
+                border: 1px solid #e0c879;
+                border-radius: 13px;
+                background: rgba(255,255,255,.62);
+            }
+
+            .horario-retirada-campo {
+                display: grid;
+                gap: 6px;
+            }
+
+            .horario-retirada-campo label {
+                color: #6d0c2e;
+                font-size: 12px;
+                font-weight: 800;
+            }
+
+            .horario-retirada-campo input {
+                width: 100%;
+                min-height: 44px;
+                padding: 0 12px;
+                border: 1px solid #d7b04a;
+                border-radius: 10px;
+                background: #fffef9;
+                color: #4f2e25;
+                font: inherit;
+                outline: none;
+            }
+
+            .btn-adicionar-horario {
+                min-height: 44px;
+                padding: 0 18px;
+                border: 1px solid #8d0034;
+                border-radius: 10px;
+                background: #8d0034;
+                color: #fff;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .lista-horarios-retirada {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .horario-retirada-card {
+                position: relative;
+                display: grid;
+                gap: 9px;
+                min-height: 118px;
+                padding: 14px;
+                border: 1px solid #e3c46d;
+                border-radius: 13px;
+                background: #fffefb;
+                overflow: hidden;
+            }
+
+            .horario-retirada-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 5px;
+                background: #8d0034;
+            }
+
+            .horario-retirada-card.inativo::before {
+                background: #b7a99e;
+            }
+
+            .horario-retirada-card-topo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .horario-retirada-card strong {
+                color: #6d0c2e;
+                font-size: 21px;
+                line-height: 1;
+            }
+
+            .horario-retirada-status {
+                display: inline-flex;
+                align-items: center;
+                min-height: 24px;
+                padding: 4px 8px;
+                border-radius: 999px;
+                background: #eaf7ee;
+                color: #2e7147;
+                font-size: 9px;
+                font-weight: 800;
+            }
+
+            .horario-retirada-card.inativo .horario-retirada-status {
+                background: #f2efed;
+                color: #796b64;
+            }
+
+            .horario-retirada-acoes {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+            }
+
+            .horario-retirada-acoes button {
+                min-height: 34px;
+                padding: 7px 9px;
+                border-radius: 8px;
+                font-size: 9px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .btn-status-horario {
+                border: 1px solid #d6a940;
+                background: #fff8df;
+                color: #6d0c2e;
+            }
+
+            .btn-excluir-horario {
+                border: 1px solid #e0aaa4;
+                background: #fff0ee;
+                color: #a13b34;
+            }
+
+            .horarios-retirada-vazio {
+                grid-column: 1 / -1;
+                padding: 16px;
+                border: 1px dashed #d7b04a;
+                border-radius: 10px;
+                color: #725c50;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            @media (max-width: 1050px) {
+                .lista-horarios-retirada {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 760px) {
+                .horarios-retirada-admin {
+                    padding: 16px;
+                }
+
+                .horarios-retirada-topo {
+                    display: block;
+                }
+
+                .horario-retirada-form {
+                    grid-template-columns: 1fr;
+                    max-width: none;
+                    padding: 12px;
+                }
+
+                .btn-adicionar-horario {
+                    width: 100%;
+                }
+
+                .lista-horarios-retirada {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 460px) {
+                .lista-horarios-retirada {
+                    grid-template-columns: 1fr;
+                }
+
+                .horario-retirada-card {
+                    min-height: 0;
+                }
+            }
+
+        
+
+            /* =========================================================
+               AGENDA DE RETIRADAS — VISÃO DE PRODUÇÃO
+               Desktop + tablet + mobile
+            ========================================================= */
+
+            .agenda-encomendas {
+                border-color: #d5b55b !important;
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffef9 0%,
+                        #fff7dd 100%
+                    ) !important;
+            }
+
+            .agenda-resumos {
+                gap: 10px !important;
+            }
+
+            .agenda-resumo-card {
+                min-height: 86px !important;
+                padding: 13px 14px !important;
+            }
+
+            .agenda-resumo-card strong {
+                font-size: 25px !important;
+            }
+
+            .agenda-dia {
+                border-radius: 15px !important;
+                overflow: hidden !important;
+            }
+
+            .agenda-dia-lista {
+                display: grid !important;
+                gap: 0 !important;
+            }
+
+            .agenda-item {
+                grid-template-columns:
+                    82px
+                    minmax(0, 1fr)
+                    auto !important;
+                align-items: start !important;
+                gap: 14px !important;
+                padding: 14px !important;
+                background: #fffefb !important;
+            }
+
+            .agenda-item + .agenda-item {
+                border-top:
+                    1px solid #efe2bb !important;
+            }
+
+            .agenda-item-horario {
+                padding-top: 2px;
+            }
+
+            .agenda-item-horario span {
+                width: 72px !important;
+                min-width: 72px !important;
+                min-height: 38px !important;
+                background:
+                    linear-gradient(
+                        145deg,
+                        #f5de93,
+                        #e7bf56
+                    ) !important;
+                border-color: #c7972d !important;
+                font-size: 11px !important;
+                font-weight: 900 !important;
+            }
+
+            .agenda-item-principal {
+                min-width: 0;
+            }
+
+            .agenda-item-topo {
+                margin-bottom: 5px !important;
+            }
+
+            .agenda-item-codigo {
+                font-size: 10px !important;
+                letter-spacing: .2px;
+            }
+
+            .agenda-item-cliente {
+                margin: 0 0 8px !important;
+                color: #563126 !important;
+                font-size: 15px !important;
+                line-height: 1.2 !important;
+            }
+
+            .agenda-produtos-resumo {
+                display: grid;
+                gap: 5px;
+            }
+
+            .agenda-produto-resumo {
+                display: grid;
+                gap: 2px;
+                padding: 7px 9px;
+                border: 1px solid #ead8a2;
+                border-radius: 9px;
+                background: #fff9e7;
+            }
+
+            .agenda-produto-resumo strong {
+                color: #6d0c2e;
+                font-size: 10px !important;
+                line-height: 1.3;
+            }
+
+            .agenda-produto-resumo span {
+                color: #745f54;
+                font-size: 9px !important;
+                line-height: 1.4;
+            }
+
+            .agenda-item-acoes {
+                align-self: center !important;
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 6px !important;
+                min-width: 105px;
+            }
+
+            .agenda-item-acoes a,
+            .agenda-item-acoes button {
+                width: 100% !important;
+                min-height: 36px !important;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 9px !important;
+            }
+
+            .agenda-status-recebido,
+            .agenda-status-confirmado {
+                min-height: 24px !important;
+                font-size: 8px !important;
+            }
+
+            @media (max-width: 900px) {
+                .agenda-item {
+                    grid-template-columns:
+                        76px
+                        minmax(0, 1fr) !important;
+                }
+
+                .agenda-item-acoes {
+                    grid-column: 1 / -1 !important;
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+                    width: 100%;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .agenda-resumos {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+                }
+
+                .agenda-resumo-card {
+                    min-height: 74px !important;
+                }
+
+                .agenda-item {
+                    grid-template-columns: 1fr !important;
+                    gap: 8px !important;
+                    padding: 12px !important;
+                }
+
+                .agenda-item-horario {
+                    display: flex;
+                }
+
+                .agenda-item-horario span {
+                    width: auto !important;
+                    min-width: 68px !important;
+                    min-height: 32px !important;
+                    padding: 5px 10px !important;
+                }
+
+                .agenda-item-cliente {
+                    font-size: 14px !important;
+                }
+
+                .agenda-produto-resumo {
+                    padding: 7px 8px;
+                }
+
+                .agenda-produto-resumo strong {
+                    font-size: 10px !important;
+                }
+
+                .agenda-produto-resumo span {
+                    font-size: 9px !important;
+                }
+
+                .agenda-item-acoes {
+                    grid-column: auto !important;
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+                    min-width: 0;
+                }
+
+                .agenda-item-acoes a,
+                .agenda-item-acoes button {
+                    min-height: 40px !important;
+                }
+            }
+
+            @media (max-width: 390px) {
+                .agenda-resumos {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .agenda-item-acoes {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+        
+
+            /* =========================================================
+               AJUSTE FINAL — HORÁRIOS DE RETIRADA COMPACTOS
+               IMPORTANTE:
+               Este bloco altera SOMENTE a aparência dos horários.
+               Todo o restante do painel permanece como estava.
+            ========================================================= */
+
+            .horarios-retirada-admin {
+                padding: 18px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .horarios-retirada-topo {
+                margin-bottom: 12px !important;
+                padding-bottom: 10px !important;
+            }
+
+            .horarios-retirada-topo h3 {
+                font-size: 20px !important;
+            }
+
+            .horarios-retirada-topo p {
+                margin-top: 4px !important;
+                font-size: 11px !important;
+            }
+
+            /* Novo horário em uma linha compacta */
+            .horario-retirada-form {
+                display: grid !important;
+                grid-template-columns: 180px auto !important;
+                gap: 8px !important;
+                align-items: end !important;
+
+                max-width: 390px !important;
+                margin-bottom: 14px !important;
+                padding: 10px !important;
+            }
+
+            .horario-retirada-campo {
+                gap: 4px !important;
+            }
+
+            .horario-retirada-campo label {
+                font-size: 10px !important;
+            }
+
+            .horario-retirada-campo input,
+            .btn-adicionar-horario {
+                min-height: 38px !important;
+            }
+
+            .btn-adicionar-horario {
+                padding: 0 14px !important;
+                font-size: 10px !important;
+            }
+
+            /* Horários em formato compacto */
+            .lista-horarios-retirada {
+                display: grid !important;
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr)) !important;
+                gap: 8px !important;
+            }
+
+            .horario-retirada-card {
+                min-height: 0 !important;
+                padding: 9px 10px 9px 13px !important;
+
+                display: grid !important;
+                grid-template-columns:
+                    minmax(0, 1fr) auto !important;
+                align-items: center !important;
+                gap: 7px !important;
+
+                border-radius: 10px !important;
+            }
+
+            .horario-retirada-card::before {
+                width: 4px !important;
+            }
+
+            .horario-retirada-card-topo {
+                min-width: 0 !important;
+
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 7px !important;
+            }
+
+            .horario-retirada-card strong {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .horario-retirada-status {
+                min-height: 20px !important;
+                padding: 3px 6px !important;
+
+                font-size: 7px !important;
+                line-height: 1 !important;
+            }
+
+            /* Ações menores, mas continuam visíveis */
+            .horario-retirada-acoes {
+                display: flex !important;
+                align-items: center !important;
+                gap: 4px !important;
+            }
+
+            .horario-retirada-acoes button {
+                min-height: 28px !important;
+                padding: 5px 7px !important;
+
+                border-radius: 7px !important;
+
+                font-size: 7.5px !important;
+                white-space: nowrap !important;
+            }
+
+            /* TABLET */
+            @media (max-width: 1050px) {
+                .lista-horarios-retirada {
+                    grid-template-columns:
+                        repeat(3, minmax(0, 1fr)) !important;
+                }
+            }
+
+            /* MOBILE */
+            @media (max-width: 760px) {
+                .horarios-retirada-admin {
+                    padding: 14px !important;
+                }
+
+                .horario-retirada-form {
+                    grid-template-columns:
+                        minmax(0, 1fr) auto !important;
+
+                    max-width: none !important;
+                    padding: 9px !important;
+                }
+
+                .btn-adicionar-horario {
+                    width: auto !important;
+                }
+
+                .lista-horarios-retirada {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+                    gap: 7px !important;
+                }
+
+                .horario-retirada-card {
+                    grid-template-columns: 1fr !important;
+                    gap: 6px !important;
+                    padding: 9px 9px 9px 12px !important;
+                }
+
+                .horario-retirada-card-topo {
+                    justify-content: space-between !important;
+                }
+
+                .horario-retirada-acoes {
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr !important;
+                    gap: 5px !important;
+                }
+
+                .horario-retirada-acoes button {
+                    width: 100% !important;
+                    min-height: 30px !important;
+                }
+            }
+
+            /* CELULARES PEQUENOS */
+            @media (max-width: 420px) {
+                .horario-retirada-form {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .btn-adicionar-horario {
+                    width: 100% !important;
+                }
+
+                .lista-horarios-retirada {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+                }
+
+                .horario-retirada-card strong {
+                    font-size: 15px !important;
+                }
+
+                .horario-retirada-status {
+                    font-size: 6.5px !important;
+                }
+
+                .horario-retirada-acoes button {
+                    padding: 4px 5px !important;
+                    font-size: 7px !important;
+                }
+            }
+
+            @media (max-width: 340px) {
+                .lista-horarios-retirada {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+        
+
+            /* =========================================================
+               HORÁRIO DE RETIRADA — INTERVALO ÚNICO
+               Desktop + mobile
+            ========================================================= */
+
+            .intervalo-retirada-admin {
+                padding: 18px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .intervalo-retirada-admin .horarios-retirada-topo {
+                margin-bottom: 14px !important;
+                padding-bottom: 11px !important;
+            }
+
+            .intervalo-retirada-form {
+                display: grid;
+                grid-template-columns:
+                    minmax(120px, 170px)
+                    auto
+                    minmax(120px, 170px)
+                    auto;
+                gap: 9px;
+                align-items: end;
+
+                margin-bottom: 12px;
+                padding: 11px;
+
+                border: 1px solid #e0c679;
+                border-radius: 12px;
+
+                background: rgba(255,255,255,.58);
+            }
+
+            .intervalo-retirada-campo {
+                display: grid;
+                gap: 5px;
+            }
+
+            .intervalo-retirada-campo label {
+                color: #6d0c2e;
+                font-size: 10px;
+                font-weight: 800;
+            }
+
+            .intervalo-retirada-campo input {
+                width: 100%;
+                min-height: 42px;
+                padding: 0 11px;
+
+                border: 1px solid #d7b552;
+                border-radius: 9px;
+
+                background: #fffef9;
+                color: #563126;
+
+                font-size: 13px;
+                outline: none;
+            }
+
+            .intervalo-retirada-campo input:focus {
+                border-color: #9c731d;
+                box-shadow:
+                    0 0 0 3px
+                    rgba(218, 178, 71, .16);
+            }
+
+            .intervalo-retirada-separador {
+                align-self: center;
+                padding-top: 18px;
+
+                color: #9a7668;
+
+                font-size: 11px;
+                font-weight: 700;
+            }
+
+            .btn-salvar-intervalo {
+                min-height: 42px;
+                padding: 0 17px;
+
+                border: 1px solid #7b0b31;
+                border-radius: 10px;
+
+                background: #7b0b31;
+                color: #ffffff;
+
+                font-size: 10px;
+                font-weight: 800;
+
+                cursor: pointer;
+            }
+
+            .intervalo-retirada-resumo {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px 12px;
+
+                min-height: 54px;
+                padding: 11px 13px;
+
+                border: 1px solid #e2ca83;
+                border-radius: 11px;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffdf5,
+                        #fff4ce
+                    );
+
+                color: #806b62;
+                font-size: 10px;
+            }
+
+            .intervalo-retirada-resumo > span {
+                color: #a86d50;
+
+                font-size: 8px;
+                font-weight: 900;
+                letter-spacing: 1.2px;
+            }
+
+            .intervalo-retirada-resumo > strong {
+                color: #6d0c2e;
+
+                font-size: 19px;
+                line-height: 1;
+            }
+
+            .intervalo-retirada-resumo > strong small {
+                margin: 0 4px;
+
+                color: #9a7668;
+
+                font-size: 10px;
+                font-weight: 700;
+            }
+
+            .intervalo-retirada-resumo > p {
+                flex-basis: 100%;
+                margin: 0;
+
+                color: #806b62;
+
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            @media (max-width: 760px) {
+                .intervalo-retirada-form {
+                    grid-template-columns:
+                        1fr
+                        auto
+                        1fr;
+                }
+
+                .btn-salvar-intervalo {
+                    grid-column: 1 / -1;
+                    width: 100%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .intervalo-retirada-admin {
+                    padding: 14px !important;
+                }
+
+                .intervalo-retirada-form {
+                    grid-template-columns: 1fr 1fr;
+                    gap: 8px;
+                    padding: 10px;
+                }
+
+                .intervalo-retirada-separador {
+                    display: none;
+                }
+
+                .btn-salvar-intervalo {
+                    grid-column: 1 / -1;
+                }
+
+                .intervalo-retirada-resumo {
+                    align-items: flex-start;
+                    flex-direction: column;
+                    gap: 5px;
+                }
+            }
+
+        
+
+            /* =========================================================
+               PEDIDOS — CONTROLE SIMPLES DE PAGAMENTO
+               Total / Pago / Falta pagar
+               Desktop + tablet + mobile
+            ========================================================= */
+
+            .pedido-pagamento {
+                width: 100%;
+                min-width: 245px;
+                padding: 11px;
+
+                border: 1px solid #e3cf96;
+                border-radius: 12px;
+
+                background:
+                    linear-gradient(
+                        145deg,
+                        #fffef9,
+                        #fff7df
+                    );
+            }
+
+            .pedido-pagamento-topo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                margin-bottom: 9px;
+            }
+
+            .pedido-pagamento-topo > span:first-child {
+                color: #806b62;
+                font-size: 8px;
+                font-weight: 900;
+                letter-spacing: 1px;
+            }
+
+            .pedido-pagamento-status,
+            .agenda-pagamento-status {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                min-height: 23px;
+                padding: 4px 8px;
+
+                border-radius: 999px;
+
+                font-size: 8px;
+                font-weight: 900;
+                white-space: nowrap;
+            }
+
+            .pagamento-nao-pago {
+                border: 1px solid #e0aaa4;
+                background: #fff0ee;
+                color: #a13b34;
+            }
+
+            .pagamento-parcial {
+                border: 1px solid #e2b758;
+                background: #fff2c8;
+                color: #865500;
+            }
+
+            .pagamento-pago {
+                border: 1px solid #a9cfaf;
+                background: #edf8f0;
+                color: #26733a;
+            }
+
+            .pedido-pagamento-valores {
+                display: grid;
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+                gap: 7px;
+                margin-bottom: 9px;
+            }
+
+            .pedido-pagamento-valor {
+                min-width: 0;
+                padding: 8px 9px;
+
+                border: 1px solid #ead8a2;
+                border-radius: 9px;
+
+                background: rgba(255,255,255,.72);
+            }
+
+            .pedido-pagamento-valor span {
+                display: block;
+                margin-bottom: 3px;
+
+                color: #9a7668;
+
+                font-size: 7px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: .6px;
+            }
+
+            .pedido-pagamento-valor strong {
+                color: #6d0c2e;
+                font-size: 12px;
+                line-height: 1.2;
+            }
+
+            .pedido-pagamento-form {
+                display: grid;
+                grid-template-columns:
+                    minmax(0, 1fr)
+                    auto;
+                gap: 6px;
+            }
+
+            .pedido-pagamento-input {
+                width: 100%;
+                min-width: 0;
+                min-height: 37px;
+                padding: 0 9px;
+
+                border: 1px solid #d7b75d;
+                border-radius: 8px;
+
+                background: #fffefb;
+                color: #563126;
+
+                font-size: 11px;
+                outline: none;
+            }
+
+            .pedido-pagamento-input:focus {
+                border-color: #9c731d;
+                box-shadow:
+                    0 0 0 3px
+                    rgba(218, 178, 71, .15);
+            }
+
+            .btn-salvar-pagamento {
+                min-height: 37px;
+                padding: 0 11px;
+
+                border: 1px solid #7b0b31;
+                border-radius: 8px;
+
+                background: #7b0b31;
+                color: #fff;
+
+                font-size: 8px;
+                font-weight: 800;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+
+            .btn-salvar-pagamento:hover {
+                background: #640827;
+            }
+
+            .agenda-pagamento-linha {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 7px;
+            }
+
+            .agenda-pagamento-linha small {
+                color: #806b62;
+                font-size: 8px;
+                font-weight: 700;
+            }
+
+            @media (max-width: 700px) {
+                .pedido-pagamento {
+                    min-width: 0;
+                }
+
+                .pedido-pagamento-form {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-salvar-pagamento {
+                    width: 100%;
+                    min-height: 42px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                .pedido-pagamento-valores {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+        
+            /* =========================================================
+               PEDIDOS — LAYOUT COMPACTO V2
+               Reorganiza visualmente o card sem remover funcionalidades.
+            ========================================================= */
+
+            .pedido-admin-card {
+                padding: 16px 18px !important;
+            }
+
+            .pedido-admin-topo {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) minmax(520px, 610px) !important;
+                gap: 18px !important;
+                align-items: start !important;
+            }
+
+            .pedido-admin-info {
+                min-width: 0;
+            }
+
+            .pedido-admin-acoes {
+                display: grid !important;
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                gap: 8px !important;
+                align-items: stretch !important;
+                justify-items: stretch !important;
+                min-width: 0;
+            }
+
+            .pedido-admin-total {
+                grid-column: 1 / -1;
+                text-align: right !important;
+                margin: 0 0 2px !important;
+                font-size: 21px !important;
+                line-height: 1.1 !important;
+            }
+
+            .pedido-pagamento {
+                grid-column: 1 / -1;
+                min-width: 0 !important;
+                padding: 10px 12px !important;
+            }
+
+            .pedido-pagamento-topo {
+                margin-bottom: 7px !important;
+            }
+
+            .pedido-pagamento-valores {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                margin-bottom: 7px !important;
+            }
+
+            .pedido-pagamento-valor {
+                padding: 7px 9px !important;
+            }
+
+            .pedido-pagamento-form {
+                grid-template-columns: minmax(0, 1fr) 84px !important;
+            }
+
+            .pedido-pagamento-input,
+            .btn-salvar-pagamento {
+                min-height: 36px !important;
+            }
+
+            .pedido-admin-status-select {
+                grid-column: 1 / 3;
+                width: 100% !important;
+                min-width: 0 !important;
+                min-height: 38px !important;
+                margin: 0 !important;
+            }
+
+            .pedido-admin-acoes > button,
+            .pedido-admin-acoes > a {
+                min-height: 38px !important;
+                margin: 0 !important;
+                width: 100% !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                white-space: nowrap;
+            }
+
+            .pedido-admin-acoes > [data-acao="detalhes-pedido"] {
+                grid-column: 1 / 3;
+            }
+
+            .pedido-admin-acoes > [data-acao="excluir-pedido"] {
+                grid-column: 4;
+            }
+
+            .pedido-admin-detalhes {
+                margin-top: 12px !important;
+            }
+
+            @media (min-width: 901px) {
+                .pedido-admin-card {
+                    min-height: 0 !important;
+                }
+
+                .pedido-admin-info p {
+                    margin-top: 4px !important;
+                    margin-bottom: 0 !important;
+                }
+            }
+
+            @media (max-width: 1100px) {
+                .pedido-admin-topo {
+                    grid-template-columns: minmax(0, 1fr) minmax(430px, 500px) !important;
+                }
+            }
+
+            @media (max-width: 900px) {
+                .pedido-admin-topo {
+                    grid-template-columns: 1fr !important;
+                    gap: 14px !important;
+                }
+
+                .pedido-admin-acoes {
+                    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                }
+
+                .pedido-admin-total,
+                .pedido-pagamento {
+                    grid-column: 1 / -1;
+                }
+
+                .pedido-admin-total {
+                    text-align: left !important;
+                }
+
+                .pedido-admin-status-select {
+                    grid-column: 1 / -1;
+                }
+
+                .pedido-admin-acoes > [data-acao="detalhes-pedido"] {
+                    grid-column: 1;
+                }
+
+                .pedido-admin-acoes > [data-acao="excluir-pedido"] {
+                    grid-column: 3;
+                }
+            }
+
+            @media (max-width: 560px) {
+                .pedido-admin-card {
+                    padding: 13px !important;
+                }
+
+                .pedido-admin-acoes {
+                    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                }
+
+                .pedido-admin-total,
+                .pedido-pagamento,
+                .pedido-admin-status-select {
+                    grid-column: 1 / -1;
+                }
+
+                .pedido-admin-acoes > [data-acao="detalhes-pedido"] {
+                    grid-column: 1 / -1;
+                }
+
+                .pedido-admin-acoes > [data-acao="excluir-pedido"] {
+                    grid-column: auto;
+                }
+
+                .pedido-pagamento-form {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .btn-salvar-pagamento {
+                    width: 100% !important;
+                }
+            }
+
+        
+
+            /* =========================================================
+               PEDIDOS — LAYOUT HORIZONTAL V3
+               Mais compacto, sem coluna lateral e sem espaço vazio.
+            ========================================================= */
+
+            .pedido-admin-card {
+                padding: 0 !important;
+                overflow: hidden !important;
+                border-radius: 16px !important;
+            }
+
+            .pedido-admin-resumo-v3 {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* FAIXA 1 */
+            .pedido-faixa-cabecalho {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px;
+
+                padding: 15px 17px;
+
+                border-bottom: 1px solid #ead8a2;
+
+                background:
+                    linear-gradient(
+                        90deg,
+                        #fffdf7 0%,
+                        #fff4cf 100%
+                    );
+            }
+
+            .pedido-faixa-identificacao {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                min-width: 0;
+            }
+
+            .pedido-faixa-codigo {
+                color: #6d0c2e;
+                font-size: 17px;
+                line-height: 1.1;
+            }
+
+            .pedido-faixa-total {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                white-space: nowrap;
+            }
+
+            .pedido-faixa-total span {
+                color: #9a7668;
+                font-size: 7px;
+                font-weight: 900;
+                letter-spacing: 1px;
+            }
+
+            .pedido-faixa-total strong {
+                color: #8b002f;
+                font-size: 21px;
+                line-height: 1;
+            }
+
+            /* FAIXA 2 */
+            .pedido-faixa-cliente {
+                display: grid;
+                grid-template-columns:
+                    1.1fr
+                    1fr
+                    1fr;
+                gap: 0;
+
+                padding: 0 17px;
+
+                border-bottom: 1px solid #eee0b9;
+
+                background: #fffefb;
+            }
+
+            .pedido-dado {
+                min-width: 0;
+                padding: 11px 14px 11px 0;
+            }
+
+            .pedido-dado + .pedido-dado {
+                padding-left: 14px;
+                border-left: 1px solid #eee3c5;
+            }
+
+            .pedido-dado span {
+                display: block;
+                margin-bottom: 3px;
+
+                color: #a86d50;
+
+                font-size: 7px;
+                font-weight: 900;
+                letter-spacing: .9px;
+            }
+
+            .pedido-dado strong {
+                display: block;
+
+                color: #563126;
+
+                font-size: 10px;
+                line-height: 1.35;
+
+                overflow-wrap: anywhere;
+            }
+
+            .pedido-dado-observacao {
+                grid-column: 1 / -1;
+                padding-left: 0 !important;
+                border-left: 0 !important;
+                border-top: 1px solid #eee3c5;
+            }
+
+            /* FAIXA 3 */
+            .pedido-financeiro {
+                display: grid;
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+                gap: 8px;
+
+                padding: 12px 17px;
+
+                border-bottom: 1px solid #eee0b9;
+
+                background: #fffaf0;
+            }
+
+            .pedido-financeiro-card {
+                min-width: 0;
+                min-height: 60px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 4px;
+
+                padding: 9px 11px;
+
+                border: 1px solid #e5d5a4;
+                border-radius: 10px;
+
+                background: #fffefb;
+            }
+
+            .pedido-financeiro-card > span {
+                color: #9a7668;
+
+                font-size: 7px;
+                font-weight: 900;
+                letter-spacing: .8px;
+            }
+
+            .pedido-financeiro-card > strong:not(.pedido-pagamento-status) {
+                color: #6d0c2e;
+                font-size: 15px;
+                line-height: 1.1;
+            }
+
+            .pedido-financeiro-pago {
+                background: #f7fcf8;
+                border-color: #c8dfcc;
+            }
+
+            .pedido-financeiro-pago > strong {
+                color: #26733a !important;
+            }
+
+            .pedido-financeiro-falta {
+                background: #fff8e5;
+                border-color: #e5c66a;
+            }
+
+            .pedido-financeiro-falta > strong {
+                color: #9a5300 !important;
+                font-size: 17px !important;
+            }
+
+            .pedido-financeiro-situacao {
+                align-items: flex-start;
+            }
+
+            .pedido-financeiro-situacao .pedido-pagamento-status {
+                width: auto;
+                min-width: 72px;
+            }
+
+            /* FAIXA 4 */
+            .pedido-pagamento-edicao {
+                display: grid;
+                grid-template-columns:
+                    minmax(180px, 1fr)
+                    minmax(330px, 480px);
+                align-items: center;
+                gap: 18px;
+
+                padding: 11px 17px;
+
+                border-bottom: 1px solid #eee0b9;
+
+                background: #fffefb;
+            }
+
+            .pedido-pagamento-edicao-texto span {
+                display: block;
+                margin-bottom: 3px;
+
+                color: #6d0c2e;
+
+                font-size: 9px;
+                font-weight: 900;
+            }
+
+            .pedido-pagamento-edicao-texto small {
+                color: #8c7469;
+                font-size: 8px;
+                line-height: 1.35;
+            }
+
+            .pedido-pagamento-edicao-form {
+                display: grid;
+                grid-template-columns:
+                    minmax(0, 1fr)
+                    auto;
+                gap: 7px;
+            }
+
+            .pedido-campo-moeda {
+                display: grid;
+                grid-template-columns: 34px minmax(0, 1fr);
+
+                min-height: 39px;
+
+                overflow: hidden;
+
+                border: 1px solid #d7b75d;
+                border-radius: 9px;
+
+                background: #fffef9;
+            }
+
+            .pedido-campo-moeda > span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                border-right: 1px solid #ead8a2;
+
+                background: #fff5cf;
+                color: #6d0c2e;
+
+                font-size: 9px;
+                font-weight: 900;
+            }
+
+            .pedido-campo-moeda .pedido-pagamento-input {
+                min-height: 37px !important;
+                padding: 0 9px !important;
+
+                border: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+
+                background: transparent !important;
+            }
+
+            .pedido-pagamento-edicao .btn-salvar-pagamento {
+                min-height: 39px !important;
+                padding: 0 14px !important;
+
+                white-space: nowrap;
+            }
+
+            /* FAIXA 5 */
+            .pedido-faixa-acoes {
+                display: grid;
+                grid-template-columns:
+                    minmax(220px, 330px)
+                    minmax(0, 1fr);
+                align-items: end;
+                gap: 14px;
+
+                padding: 11px 17px 13px;
+
+                background: #fffaf0;
+            }
+
+            .pedido-status-controle {
+                display: grid;
+                gap: 4px;
+            }
+
+            .pedido-status-controle label {
+                color: #806b62;
+
+                font-size: 7px;
+                font-weight: 900;
+                letter-spacing: .8px;
+                text-transform: uppercase;
+            }
+
+            .pedido-status-controle .pedido-admin-status-select {
+                width: 100% !important;
+                min-height: 38px !important;
+                margin: 0 !important;
+            }
+
+            .pedido-admin-acoes-v3 {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-end !important;
+                gap: 7px !important;
+
+                min-width: 0;
+            }
+
+            .pedido-admin-acoes-v3 > button,
+            .pedido-admin-acoes-v3 > a {
+                width: auto !important;
+                min-width: 100px;
+                min-height: 38px !important;
+                margin: 0 !important;
+            }
+
+            .pedido-admin-acoes-v3 .btn-pedido-principal {
+                min-width: 125px;
+            }
+
+            .pedido-admin-detalhes {
+                margin-top: 0 !important;
+                border-top: 1px solid #e1ca84 !important;
+            }
+
+            /* TABLET */
+            @media (max-width: 900px) {
+
+                .pedido-faixa-cliente {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr));
+                }
+
+                .pedido-dado:nth-child(3) {
+                    padding-left: 0;
+                    border-left: 0;
+                    border-top: 1px solid #eee3c5;
+                }
+
+                .pedido-financeiro {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr));
+                }
+
+                .pedido-pagamento-edicao {
+                    grid-template-columns: 1fr;
+                    gap: 8px;
+                }
+
+                .pedido-faixa-acoes {
+                    grid-template-columns: 1fr;
+                }
+
+                .pedido-admin-acoes-v3 {
+                    justify-content: flex-start !important;
+                }
+            }
+
+            /* MOBILE */
+            @media (max-width: 560px) {
+
+                .pedido-faixa-cabecalho {
+                    align-items: flex-start;
+                    flex-direction: column;
+                    gap: 9px;
+
+                    padding: 13px;
+                }
+
+                .pedido-faixa-total {
+                    width: 100%;
+                    justify-content: space-between;
+                }
+
+                .pedido-faixa-cliente {
+                    grid-template-columns: 1fr;
+                    padding: 0 13px;
+                }
+
+                .pedido-dado,
+                .pedido-dado + .pedido-dado,
+                .pedido-dado:nth-child(3) {
+                    padding: 9px 0;
+                    border-left: 0;
+                    border-top: 1px solid #eee3c5;
+                }
+
+                .pedido-dado:first-child {
+                    border-top: 0;
+                }
+
+                .pedido-financeiro {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr));
+
+                    gap: 6px;
+
+                    padding: 10px 13px;
+                }
+
+                .pedido-financeiro-card {
+                    min-height: 56px;
+                    padding: 8px;
+                }
+
+                .pedido-financeiro-card > strong:not(.pedido-pagamento-status) {
+                    font-size: 13px;
+                }
+
+                .pedido-financeiro-falta > strong {
+                    font-size: 14px !important;
+                }
+
+                .pedido-pagamento-edicao {
+                    padding: 10px 13px;
+                }
+
+                .pedido-pagamento-edicao-form {
+                    grid-template-columns: 1fr;
+                }
+
+                .pedido-pagamento-edicao .btn-salvar-pagamento {
+                    width: 100% !important;
+                    min-height: 42px !important;
+                }
+
+                .pedido-faixa-acoes {
+                    padding: 10px 13px 13px;
+                }
+
+                .pedido-admin-acoes-v3 {
+                    display: grid !important;
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+
+                    width: 100%;
+                }
+
+                .pedido-admin-acoes-v3 > button,
+                .pedido-admin-acoes-v3 > a {
+                    width: 100% !important;
+                    min-width: 0;
+                    min-height: 42px !important;
+                }
+
+                .pedido-admin-acoes-v3 .btn-pedido-principal {
+                    grid-column: 1 / -1;
+                }
+            }
+
+            @media (max-width: 360px) {
+
+                .pedido-financeiro {
+                    grid-template-columns: 1fr;
+                }
+
+                .pedido-admin-acoes-v3 {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .pedido-admin-acoes-v3 .btn-pedido-principal {
+                    grid-column: auto;
+                }
+            }
+
+        
+            /* =========================================================
+               LIMITE DE PEDIDOS POR DIA
+            ========================================================= */
+            .limite-pedidos-admin {
+                margin: 0 0 24px;
+                padding: 20px;
+                border: 1px solid #d7a92e;
+                border-radius: 16px;
+                background: linear-gradient(145deg, #fffef9 0%, #fff7dd 100%);
+            }
+
+            .limite-pedidos-topo {
+                margin-bottom: 15px;
+            }
+
+            .limite-pedidos-topo span {
+                display: block;
+                margin-bottom: 5px;
+                color: #853643;
+                font-size: 8px;
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+
+            .limite-pedidos-topo h3 {
+                margin: 0;
+                color: #6d0c2e;
+                font-size: 20px;
+            }
+
+            .limite-pedidos-topo p {
+                max-width: 760px;
+                margin: 6px 0 0;
+                color: #79655a;
+                font-size: 10px;
+                line-height: 1.5;
+            }
+
+            .limite-padrao-form,
+            .limite-excecao-form {
+                display: grid;
+                grid-template-columns: minmax(160px, 240px) auto;
+                align-items: end;
+                gap: 10px;
+                padding: 13px;
+                border: 1px solid #e1ca84;
+                border-radius: 12px;
+                background: #fffdf5;
+            }
+
+            .limite-excecao-form {
+                grid-template-columns: minmax(170px, 1fr) minmax(150px, .7fr) auto;
+                margin-top: 12px;
+            }
+
+            .limite-pedidos-campo {
+                display: grid;
+                gap: 6px;
+            }
+
+            .limite-pedidos-campo label {
+                color: #563126;
+                font-size: 9px;
+                font-weight: 800;
+            }
+
+            .limite-pedidos-campo input {
+                width: 100%;
+                min-height: 40px;
+                padding: 0 11px;
+                border: 1px solid #dec270;
+                border-radius: 9px;
+                background: #fff;
+                color: #563126;
+                font-size: 11px;
+                outline: none;
+            }
+
+            .btn-salvar-limite {
+                min-height: 40px;
+                padding: 0 15px;
+                border: 1px solid #8f002d;
+                border-radius: 9px;
+                background: #8f002d;
+                color: #fff;
+                font-size: 9px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .limite-padrao-resumo {
+                margin-top: 10px;
+                padding: 11px 13px;
+                border: 1px solid #ead8a2;
+                border-radius: 10px;
+                background: #fff9e7;
+                color: #806b62;
+                font-size: 10px;
+            }
+
+            .limite-padrao-resumo strong {
+                color: #6d0c2e;
+            }
+
+            .limite-excecoes-titulo {
+                margin: 17px 0 9px;
+                color: #6d0c2e;
+                font-size: 13px;
+            }
+
+            .lista-limites-excecao {
+                display: grid;
+                gap: 8px;
+            }
+
+            .limite-excecao-card {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto auto;
+                align-items: center;
+                gap: 10px;
+                padding: 11px 13px;
+                border: 1px solid #ead8a2;
+                border-radius: 10px;
+                background: #fffdf8;
+            }
+
+            .limite-excecao-card strong {
+                display: block;
+                color: #6d0c2e;
+                font-size: 12px;
+            }
+
+            .limite-excecao-card small {
+                display: block;
+                margin-top: 2px;
+                color: #806b62;
+                font-size: 9px;
+            }
+
+            .limite-excecao-numero {
+                color: #6d0c2e;
+                font-size: 12px;
+                font-weight: 800;
+                white-space: nowrap;
+            }
+
+            .btn-remover-limite {
+                min-height: 34px;
+                padding: 6px 10px;
+                border: 1px solid #e5b5ad;
+                border-radius: 8px;
+                background: #fff8f3;
+                color: #a13b34;
+                font-size: 8px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .limites-vazio {
+                padding: 13px;
+                border: 1px dashed #dec270;
+                border-radius: 10px;
+                color: #806b62;
+                font-size: 10px;
+                text-align: center;
+            }
+
+
+            .limites-semana-grid {
+                display: grid;
+                grid-template-columns: repeat(7, minmax(110px, 1fr));
+                gap: 9px;
+            }
+
+            .limite-dia-card {
+                display: grid;
+                gap: 7px;
+                padding: 12px;
+                border: 1px solid #e1ca84;
+                border-radius: 12px;
+                background: #fffdf5;
+            }
+
+            .limite-dia-card span {
+                color: #6d0c2e;
+                font-size: 9px;
+                font-weight: 800;
+            }
+
+            .limite-dia-card input {
+                width: 100%;
+                min-height: 40px;
+                padding: 0 10px;
+                border: 1px solid #dec270;
+                border-radius: 9px;
+                background: #fff;
+                color: #563126;
+                font-size: 14px;
+                font-weight: 800;
+                text-align: center;
+                outline: none;
+            }
+
+            .limite-dia-card small {
+                color: #8a766c;
+                font-size: 7px;
+                line-height: 1.3;
+            }
+
+            .limites-semana-acoes {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 10px;
+                margin-top: 12px;
+            }
+
+            @media (max-width: 1000px) {
+                .limites-semana-grid {
+                    grid-template-columns: repeat(4, minmax(120px, 1fr));
+                }
+            }
+
+            @media (max-width: 700px) {
+                .limite-pedidos-admin {
+                    padding: 15px;
+                }
+
+                .limite-pedidos-topo {
+                    margin-bottom: 14px;
+                }
+
+                .limite-pedidos-topo h3 {
+                    margin-bottom: 6px;
+                }
+
+                .limite-pedidos-topo p {
+                    line-height: 1.45;
+                }
+
+                .limites-semana-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 8px;
+                }
+
+                .limite-dia-card {
+                    gap: 6px;
+                    padding: 10px;
+                    border-radius: 11px;
+                }
+
+                .limite-dia-card span {
+                    font-size: 8px;
+                    line-height: 1.2;
+                }
+
+                .limite-dia-card input {
+                    min-height: 38px;
+                    padding: 0 8px;
+                    font-size: 13px;
+                }
+
+                /* No celular a explicação aparece uma única vez,
+                   evitando repetir a mesma frase em todos os dias. */
+                .limite-dia-card small {
+                    display: none;
+                }
+
+                .limites-semana-grid::after {
+                    content: "0 = não receber pedidos nesse dia";
+                    grid-column: 1 / -1;
+                    display: block;
+                    margin-top: 2px;
+                    padding: 9px 10px;
+                    border: 1px dashed #dec270;
+                    border-radius: 9px;
+                    background: #fff9e7;
+                    color: #806b62;
+                    font-size: 8px;
+                    line-height: 1.35;
+                    text-align: center;
+                }
+
+                .limites-semana-acoes {
+                    grid-template-columns: 1fr;
+                    gap: 8px;
+                    margin-top: 10px;
+                }
+
+                .limites-semana-acoes .btn-salvar-limite {
+                    width: 100%;
+                    min-height: 44px;
+                }
+
+                .limites-semana-acoes .limite-padrao-resumo {
+                    width: 100%;
+                }
+            }
+
+            @media (max-width: 420px) {
+                /* Mantém 2 dias por linha até em celulares menores. */
+                .limites-semana-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 7px;
+                }
+
+                .limite-dia-card {
+                    padding: 9px;
+                }
+
+                .limite-dia-card input {
+                    min-height: 37px;
+                }
+            }
+
+            @media (max-width: 340px) {
+                /* Segurança para telas extremamente estreitas. */
+                .limites-semana-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 700px) {
+                .limite-pedidos-admin {
+                    padding: 15px;
+                }
+
+                .limite-padrao-form,
+                .limite-excecao-form {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-salvar-limite {
+                    width: 100%;
+                }
+
+                .limite-excecao-card {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-remover-limite {
+                    width: 100%;
+                }
+            }
+
         </style>
     </head>
     <body class="pagina-painel">
@@ -1504,7 +4248,7 @@
     <main class="painel-container">
 
         <nav class="painel-abas" aria-label="Seções do painel">
-            <button class="painel-aba ativa" data-alvo="secaoFatias">🍰 Fatias do dia</button>
+            <button class="painel-aba ativa" data-alvo="secaoFatias">✨ Pronta entrega</button>
             <button class="painel-aba" data-alvo="secaoEncomendas">🎉 Encomendas</button>
             <button class="painel-aba" data-alvo="secaoPedidos">🧾 Pedidos</button>
         </nav>
@@ -1513,15 +4257,15 @@
             <div class="painel-secao-topo">
                 <div>
                     <span>PRONTA ENTREGA</span>
-                    <h2>Fatias do dia</h2>
-                    <p>Cadastre sabores, preços, imagens e disponibilidade.</p>
+                    <h2>Produtos disponíveis</h2>
+                    <p>Cadastre qualquer produto disponível para venda no dia, como fatias, bolo de pote, pavê, mousse e outros.</p>
                 </div>
-                <button class="btn-nova-fatia" id="btnNovaFatia">+ Nova fatia</button>
+                <button class="btn-nova-fatia" id="btnNovaFatia">+ Novo produto</button>
             </div>
 
             <section class="painel-indicadores">
                 <div class="painel-indicador">
-                    <span>Total de fatias</span>
+                    <span>Total de produtos</span>
                     <strong id="totalFatias">0</strong>
                 </div>
                 <div class="painel-indicador">
@@ -1536,7 +4280,7 @@
 
             <section class="painel-lista">
                 <div class="painel-lista-topo">
-                    <h3>Fatias cadastradas</h3>
+                    <h3>Produtos cadastrados</h3>
                     <button id="btnAtualizarLista" class="btn-atualizar-lista">↻ Atualizar</button>
                 </div>
 
@@ -1557,6 +4301,242 @@
                     </p>
                 </div>
             </div>
+
+
+
+            <!-- DATAS INDISPONÍVEIS PARA NOVAS ENCOMENDAS -->
+            <section class="bloqueio-datas-admin" id="bloqueioDatasAdmin">
+                <div class="bloqueio-datas-topo">
+                    <div>
+                        <span>CONTROLE DE AGENDA</span>
+                        <h3>Datas indisponíveis</h3>
+                        <p>
+                            Bloqueie uma data quando não quiser mais receber novas encomendas.
+                            Os pedidos que já foram feitos continuam aparecendo normalmente na agenda.
+                        </p>
+                    </div>
+                </div>
+
+                <form class="bloqueio-data-form" id="formBloqueioData">
+                    <div class="bloqueio-data-campo">
+                        <label for="dataBloqueioEncomenda">Data</label>
+                        <input type="date" id="dataBloqueioEncomenda" required>
+                    </div>
+
+                    <div class="bloqueio-data-campo">
+                        <label for="motivoBloqueioEncomenda">Observação (opcional)</label>
+                        <input
+                            type="text"
+                            id="motivoBloqueioEncomenda"
+                            maxlength="120"
+                            placeholder="Ex.: Agenda lotada"
+                        >
+                    </div>
+
+                    <button type="submit" class="btn-bloquear-data">
+                        Bloquear data
+                    </button>
+                </form>
+
+                <div id="listaDatasBloqueadas" class="lista-datas-bloqueadas">
+                    <div class="datas-bloqueadas-vazio">Carregando datas...</div>
+                </div>
+            </section>
+
+
+
+
+            <!-- LIMITE DE PEDIDOS POR DIA DA SEMANA -->
+            <section class="limite-pedidos-admin" id="limitePedidosAdmin">
+                <div class="limite-pedidos-topo">
+                    <span>CAPACIDADE DA AGENDA</span>
+                    <h3>Limite de pedidos por dia</h3>
+                    <p>
+                        Configure uma vez quantos pedidos podem ser recebidos em cada dia da semana.
+                        A regra será aplicada automaticamente às próximas semanas.
+                    </p>
+                </div>
+
+                <form id="formLimitesSemana">
+                    <div class="limites-semana-grid">
+                        <label class="limite-dia-card">
+                            <span>Segunda-feira</span>
+                            <input type="number" id="limiteSegunda" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Terça-feira</span>
+                            <input type="number" id="limiteTerca" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Quarta-feira</span>
+                            <input type="number" id="limiteQuarta" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Quinta-feira</span>
+                            <input type="number" id="limiteQuinta" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Sexta-feira</span>
+                            <input type="number" id="limiteSexta" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Sábado</span>
+                            <input type="number" id="limiteSabado" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+
+                        <label class="limite-dia-card">
+                            <span>Domingo</span>
+                            <input type="number" id="limiteDomingo" min="0" max="999" step="1" required>
+                            <small>0 = não receber pedidos</small>
+                        </label>
+                    </div>
+
+                    <div class="limites-semana-acoes">
+                        <div id="resumoLimitesSemana" class="limite-padrao-resumo">
+                            Carregando limites...
+                        </div>
+
+                        <button type="submit" class="btn-salvar-limite">
+                            Salvar limites
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- HORÁRIO DE RETIRADA -->
+            <section class="horarios-retirada-admin intervalo-retirada-admin" id="horariosRetiradaAdmin">
+                <div class="horarios-retirada-topo">
+                    <div>
+                        <span>CONTROLE DE RETIRADA</span>
+                        <h3>Horário de retirada</h3>
+                        <p>
+                            Defina o período em que os clientes poderão escolher o horário de retirada.
+                            Exemplo: das 07:00 às 18:00.
+                        </p>
+                    </div>
+                </div>
+
+                <form class="intervalo-retirada-form" id="formIntervaloRetirada">
+                    <div class="intervalo-retirada-campo">
+                        <label for="horarioRetiradaInicio">De</label>
+                        <input
+                            type="time"
+                            id="horarioRetiradaInicio"
+                            required
+                        >
+                    </div>
+
+                    <div class="intervalo-retirada-separador">
+                        até
+                    </div>
+
+                    <div class="intervalo-retirada-campo">
+                        <label for="horarioRetiradaFim">Até</label>
+                        <input
+                            type="time"
+                            id="horarioRetiradaFim"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn-salvar-intervalo">
+                        Salvar horário
+                    </button>
+                </form>
+
+                <div class="intervalo-retirada-resumo" id="resumoIntervaloRetirada">
+                    Carregando horário configurado...
+                </div>
+            </section>
+
+            <!-- AGENDA DE RETIRADAS -->
+            <section class="agenda-encomendas" id="agendaEncomendas">
+
+                <div class="agenda-encomendas-topo">
+                    <div>
+                        <span>AGENDA DE RETIRADAS</span>
+                        <h3>Próximas encomendas</h3>
+                        <p>
+                            Visualize rapidamente o que precisa ser preparado e a data de retirada de cada pedido.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-atualizar-lista"
+                        id="btnAtualizarAgenda"
+                    >
+                        ↻ Atualizar agenda
+                    </button>
+                </div>
+
+                <div class="agenda-resumos">
+                    <button
+                        type="button"
+                        class="agenda-resumo-card ativo"
+                        data-filtro-agenda="hoje"
+                    >
+                        <span>Hoje</span>
+                        <strong id="agendaTotalHoje">0</strong>
+                        <small>retiradas</small>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="agenda-resumo-card"
+                        data-filtro-agenda="amanha"
+                    >
+                        <span>Amanhã</span>
+                        <strong id="agendaTotalAmanha">0</strong>
+                        <small>retiradas</small>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="agenda-resumo-card"
+                        data-filtro-agenda="7dias"
+                    >
+                        <span>Próximos 7 dias</span>
+                        <strong id="agendaTotal7Dias">0</strong>
+                        <small>retiradas</small>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="agenda-resumo-card"
+                        data-filtro-agenda="todas"
+                    >
+                        <span>Todas</span>
+                        <strong id="agendaTotalProximas">0</strong>
+                        <small>retiradas</small>
+                    </button>
+                </div>
+
+                <div class="agenda-lista-cabecalho">
+                    <div>
+                        <span id="agendaFiltroTitulo">RETIRADAS DE HOJE</span>
+                        <h4 id="agendaFiltroDescricao">Agenda do dia</h4>
+                    </div>
+                </div>
+
+                <div id="listaAgendaEncomendas" class="agenda-lista">
+                    <p class="painel-carregando">
+                        Carregando agenda...
+                    </p>
+                </div>
+
+            </section>
 
             <div class="admin-produtos-encomenda" aria-label="Tipos de encomenda">
                 <button class="admin-produto-tab ativo" type="button" data-produto="bolo">
@@ -1748,7 +4728,7 @@
                 </div>
 
                 <div class="painel-indicador">
-                    <span>Novos</span>
+                    <span>Recebidos</span>
                     <strong id="totalPedidosNovos">0</strong>
                 </div>
 
@@ -1766,12 +4746,9 @@
                     </div>
 
                     <select id="filtroStatusPedidos" class="filtro-status-pedidos">
-                        <option value="">Todos os status</option>
-                        <option value="novo">Novos</option>
+                        <option value="">Todos os pedidos</option>
+                        <option value="novo">Recebidos</option>
                         <option value="confirmado">Confirmados</option>
-                        <option value="em_producao">Em produção</option>
-                        <option value="concluido">Concluídos</option>
-                        <option value="cancelado">Cancelados</option>
                     </select>
                 </div>
 
@@ -1787,8 +4764,8 @@
         <div class="modal-admin-conteudo">
             <div class="modal-admin-topo">
                 <div>
-                    <span>FATIAS DO DIA</span>
-                    <h2 id="tituloModalFatia">Nova fatia</h2>
+                    <span>PRONTA ENTREGA</span>
+                    <h2 id="tituloModalFatia">Novo produto</h2>
                 </div>
                 <button type="button" id="fecharModalFatia" class="btn-fechar-modal">×</button>
             </div>
@@ -1797,13 +4774,26 @@
                 <input type="hidden" id="fatiaId">
 
                 <div class="campo-admin">
-                    <label for="nomeFatia">Nome da fatia</label>
-                    <input type="text" id="nomeFatia" placeholder="Ex.: Ninho com Nutella" required>
+                    <label for="nomeFatia">Nome do produto</label>
+                    <input type="text" id="nomeFatia" placeholder="Ex.: Bolo de pote de Ninho" required>
+                </div>
+
+                <div class="campo-admin">
+                    <label for="categoriaFatia">Categoria / tipo</label>
+                    <input
+                        type="text"
+                        id="categoriaFatia"
+                        placeholder="Ex.: Fatia, Bolo de pote, Pavê, Mousse..."
+                        required
+                    >
+                    <small>
+                        Campo livre: você pode digitar qualquer categoria de produto.
+                    </small>
                 </div>
 
                 <div class="campo-admin">
                     <label for="descricaoFatia">Descrição</label>
-                    <textarea id="descricaoFatia" rows="4" placeholder="Descreva a fatia..."></textarea>
+                    <textarea id="descricaoFatia" rows="4" placeholder="Descreva o produto..."></textarea>
                 </div>
 
                 <div class="campo-admin">
@@ -1811,8 +4801,30 @@
                     <input type="number" id="precoFatia" min="0" step="0.01" placeholder="18.00" required>
                 </div>
 
+                <div class="campo-admin-estoque">
+                    <div class="campo-admin">
+                        <label for="estoqueFatia">Quantidade disponível</label>
+                        <input
+                            type="number"
+                            id="estoqueFatia"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Ex.: 12"
+                            required
+                        >
+                        <small>
+                            Informe quantas unidades desse produto estão disponíveis para pronta entrega.
+                        </small>
+                    </div>
+
+                    <div class="campo-admin-estoque-ajuda">
+                        Quando o estoque chegar a 0, o produto ficará sem unidades disponíveis.
+                    </div>
+                </div>
+
                 <div class="campo-admin">
-                    <label for="arquivoImagemFatia">Foto da fatia</label>
+                    <label for="arquivoImagemFatia">Foto do produto</label>
 
                     <div class="upload-fatia-admin">
                         <input
@@ -1822,7 +4834,7 @@
                         >
 
                         <div class="preview-imagem-fatia-admin" id="previewImagemFatiaAdmin">
-                            <span>🍰</span>
+                            <span>🛍️</span>
                             <p>Nenhuma foto selecionada</p>
                         </div>
                     </div>
@@ -2199,7 +5211,77 @@
         </div>
     </div>
 
-    <script>
+    
+
+    <!-- MODAL — REPOSIÇÃO RÁPIDA DE ESTOQUE -->
+        <div class="modal-admin modal-repor-estoque" id="modalReporEstoque">
+            <div class="modal-admin-conteudo">
+    
+                <div class="modal-admin-topo">
+                    <div>
+                        <span>PRONTA ENTREGA</span>
+                        <h3>Repor estoque</h3>
+                        <p>
+                            Atualize rapidamente a quantidade disponível sem precisar abrir o cadastro completo.
+                        </p>
+                    </div>
+    
+                    <button type="button" class="modal-admin-fechar" id="btnFecharReporEstoque">
+                        ×
+                    </button>
+                </div>
+    
+                <div class="estoque-rapido-produto">
+                    <span>Produto</span>
+                    <strong id="nomeProdutoReporEstoque">—</strong>
+                    <div class="estoque-rapido-atual">
+                        Estoque atual:
+                        <strong id="estoqueAtualReporEstoque">0</strong>
+                    </div>
+                </div>
+    
+                <form id="formReporEstoque">
+    
+                    <input type="hidden" id="produtoIdReporEstoque">
+    
+                    <div class="campo-admin">
+                        <label for="novoEstoqueProduto">
+                            Nova quantidade disponível
+                        </label>
+    
+                        <input
+                            type="number"
+                            id="novoEstoqueProduto"
+                            min="0"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Ex.: 12"
+                            required
+                        >
+    
+                        <small>
+                            Digite a quantidade total que deverá ficar disponível após a reposição.
+                        </small>
+                    </div>
+    
+                    <div id="mensagemReporEstoque" class="mensagem-admin"></div>
+    
+                    <div class="modal-admin-acoes">
+                        <button type="button" class="btn-cancelar-admin" id="btnCancelarReporEstoque">
+                            Cancelar
+                        </button>
+    
+                        <button type="submit" class="btn-salvar-admin">
+                            Salvar estoque
+                        </button>
+                    </div>
+    
+                </form>
+    
+            </div>
+        </div>
+
+<script>
     const SUPABASE_URL = "https://tjhqqopgjzvnqvxcqxyn.supabase.co";
     const SUPABASE_KEY = "sb_publishable_gXufC47imd13mJFFAvilmg_KSo3zld-";
 
@@ -2208,7 +5290,498 @@
         SUPABASE_KEY
     );
 
-    const BUCKET_IMAGENS_FATIAS = "inspiracoes";
+
+    /* =========================================================
+       DATAS INDISPONÍVEIS PARA NOVAS ENCOMENDAS
+    ========================================================= */
+
+    const formBloqueioData = document.getElementById("formBloqueioData");
+    const campoDataBloqueio = document.getElementById("dataBloqueioEncomenda");
+    const campoMotivoBloqueio = document.getElementById("motivoBloqueioEncomenda");
+    const listaDatasBloqueadas = document.getElementById("listaDatasBloqueadas");
+
+    function hojeISOAdmin() {
+        const agora = new Date();
+        const ano = agora.getFullYear();
+        const mes = String(agora.getMonth() + 1).padStart(2, "0");
+        const dia = String(agora.getDate()).padStart(2, "0");
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function formatarDataBloqueadaAdmin(dataISO) {
+        if (!dataISO) return "";
+        const [ano, mes, dia] = String(dataISO).split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    function escaparHtmlBloqueio(valor) {
+        return String(valor ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    async function carregarDatasBloqueadasAdmin() {
+        if (!listaDatasBloqueadas) return;
+
+        listaDatasBloqueadas.innerHTML =
+            '<div class="datas-bloqueadas-vazio">Carregando datas...</div>';
+
+        const { data, error } = await supabasePainel
+            .from("datas_bloqueadas_encomenda")
+            .select("id,data,motivo,created_at")
+            .gte("data", hojeISOAdmin())
+            .order("data", { ascending: true });
+
+        if (error) {
+            console.error("Erro ao carregar datas bloqueadas:", error);
+            listaDatasBloqueadas.innerHTML = `
+                <div class="datas-bloqueadas-vazio">
+                    Não foi possível carregar as datas bloqueadas.
+                    Confira se o SQL desta etapa foi executado no Supabase.
+                </div>
+            `;
+            return;
+        }
+
+        if (!data || data.length === 0) {
+            listaDatasBloqueadas.innerHTML = `
+                <div class="datas-bloqueadas-vazio">
+                    Nenhuma data futura está bloqueada.
+                </div>
+            `;
+            return;
+        }
+
+        listaDatasBloqueadas.innerHTML = data.map(item => `
+            <div class="data-bloqueada-card">
+                <div class="data-bloqueada-info">
+                    <span class="data-bloqueada-label">
+                        🔒 DATA BLOQUEADA
+                    </span>
+
+                    <strong>${formatarDataBloqueadaAdmin(item.data)}</strong>
+
+                    <small>
+                        ${item.motivo ? escaparHtmlBloqueio(item.motivo) : "Sem observação"}
+                    </small>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-liberar-data"
+                    data-liberar-data-id="${item.id}"
+                    data-liberar-data="${item.data}"
+                >
+                    Liberar data
+                </button>
+            </div>
+        `).join("");
+    }
+
+    formBloqueioData?.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const data = campoDataBloqueio?.value || "";
+        const motivo = campoMotivoBloqueio?.value.trim() || null;
+
+        if (!data) {
+            alert("Escolha a data que deseja bloquear.");
+            return;
+        }
+
+        if (data < hojeISOAdmin()) {
+            alert("Escolha uma data de hoje em diante.");
+            return;
+        }
+
+        const botao = formBloqueioData.querySelector('button[type="submit"]');
+        const textoOriginal = botao?.textContent || "Bloquear data";
+
+        if (botao) {
+            botao.disabled = true;
+            botao.textContent = "Salvando...";
+        }
+
+        const { error } = await supabasePainel
+            .from("datas_bloqueadas_encomenda")
+            .insert({
+                data,
+                motivo
+            });
+
+        if (botao) {
+            botao.disabled = false;
+            botao.textContent = textoOriginal;
+        }
+
+        if (error) {
+            if (String(error.code) === "23505") {
+                alert("Essa data já está bloqueada.");
+            } else {
+                console.error("Erro ao bloquear data:", error);
+                alert("Não foi possível bloquear a data.");
+            }
+            return;
+        }
+
+        formBloqueioData.reset();
+        if (campoDataBloqueio) {
+            campoDataBloqueio.min = hojeISOAdmin();
+        }
+
+        await carregarDatasBloqueadasAdmin();
+    });
+
+    listaDatasBloqueadas?.addEventListener("click", async function(event) {
+        const botao = event.target.closest("[data-liberar-data-id]");
+        if (!botao) return;
+
+        const id = botao.dataset.liberarDataId;
+        const data = botao.dataset.liberarData;
+
+        if (!confirm(`Liberar ${formatarDataBloqueadaAdmin(data)} para novas encomendas?`)) {
+            return;
+        }
+
+        botao.disabled = true;
+        botao.textContent = "Liberando...";
+
+        const { error } = await supabasePainel
+            .from("datas_bloqueadas_encomenda")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            console.error("Erro ao liberar data:", error);
+            alert("Não foi possível liberar a data.");
+            botao.disabled = false;
+            botao.textContent = "Liberar data";
+            return;
+        }
+
+        await carregarDatasBloqueadasAdmin();
+    });
+
+    if (campoDataBloqueio) {
+        campoDataBloqueio.min = hojeISOAdmin();
+    }
+
+    carregarDatasBloqueadasAdmin();
+
+
+
+
+
+
+    /* =========================================================
+       LIMITE DE PEDIDOS POR DIA DA SEMANA
+    ========================================================= */
+
+    const formLimitesSemana =
+        document.getElementById("formLimitesSemana");
+
+    const resumoLimitesSemana =
+        document.getElementById("resumoLimitesSemana");
+
+    const camposLimitesSemana = {
+        1: document.getElementById("limiteSegunda"),
+        2: document.getElementById("limiteTerca"),
+        3: document.getElementById("limiteQuarta"),
+        4: document.getElementById("limiteQuinta"),
+        5: document.getElementById("limiteSexta"),
+        6: document.getElementById("limiteSabado"),
+        7: document.getElementById("limiteDomingo")
+    };
+
+    const nomesDiasSemanaAdmin = {
+        1: "Segunda-feira",
+        2: "Terça-feira",
+        3: "Quarta-feira",
+        4: "Quinta-feira",
+        5: "Sexta-feira",
+        6: "Sábado",
+        7: "Domingo"
+    };
+
+    async function carregarLimitesSemanaAdmin() {
+        if (!formLimitesSemana) return;
+
+        const { data, error } = await supabasePainel
+            .from("limites_pedidos_semana")
+            .select("dia_semana,limite")
+            .order("dia_semana", { ascending: true });
+
+        if (error) {
+            console.error("Erro ao carregar limites da semana:", error);
+
+            if (resumoLimitesSemana) {
+                resumoLimitesSemana.innerHTML =
+                    "<strong>Não foi possível carregar os limites.</strong> Execute a SQL desta etapa no Supabase.";
+            }
+
+            return;
+        }
+
+        const mapa = new Map(
+            (data || []).map(item => [
+                Number(item.dia_semana),
+                Number(item.limite)
+            ])
+        );
+
+        for (let dia = 1; dia <= 7; dia++) {
+            if (camposLimitesSemana[dia]) {
+                camposLimitesSemana[dia].value =
+                    mapa.has(dia) ? mapa.get(dia) : 5;
+            }
+        }
+
+        if (resumoLimitesSemana) {
+            resumoLimitesSemana.innerHTML =
+                "<strong>Configuração automática:</strong> esses limites serão usados em todas as semanas.";
+        }
+    }
+
+    formLimitesSemana?.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const registros = [];
+
+        for (let dia = 1; dia <= 7; dia++) {
+            const limite =
+                Number(camposLimitesSemana[dia]?.value);
+
+            if (!Number.isInteger(limite) || limite < 0) {
+                alert(`Informe um limite válido para ${nomesDiasSemanaAdmin[dia]}.`);
+                camposLimitesSemana[dia]?.focus();
+                return;
+            }
+
+            registros.push({
+                dia_semana: dia,
+                limite
+            });
+        }
+
+        const botao =
+            formLimitesSemana.querySelector('button[type="submit"]');
+
+        const textoOriginal =
+            botao?.textContent || "Salvar limites";
+
+        if (botao) {
+            botao.disabled = true;
+            botao.textContent = "Salvando...";
+        }
+
+        const { error } = await supabasePainel
+            .from("limites_pedidos_semana")
+            .upsert(registros, {
+                onConflict: "dia_semana"
+            });
+
+        if (botao) {
+            botao.disabled = false;
+            botao.textContent = textoOriginal;
+        }
+
+        if (error) {
+            console.error("Erro ao salvar limites da semana:", error);
+            alert("Não foi possível salvar os limites.");
+            return;
+        }
+
+        if (resumoLimitesSemana) {
+            resumoLimitesSemana.innerHTML =
+                "<strong>Limites salvos com sucesso.</strong> A configuração já está valendo para as próximas datas.";
+        }
+    });
+
+    carregarLimitesSemanaAdmin();
+
+
+    /* =========================================================
+       HORÁRIO DE RETIRADA — INTERVALO EDITÁVEL
+       Ex.: 07:00 até 18:00
+    ========================================================= */
+
+    const formIntervaloRetirada =
+        document.getElementById("formIntervaloRetirada");
+
+    const campoHorarioRetiradaInicio =
+        document.getElementById("horarioRetiradaInicio");
+
+    const campoHorarioRetiradaFim =
+        document.getElementById("horarioRetiradaFim");
+
+    const resumoIntervaloRetirada =
+        document.getElementById("resumoIntervaloRetirada");
+
+    function formatarHorarioAdmin(valor) {
+        return String(valor || "").slice(0, 5);
+    }
+
+    function atualizarResumoIntervaloRetirada(inicio, fim) {
+        if (!resumoIntervaloRetirada) return;
+
+        if (!inicio || !fim) {
+            resumoIntervaloRetirada.innerHTML = `
+                <span>Nenhum período configurado.</span>
+                <strong>Defina o horário inicial e final acima.</strong>
+            `;
+            return;
+        }
+
+        resumoIntervaloRetirada.innerHTML = `
+            <span>HORÁRIO DISPONÍVEL PARA RETIRADA</span>
+            <strong>
+                ${formatarHorarioAdmin(inicio)}
+                <small>às</small>
+                ${formatarHorarioAdmin(fim)}
+            </strong>
+            <p>
+                O cliente poderá escolher qualquer horário dentro desse período.
+            </p>
+        `;
+    }
+
+    async function carregarIntervaloRetiradaAdmin() {
+        if (resumoIntervaloRetirada) {
+            resumoIntervaloRetirada.textContent =
+                "Carregando horário configurado...";
+        }
+
+        const { data, error } = await supabasePainel
+            .from("configuracao_retirada")
+            .select("id,hora_inicio,hora_fim")
+            .eq("id", 1)
+            .maybeSingle();
+
+        if (error) {
+            console.error(
+                "Erro ao carregar horário de retirada:",
+                error
+            );
+
+            if (resumoIntervaloRetirada) {
+                resumoIntervaloRetirada.innerHTML = `
+                    <span>Não foi possível carregar o horário.</span>
+                    <strong>
+                        Confira se o SQL desta etapa foi executado no Supabase.
+                    </strong>
+                `;
+            }
+
+            return;
+        }
+
+        const inicio =
+            formatarHorarioAdmin(data?.hora_inicio);
+
+        const fim =
+            formatarHorarioAdmin(data?.hora_fim);
+
+        if (campoHorarioRetiradaInicio) {
+            campoHorarioRetiradaInicio.value =
+                inicio || "";
+        }
+
+        if (campoHorarioRetiradaFim) {
+            campoHorarioRetiradaFim.value =
+                fim || "";
+        }
+
+        atualizarResumoIntervaloRetirada(
+            inicio,
+            fim
+        );
+    }
+
+    formIntervaloRetirada?.addEventListener(
+        "submit",
+        async function(event) {
+            event.preventDefault();
+
+            const inicio =
+                campoHorarioRetiradaInicio?.value || "";
+
+            const fim =
+                campoHorarioRetiradaFim?.value || "";
+
+            if (!inicio || !fim) {
+                alert(
+                    "Informe o horário inicial e o horário final."
+                );
+                return;
+            }
+
+            if (inicio >= fim) {
+                alert(
+                    "O horário final precisa ser maior que o horário inicial."
+                );
+                campoHorarioRetiradaFim?.focus();
+                return;
+            }
+
+            const botao =
+                formIntervaloRetirada.querySelector(
+                    'button[type="submit"]'
+                );
+
+            const textoOriginal =
+                botao?.textContent ||
+                "Salvar horário";
+
+            if (botao) {
+                botao.disabled = true;
+                botao.textContent = "Salvando...";
+            }
+
+            const { error } = await supabasePainel
+                .from("configuracao_retirada")
+                .upsert(
+                    {
+                        id: 1,
+                        hora_inicio: inicio,
+                        hora_fim: fim
+                    },
+                    {
+                        onConflict: "id"
+                    }
+                );
+
+            if (botao) {
+                botao.disabled = false;
+                botao.textContent =
+                    textoOriginal;
+            }
+
+            if (error) {
+                console.error(
+                    "Erro ao salvar horário de retirada:",
+                    error
+                );
+
+                alert(
+                    "Não foi possível salvar o horário de retirada."
+                );
+                return;
+            }
+
+            atualizarResumoIntervaloRetirada(
+                inicio,
+                fim
+            );
+        }
+    );
+
+    carregarIntervaloRetiradaAdmin();
+
+
+        const BUCKET_IMAGENS_FATIAS = "inspiracoes";
     const TIPOS_IMAGEM_FATIA = [
         "image/jpeg",
         "image/png",
@@ -2291,7 +5864,7 @@
             `;
         } else {
             preview.innerHTML = `
-                <span>🍰</span>
+                <span>🛍️</span>
                 <p>Nenhuma foto selecionada</p>
             `;
         }
@@ -2328,8 +5901,201 @@
     const mensagemRegra = document.getElementById("mensagemRegra");
 
     let fatiasCarregadas = [];
+
+
+    const modalReporEstoque =
+        document.getElementById("modalReporEstoque");
+
+    const formReporEstoque =
+        document.getElementById("formReporEstoque");
+
+    const mensagemReporEstoque =
+        document.getElementById("mensagemReporEstoque");
+
+
+    function abrirModalReporEstoque(fatia) {
+
+        document.getElementById("produtoIdReporEstoque").value =
+            fatia.id;
+
+        document.getElementById("nomeProdutoReporEstoque").textContent =
+            fatia.nome || "Produto";
+
+        document.getElementById("estoqueAtualReporEstoque").textContent =
+            Number(fatia.estoque || 0);
+
+        document.getElementById("novoEstoqueProduto").value =
+            Number(fatia.estoque || 0);
+
+        mensagemReporEstoque.textContent = "";
+        mensagemReporEstoque.className = "mensagem-admin";
+
+        modalReporEstoque.classList.add("aberto");
+
+        setTimeout(
+            function() {
+                document.getElementById("novoEstoqueProduto").focus();
+                document.getElementById("novoEstoqueProduto").select();
+            },
+            80
+        );
+    }
+
+
+    function fecharModalReporEstoque() {
+        modalReporEstoque.classList.remove("aberto");
+    }
+
+
+    if (
+        modalReporEstoque &&
+        formReporEstoque
+    ) {
+
+        document.getElementById("btnFecharReporEstoque")
+            ?.addEventListener(
+                "click",
+                fecharModalReporEstoque
+            );
+
+
+        document.getElementById("btnCancelarReporEstoque")
+            ?.addEventListener(
+                "click",
+                fecharModalReporEstoque
+            );
+
+
+        modalReporEstoque.addEventListener(
+            "click",
+            function(event) {
+                if (event.target === modalReporEstoque) {
+                    fecharModalReporEstoque();
+                }
+            }
+        );
+
+
+        formReporEstoque.addEventListener(
+            "submit",
+            async function(event) {
+
+            event.preventDefault();
+
+            const id =
+                document.getElementById("produtoIdReporEstoque").value;
+
+            const novoEstoque =
+                Number(
+                    document.getElementById("novoEstoqueProduto").value
+                );
+
+            if (
+                !Number.isInteger(novoEstoque) ||
+                novoEstoque < 0
+            ) {
+                mensagemReporEstoque.textContent =
+                    "Informe uma quantidade válida, sem casas decimais.";
+
+                mensagemReporEstoque.className =
+                    "mensagem-admin erro";
+
+                return;
+            }
+
+            mensagemReporEstoque.textContent =
+                "Salvando estoque...";
+
+            mensagemReporEstoque.className =
+                "mensagem-admin";
+
+            try {
+
+                const { error } =
+                    await supabasePainel
+                        .from("produtos_pronta_entrega")
+                        .update({
+                            estoque: novoEstoque
+                        })
+                        .eq("id", id);
+
+                if (error) {
+                    throw error;
+                }
+
+                mensagemReporEstoque.textContent =
+                    "Estoque atualizado com sucesso.";
+
+                mensagemReporEstoque.className =
+                    "mensagem-admin sucesso";
+
+                await carregarFatias();
+
+                setTimeout(
+                    fecharModalReporEstoque,
+                    450
+                );
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                mensagemReporEstoque.textContent =
+                    erro?.message ||
+                    "Não foi possível atualizar o estoque.";
+
+                mensagemReporEstoque.className =
+                    "mensagem-admin erro";
+            }
+        }
+    );
+
+    }
+
+    /* =========================================================
+       PERSISTÊNCIA DA CATEGORIA ADMINISTRATIVA DE ENCOMENDAS
+       Mantém Bolo, Docinhos, Cupcakes, Caseirinhos ou Kit Festa
+       após atualizar a página.
+    ========================================================= */
+
+    const CHAVE_PRODUTO_ENCOMENDA_PAINEL =
+        "goreteFestasProdutoEncomendaPainel";
+
+    const PRODUTOS_ENCOMENDA_PAINEL_VALIDOS = [
+        "bolo",
+        "docinhos",
+        "cupcakes",
+        "caseirinhos",
+        "kit"
+    ];
+
+    function obterProdutoEncomendaPainelSalvo() {
+        const salvo =
+            localStorage.getItem(
+                CHAVE_PRODUTO_ENCOMENDA_PAINEL
+            );
+
+        return PRODUTOS_ENCOMENDA_PAINEL_VALIDOS.includes(salvo)
+            ? salvo
+            : "bolo";
+    }
+
+    function salvarProdutoEncomendaPainel(tipo) {
+        if (
+            !PRODUTOS_ENCOMENDA_PAINEL_VALIDOS.includes(tipo)
+        ) {
+            return;
+        }
+
+        localStorage.setItem(
+            CHAVE_PRODUTO_ENCOMENDA_PAINEL,
+            tipo
+        );
+    }
+
     let opcoesCarregadas = [];
-    let produtoEncomendaSelecionado = "bolo";
+    let produtoEncomendaSelecionado =
+        obterProdutoEncomendaPainelSalvo();
     let regrasCarregadas = [];
 
     let kitsFestaCarregados = [];
@@ -2347,36 +6113,109 @@
         return true;
     }
 
-    document.querySelectorAll(".painel-aba").forEach(function(botao) {
-        botao.addEventListener("click", function() {
-            document.querySelectorAll(".painel-aba").forEach(function(item) {
-                item.classList.remove("ativa");
+    /* =========================================================
+       PERSISTÊNCIA DE NAVEGAÇÃO DO PAINEL
+       Mantém a aba atual após F5 / Ctrl+F5.
+    ========================================================= */
+
+    const CHAVE_ABA_PAINEL =
+        "goreteFestasAbaPainelAtual";
+
+    const ABAS_PAINEL_VALIDAS = [
+        "secaoFatias",
+        "secaoEncomendas",
+        "secaoPedidos"
+    ];
+
+    function obterAbaPainelSalva() {
+        const salva =
+            localStorage.getItem(
+                CHAVE_ABA_PAINEL
+            );
+
+        return ABAS_PAINEL_VALIDAS.includes(salva)
+            ? salva
+            : "secaoFatias";
+    }
+
+    function salvarAbaPainel(alvo) {
+        if (!ABAS_PAINEL_VALIDAS.includes(alvo)) {
+            return;
+        }
+
+        localStorage.setItem(
+            CHAVE_ABA_PAINEL,
+            alvo
+        );
+    }
+
+    function ativarAbaPainel(
+        alvo,
+        salvar = true
+    ) {
+        if (!ABAS_PAINEL_VALIDAS.includes(alvo)) {
+            alvo = "secaoFatias";
+        }
+
+        document
+            .querySelectorAll(".painel-aba")
+            .forEach(function(item) {
+                item.classList.toggle(
+                    "ativa",
+                    item.dataset.alvo === alvo
+                );
             });
 
-            document.querySelectorAll(".painel-secao").forEach(function(secao) {
-                secao.classList.remove("ativa");
+        document
+            .querySelectorAll(".painel-secao")
+            .forEach(function(secao) {
+                secao.classList.toggle(
+                    "ativa",
+                    secao.id === alvo
+                );
             });
 
-            botao.classList.add("ativa");
-            document.getElementById(botao.dataset.alvo).classList.add("ativa");
+        if (salvar) {
+            salvarAbaPainel(alvo);
+        }
 
-            if (botao.dataset.alvo === "secaoPedidos") {
-                carregarPedidosAdmin();
-            }
+        if (alvo === "secaoPedidos") {
+            carregarPedidosAdmin();
+        }
+
+        if (alvo === "secaoEncomendas") {
+            carregarAgendaEncomendas();
+        }
+    }
+
+    document
+        .querySelectorAll(".painel-aba")
+        .forEach(function(botao) {
+
+            botao.addEventListener(
+                "click",
+                function() {
+                    ativarAbaPainel(
+                        botao.dataset.alvo,
+                        true
+                    );
+                }
+            );
+
         });
-    });
 
     async function carregarFatias() {
         listaFatias.innerHTML = '<p class="painel-carregando">Carregando produtos...</p>';
 
         const { data, error } = await supabasePainel
-            .from("fatias")
+            .from("produtos_pronta_entrega")
             .select("*")
+            .order("ordem", { ascending: true })
             .order("created_at", { ascending: false });
 
         if (error) {
             console.error(error);
-            listaFatias.innerHTML = '<p class="painel-vazio">Não foi possível carregar as fatias.</p>';
+            listaFatias.innerHTML = '<p class="painel-vazio">Não foi possível carregar os produtos de pronta entrega.</p>';
             return;
         }
 
@@ -2386,9 +6225,9 @@
         if (fatiasCarregadas.length === 0) {
             listaFatias.innerHTML = `
                 <div class="painel-vazio">
-                    <span>🍰</span>
-                    <h3>Nenhuma fatia cadastrada</h3>
-                    <p>Clique em “Nova fatia” para cadastrar o primeiro produto.</p>
+                    <span>✨</span>
+                    <h3>Nenhum produto cadastrado</h3>
+                    <p>Clique em “Novo produto” para cadastrar o primeiro item de pronta entrega.</p>
                 </div>
             `;
             return;
@@ -2402,16 +6241,63 @@
 
             const imagem = fatia.imagem_url
                 ? `<img src="${escaparHtml(fatia.imagem_url)}" alt="${escaparHtml(fatia.nome)}">`
-                : '<div class="fatia-admin-sem-foto">🍰</div>';
+                : '<div class="fatia-admin-sem-foto">✨</div>';
 
             card.innerHTML = `
                 <div class="fatia-admin-imagem">${imagem}</div>
 
                 <div class="fatia-admin-info">
                     <div class="fatia-admin-status">
-                        <span class="${fatia.ativo ? "status-ativo" : "status-inativo"}">
-                            ${fatia.ativo ? "Disponível" : "Indisponível"}
+
+                        ${
+                            Number(fatia.estoque || 0) > 0
+                                ? `
+                                    <span class="${fatia.ativo ? "status-ativo" : "status-inativo"}">
+                                        ${fatia.ativo ? "Disponível" : "Indisponível"}
+                                    </span>
+                                `
+                                : `
+                                    <span class="status-inativo status-esgotado-admin">
+                                        Esgotado
+                                    </span>
+                                `
+                        }
+
+                        <span class="produto-pronta-entrega-categoria">
+                            ${escaparHtml(fatia.categoria || "Produto")}
                         </span>
+
+                        <div class="estoque-admin-resumo">
+                            ${
+                                Number(fatia.estoque || 0) > 0
+                                    ? `
+                                        <span
+                                            class="${
+                                                Number(fatia.estoque || 0) <= 3
+                                                    ? "estoque-admin-baixo"
+                                                    : "estoque-admin-disponivel"
+                                            }"
+                                        >
+                                            ${
+                                                Number(fatia.estoque || 0) <= 3
+                                                    ? `⚠ Apenas ${Number(fatia.estoque || 0)} unidade${Number(fatia.estoque || 0) === 1 ? "" : "s"}`
+                                                    : `${Number(fatia.estoque || 0)} unidade${Number(fatia.estoque || 0) === 1 ? "" : "s"} disponíveis`
+                                            }
+                                        </span>
+                                    `
+                                    : ""
+                            }
+
+                            <button
+                                type="button"
+                                class="btn-repor-estoque"
+                                data-acao="repor-estoque"
+                                data-id="${fatia.id}"
+                            >
+                                Repor estoque
+                            </button>
+
+                        </div>
                     </div>
 
                     <h3>${escaparHtml(fatia.nome)}</h3>
@@ -2430,7 +6316,7 @@
                         data-id="${fatia.id}"
                         data-status="${!fatia.ativo}"
                     >
-                        ${fatia.ativo ? "Desativar" : "Ativar"}
+                        ${fatia.ativo ? "Ocultar do site" : "Mostrar no site"}
                     </button>
 
                     <button
@@ -2451,20 +6337,31 @@
 
     function atualizarIndicadoresFatias(fatias) {
         const total = fatias.length;
-        const ativas = fatias.filter(fatia => fatia.ativo).length;
+
+        const disponiveis =
+            fatias.filter(
+                fatia =>
+                    fatia.ativo &&
+                    Number(fatia.estoque || 0) > 0
+            ).length;
+
+        const indisponiveis =
+            total - disponiveis;
 
         document.getElementById("totalFatias").textContent = total;
-        document.getElementById("totalAtivas").textContent = ativas;
-        document.getElementById("totalInativas").textContent = total - ativas;
+        document.getElementById("totalAtivas").textContent = disponiveis;
+        document.getElementById("totalInativas").textContent = indisponiveis;
     }
 
     function abrirNovaFatia() {
         formFatia.reset();
         document.getElementById("fatiaId").value = "";
+        document.getElementById("categoriaFatia").value = "";
+        document.getElementById("estoqueFatia").value = "";
         document.getElementById("imagemFatiaAtual").value = "";
         document.getElementById("arquivoImagemFatia").value = "";
         document.getElementById("ativoFatia").checked = true;
-        document.getElementById("tituloModalFatia").textContent = "Nova fatia";
+        document.getElementById("tituloModalFatia").textContent = "Novo produto";
         atualizarPreviewImagemFatia("");
         mensagemFatia.textContent = "";
         mensagemFatia.className = "mensagem-admin";
@@ -2474,12 +6371,17 @@
     function editarFatia(fatia) {
         document.getElementById("fatiaId").value = fatia.id;
         document.getElementById("nomeFatia").value = fatia.nome || "";
+        document.getElementById("categoriaFatia").value = fatia.categoria || "";
         document.getElementById("descricaoFatia").value = fatia.descricao || "";
         document.getElementById("precoFatia").value = fatia.preco || "";
+        document.getElementById("estoqueFatia").value =
+            Number.isFinite(Number(fatia.estoque))
+                ? Number(fatia.estoque)
+                : 0;
         document.getElementById("imagemFatiaAtual").value = fatia.imagem_url || "";
         document.getElementById("arquivoImagemFatia").value = "";
         document.getElementById("ativoFatia").checked = !!fatia.ativo;
-        document.getElementById("tituloModalFatia").textContent = "Editar fatia";
+        document.getElementById("tituloModalFatia").textContent = "Editar produto";
         atualizarPreviewImagemFatia(fatia.imagem_url || "");
         mensagemFatia.textContent = "";
         mensagemFatia.className = "mensagem-admin";
@@ -2507,6 +6409,20 @@
         mensagemFatia.className = "mensagem-admin";
 
         try {
+            const estoqueInformado =
+                Number(
+                    document.getElementById("estoqueFatia").value
+                );
+
+            if (
+                !Number.isInteger(estoqueInformado) ||
+                estoqueInformado < 0
+            ) {
+                throw new Error(
+                    "Informe uma quantidade disponível válida, sem casas decimais."
+                );
+            }
+
             if (arquivo) {
                 imagemUrl =
                     await enviarImagemFatiaParaStorage(arquivo);
@@ -2516,11 +6432,23 @@
                 nome:
                     document.getElementById("nomeFatia").value.trim(),
 
+                categoria:
+                    document.getElementById("categoriaFatia").value.trim(),
+
                 descricao:
                     document.getElementById("descricaoFatia").value.trim(),
 
                 preco:
                     Number(document.getElementById("precoFatia").value),
+
+                estoque:
+                    Math.max(
+                        0,
+                        parseInt(
+                            document.getElementById("estoqueFatia").value || "0",
+                            10
+                        )
+                    ),
 
                 imagem_url:
                     imagemUrl,
@@ -2534,13 +6462,13 @@
             if (id) {
                 resultado =
                     await supabasePainel
-                        .from("fatias")
+                        .from("produtos_pronta_entrega")
                         .update(produto)
                         .eq("id", id);
             } else {
                 resultado =
                     await supabasePainel
-                        .from("fatias")
+                        .from("produtos_pronta_entrega")
                         .insert(produto);
             }
 
@@ -2566,7 +6494,7 @@
 
             mensagemFatia.textContent =
                 erro?.message ||
-                "Não foi possível salvar a fatia.";
+                "Não foi possível salvar o produto.";
 
             mensagemFatia.className =
                 "mensagem-admin erro";
@@ -2603,7 +6531,7 @@
 
     async function alterarStatusFatia(id, novoStatus) {
         const { error } = await supabasePainel
-            .from("fatias")
+            .from("produtos_pronta_entrega")
             .update({ ativo: novoStatus })
             .eq("id", id);
 
@@ -2624,7 +6552,7 @@
         }
 
         const { error } = await supabasePainel
-            .from("fatias")
+            .from("produtos_pronta_entrega")
             .delete()
             .eq("id", id);
 
@@ -2649,6 +6577,12 @@
 
         if (acao === "editar-fatia") {
             editarFatia(card._dadosFatia);
+            return;
+        }
+
+        if (acao === "repor-estoque") {
+            abrirModalReporEstoque(card._dadosFatia);
+            return;
         }
 
         if (acao === "status-fatia") {
@@ -2979,7 +6913,14 @@
     }
 
     function selecionarProdutoEncomenda(tipo) {
+        if (
+            !PRODUTOS_ENCOMENDA_PAINEL_VALIDOS.includes(tipo)
+        ) {
+            tipo = "bolo";
+        }
+
         produtoEncomendaSelecionado = tipo;
+        salvarProdutoEncomendaPainel(tipo);
 
         document.querySelectorAll(".admin-produto-tab").forEach(function(botao) {
             botao.classList.toggle("ativo", botao.dataset.produto === tipo);
@@ -3873,6 +7814,1051 @@
 
 
 
+
+    /* =========================================================
+       AGENDA DE RETIRADAS
+    ========================================================= */
+
+    let pedidosAgendaCarregados = [];
+    let filtroAgendaAtual = "hoje";
+
+    const listaAgendaEncomendas =
+        document.getElementById("listaAgendaEncomendas");
+
+    function dataLocalISO(data) {
+        const ano = data.getFullYear();
+        const mes = String(data.getMonth() + 1).padStart(2, "0");
+        const dia = String(data.getDate()).padStart(2, "0");
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function somarDiasAgenda(data, quantidade) {
+        const novaData =
+            new Date(
+                data.getFullYear(),
+                data.getMonth(),
+                data.getDate()
+            );
+
+        novaData.setDate(
+            novaData.getDate() + quantidade
+        );
+
+        return novaData;
+    }
+
+    function formatarDataAgenda(dataISO) {
+        if (!dataISO) {
+            return "";
+        }
+
+        const partes =
+            String(dataISO)
+                .split("-")
+                .map(Number);
+
+        if (partes.length !== 3) {
+            return dataISO;
+        }
+
+        const [ano, mes, dia] =
+            partes;
+
+        const data =
+            new Date(
+                ano,
+                mes - 1,
+                dia
+            );
+
+        return data.toLocaleDateString(
+            "pt-BR",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+    }
+
+    function capitalizarAgenda(texto) {
+        const valor =
+            String(texto || "");
+
+        return valor
+            ? valor.charAt(0).toUpperCase() + valor.slice(1)
+            : "";
+    }
+
+
+    function diferencaDiasAgenda(dataISO) {
+        if (!dataISO) {
+            return null;
+        }
+
+        const [ano, mes, dia] =
+            String(dataISO)
+                .split("-")
+                .map(Number);
+
+        const alvo =
+            new Date(
+                ano,
+                mes - 1,
+                dia
+            );
+
+        const hoje =
+            new Date();
+
+        const inicioHoje =
+            new Date(
+                hoje.getFullYear(),
+                hoje.getMonth(),
+                hoje.getDate()
+            );
+
+        return Math.round(
+            (
+                alvo.getTime() -
+                inicioHoje.getTime()
+            ) / 86400000
+        );
+    }
+
+    function textoPrazoRetiradaAgenda(dataISO) {
+        const dias =
+            diferencaDiasAgenda(
+                dataISO
+            );
+
+        if (dias === null) {
+            return "";
+        }
+
+        if (dias === 0) {
+            return "Retirada hoje";
+        }
+
+        if (dias === 1) {
+            return "Retirada amanhã";
+        }
+
+        if (dias > 1) {
+            return `Faltam ${dias} dias`;
+        }
+
+        if (dias === -1) {
+            return "Retirada ontem";
+        }
+
+        return `Há ${Math.abs(dias)} dias`;
+    }
+
+    function classePrazoRetiradaAgenda(dataISO) {
+        const dias =
+            diferencaDiasAgenda(
+                dataISO
+            );
+
+        if (dias === 0) {
+            return "agenda-prazo-hoje";
+        }
+
+        if (dias === 1) {
+            return "agenda-prazo-amanha";
+        }
+
+        if (
+            dias !== null &&
+            dias > 1 &&
+            dias <= 3
+        ) {
+            return "agenda-prazo-proximo";
+        }
+
+        return "agenda-prazo-normal";
+    }
+
+    function resumoItemAgenda(item) {
+        const detalhes =
+            item?.detalhes &&
+            typeof item.detalhes === "object"
+                ? item.detalhes
+                : {};
+
+        const partes = [];
+
+        const adicionar =
+            (rotulo, valor) => {
+                if (
+                    valor === null ||
+                    valor === undefined ||
+                    valor === "" ||
+                    (Array.isArray(valor) && !valor.length)
+                ) {
+                    return;
+                }
+
+                const texto =
+                    Array.isArray(valor)
+                        ? valor.join(", ")
+                        : String(valor);
+
+                partes.push(
+                    `${rotulo}: ${texto}`
+                );
+            };
+
+        const tipo =
+            String(
+                item?.tipo_produto ||
+                ""
+            ).toLowerCase();
+
+        if (tipo.includes("bolo")) {
+            adicionar(
+                "Tamanho",
+                detalhes.tamanho
+            );
+
+            adicionar(
+                "Massa",
+                detalhes.massa
+            );
+
+            adicionar(
+                "Recheio",
+                detalhes.recheios ||
+                detalhes.recheio
+            );
+        } else if (
+            tipo.includes("docinho") ||
+            tipo.includes("cupcake")
+        ) {
+            adicionar(
+                "Sabores",
+                detalhes.sabores
+            );
+
+            if (
+                Number(item?.quantidade || 1) > 1
+            ) {
+                adicionar(
+                    "Qtd.",
+                    Number(item.quantidade)
+                );
+            }
+        } else if (
+            tipo.includes("caseirinho")
+        ) {
+            adicionar(
+                "Sabor",
+                detalhes.sabor
+            );
+
+            adicionar(
+                "Tamanho",
+                detalhes.tamanho
+            );
+        } else if (
+            tipo.includes("kit")
+        ) {
+            adicionar(
+                "Composição",
+                detalhes.composicao
+            );
+        } else if (
+            Number(item?.quantidade || 1) > 1
+        ) {
+            adicionar(
+                "Qtd.",
+                Number(item.quantidade)
+            );
+        }
+
+        return partes
+            .slice(0, 3)
+            .join(" • ");
+    }
+
+    function obterRetiradasDosPedidos(pedidos) {
+        const mapaRetiradas =
+            new Map();
+
+        (pedidos || []).forEach(
+            pedido => {
+
+                const itens =
+                    Array.isArray(
+                        pedido.itens_pedido
+                    )
+                        ? pedido.itens_pedido
+                        : [];
+
+                itens.forEach(
+                    item => {
+
+                        if (!item.data_retirada) {
+                            return;
+                        }
+
+                        const horario =
+                            item.horario_retirada
+                                ? String(
+                                    item.horario_retirada
+                                  ).slice(0, 5)
+                                : "";
+
+                        const chave =
+                            [
+                                pedido.id,
+                                item.data_retirada,
+                                horario
+                            ].join("|");
+
+                        if (!mapaRetiradas.has(chave)) {
+                            mapaRetiradas.set(
+                                chave,
+                                {
+                                    pedidoId:
+                                        pedido.id,
+
+                                    codigo:
+                                        pedido.codigo ||
+                                        `Pedido ${pedido.id}`,
+
+                                    clienteNome:
+                                        pedido.cliente_nome ||
+                                        "Cliente",
+
+                                    clienteWhatsapp:
+                                        pedido.cliente_whatsapp ||
+                                        "",
+
+                                    status:
+                                        pedido.status ||
+                                        "novo",
+
+                                    valorTotal:
+                                        Number(
+                                            pedido.valor_total ||
+                                            0
+                                        ),
+
+                                    valorPago:
+                                        Number(
+                                            pedido.valor_pago ||
+                                            0
+                                        ),
+
+                                    dataRetirada:
+                                        item.data_retirada,
+
+                                    horarioRetirada:
+                                        horario,
+
+                                    produtos: []
+                                }
+                            );
+                        }
+
+                        mapaRetiradas
+                            .get(chave)
+                            .produtos
+                            .push({
+                                nome:
+                                    item.nome_produto ||
+                                    "Encomenda",
+
+                                tipo:
+                                    item.tipo_produto ||
+                                    "encomenda",
+
+                                quantidade:
+                                    Number(
+                                        item.quantidade ||
+                                        1
+                                    ),
+
+                                resumo:
+                                    resumoItemAgenda(
+                                        item
+                                    )
+                            });
+                    }
+                );
+            }
+        );
+
+        return Array.from(
+            mapaRetiradas.values()
+        ).sort(
+            (a, b) => {
+
+                const dataA =
+                    `${a.dataRetirada}T${a.horarioRetirada || "23:59"}`;
+
+                const dataB =
+                    `${b.dataRetirada}T${b.horarioRetirada || "23:59"}`;
+
+                return dataA.localeCompare(
+                    dataB
+                );
+            }
+        );
+    }
+
+    function filtrarRetiradasAgenda(retiradas) {
+        const hoje =
+            new Date();
+
+        const hojeISO =
+            dataLocalISO(hoje);
+
+        const amanhaISO =
+            dataLocalISO(
+                somarDiasAgenda(
+                    hoje,
+                    1
+                )
+            );
+
+        const limite7DiasISO =
+            dataLocalISO(
+                somarDiasAgenda(
+                    hoje,
+                    6
+                )
+            );
+
+        if (filtroAgendaAtual === "hoje") {
+            return retiradas.filter(
+                item =>
+                    item.dataRetirada ===
+                    hojeISO
+            );
+        }
+
+        if (filtroAgendaAtual === "amanha") {
+            return retiradas.filter(
+                item =>
+                    item.dataRetirada ===
+                    amanhaISO
+            );
+        }
+
+        if (filtroAgendaAtual === "7dias") {
+            return retiradas.filter(
+                item =>
+                    item.dataRetirada >=
+                    hojeISO &&
+                    item.dataRetirada <=
+                    limite7DiasISO
+            );
+        }
+
+        return retiradas.filter(
+            item =>
+                item.dataRetirada >=
+                hojeISO
+        );
+    }
+
+    function atualizarResumoAgenda(retiradas) {
+        const hoje =
+            new Date();
+
+        const hojeISO =
+            dataLocalISO(hoje);
+
+        const amanhaISO =
+            dataLocalISO(
+                somarDiasAgenda(
+                    hoje,
+                    1
+                )
+            );
+
+        const limite7DiasISO =
+            dataLocalISO(
+                somarDiasAgenda(
+                    hoje,
+                    6
+                )
+            );
+
+        const hojeTotal =
+            retiradas.filter(
+                item =>
+                    item.dataRetirada ===
+                    hojeISO
+            ).length;
+
+        const amanhaTotal =
+            retiradas.filter(
+                item =>
+                    item.dataRetirada ===
+                    amanhaISO
+            ).length;
+
+        const seteDiasTotal =
+            retiradas.filter(
+                item =>
+                    item.dataRetirada >=
+                    hojeISO &&
+                    item.dataRetirada <=
+                    limite7DiasISO
+            ).length;
+
+        const proximasTotal =
+            retiradas.filter(
+                item =>
+                    item.dataRetirada >=
+                    hojeISO
+            ).length;
+
+        document.getElementById(
+            "agendaTotalHoje"
+        ).textContent =
+            hojeTotal;
+
+        document.getElementById(
+            "agendaTotalAmanha"
+        ).textContent =
+            amanhaTotal;
+
+        document.getElementById(
+            "agendaTotal7Dias"
+        ).textContent =
+            seteDiasTotal;
+
+        document.getElementById(
+            "agendaTotalProximas"
+        ).textContent =
+            proximasTotal;
+    }
+
+    function atualizarTituloFiltroAgenda() {
+        const rotulos = {
+            hoje: [
+                "RETIRADAS DE HOJE",
+                "Agenda do dia"
+            ],
+            amanha: [
+                "RETIRADAS DE AMANHÃ",
+                "Agenda de amanhã"
+            ],
+            "7dias": [
+                "PRÓXIMOS 7 DIAS",
+                "Agenda da semana"
+            ],
+            todas: [
+                "PRÓXIMAS RETIRADAS",
+                "Agenda completa"
+            ]
+        };
+
+        const [
+            titulo,
+            descricao
+        ] =
+            rotulos[filtroAgendaAtual] ||
+            rotulos.hoje;
+
+        document.getElementById(
+            "agendaFiltroTitulo"
+        ).textContent =
+            titulo;
+
+        document.getElementById(
+            "agendaFiltroDescricao"
+        ).textContent =
+            descricao;
+    }
+
+    function renderizarAgendaEncomendas() {
+        if (!listaAgendaEncomendas) {
+            return;
+        }
+
+        const retiradas =
+            obterRetiradasDosPedidos(
+                pedidosAgendaCarregados
+            );
+
+        atualizarResumoAgenda(
+            retiradas
+        );
+
+        atualizarTituloFiltroAgenda();
+
+        const filtradas =
+            filtrarRetiradasAgenda(
+                retiradas
+            );
+
+        if (!filtradas.length) {
+            listaAgendaEncomendas.innerHTML = `
+                <div class="agenda-vazia">
+                    <span>📅</span>
+                    <strong>
+                        Nenhuma retirada neste período
+                    </strong>
+                    <p>
+                        Quando houver encomendas com data de retirada,
+                        elas aparecerão automaticamente aqui.
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
+        const grupos =
+            filtradas.reduce(
+                (resultado, item) => {
+
+                    if (
+                        !resultado[
+                            item.dataRetirada
+                        ]
+                    ) {
+                        resultado[
+                            item.dataRetirada
+                        ] = [];
+                    }
+
+                    resultado[
+                        item.dataRetirada
+                    ].push(item);
+
+                    return resultado;
+                },
+                {}
+            );
+
+        listaAgendaEncomendas.innerHTML =
+            Object.entries(grupos)
+                .map(
+                    ([data, itens]) => {
+
+                        const linhas =
+                            itens.map(
+                                item => {
+
+                                    const confirmado =
+                                        normalizarStatusPedido(
+                                            item.status
+                                        ) ===
+                                        "confirmado";
+
+                                    const resumoProdutos =
+                                        item.produtos
+                                            .map(produto => `
+                                                <div class="agenda-produto-resumo">
+                                                    <strong>
+                                                        ${escaparHtml(produto.nome)}
+                                                    </strong>
+
+                                                    ${
+                                                        produto.resumo
+                                                            ? `
+                                                                <span>
+                                                                    ${escaparHtml(produto.resumo)}
+                                                                </span>
+                                                            `
+                                                            : (
+                                                                produto.quantidade > 1
+                                                                    ? `
+                                                                        <span>
+                                                                            ${produto.quantidade} unidades
+                                                                        </span>
+                                                                    `
+                                                                    : ""
+                                                            )
+                                                    }
+                                                </div>
+                                            `)
+                                            .join("");
+
+                                    return `
+                                        <article class="agenda-item">
+
+                                            <div class="agenda-item-horario">
+                                                <span>
+                                                    ${
+                                                        item.horarioRetirada ||
+                                                        "Sem horário"
+                                                    }
+                                                </span>
+                                            </div>
+
+                                            <div class="agenda-item-principal">
+
+                                                <div class="agenda-item-topo">
+
+                                                    <strong class="agenda-item-codigo">
+                                                        ${escaparHtml(item.codigo)}
+                                                    </strong>
+
+                                                    <span
+                                                        class="${
+                                                            confirmado
+                                                                ? "agenda-status-confirmado"
+                                                                : "agenda-status-recebido"
+                                                        }"
+                                                    >
+                                                        ${
+                                                            confirmado
+                                                                ? "Confirmado"
+                                                                : "Recebido"
+                                                        }
+                                                    </span>
+
+                                                </div>
+
+                                                <h5 class="agenda-item-cliente">
+                                                    ${escaparHtml(item.clienteNome)}
+                                                </h5>
+
+                                                ${
+                                                    (() => {
+                                                        const pagamento =
+                                                            dadosPagamentoPedido({
+                                                                valor_total:
+                                                                    item.valorTotal,
+
+                                                                valor_pago:
+                                                                    item.valorPago
+                                                            });
+
+                                                        const classe =
+                                                            pagamento.status === "pago"
+                                                                ? "pagamento-pago"
+                                                                : (
+                                                                    pagamento.status === "parcial"
+                                                                        ? "pagamento-parcial"
+                                                                        : "pagamento-nao-pago"
+                                                                );
+
+                                                        return `
+                                                            <div class="agenda-pagamento-linha">
+                                                                <span class="agenda-pagamento-status ${classe}">
+                                                                    ${pagamento.rotulo}
+                                                                </span>
+
+                                                                ${
+                                                                    pagamento.status !== "pago"
+                                                                        ? `
+                                                                            <small>
+                                                                                Falta ${formatarMoeda(pagamento.falta)}
+                                                                            </small>
+                                                                        `
+                                                                        : ""
+                                                                }
+                                                            </div>
+                                                        `;
+                                                    })()
+                                                }
+
+                                                <div class="agenda-produtos-resumo">
+                                                    ${resumoProdutos}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="agenda-item-acoes">
+
+                                                ${
+                                                    item.clienteWhatsapp
+                                                        ? `
+                                                            <a
+                                                                href="https://wa.me/55${String(item.clienteWhatsapp).replace(/\D/g, "")}"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                WhatsApp
+                                                            </a>
+                                                        `
+                                                        : ""
+                                                }
+
+                                                <button
+                                                    type="button"
+                                                    data-agenda-pedido-id="${item.pedidoId}"
+                                                >
+                                                    Ver pedido
+                                                </button>
+
+                                            </div>
+
+                                        </article>
+                                    `;
+                                }
+                            ).join("");
+
+                        const prazoRetirada =
+                            textoPrazoRetiradaAgenda(
+                                data
+                            );
+
+                        const classePrazo =
+                            classePrazoRetiradaAgenda(
+                                data
+                            );
+
+                        return `
+                            <section class="agenda-dia ${classePrazo}">
+
+                                <div class="agenda-dia-topo agenda-dia-topo-compacto">
+
+                                    <div class="agenda-dia-identificacao">
+                                        <span>RETIRADA</span>
+
+                                        <div class="agenda-dia-linha-principal">
+                                            <h4>
+                                                ${
+                                                    escaparHtml(
+                                                        capitalizarAgenda(
+                                                            formatarDataAgenda(
+                                                                data
+                                                            )
+                                                        )
+                                                    )
+                                                }
+                                            </h4>
+
+                                            ${
+                                                prazoRetirada
+                                                    ? `
+                                                        <div class="agenda-prazo-badge">
+                                                            ${escaparHtml(prazoRetirada)}
+                                                        </div>
+                                                    `
+                                                    : ""
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <strong class="agenda-dia-quantidade">
+                                        ${itens.length}
+                                        ${
+                                            itens.length === 1
+                                                ? "encomenda"
+                                                : "encomendas"
+                                        }
+                                    </strong>
+
+                                </div>
+
+                                <div class="agenda-dia-lista">
+                                    ${linhas}
+                                </div>
+
+                            </section>
+                        `;
+                    }
+                )
+                .join("");
+    }
+
+    async function carregarAgendaEncomendas() {
+        if (!listaAgendaEncomendas) {
+            return;
+        }
+
+        listaAgendaEncomendas.innerHTML =
+            '<p class="painel-carregando">Carregando agenda...</p>';
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabasePainel
+                    .from("pedidos")
+                    .select(`
+                        *,
+                        itens_pedido (
+                            id,
+                            pedido_id,
+                            tipo_produto,
+                            nome_produto,
+                            quantidade,
+                            valor_total,
+                            detalhes,
+                            data_retirada,
+                            horario_retirada
+                        )
+                    `)
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+            if (error) {
+                throw error;
+            }
+
+            pedidosAgendaCarregados =
+                data || [];
+
+            renderizarAgendaEncomendas();
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao carregar agenda:",
+                erro
+            );
+
+            listaAgendaEncomendas.innerHTML = `
+                <div class="agenda-vazia">
+                    <span>⚠️</span>
+                    <strong>
+                        Não foi possível carregar a agenda
+                    </strong>
+                    <p>
+                        Clique em “Atualizar agenda” para tentar novamente.
+                    </p>
+                </div>
+            `;
+        }
+    }
+
+    document.querySelectorAll(
+        "[data-filtro-agenda]"
+    ).forEach(
+        botao => {
+
+            botao.addEventListener(
+                "click",
+                function() {
+
+                    filtroAgendaAtual =
+                        this.dataset.filtroAgenda ||
+                        "hoje";
+
+                    document.querySelectorAll(
+                        "[data-filtro-agenda]"
+                    ).forEach(
+                        item =>
+                            item.classList.remove(
+                                "ativo"
+                            )
+                    );
+
+                    this.classList.add(
+                        "ativo"
+                    );
+
+                    renderizarAgendaEncomendas();
+                }
+            );
+
+        }
+    );
+
+    document.getElementById(
+        "btnAtualizarAgenda"
+    )?.addEventListener(
+        "click",
+        carregarAgendaEncomendas
+    );
+
+    listaAgendaEncomendas?.addEventListener(
+        "click",
+        async function(event) {
+
+            const botao =
+                event.target.closest(
+                    "[data-agenda-pedido-id]"
+                );
+
+            if (!botao) {
+                return;
+            }
+
+            const pedidoId =
+                String(
+                    botao.dataset.agendaPedidoId
+                );
+
+            const abaPedidos =
+                document.querySelector(
+                    '.painel-aba[data-alvo="secaoPedidos"]'
+                );
+
+            abaPedidos?.click();
+
+            await carregarPedidosAdmin();
+
+            const cardPedido =
+                document.querySelector(
+                    `.pedido-admin-card[data-pedido-id="${pedidoId}"]`
+                );
+
+            if (cardPedido) {
+
+                document
+                    .querySelectorAll(
+                        ".pedido-admin-card.agenda-pedido-destaque"
+                    )
+                    .forEach(
+                        card =>
+                            card.classList.remove(
+                                "agenda-pedido-destaque"
+                            )
+                    );
+
+                cardPedido.classList.add(
+                    "agenda-pedido-destaque"
+                );
+
+                const detalhes =
+                    document.getElementById(
+                        `detalhesPedidoAdmin-${pedidoId}`
+                    );
+
+                if (detalhes) {
+                    detalhes.hidden =
+                        false;
+                }
+
+                const botaoDetalhes =
+                    cardPedido.querySelector(
+                        '[data-acao="detalhes-pedido"]'
+                    );
+
+                if (botaoDetalhes) {
+                    botaoDetalhes.textContent =
+                        "Ocultar detalhes";
+                }
+
+                cardPedido.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                setTimeout(
+                    function() {
+                        cardPedido.classList.remove(
+                            "agenda-pedido-destaque"
+                        );
+                    },
+                    2600
+                );
+            }
+        }
+    );
+
+
     /* =========================================================
        PEDIDOS - PAINEL ADMINISTRATIVO
     ========================================================= */
@@ -3885,16 +8871,31 @@
 
     let pedidosAdminCarregados = [];
 
-    function nomeStatusPedido(status) {
-        const nomes = {
-            novo: "Novo",
-            confirmado: "Confirmado",
-            em_producao: "Em produção",
-            concluido: "Concluído",
-            cancelado: "Cancelado"
-        };
+    function normalizarStatusPedido(status) {
+        /*
+         * A partir de agora o fluxo possui somente dois estados:
+         * - novo = Pedido recebido
+         * - confirmado = Pedido confirmado
+         *
+         * Os estados antigos "em_producao" e "concluido" são tratados
+         * como confirmados apenas para manter compatibilidade com pedidos
+         * já existentes no banco.
+         */
+        if (
+            status === "confirmado" ||
+            status === "em_producao" ||
+            status === "concluido"
+        ) {
+            return "confirmado";
+        }
 
-        return nomes[status] || status || "Novo";
+        return "novo";
+    }
+
+    function nomeStatusPedido(status) {
+        return normalizarStatusPedido(status) === "confirmado"
+            ? "Pedido confirmado"
+            : "Pedido recebido";
     }
 
     function formatarDataHoraPedido(dataIso) {
@@ -3950,14 +8951,16 @@
             "horario",
             "dataRetirada",
             "horarioRetirada",
-            "quantidadeMinimaPorSabor"
+            "quantidadeMinimaPorSabor",
+            "topoValorPendente",
+            "adicionaisCobrados"
         ]);
 
         const rotulos = {
             tamanho: "Tamanho",
             massa: "Massa",
             recheio: "Recheio",
-            recheios: "Recheios",
+            recheios: "Recheios escolhidos",
             adicionais: "Adicionais",
             cor: "Cor / decoração",
             topo: "Topo",
@@ -3987,9 +8990,22 @@
             "observacoes"
         ];
 
+        const possuiListaRecheios =
+            Array.isArray(detalhes.recheios) &&
+            detalhes.recheios.length > 0;
+
         return Object.entries(detalhes)
             .filter(([chave, valor]) => {
                 if (ignorar.has(chave)) {
+                    return false;
+                }
+
+                // O bolo guarda "recheio" (texto) e "recheios" (lista).
+                // Para o painel, mostramos apenas a lista para não duplicar.
+                if (
+                    chave === "recheio" &&
+                    possuiListaRecheios
+                ) {
                     return false;
                 }
 
@@ -4013,6 +9029,8 @@
                     texto = Object.values(valor)
                         .filter(item => item !== null && item !== undefined && item !== "")
                         .join(", ");
+                } else if (typeof valor === "boolean") {
+                    texto = valor ? "Sim" : "Não";
                 } else {
                     texto = String(valor);
                 }
@@ -4043,24 +9061,141 @@
         const total =
             pedidosAdminCarregados.length;
 
-        const novos =
+        const recebidos =
             pedidosAdminCarregados.filter(
-                pedido => pedido.status === "novo"
+                pedido =>
+                    normalizarStatusPedido(pedido.status) === "novo"
             ).length;
 
         const confirmados =
             pedidosAdminCarregados.filter(
-                pedido => pedido.status === "confirmado"
+                pedido =>
+                    normalizarStatusPedido(pedido.status) === "confirmado"
             ).length;
 
         document.getElementById("totalPedidosAdmin").textContent =
             total;
 
         document.getElementById("totalPedidosNovos").textContent =
-            novos;
+            recebidos;
 
         document.getElementById("totalPedidosConfirmados").textContent =
             confirmados;
+    }
+
+    function normalizarValorPagamento(valor) {
+        const numero =
+            Number(valor || 0);
+
+        if (!Number.isFinite(numero)) {
+            return 0;
+        }
+
+        return Math.max(0, numero);
+    }
+
+    function dadosPagamentoPedido(pedido) {
+        const total =
+            Math.max(
+                0,
+                Number(pedido?.valor_total || 0)
+            );
+
+        const pago =
+            Math.min(
+                total,
+                normalizarValorPagamento(
+                    pedido?.valor_pago
+                )
+            );
+
+        const falta =
+            Math.max(
+                0,
+                total - pago
+            );
+
+        let status = "nao-pago";
+        let rotulo = "Não pago";
+
+        if (total > 0 && pago >= total) {
+            status = "pago";
+            rotulo = "Pago";
+        } else if (pago > 0) {
+            status = "parcial";
+            rotulo = "Parcial";
+        }
+
+        return {
+            total,
+            pago,
+            falta,
+            status,
+            rotulo
+        };
+    }
+
+    async function atualizarPagamentoPedidoAdmin(
+        id,
+        valorPago
+    ) {
+        const pedido =
+            pedidosAdminCarregados.find(
+                item =>
+                    String(item.id) ===
+                    String(id)
+            );
+
+        if (!pedido) {
+            alert("Pedido não encontrado.");
+            return;
+        }
+
+        const total =
+            Math.max(
+                0,
+                Number(pedido.valor_total || 0)
+            );
+
+        let pago =
+            normalizarValorPagamento(
+                valorPago
+            );
+
+        if (pago > total) {
+            pago = total;
+        }
+
+        const { error } =
+            await supabasePainel
+                .from("pedidos")
+                .update({
+                    valor_pago: pago
+                })
+                .eq("id", id);
+
+        if (error) {
+            console.error(
+                "Erro ao atualizar pagamento:",
+                error
+            );
+
+            alert(
+                "Não foi possível salvar o pagamento. Confira se o SQL desta etapa foi executado no Supabase."
+            );
+            return;
+        }
+
+        pedido.valor_pago =
+            pago;
+
+        renderizarPedidosAdmin();
+
+        /*
+         * Atualiza também a agenda para o novo status de pagamento
+         * aparecer imediatamente.
+         */
+        await carregarAgendaEncomendas();
     }
 
     function renderizarPedidosAdmin() {
@@ -4075,7 +9210,7 @@
             pedidosAdminCarregados.filter(
                 pedido =>
                     !filtro ||
-                    pedido.status === filtro
+                    normalizarStatusPedido(pedido.status) === filtro
             );
 
         if (!pedidos.length) {
@@ -4087,11 +9222,28 @@
         listaPedidosAdmin.innerHTML = "";
 
         pedidos.forEach(pedido => {
+            const pagamento =
+                dadosPagamentoPedido(
+                    pedido
+                );
+
+            const classePagamento =
+                pagamento.status === "pago"
+                    ? "pagamento-pago"
+                    : (
+                        pagamento.status === "parcial"
+                            ? "pagamento-parcial"
+                            : "pagamento-nao-pago"
+                    );
+
             const card =
                 document.createElement("article");
 
             card.className =
                 "pedido-admin-card";
+
+            card.dataset.pedidoId =
+                String(pedido.id);
 
             const itens =
                 Array.isArray(pedido.itens_pedido)
@@ -4191,61 +9343,156 @@
                     : "#";
 
             card.innerHTML = `
-                <div class="pedido-admin-resumo">
-                    <div>
-                        <div class="pedido-admin-codigo">
-                            <strong>${escaparHtml(pedido.codigo || `Pedido ${pedido.id}`)}</strong>
+                <div class="pedido-admin-resumo pedido-admin-resumo-v3">
+
+                    <!-- FAIXA 1: PEDIDO -->
+                    <div class="pedido-faixa-cabecalho">
+
+                        <div class="pedido-faixa-identificacao">
+                            <strong class="pedido-faixa-codigo">
+                                ${escaparHtml(pedido.codigo || `Pedido ${pedido.id}`)}
+                            </strong>
+
                             <span class="pedido-admin-status">
                                 ${escaparHtml(nomeStatusPedido(pedido.status))}
                             </span>
                         </div>
 
-                        <div class="pedido-admin-info">
-                            <span>
-                                <b>Cliente:</b>
-                                ${escaparHtml(pedido.cliente_nome)}
-                            </span>
-
-                            <span>
-                                <b>WhatsApp:</b>
-                                ${escaparHtml(pedido.cliente_whatsapp)}
-                            </span>
-
-                            <span>
-                                <b>Recebido em:</b>
-                                ${escaparHtml(formatarDataHoraPedido(pedido.created_at))}
-                            </span>
-
-                            ${
-                                pedido.observacoes
-                                    ? `
-                                        <span>
-                                            <b>Observação:</b>
-                                            ${escaparHtml(pedido.observacoes)}
-                                        </span>
-                                    `
-                                    : ""
-                            }
+                        <div class="pedido-faixa-total">
+                            <span>VALOR TOTAL</span>
+                            <strong>${formatarMoeda(pagamento.total)}</strong>
                         </div>
+
                     </div>
 
-                    <div class="pedido-admin-lateral">
-                        <div class="pedido-admin-total">
-                            ${formatarMoeda(pedido.valor_total)}
+                    <!-- FAIXA 2: CLIENTE -->
+                    <div class="pedido-faixa-cliente">
+
+                        <div class="pedido-dado">
+                            <span>CLIENTE</span>
+                            <strong>${escaparHtml(pedido.cliente_nome)}</strong>
                         </div>
 
-                        <select
-                            class="pedido-admin-status-select"
-                            data-pedido-id="${pedido.id}"
-                        >
-                            <option value="novo" ${pedido.status === "novo" ? "selected" : ""}>Novo</option>
-                            <option value="confirmado" ${pedido.status === "confirmado" ? "selected" : ""}>Confirmado</option>
-                            <option value="em_producao" ${pedido.status === "em_producao" ? "selected" : ""}>Em produção</option>
-                            <option value="concluido" ${pedido.status === "concluido" ? "selected" : ""}>Concluído</option>
-                            <option value="cancelado" ${pedido.status === "cancelado" ? "selected" : ""}>Cancelado</option>
-                        </select>
+                        <div class="pedido-dado">
+                            <span>WHATSAPP</span>
+                            <strong>${escaparHtml(pedido.cliente_whatsapp)}</strong>
+                        </div>
 
-                        <div class="pedido-admin-acoes">
+                        <div class="pedido-dado">
+                            <span>RECEBIDO EM</span>
+                            <strong>${escaparHtml(formatarDataHoraPedido(pedido.created_at))}</strong>
+                        </div>
+
+                        ${
+                            pedido.observacoes
+                                ? `
+                                    <div class="pedido-dado pedido-dado-observacao">
+                                        <span>OBSERVAÇÃO</span>
+                                        <strong>${escaparHtml(pedido.observacoes)}</strong>
+                                    </div>
+                                `
+                                : ""
+                        }
+
+                    </div>
+
+                    <!-- FAIXA 3: FINANCEIRO -->
+                    <div class="pedido-financeiro">
+
+                        <div class="pedido-financeiro-card">
+                            <span>TOTAL</span>
+                            <strong>${formatarMoeda(pagamento.total)}</strong>
+                        </div>
+
+                        <div class="pedido-financeiro-card pedido-financeiro-pago">
+                            <span>PAGO</span>
+                            <strong>${formatarMoeda(pagamento.pago)}</strong>
+                        </div>
+
+                        <div class="pedido-financeiro-card pedido-financeiro-falta">
+                            <span>FALTA PAGAR</span>
+                            <strong>${formatarMoeda(pagamento.falta)}</strong>
+                        </div>
+
+                        <div class="pedido-financeiro-card pedido-financeiro-situacao">
+                            <span>SITUAÇÃO</span>
+                            <strong class="pedido-pagamento-status ${classePagamento}">
+                                ${pagamento.rotulo}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- FAIXA 4: REGISTRAR PAGAMENTO -->
+                    <div class="pedido-pagamento-edicao">
+
+                        <div class="pedido-pagamento-edicao-texto">
+                            <span>VALOR JÁ RECEBIDO</span>
+                            <small>
+                                Informe o total que já foi pago pelo cliente.
+                            </small>
+                        </div>
+
+                        <div class="pedido-pagamento-edicao-form">
+
+                            <div class="pedido-campo-moeda">
+                                <span>R$</span>
+
+                                <input
+                                    type="number"
+                                    class="pedido-pagamento-input"
+                                    data-pagamento-pedido-id="${pedido.id}"
+                                    min="0"
+                                    max="${pagamento.total}"
+                                    step="0.01"
+                                    value="${pagamento.pago.toFixed(2)}"
+                                    inputmode="decimal"
+                                    aria-label="Valor já pago do pedido"
+                                >
+                            </div>
+
+                            <button
+                                type="button"
+                                class="btn-salvar-pagamento"
+                                data-acao="salvar-pagamento"
+                                data-pedido-id="${pedido.id}"
+                            >
+                                Salvar pagamento
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- FAIXA 5: STATUS E AÇÕES -->
+                    <div class="pedido-faixa-acoes">
+
+                        <div class="pedido-status-controle">
+                            <label>Status do pedido</label>
+
+                            <select
+                                class="pedido-admin-status-select"
+                                data-pedido-id="${pedido.id}"
+                                aria-label="Status do pedido"
+                            >
+                                <option
+                                    value="novo"
+                                    ${normalizarStatusPedido(pedido.status) === "novo" ? "selected" : ""}
+                                >
+                                    Pedido recebido
+                                </option>
+
+                                <option
+                                    value="confirmado"
+                                    ${normalizarStatusPedido(pedido.status) === "confirmado" ? "selected" : ""}
+                                >
+                                    Pedido confirmado
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="pedido-admin-acoes pedido-admin-acoes-v3">
+
                             <button
                                 type="button"
                                 class="btn-pedido-principal"
@@ -4272,8 +9519,11 @@
                             >
                                 Excluir
                             </button>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div
@@ -4438,6 +9688,24 @@
                     abrir
                         ? "Ocultar detalhes"
                         : "Ver detalhes";
+
+                return;
+            }
+
+            if (acao === "salvar-pagamento") {
+                const campo =
+                    listaPedidosAdmin.querySelector(
+                        `.pedido-pagamento-input[data-pagamento-pedido-id="${id}"]`
+                    );
+
+                if (!campo) {
+                    return;
+                }
+
+                atualizarPagamentoPedidoAdmin(
+                    Number(id),
+                    campo.value
+                );
 
                 return;
             }
@@ -5188,10 +10456,22 @@
             carregarPedidosAdmin(),
             carregarKitFestaAdmin()
         ]);
+
+        /* Restaura exatamente o ponto em que o usuário estava. */
+        selecionarProdutoEncomenda(
+            obterProdutoEncomendaPainelSalvo()
+        );
+
+        ativarAbaPainel(
+            obterAbaPainelSalva(),
+            false
+        );
     }
 
     iniciarPainel();
     </script>
+
+    
 
     </body>
     </html>

@@ -15715,3 +15715,3389 @@ header.topo .menu .btn-carrinho #quantidadeCarrinho,
         border-color: #650526 !important;
     }
 }
+
+
+
+/* =====================================================================
+   GORETE FESTAS — PRONTA ENTREGA
+   REVISÃO RESPONSIVA COMPLETA — DESKTOP + TABLET + MOBILE
+   Este bloco fica no FINAL do style.css para prevalecer sobre regras antigas.
+===================================================================== */
+
+/* ---------- Base segura ---------- */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.produtos,
+.produto,
+.produto-info,
+.produto-rodape,
+.produto-quantidade-area,
+.painel-container,
+.painel-secao,
+.painel-lista,
+.fatia-admin-card,
+.fatia-admin-info,
+.fatia-admin-acoes,
+.modal-admin-conteudo {
+    min-width: 0;
+}
+
+/* =====================================================================
+   HOME — PRONTA ENTREGA
+===================================================================== */
+
+.tipos-produtos-home .tipo-icone {
+    flex: 0 0 auto;
+}
+
+.produtos-fatias {
+    width: min(1200px, 100%);
+}
+
+.produtos-fatias .produto {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.produtos-fatias .produto-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.produtos-fatias .produto-info > p {
+    flex: 1;
+}
+
+.produtos-fatias .produto-imagem,
+.produtos-fatias .produto-imagem-foto {
+    width: 100%;
+    overflow: hidden;
+}
+
+.produtos-fatias .produto-imagem-foto img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+}
+
+.produto-categoria {
+    overflow-wrap: anywhere;
+}
+
+.produto-quantidade-area {
+    width: 100%;
+}
+
+.produto-controle-quantidade {
+    flex: 0 0 auto;
+}
+
+.produto-controle-quantidade button {
+    touch-action: manipulation;
+}
+
+.produto-rodape.produto-rodape-fatia {
+    display: grid;
+    grid-template-columns: auto minmax(150px, 1fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.produto-rodape.produto-rodape-fatia button {
+    width: 100%;
+    min-height: 42px;
+}
+
+/* Estado vazio / carregamento */
+.fatias-vazio,
+.fatias-carregando {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* =====================================================================
+   PAINEL ADMINISTRATIVO — PRONTA ENTREGA
+===================================================================== */
+
+.painel-topo {
+    width: 100%;
+}
+
+.painel-logo-marca {
+    flex: 0 0 auto;
+}
+
+.painel-topo-acoes {
+    flex: 0 0 auto;
+}
+
+.painel-abas {
+    width: 100%;
+}
+
+.painel-aba {
+    min-width: 0;
+}
+
+.painel-indicadores {
+    width: 100%;
+}
+
+.painel-lista {
+    width: 100%;
+}
+
+.fatia-admin-card {
+    width: 100%;
+}
+
+.fatia-admin-info h3,
+.fatia-admin-info p {
+    overflow-wrap: anywhere;
+}
+
+.fatia-admin-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.produto-pronta-entrega-categoria {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 24px;
+    padding: 4px 8px;
+    border: 1px solid #dfc270;
+    border-radius: 999px;
+    background: #fff8df;
+    color: #6d0c2e;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.fatia-admin-acoes {
+    min-width: 0;
+}
+
+.fatia-admin-acoes button {
+    min-height: 36px;
+}
+
+/* Modal de produto */
+.modal-admin-conteudo {
+    width: min(560px, 100%);
+}
+
+.campo-admin,
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.campo-admin input,
+.campo-admin select,
+.campo-admin textarea {
+    width: 100%;
+}
+
+.campo-admin input[type="file"] {
+    white-space: normal;
+    overflow: hidden;
+}
+
+.preview-imagem-fatia,
+.preview-imagem-fatia img {
+    max-width: 100%;
+}
+
+/* =====================================================================
+   TABLET — até 900px
+===================================================================== */
+
+@media (max-width: 900px) {
+
+    /* HOME */
+    .tipos-produtos-home {
+        width: min(720px, calc(100% - 32px)) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .tipos-produtos-home .tipo-card {
+        width: 100% !important;
+    }
+
+    .cardapio {
+        padding-left: 5% !important;
+        padding-right: 5% !important;
+    }
+
+    .produtos-fatias {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+    }
+
+    /* PAINEL */
+    .painel-container {
+        width: calc(100% - 32px) !important;
+    }
+
+    .painel-topo {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+
+    .painel-abas {
+        gap: 6px !important;
+    }
+
+    .painel-aba {
+        padding: 11px 8px !important;
+    }
+
+    .fatia-admin-card {
+        grid-template-columns: 90px minmax(0, 1fr) !important;
+        align-items: start !important;
+    }
+
+    .fatia-admin-acoes {
+        grid-column: 1 / -1 !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+}
+
+/* =====================================================================
+   MOBILE — até 700px
+===================================================================== */
+
+@media (max-width: 700px) {
+
+    /* -------------------------------------------------
+       HOME
+    ------------------------------------------------- */
+
+    .topo {
+        width: 100% !important;
+    }
+
+    .tipos-produtos-home {
+        width: calc(100% - 28px) !important;
+        max-width: none !important;
+        grid-template-columns: 1fr !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        gap: 12px !important;
+    }
+
+    .tipos-produtos-home .tipo-card {
+        min-height: 0 !important;
+        grid-template-columns: 48px minmax(0, 1fr) !important;
+        gap: 14px !important;
+        padding: 18px !important;
+        border-radius: 18px !important;
+    }
+
+    .tipos-produtos-home .tipo-icone {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+    }
+
+    .tipos-produtos-home .tipo-card h3 {
+        font-size: 18px !important;
+        line-height: 1.15 !important;
+    }
+
+    .tipos-produtos-home .tipo-card p {
+        font-size: 11px !important;
+        line-height: 1.5 !important;
+    }
+
+    .cardapio {
+        padding: 52px 16px 58px !important;
+    }
+
+    .titulo-secao {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .titulo-secao h2 {
+        font-size: 31px !important;
+        line-height: 1.05 !important;
+    }
+
+    .titulo-secao p {
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 13px !important;
+        line-height: 1.55 !important;
+    }
+
+    .produtos-fatias {
+        width: 100%;
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .produtos-fatias .produto {
+        width: 100%;
+        border-radius: 20px !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        height: min(72vw, 330px) !important;
+        min-height: 230px;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 20px !important;
+    }
+
+    .produtos-fatias .produto h3 {
+        font-size: 21px !important;
+        line-height: 1.15 !important;
+    }
+
+    .produtos-fatias .produto p {
+        min-height: 0 !important;
+        font-size: 13px !important;
+        line-height: 1.55 !important;
+    }
+
+    .produto-quantidade-area {
+        margin-top: 17px !important;
+        padding-top: 15px !important;
+    }
+
+    .produto-quantidade-area > span {
+        font-size: 11px !important;
+    }
+
+    .produto-controle-quantidade {
+        gap: 12px !important;
+    }
+
+    .produto-controle-quantidade button {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+        font-size: 20px !important;
+    }
+
+    .produto-controle-quantidade strong {
+        min-width: 28px !important;
+        font-size: 16px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-top: 14px !important;
+        padding-top: 15px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia > strong {
+        font-size: 23px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia button {
+        width: 100% !important;
+        min-height: 48px !important;
+        padding: 13px 16px !important;
+        font-size: 12px !important;
+        border-radius: 999px !important;
+    }
+
+    .fatias-vazio,
+    .fatias-carregando {
+        grid-column: 1 / -1 !important;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+
+
+    /* -------------------------------------------------
+       PAINEL ADMINISTRATIVO
+    ------------------------------------------------- */
+
+    .pagina-painel {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .painel-topo {
+        min-height: 104px !important;
+        padding: 12px 16px !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .painel-topo > div:first-child {
+        min-width: 0;
+    }
+
+    .painel-logo-marca {
+        width: 150px !important;
+        max-width: 100% !important;
+        max-height: 78px !important;
+        object-fit: contain !important;
+        object-position: left center !important;
+    }
+
+    .painel-topo-acoes {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 7px !important;
+    }
+
+    /* Corrige regra antiga que escondia "Ver site" */
+    .painel-topo-acoes a {
+        display: inline-flex !important;
+    }
+
+    .painel-topo-acoes a,
+    .painel-topo-acoes button {
+        min-height: 40px !important;
+        padding: 8px 11px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        font-size: 9px !important;
+        border-radius: 10px !important;
+    }
+
+    .painel-container {
+        width: calc(100% - 28px) !important;
+        max-width: none !important;
+        padding-top: 24px !important;
+        padding-bottom: 55px !important;
+    }
+
+    .painel-abas {
+        position: static !important;
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 5px !important;
+        padding: 5px !important;
+        margin-bottom: 22px !important;
+        overflow: visible !important;
+    }
+
+    .painel-aba {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 46px !important;
+        padding: 8px 5px !important;
+        white-space: normal !important;
+        line-height: 1.2 !important;
+        font-size: 9px !important;
+        text-align: center !important;
+    }
+
+    .painel-secao-topo,
+    .painel-cabecalho {
+        width: 100% !important;
+        align-items: stretch !important;
+        flex-direction: column !important;
+        gap: 14px !important;
+    }
+
+    .painel-secao-topo h2,
+    .painel-cabecalho h2 {
+        font-size: 29px !important;
+        line-height: 1.05 !important;
+    }
+
+    .painel-secao-topo p,
+    .painel-cabecalho p {
+        font-size: 11px !important;
+        line-height: 1.55 !important;
+    }
+
+    .btn-nova-fatia,
+    .painel-secao-topo .btn-nova-fatia {
+        width: 100% !important;
+        min-height: 46px !important;
+        padding: 12px 16px !important;
+        border-radius: 12px !important;
+    }
+
+    .painel-indicadores {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+    }
+
+    .painel-indicador {
+        min-width: 0 !important;
+        padding: 14px 8px !important;
+        text-align: center !important;
+    }
+
+    .painel-indicador span {
+        display: block !important;
+        overflow-wrap: anywhere !important;
+        font-size: 8px !important;
+        line-height: 1.25 !important;
+    }
+
+    .painel-indicador strong {
+        font-size: 22px !important;
+    }
+
+    .painel-lista {
+        width: 100% !important;
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+
+    .painel-lista-topo {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+    .painel-lista-topo h3 {
+        font-size: 21px !important;
+    }
+
+    .painel-lista-topo button,
+    .btn-atualizar-lista {
+        width: 100% !important;
+        min-height: 42px !important;
+    }
+
+    .fatia-admin-card {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 78px minmax(0, 1fr) !important;
+        gap: 12px !important;
+        padding: 14px !important;
+        align-items: start !important;
+    }
+
+    .fatia-admin-imagem {
+        width: 78px !important;
+        height: 78px !important;
+        border-radius: 13px !important;
+        overflow: hidden !important;
+    }
+
+    .fatia-admin-imagem img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .fatia-admin-sem-foto {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 26px !important;
+    }
+
+    .fatia-admin-info h3 {
+        margin-top: 7px !important;
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+    }
+
+    .fatia-admin-info p {
+        font-size: 10px !important;
+        line-height: 1.45 !important;
+    }
+
+    .fatia-admin-info strong {
+        font-size: 15px !important;
+    }
+
+    .fatia-admin-status {
+        gap: 5px !important;
+    }
+
+    .produto-pronta-entrega-categoria {
+        max-width: 100% !important;
+        font-size: 7px !important;
+    }
+
+    .fatia-admin-acoes {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 7px !important;
+    }
+
+    .fatia-admin-acoes button {
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 40px !important;
+        padding: 8px 5px !important;
+        font-size: 9px !important;
+    }
+
+    .painel-vazio {
+        padding: 42px 14px !important;
+    }
+
+    .painel-vazio > span {
+        font-size: 34px !important;
+    }
+
+    .painel-vazio h3 {
+        font-size: 19px !important;
+        line-height: 1.15 !important;
+    }
+
+    .painel-vazio p {
+        font-size: 10px !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Modal "Novo produto" */
+    .modal-admin {
+        padding: 10px !important;
+        align-items: center !important;
+    }
+
+    .modal-admin-conteudo {
+        width: 100% !important;
+        max-width: 540px !important;
+        max-height: calc(100dvh - 20px) !important;
+        padding: 18px !important;
+        border-radius: 18px !important;
+        overscroll-behavior: contain;
+    }
+
+    .modal-admin-topo {
+        position: sticky;
+        top: -18px;
+        z-index: 2;
+        margin: -18px -18px 18px !important;
+        padding: 18px 18px 12px !important;
+        background: #fff9e7 !important;
+        border-bottom: 1px solid rgba(127, 7, 50, .08);
+    }
+
+    .modal-admin-topo h2 {
+        font-size: 25px !important;
+        line-height: 1.05 !important;
+    }
+
+    .btn-fechar-modal {
+        flex: 0 0 36px !important;
+    }
+
+    .modal-admin form {
+        gap: 13px !important;
+    }
+
+    .campo-admin input,
+    .campo-admin select,
+    .campo-admin textarea {
+        font-size: 16px !important; /* evita zoom automático do Safari/iPhone */
+    }
+
+    .campo-admin input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    .campo-admin select {
+        min-height: 46px !important;
+    }
+
+    .campo-admin textarea {
+        min-height: 105px !important;
+    }
+
+    .campo-admin input[type="file"] {
+        width: 100% !important;
+        min-height: 44px !important;
+        font-size: 12px !important;
+    }
+
+    .modal-admin-acoes {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    .modal-admin-acoes button {
+        width: 100% !important;
+        min-height: 46px !important;
+    }
+}
+
+/* =====================================================================
+   CELULARES PEQUENOS — até 480px
+===================================================================== */
+
+@media (max-width: 480px) {
+
+    /* HOME */
+    .marca-logo img {
+        width: 128px !important;
+    }
+
+    .btn-carrinho {
+        padding: 10px 12px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+    }
+
+    .tipos-produtos-home {
+        width: calc(100% - 24px) !important;
+    }
+
+    .tipos-produtos-home .tipo-card {
+        grid-template-columns: 44px minmax(0, 1fr) !important;
+        padding: 16px !important;
+        gap: 12px !important;
+    }
+
+    .tipos-produtos-home .tipo-icone {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 20px !important;
+    }
+
+    .cardapio {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 18px !important;
+    }
+
+    .produto-quantidade-area {
+        align-items: center !important;
+    }
+
+
+    /* PAINEL */
+    .painel-topo {
+        min-height: 96px !important;
+        padding: 10px 12px !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+    }
+
+    .painel-logo-marca {
+        width: 132px !important;
+        max-height: 70px !important;
+    }
+
+    .painel-topo-acoes {
+        gap: 5px !important;
+    }
+
+    .painel-topo-acoes a,
+    .painel-topo-acoes button {
+        min-height: 38px !important;
+        padding: 7px 9px !important;
+        font-size: 8px !important;
+    }
+
+    .painel-container {
+        width: calc(100% - 20px) !important;
+    }
+
+    .painel-abas {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+
+    .painel-aba {
+        min-height: 44px !important;
+        font-size: 10px !important;
+    }
+
+    .painel-indicadores {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    .painel-indicador {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        text-align: left !important;
+        padding: 13px 15px !important;
+    }
+
+    .painel-indicador span {
+        font-size: 9px !important;
+    }
+
+    .painel-indicador strong {
+        font-size: 22px !important;
+    }
+
+    .fatia-admin-card {
+        grid-template-columns: 68px minmax(0, 1fr) !important;
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .fatia-admin-imagem {
+        width: 68px !important;
+        height: 68px !important;
+    }
+
+    .fatia-admin-acoes {
+        grid-template-columns: 1fr !important;
+    }
+
+    .fatia-admin-acoes button {
+        min-height: 42px !important;
+        font-size: 10px !important;
+    }
+
+    .modal-admin {
+        padding: 7px !important;
+    }
+
+    .modal-admin-conteudo {
+        max-height: calc(100dvh - 14px) !important;
+        padding: 16px !important;
+        border-radius: 15px !important;
+    }
+
+    .modal-admin-topo {
+        top: -16px;
+        margin: -16px -16px 16px !important;
+        padding: 16px 16px 11px !important;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — PÁGINA PÚBLICA DO PEDIDO
+   Ajustes globais de cabeçalho e responsividade
+===================================================================== */
+
+.pagina-pedido-publico {
+    overflow-x: hidden;
+}
+
+.pagina-pedido-publico .pedido-publico-container {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    body:has(.pagina-pedido-publico) .topo {
+        min-height: 88px !important;
+        padding: 12px 18px !important;
+    }
+
+    body:has(.pagina-pedido-publico) .marca-logo img {
+        width: 145px !important;
+        max-width: 46vw !important;
+    }
+
+    body:has(.pagina-pedido-publico) .menu {
+        display: flex !important;
+    }
+
+    body:has(.pagina-pedido-publico) .menu a {
+        display: none !important;
+    }
+}
+
+@media (max-width: 600px) {
+    body:has(.pagina-pedido-publico) .topo {
+        min-height: 84px !important;
+        padding: 10px 14px !important;
+    }
+
+    body:has(.pagina-pedido-publico) .marca-logo img {
+        width: 132px !important;
+        max-width: 48vw !important;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — RODAPÉ REFINADO
+   Ajuste final para desktop + mobile
+   Este bloco fica no final do arquivo para prevalecer sobre regras antigas.
+===================================================================== */
+
+footer {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 28px 8% !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr auto auto !important;
+    align-items: center !important;
+    gap: 22px !important;
+
+    background: var(--gf-bordeaux-escuro, #6d0629) !important;
+    color: #fff8df !important;
+
+    border-top: 6px solid #e2bc54 !important;
+}
+
+footer > div:first-child {
+    min-width: 0;
+}
+
+footer h3 {
+    margin: 0 !important;
+
+    color: #f8e5aa !important;
+
+    font-family: "Cormorant Garamond", Georgia, serif !important;
+    font-size: 20px !important;
+    line-height: 1.1 !important;
+}
+
+footer div p {
+    margin: 5px 0 0 !important;
+
+    color: #ead596 !important;
+
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+}
+
+.footer-instagram {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.footer-instagram a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 38px !important;
+
+    padding: 9px 16px !important;
+
+    border: 1px solid rgba(255, 248, 223, .38) !important;
+    border-radius: 999px !important;
+
+    color: #fff8df !important;
+    background: transparent !important;
+
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+
+.footer-instagram a:hover {
+    background: #fff8df !important;
+    color: var(--gf-bordeaux-escuro, #6d0629) !important;
+}
+
+.copyright {
+    margin: 0 !important;
+
+    color: #ead596 !important;
+
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+
+    text-align: right !important;
+}
+
+
+/* =====================================================================
+   TABLET
+===================================================================== */
+
+@media (max-width: 900px) {
+
+    footer {
+        padding: 26px 6% !important;
+
+        grid-template-columns: 1fr auto !important;
+        gap: 16px !important;
+    }
+
+    .copyright {
+        grid-column: 1 / -1 !important;
+
+        width: 100% !important;
+
+        padding-top: 12px !important;
+
+        border-top: 1px solid rgba(255, 248, 223, .12) !important;
+
+        text-align: center !important;
+    }
+}
+
+
+/* =====================================================================
+   MOBILE
+===================================================================== */
+
+@media (max-width: 600px) {
+
+    footer {
+        width: 100% !important;
+        min-height: 0 !important;
+
+        padding: 24px 18px 22px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 13px !important;
+
+        text-align: center !important;
+
+        background: var(--gf-bordeaux-escuro, #6d0629) !important;
+
+        border-top: 5px solid #e2bc54 !important;
+    }
+
+    footer > div:first-child {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    footer h3 {
+        margin: 0 !important;
+
+        font-size: 21px !important;
+        line-height: 1 !important;
+    }
+
+    footer div p {
+        margin-top: 6px !important;
+
+        font-size: 9px !important;
+        line-height: 1.35 !important;
+    }
+
+    .footer-instagram {
+        width: 100% !important;
+
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .footer-instagram a {
+        min-width: 108px !important;
+        min-height: 38px !important;
+
+        padding: 9px 17px !important;
+
+        font-size: 9px !important;
+
+        border-radius: 999px !important;
+    }
+
+    .copyright {
+        width: 100% !important;
+
+        margin: 0 !important;
+        padding-top: 12px !important;
+
+        border-top: 1px solid rgba(255, 248, 223, .14) !important;
+
+        color: #ead596 !important;
+
+        font-size: 8px !important;
+        line-height: 1.45 !important;
+
+        text-align: center !important;
+    }
+}
+
+
+/* =====================================================================
+   CELULARES PEQUENOS
+===================================================================== */
+
+@media (max-width: 380px) {
+
+    footer {
+        padding: 22px 14px 20px !important;
+        gap: 11px !important;
+    }
+
+    footer h3 {
+        font-size: 19px !important;
+    }
+
+    footer div p {
+        font-size: 8px !important;
+    }
+
+    .footer-instagram a {
+        min-width: 104px !important;
+        min-height: 36px !important;
+
+        padding: 8px 15px !important;
+    }
+
+    .copyright {
+        font-size: 7.5px !important;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — AGENDA DE ENCOMENDAS
+   Desktop + tablet + mobile
+===================================================================== */
+
+.agenda-encomendas {
+    margin: 0 0 22px;
+    padding: 20px;
+
+    border: 1px solid #d9bc63;
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffef9 0%,
+            #fff7dc 100%
+        );
+
+    box-shadow:
+        0 10px 28px
+        rgba(118, 82, 19, .07);
+}
+
+.agenda-encomendas-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+
+    margin-bottom: 16px;
+}
+
+.agenda-encomendas-topo > div {
+    min-width: 0;
+}
+
+.agenda-encomendas-topo span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #a86d50;
+
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.agenda-encomendas-topo h3 {
+    margin: 0;
+
+    color: #6d0c2e;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 25px;
+    line-height: 1.1;
+}
+
+.agenda-encomendas-topo p {
+    max-width: 680px;
+
+    margin: 6px 0 0;
+
+    color: #806b62;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.agenda-resumos {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.agenda-resumo-card {
+    min-width: 0;
+    min-height: 92px;
+
+    padding: 13px 15px;
+
+    border: 1px solid #e0cb8a;
+    border-radius: 13px;
+
+    background: #fffdf7;
+    color: #563126;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+}
+
+.agenda-resumo-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #c79b32;
+
+    box-shadow:
+        0 8px 18px
+        rgba(118, 82, 19, .08);
+}
+
+.agenda-resumo-card.ativo {
+    border-color: #b98a21;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f6e3a5,
+            #e9c766
+        );
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(109, 12, 46, .05);
+}
+
+.agenda-resumo-card span {
+    display: block;
+
+    color: #806b62;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.agenda-resumo-card strong {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #6d0c2e;
+
+    font-size: 26px;
+    line-height: 1;
+}
+
+.agenda-resumo-card small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #9a8378;
+
+    font-size: 8px;
+}
+
+.agenda-lista-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+    padding-top: 15px;
+
+    border-top: 1px solid #ead8a2;
+}
+
+.agenda-lista-cabecalho span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #a86d50;
+
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.agenda-lista-cabecalho h4 {
+    margin: 0;
+
+    color: #6d0c2e;
+
+    font-size: 16px;
+}
+
+.agenda-lista {
+    display: grid;
+    gap: 12px;
+}
+
+.agenda-dia {
+    overflow: hidden;
+
+    border: 1px solid #e2ce91;
+    border-radius: 14px;
+
+    background: #fffdf8;
+}
+
+.agenda-dia-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    padding: 12px 14px;
+
+    border-bottom: 1px solid #eadba9;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff8df 0%,
+            #f6e7b8 100%
+        );
+}
+
+.agenda-dia-topo span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #a86d50;
+
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.agenda-dia-topo h4 {
+    margin: 0;
+
+    color: #6d0c2e;
+
+    font-size: 14px;
+}
+
+.agenda-dia-topo > strong {
+    flex: 0 0 auto;
+
+    color: #6d0c2e;
+
+    font-size: 9px;
+}
+
+.agenda-dia-lista {
+    display: grid;
+}
+
+.agenda-item {
+    display: grid;
+    grid-template-columns:
+        90px
+        minmax(0, 1fr)
+        auto;
+    align-items: center;
+    gap: 14px;
+
+    padding: 13px 14px;
+
+    border-bottom: 1px solid #f0e5c5;
+}
+
+.agenda-item:last-child {
+    border-bottom: 0;
+}
+
+.agenda-item-horario span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+    min-height: 33px;
+
+    padding: 6px 8px;
+
+    border: 1px solid #d7b85c;
+    border-radius: 999px;
+
+    background: #fff4c8;
+    color: #6d0c2e;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+.agenda-item-principal {
+    min-width: 0;
+}
+
+.agenda-item-topo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 4px;
+}
+
+.agenda-item-topo > strong {
+    color: #6d0c2e;
+
+    font-size: 11px;
+}
+
+.agenda-status-recebido,
+.agenda-status-confirmado {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 23px;
+
+    padding: 4px 7px;
+
+    border-radius: 999px;
+
+    font-size: 7px;
+    font-weight: 800;
+}
+
+.agenda-status-recebido {
+    border: 1px solid #e0c875;
+
+    background: #fff4c8;
+    color: #755719;
+}
+
+.agenda-status-confirmado {
+    border: 1px solid #b7d6c2;
+
+    background: #edf8f1;
+    color: #2f7047;
+}
+
+.agenda-item-principal h5 {
+    margin: 0 0 3px;
+
+    color: #563126;
+
+    font-size: 12px;
+}
+
+.agenda-item-principal p {
+    margin: 0;
+
+    color: #806b62;
+
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+.agenda-item-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.agenda-item-acoes a,
+.agenda-item-acoes button {
+    min-height: 34px;
+
+    padding: 7px 10px;
+
+    border: 1px solid #d5b966;
+    border-radius: 9px;
+
+    background: #fffaf0;
+    color: #6d0c2e;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.agenda-item-acoes button {
+    background: #6d0c2e;
+    border-color: #6d0c2e;
+    color: #ffffff;
+}
+
+.agenda-vazia {
+    padding: 28px 18px;
+
+    border: 1px dashed #d7bd72;
+    border-radius: 13px;
+
+    background: #fffdf7;
+
+    text-align: center;
+}
+
+.agenda-vazia > span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 25px;
+}
+
+.agenda-vazia strong {
+    display: block;
+
+    color: #6d0c2e;
+
+    font-size: 12px;
+}
+
+.agenda-vazia p {
+    max-width: 460px;
+
+    margin: 5px auto 0;
+
+    color: #806b62;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* TABLET */
+@media (max-width: 900px) {
+
+    .agenda-resumos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .agenda-item {
+        grid-template-columns:
+            82px
+            minmax(0, 1fr);
+    }
+
+    .agenda-item-acoes {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+}
+
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    .agenda-encomendas {
+        margin-bottom: 16px;
+
+        padding: 15px;
+
+        border-radius: 15px;
+    }
+
+    .agenda-encomendas-topo {
+        align-items: stretch;
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .agenda-encomendas-topo h3 {
+        font-size: 22px;
+    }
+
+    .agenda-encomendas-topo .btn-atualizar-lista {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .agenda-resumos {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+    .agenda-resumo-card {
+        min-height: 82px;
+
+        padding: 11px 12px;
+    }
+
+    .agenda-resumo-card strong {
+        font-size: 23px;
+    }
+
+    .agenda-item {
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+
+        padding: 13px;
+    }
+
+    .agenda-item-horario span {
+        min-width: 0;
+        width: fit-content;
+    }
+
+    .agenda-item-acoes {
+        grid-column: auto;
+
+        display: grid;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        width: 100%;
+    }
+
+    .agenda-item-acoes a,
+    .agenda-item-acoes button {
+        width: 100%;
+        min-height: 40px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* CELULARES PEQUENOS */
+@media (max-width: 390px) {
+
+    .agenda-resumos {
+        grid-template-columns: 1fr;
+    }
+
+    .agenda-resumo-card {
+        min-height: 66px;
+
+        display: grid;
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+        align-items: center;
+        gap: 4px 10px;
+    }
+
+    .agenda-resumo-card span {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .agenda-resumo-card strong {
+        grid-row: 1 / 3;
+        grid-column: 2;
+    }
+
+    .agenda-resumo-card small {
+        grid-row: 2;
+        grid-column: 1;
+
+        margin-top: 0;
+    }
+
+    .agenda-item-acoes {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — REFINO DA AGENDA
+   Prioridade visual, prazo de retirada e navegação para o pedido
+===================================================================== */
+
+.agenda-dia {
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.agenda-dia-identificacao {
+    min-width: 0;
+}
+
+.agenda-prazo-badge {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 24px;
+
+    margin-top: 7px;
+    padding: 4px 8px;
+
+    border: 1px solid rgba(109, 12, 46, .14);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, .58);
+    color: #6d0c2e;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.agenda-dia.agenda-prazo-hoje {
+    border-color: #8b123d;
+
+    box-shadow:
+        0 0 0 2px rgba(123, 11, 49, .08),
+        0 12px 30px rgba(123, 11, 49, .10);
+}
+
+.agenda-dia.agenda-prazo-hoje .agenda-dia-topo {
+    background:
+        linear-gradient(
+            90deg,
+            #f5d982 0%,
+            #e9c45e 100%
+        );
+}
+
+.agenda-dia.agenda-prazo-hoje .agenda-prazo-badge {
+    border-color: #7b0b31;
+    background: #7b0b31;
+    color: #ffffff;
+}
+
+.agenda-dia.agenda-prazo-amanha {
+    border-color: #c69a31;
+
+    box-shadow:
+        0 9px 22px rgba(125, 87, 21, .08);
+}
+
+.agenda-dia.agenda-prazo-amanha .agenda-prazo-badge {
+    border-color: #c69a31;
+    background: #fff1bd;
+    color: #7a5210;
+}
+
+.agenda-dia.agenda-prazo-proximo .agenda-prazo-badge {
+    border-color: #d7bd72;
+    background: #fff8df;
+    color: #755719;
+}
+
+.agenda-item {
+    position: relative;
+}
+
+.agenda-item:hover {
+    background: #fffaf0;
+}
+
+.agenda-item-principal h5 {
+    font-weight: 800;
+}
+
+.pedido-admin-card.agenda-pedido-destaque {
+    animation:
+        destaquePedidoAgenda 2.6s ease;
+}
+
+@keyframes destaquePedidoAgenda {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(123, 11, 49, 0);
+    }
+
+    15%,
+    70% {
+        box-shadow:
+            0 0 0 4px rgba(123, 11, 49, .13),
+            0 16px 38px rgba(123, 11, 49, .12);
+    }
+}
+
+
+/* MOBILE — agenda mais compacta */
+@media (max-width: 600px) {
+
+    .agenda-dia-topo {
+        align-items: flex-start;
+    }
+
+    .agenda-dia-topo > strong {
+        padding-top: 2px;
+    }
+
+    .agenda-prazo-badge {
+        min-height: 26px;
+
+        margin-top: 6px;
+
+        font-size: 8.5px;
+    }
+
+    .agenda-item {
+        padding: 12px;
+
+        border-bottom-color: #eee1ba;
+    }
+
+    .agenda-item-horario {
+        display: flex;
+    }
+
+    .agenda-item-horario span {
+        min-height: 30px;
+
+        padding: 5px 9px;
+    }
+
+    .agenda-item-topo {
+        margin-bottom: 5px;
+    }
+
+    .agenda-item-principal h5 {
+        font-size: 13px;
+    }
+
+    .agenda-item-principal p {
+        font-size: 9.5px;
+    }
+
+    .agenda-item-acoes {
+        margin-top: 2px;
+    }
+}
+
+
+/* CELULARES PEQUENOS */
+@media (max-width: 390px) {
+
+    .agenda-dia-topo {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .agenda-dia-topo > strong {
+        padding-top: 0;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — AGENDA COMPACTA + CARDS DE ENCOMENDAS
+===================================================================== */
+
+/* ---------- Agenda: cabeçalho mais compacto ---------- */
+
+.agenda-dia-topo-compacto {
+    min-height: 64px;
+    padding: 10px 14px !important;
+}
+
+.agenda-dia-linha-principal {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+}
+
+.agenda-dia-linha-principal h4 {
+    margin: 0 !important;
+}
+
+.agenda-dia-topo-compacto .agenda-prazo-badge {
+    margin-top: 0 !important;
+    min-height: 22px;
+    padding: 3px 8px;
+}
+
+.agenda-dia-quantidade {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 28px;
+    padding: 5px 9px;
+
+    border: 1px solid rgba(109, 12, 46, .12);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, .48);
+    color: #6d0c2e;
+
+    white-space: nowrap;
+}
+
+/* Horário mais importante visualmente */
+.agenda-item-horario span {
+    min-width: 74px !important;
+    min-height: 36px !important;
+
+    border-color: #c89c32 !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff5ca,
+            #f5dc8e
+        ) !important;
+
+    color: #6d0c2e !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+}
+
+
+/* ---------- Cards de tipos de encomenda ---------- */
+
+.admin-produtos-encomenda {
+    gap: 12px !important;
+}
+
+.admin-produto-tab {
+    position: relative;
+
+    min-height: 104px !important;
+    padding: 16px !important;
+
+    border: 1px solid #dfc270 !important;
+    border-radius: 15px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf7 0%,
+            #fff6d8 100%
+        ) !important;
+
+    box-shadow:
+        0 8px 20px rgba(112, 75, 16, .05) !important;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease !important;
+}
+
+.admin-produto-tab:hover {
+    transform: translateY(-2px) !important;
+
+    border-color: #c89b31 !important;
+
+    box-shadow:
+        0 11px 24px rgba(112, 75, 16, .09) !important;
+}
+
+.admin-produto-tab.ativo {
+    border-color: #b8861e !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f7e6ad,
+            #eac65e
+        ) !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(109, 12, 46, .04),
+        0 10px 24px rgba(112, 75, 16, .08) !important;
+}
+
+.admin-produto-tab .admin-produto-icone,
+.admin-produto-tab > span:first-child {
+    flex: 0 0 auto;
+}
+
+.admin-produto-tab strong {
+    color: #6d0c2e !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+}
+
+.admin-produto-tab small {
+    margin-top: 4px !important;
+
+    color: #806b62 !important;
+
+    font-size: 8.5px !important;
+    line-height: 1.35 !important;
+}
+
+/* deixa os cards visualmente mais "clicáveis" */
+.admin-produto-tab::after {
+    content: "Gerenciar →";
+
+    position: absolute;
+    right: 13px;
+    bottom: 11px;
+
+    color: #8a5a17;
+
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: .2px;
+
+    opacity: .82;
+}
+
+.admin-produto-tab.ativo::after {
+    content: "Selecionado";
+    color: #6d0c2e;
+}
+
+/* evita que o texto de ação encoste na descrição */
+.admin-produto-tab {
+    padding-bottom: 31px !important;
+}
+
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 900px) {
+
+    .admin-produtos-encomenda {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+
+    .agenda-dia-topo-compacto {
+        min-height: 0;
+        padding: 10px 12px !important;
+    }
+
+    .agenda-dia-linha-principal {
+        gap: 6px;
+    }
+
+    .agenda-dia-quantidade {
+        min-height: 25px;
+        padding: 4px 8px;
+
+        font-size: 8px !important;
+    }
+
+    .agenda-item-horario span {
+        min-width: 68px !important;
+        min-height: 32px !important;
+
+        font-size: 9.5px !important;
+    }
+
+    .admin-produtos-encomenda {
+        grid-template-columns: 1fr !important;
+        gap: 9px !important;
+    }
+
+    .admin-produto-tab {
+        min-height: 86px !important;
+        padding: 13px 14px 28px !important;
+
+        border-radius: 13px !important;
+    }
+
+    .admin-produto-tab strong {
+        font-size: 14px !important;
+    }
+
+    .admin-produto-tab small {
+        font-size: 8.5px !important;
+    }
+
+    .admin-produto-tab::after {
+        right: 12px;
+        bottom: 9px;
+    }
+}
+
+
+/* ---------- Celulares pequenos ---------- */
+
+@media (max-width: 390px) {
+
+    .agenda-dia-topo-compacto {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 7px !important;
+    }
+
+    .agenda-dia-quantidade {
+        align-self: flex-start;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — LEGIBILIDADE DA PÁGINA DE ENCOMENDAS
+   Aumenta subtítulos, textos auxiliares e informações secundárias
+   sem alterar a identidade visual.
+===================================================================== */
+
+/* ---------- Desktop / telas maiores ---------- */
+
+.pagina-montar-bolo .conteudo-etapa > p {
+    color: #6f5a51 !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 16px !important;
+}
+
+.pagina-montar-bolo .opcao-card strong {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+}
+
+.pagina-montar-bolo .opcao-card small {
+    color: #7f675d !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+.pagina-montar-bolo .upload-box strong {
+    font-size: 14px !important;
+}
+
+.pagina-montar-bolo .upload-box span {
+    color: #7f675d !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+.pagina-montar-bolo .upload-box input {
+    font-size: 11px !important;
+}
+
+.pagina-montar-bolo .campos-retirada label {
+    font-size: 12px !important;
+}
+
+.pagina-montar-bolo .campo-bolo {
+    min-height: 44px !important;
+    font-size: 14px !important;
+}
+
+.pagina-montar-bolo .resumo-bolo > span {
+    font-size: 10px !important;
+}
+
+.pagina-montar-bolo .linha-resumo span {
+    color: #746057 !important;
+    font-size: 12px !important;
+}
+
+.pagina-montar-bolo .linha-resumo strong {
+    font-size: 12px !important;
+}
+
+.pagina-montar-bolo .card-tipo-encomenda small {
+    color: #765f55 !important;
+    font-size: 10.5px !important;
+    line-height: 1.45 !important;
+}
+
+.pagina-montar-bolo .acao-encomenda {
+    font-size: 9.5px !important;
+    line-height: 1.35 !important;
+}
+
+/* Textos auxiliares dentro das etapas, como "Como funciona?" */
+.pagina-montar-bolo .aviso-encomenda,
+.pagina-montar-bolo .info-topo-bolo,
+.pagina-montar-bolo .ajuda-topo,
+.pagina-montar-bolo .como-funciona {
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+}
+
+/* placeholders mais visíveis */
+.pagina-montar-bolo input::placeholder,
+.pagina-montar-bolo textarea::placeholder {
+    color: #8b746a !important;
+    opacity: 1 !important;
+}
+
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 900px) {
+
+    .pagina-montar-bolo .conteudo-etapa > p {
+        font-size: 13.5px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card strong {
+        font-size: 13.5px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card small {
+        font-size: 11.5px !important;
+    }
+
+    .pagina-montar-bolo .card-tipo-encomenda small {
+        font-size: 10px !important;
+    }
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+
+    .pagina-montar-bolo .conteudo-etapa h2 {
+        font-size: 20px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 5px !important;
+    }
+
+    .pagina-montar-bolo .conteudo-etapa > p {
+        margin-bottom: 12px !important;
+
+        color: #6f5a51 !important;
+
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+
+    .pagina-montar-bolo .numero-etapa {
+        width: 34px !important;
+        height: 34px !important;
+
+        font-size: 12px !important;
+    }
+
+    .pagina-montar-bolo .etapa-bolo {
+        grid-template-columns: 34px minmax(0, 1fr) !important;
+        gap: 11px !important;
+
+        padding: 16px !important;
+    }
+
+    .pagina-montar-bolo .opcoes-selecao {
+        grid-template-columns: 1fr !important;
+        gap: 9px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card {
+        min-height: 66px !important;
+
+        padding: 12px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card strong {
+        font-size: 13.5px !important;
+        line-height: 1.3 !important;
+    }
+
+    .pagina-montar-bolo .opcao-card small {
+        color: #7f675d !important;
+
+        font-size: 11.5px !important;
+        line-height: 1.4 !important;
+    }
+
+    .pagina-montar-bolo .campo-bolo {
+        min-height: 46px !important;
+
+        padding: 11px 12px !important;
+
+        font-size: 13px !important;
+    }
+
+    .pagina-montar-bolo .uploads-bolo,
+    .pagina-montar-bolo .campos-retirada {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .pagina-montar-bolo .upload-box {
+        min-height: 105px !important;
+
+        padding: 14px !important;
+    }
+
+    .pagina-montar-bolo .upload-box strong {
+        font-size: 13px !important;
+    }
+
+    .pagina-montar-bolo .upload-box span {
+        font-size: 11px !important;
+    }
+
+    .pagina-montar-bolo .upload-box input {
+        font-size: 10.5px !important;
+    }
+
+    .pagina-montar-bolo .campos-retirada label {
+        font-size: 12px !important;
+    }
+
+    .pagina-montar-bolo .resumo-bolo {
+        padding: 18px !important;
+    }
+
+    .pagina-montar-bolo .resumo-bolo > span {
+        font-size: 9px !important;
+    }
+
+    .pagina-montar-bolo .resumo-bolo h2 {
+        font-size: 21px !important;
+    }
+
+    .pagina-montar-bolo .linha-resumo {
+        padding: 9px 0 !important;
+    }
+
+    .pagina-montar-bolo .linha-resumo span,
+    .pagina-montar-bolo .linha-resumo strong {
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
+    }
+
+    .pagina-montar-bolo .card-tipo-encomenda strong {
+        font-size: 14px !important;
+    }
+
+    .pagina-montar-bolo .card-tipo-encomenda small {
+        color: #715b52 !important;
+
+        font-size: 10.5px !important;
+        line-height: 1.4 !important;
+    }
+
+    .pagina-montar-bolo .acao-encomenda {
+        font-size: 9.5px !important;
+    }
+
+    .pagina-montar-bolo .aviso-encomenda,
+    .pagina-montar-bolo .info-topo-bolo,
+    .pagina-montar-bolo .ajuda-topo,
+    .pagina-montar-bolo .como-funciona {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+
+/* ---------- Celulares pequenos ---------- */
+
+@media (max-width: 390px) {
+
+    .pagina-montar-bolo .conteudo-etapa h2 {
+        font-size: 19px !important;
+    }
+
+    .pagina-montar-bolo .conteudo-etapa > p {
+        font-size: 12.5px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card strong {
+        font-size: 13px !important;
+    }
+
+    .pagina-montar-bolo .opcao-card small {
+        font-size: 11px !important;
+    }
+
+    .pagina-montar-bolo .linha-resumo span,
+    .pagina-montar-bolo .linha-resumo strong {
+        font-size: 11px !important;
+    }
+}
+
+
+
+/* =====================================================================
+   GORETE FESTAS — LEGIBILIDADE GLOBAL DO SITE
+   Aplicado em todas as páginas: desktop, tablet e mobile
+   Objetivo: melhorar leitura de subtítulos, descrições, labels,
+   textos auxiliares, botões e informações secundárias.
+===================================================================== */
+
+/* ---------- Base global ---------- */
+
+body {
+    font-size: 16px !important;
+    line-height: 1.55 !important;
+}
+
+body p,
+body li,
+body label,
+body small,
+body span,
+body input,
+body textarea,
+body select,
+body button,
+body a {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Textos corridos e descrições */
+body p {
+    line-height: 1.6 !important;
+}
+
+/* Textos pequenos nunca ficam pequenos demais */
+body small {
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+}
+
+/* Labels de formulário */
+body label {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+
+/* Inputs, selects e textareas */
+body input,
+body textarea,
+body select {
+    min-height: 44px;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+}
+
+body textarea {
+    min-height: 100px;
+}
+
+body input::placeholder,
+body textarea::placeholder {
+    color: #806b62 !important;
+    opacity: 1 !important;
+}
+
+/* Botões e links de ação */
+body button,
+body .btn-principal,
+body .btn-secundario,
+body .btn-whatsapp,
+body .btn-carrinho,
+body .btn-salvar-admin,
+body .btn-cancelar-admin {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.menu a {
+    font-size: 15px !important;
+}
+
+.btn-carrinho {
+    font-size: 13px !important;
+}
+
+.btn-carrinho span {
+    font-size: 12px !important;
+}
+
+/* ---------- Banner ---------- */
+
+.banner .mini-titulo,
+.mini-titulo {
+    font-size: 11px !important;
+}
+
+.banner p {
+    font-size: 17px !important;
+    line-height: 1.7 !important;
+}
+
+.banner-info-item strong {
+    font-size: 13px !important;
+}
+
+.banner-info-item small {
+    font-size: 11px !important;
+}
+
+/* ---------- Seções e subtítulos ---------- */
+
+.titulo-secao > span,
+.sobre > span,
+.orcamento-conteudo > span,
+.tipo-mini-titulo {
+    font-size: 10px !important;
+}
+
+.titulo-secao p,
+.sobre p,
+.orcamento p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+}
+
+/* ---------- Cards gerais ---------- */
+
+.tipo-card p,
+.produto p,
+.card-tipo-encomenda p,
+.card-tipo-encomenda small,
+.admin-produto-tab small {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.tipo-card h3,
+.produto h3,
+.card-tipo-encomenda strong {
+    line-height: 1.25 !important;
+}
+
+.tipo-acao,
+.acao-encomenda,
+.produto-categoria {
+    font-size: 10px !important;
+}
+
+/* ---------- Pronta entrega ---------- */
+
+.produto-info p {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+}
+
+.produto-quantidade-area > span {
+    font-size: 12px !important;
+}
+
+.produto-controle-quantidade strong {
+    font-size: 15px !important;
+}
+
+.produto-rodape strong {
+    font-size: 21px !important;
+}
+
+/* ---------- Informações da loja ---------- */
+
+.informacoes-loja strong {
+    font-size: 13px !important;
+}
+
+.informacoes-loja p {
+    font-size: 13px !important;
+}
+
+/* ---------- Carrinho e checkout ---------- */
+
+.carrinho-item p,
+.carrinho-item small,
+.resumo-pedido p,
+.resumo-pedido span,
+.checkout-card p,
+.checkout-card small {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.carrinho-item strong,
+.resumo-pedido strong {
+    line-height: 1.3 !important;
+}
+
+/* ---------- Página de acompanhamento do pedido ---------- */
+
+.pedido-info p,
+.pedido-detalhe p,
+.pedido-detalhe small,
+.pedido-linha span,
+.pedido-linha strong,
+.pedido-status {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+/* ---------- Painel administrativo ---------- */
+
+.painel-conteudo p,
+.painel-card p,
+.admin-grupo-card p,
+.regra-admin-info p,
+.pedido-admin-info,
+.pedido-admin-linha span,
+.pedido-admin-linha strong,
+.agenda-item-principal p,
+.agenda-encomendas-topo p {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+}
+
+.painel-card small,
+.admin-produto-tab small,
+.regra-admin-tag,
+.pedido-admin-status,
+.agenda-status-recebido,
+.agenda-status-confirmado {
+    font-size: 9px !important;
+}
+
+/* ---------- Rodapé ---------- */
+
+footer h3 {
+    line-height: 1.2 !important;
+}
+
+footer div p,
+footer .copyright,
+.footer-instagram a {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+}
+
+
+/* =====================================================================
+   TABLET
+===================================================================== */
+
+@media (max-width: 900px) {
+
+    body {
+        font-size: 15px !important;
+    }
+
+    body p {
+        line-height: 1.58 !important;
+    }
+
+    body small {
+        font-size: 10.5px !important;
+    }
+
+    body label {
+        font-size: 12.5px !important;
+    }
+
+    body input,
+    body textarea,
+    body select {
+        font-size: 13.5px !important;
+    }
+
+    .titulo-secao p,
+    .sobre p,
+    .orcamento p {
+        font-size: 14px !important;
+    }
+
+    .tipo-card p,
+    .produto p,
+    .card-tipo-encomenda p,
+    .card-tipo-encomenda small {
+        font-size: 11.5px !important;
+    }
+}
+
+
+/* =====================================================================
+   MOBILE
+===================================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+    }
+
+    body p {
+        font-size: 14px !important;
+        line-height: 1.58 !important;
+    }
+
+    body small {
+        font-size: 11px !important;
+        line-height: 1.45 !important;
+    }
+
+    body label {
+        font-size: 12.5px !important;
+    }
+
+    body input,
+    body textarea,
+    body select {
+        min-height: 46px;
+        font-size: 13.5px !important;
+    }
+
+    body button,
+    body .btn-principal,
+    body .btn-secundario,
+    body .btn-whatsapp,
+    body .btn-carrinho {
+        font-size: 12px !important;
+    }
+
+    /* Cabeçalho */
+    .btn-carrinho {
+        font-size: 12px !important;
+    }
+
+    /* Banner */
+    .banner .mini-titulo,
+    .mini-titulo {
+        font-size: 10px !important;
+    }
+
+    .banner p {
+        font-size: 15px !important;
+        line-height: 1.65 !important;
+    }
+
+    .banner-info-item strong {
+        font-size: 12px !important;
+    }
+
+    .banner-info-item small {
+        font-size: 10.5px !important;
+    }
+
+    /* Seções */
+    .titulo-secao p,
+    .sobre p,
+    .orcamento p {
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Cards */
+    .tipo-card p,
+    .produto p,
+    .card-tipo-encomenda p,
+    .card-tipo-encomenda small,
+    .admin-produto-tab small {
+        font-size: 11.5px !important;
+        line-height: 1.5 !important;
+    }
+
+    .tipo-acao,
+    .acao-encomenda,
+    .produto-categoria {
+        font-size: 9.5px !important;
+    }
+
+    /* Pronta entrega */
+    .produto-info p {
+        font-size: 13px !important;
+    }
+
+    .produto-quantidade-area > span {
+        font-size: 11.5px !important;
+    }
+
+    /* Informações da loja */
+    .informacoes-loja strong {
+        font-size: 12px !important;
+    }
+
+    .informacoes-loja p {
+        font-size: 12.5px !important;
+    }
+
+    /* Carrinho / checkout */
+    .carrinho-item p,
+    .carrinho-item small,
+    .resumo-pedido p,
+    .resumo-pedido span,
+    .checkout-card p,
+    .checkout-card small {
+        font-size: 11.5px !important;
+    }
+
+    /* Acompanhamento */
+    .pedido-info p,
+    .pedido-detalhe p,
+    .pedido-detalhe small,
+    .pedido-linha span,
+    .pedido-linha strong,
+    .pedido-status {
+        font-size: 11.5px !important;
+    }
+
+    /* Painel */
+    .painel-conteudo p,
+    .painel-card p,
+    .admin-grupo-card p,
+    .regra-admin-info p,
+    .pedido-admin-info,
+    .pedido-admin-linha span,
+    .pedido-admin-linha strong,
+    .agenda-item-principal p,
+    .agenda-encomendas-topo p {
+        font-size: 10.5px !important;
+    }
+
+    /* Rodapé */
+    footer div p,
+    footer .copyright,
+    .footer-instagram a {
+        font-size: 9.5px !important;
+    }
+}
+
+
+/* =====================================================================
+   CELULARES PEQUENOS
+===================================================================== */
+
+@media (max-width: 390px) {
+
+    body {
+        font-size: 14.5px !important;
+    }
+
+    body p {
+        font-size: 13.5px !important;
+    }
+
+    body small {
+        font-size: 10.5px !important;
+    }
+
+    body label {
+        font-size: 12px !important;
+    }
+
+    body input,
+    body textarea,
+    body select {
+        font-size: 13px !important;
+    }
+
+    .tipo-card p,
+    .produto p,
+    .card-tipo-encomenda p,
+    .card-tipo-encomenda small {
+        font-size: 11px !important;
+    }
+}
+/* =====================================================================
+   AJUSTE FINAL — CARDS DE PRONTA ENTREGA MAIS COMPACTOS
+   Desktop + tablet + mobile
+   Mantém boa legibilidade e reduz bastante a altura dos cards.
+   IMPORTANTE: manter este bloco no FINAL do style.css.
+===================================================================== */
+
+/* DESKTOP */
+.produtos-fatias {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+}
+
+.produtos-fatias .produto {
+    height: auto !important;
+    min-height: 0 !important;
+    border-radius: 16px !important;
+}
+
+.produtos-fatias .produto-imagem,
+.produtos-fatias .produto-imagem-foto {
+    height: 180px !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+}
+
+.produtos-fatias .produto-imagem-foto img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.produtos-fatias .produto-info {
+    padding: 14px 16px 15px !important;
+}
+
+.produtos-fatias .produto-categoria {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 6px !important;
+}
+
+.produtos-fatias .produto h3 {
+    margin-top: 4px !important;
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+}
+
+.produtos-fatias .produto-info > p,
+.produtos-fatias .produto p {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+}
+
+.produto-quantidade-area {
+    margin-top: 12px !important;
+    padding-top: 10px !important;
+    gap: 8px !important;
+}
+
+.produto-quantidade-area > span {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+}
+
+.produto-controle-quantidade {
+    gap: 7px !important;
+}
+
+.produto-controle-quantidade button {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+}
+
+.produto-controle-quantidade strong {
+    min-width: 22px !important;
+    font-size: 14px !important;
+}
+
+.produto-rodape.produto-rodape-fatia {
+    grid-template-columns: auto minmax(105px, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+}
+
+.produto-rodape.produto-rodape-fatia > strong {
+    font-size: 19px !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+}
+
+.produto-rodape.produto-rodape-fatia button {
+    min-height: 38px !important;
+    padding: 9px 12px !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+}
+
+
+/* TABLET */
+@media (max-width: 1050px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        height: 190px !important;
+    }
+}
+
+
+/* MOBILE */
+@media (max-width: 700px) {
+    .cardapio {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .produtos-fatias {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .produtos-fatias .produto {
+        border-radius: 14px !important;
+        overflow: hidden !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        height: 150px !important;
+        min-height: 0 !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 12px !important;
+    }
+
+    .produtos-fatias .produto-categoria {
+        font-size: 9px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .produtos-fatias .produto h3 {
+        margin-top: 3px !important;
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+    }
+
+    .produtos-fatias .produto-info > p,
+    .produtos-fatias .produto p {
+        margin-top: 5px !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+    }
+
+    .produto-quantidade-area {
+        flex-direction: row !important;
+        align-items: center !important;
+        margin-top: 9px !important;
+        padding-top: 9px !important;
+    }
+
+    .produto-quantidade-area > span {
+        font-size: 11px !important;
+    }
+
+    .produto-controle-quantidade {
+        gap: 5px !important;
+    }
+
+    .produto-controle-quantidade button {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        font-size: 15px !important;
+    }
+
+    .produto-controle-quantidade strong {
+        min-width: 18px !important;
+        font-size: 13px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-top: 9px !important;
+        padding-top: 9px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia > strong {
+        font-size: 18px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia button {
+        min-height: 38px !important;
+        padding: 9px 10px !important;
+        font-size: 10.5px !important;
+    }
+}
+
+
+/* CELULARES ESTREITOS
+   Em telas pequenas demais, volta para 1 card por linha para não sacrificar leitura. */
+@media (max-width: 430px) {
+    .produtos-fatias {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .produtos-fatias .produto {
+        display: grid !important;
+        grid-template-columns: 125px minmax(0, 1fr) !important;
+        align-items: stretch !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 125px !important;
+        height: 100% !important;
+        min-height: 190px !important;
+        border-radius: 0 !important;
+    }
+
+    .produtos-fatias .produto-info {
+        min-width: 0 !important;
+        padding: 12px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+
+/* =====================================================================
+   AJUSTE EXTRA — PRONTA ENTREGA AINDA MAIS COMPACTA
+   Mantém leitura boa e reduz bastante espaço ocupado.
+   Este bloco deve permanecer no FINAL do style.css.
+===================================================================== */
+
+/* DESKTOP: até 5 produtos por linha */
+.produtos-fatias {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+}
+
+.produtos-fatias .produto {
+    border-radius: 14px !important;
+}
+
+.produtos-fatias .produto-imagem,
+.produtos-fatias .produto-imagem-foto {
+    height: 145px !important;
+}
+
+.produtos-fatias .produto-info {
+    padding: 11px 12px 12px !important;
+}
+
+.produtos-fatias .produto-categoria {
+    font-size: 9px !important;
+    margin-bottom: 4px !important;
+}
+
+.produtos-fatias .produto h3 {
+    margin-top: 3px !important;
+    font-size: 16px !important;
+}
+
+.produtos-fatias .produto-info > p,
+.produtos-fatias .produto p {
+    margin-top: 4px !important;
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+}
+
+.produto-quantidade-area {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+}
+
+.produto-quantidade-area > span {
+    font-size: 10.5px !important;
+}
+
+.produto-controle-quantidade button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 14px !important;
+}
+
+.produto-controle-quantidade strong {
+    font-size: 12px !important;
+}
+
+.produto-rodape.produto-rodape-fatia {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+    gap: 8px !important;
+}
+
+.produto-rodape.produto-rodape-fatia > strong {
+    font-size: 17px !important;
+}
+
+.produto-rodape.produto-rodape-fatia button {
+    min-height: 34px !important;
+    padding: 7px 9px !important;
+    font-size: 9.5px !important;
+}
+
+
+/* NOTEBOOK / TABLET GRANDE */
+@media (max-width: 1180px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        height: 140px !important;
+    }
+}
+
+
+/* MOBILE: 2 produtos por linha */
+@media (max-width: 700px) {
+    .cardapio {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .produtos-fatias {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+    }
+
+    .produtos-fatias .produto {
+        display: block !important;
+        min-width: 0 !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 100% !important;
+        height: 112px !important;
+        min-height: 0 !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 9px 10px 10px !important;
+    }
+
+    .produtos-fatias .produto-categoria {
+        font-size: 8px !important;
+    }
+
+    .produtos-fatias .produto h3 {
+        font-size: 14px !important;
+        line-height: 1.15 !important;
+    }
+
+    .produtos-fatias .produto-info > p,
+    .produtos-fatias .produto p {
+        margin-top: 4px !important;
+        font-size: 10.5px !important;
+        line-height: 1.3 !important;
+    }
+
+    .produto-quantidade-area {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        align-items: center !important;
+        gap: 5px !important;
+
+        margin-top: 7px !important;
+        padding-top: 7px !important;
+    }
+
+    .produto-quantidade-area > span {
+        font-size: 9.5px !important;
+    }
+
+    .produto-controle-quantidade {
+        gap: 4px !important;
+    }
+
+    .produto-controle-quantidade button {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        min-height: 26px !important;
+        font-size: 13px !important;
+    }
+
+    .produto-controle-quantidade strong {
+        min-width: 15px !important;
+        font-size: 11px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        margin-top: 7px !important;
+        padding-top: 7px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia > strong {
+        font-size: 16px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia button {
+        min-height: 32px !important;
+        padding: 7px 8px !important;
+        font-size: 9px !important;
+    }
+}
+
+
+/* CELULARES MUITO ESTREITOS:
+   mantém 1 por linha, mas em formato horizontal realmente compacto */
+@media (max-width: 360px) {
+    .produtos-fatias {
+        grid-template-columns: 1fr !important;
+    }
+
+    .produtos-fatias .produto {
+        display: grid !important;
+        grid-template-columns: 105px minmax(0, 1fr) !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 105px !important;
+        height: 100% !important;
+        min-height: 165px !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 9px !important;
+    }
+}

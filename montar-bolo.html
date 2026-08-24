@@ -155,6 +155,118 @@
                 text-align: left;
             }
         }
+    
+        .ajuda-data-retirada {
+            display: block;
+            margin-top: 6px;
+            color: #725c50;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 600px) {
+            .ajuda-data-retirada {
+                font-size: 12px;
+            }
+        }
+
+    
+
+        /* =========================================================
+           REFINO VISUAL — DISPONIBILIDADE DE DATAS
+        ========================================================= */
+
+        .campo-data-retirada-wrapper {
+            position: relative;
+        }
+
+        .campo-data-retirada-wrapper .ajuda-data-retirada {
+            margin-top: 7px !important;
+            padding: 8px 10px;
+            border: 1px solid #ead69a;
+            border-radius: 9px;
+            background: #fff8df;
+            color: #725c50 !important;
+            font-size: 11px !important;
+            line-height: 1.45 !important;
+        }
+
+        .mensagem-data-indisponivel {
+            margin-top: 8px;
+            padding: 10px 11px;
+            border-radius: 9px;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .mensagem-data-indisponivel[hidden] {
+            display: none !important;
+        }
+
+        .mensagem-data-indisponivel.erro {
+            border: 1px solid #e0aaa4;
+            background: #fff0ee;
+            color: #9d2f29;
+        }
+
+        .mensagem-data-indisponivel.ok {
+            border: 1px solid #b9d9c5;
+            background: #eef9f2;
+            color: #2f7047;
+        }
+
+        .campo-data-retirada-wrapper input[type="date"] {
+            transition:
+                border-color .18s ease,
+                box-shadow .18s ease,
+                background .18s ease;
+        }
+
+        .campo-data-retirada-wrapper input[type="date"]:focus {
+            background: #fffef9;
+        }
+
+        @media (max-width: 600px) {
+            .campo-data-retirada-wrapper .ajuda-data-retirada,
+            .mensagem-data-indisponivel {
+                font-size: 11px !important;
+            }
+        }
+
+    
+
+        /* =========================================================
+           HORÁRIOS DE RETIRADA — SELEÇÃO PELO SITE
+        ========================================================= */
+        .campos-retirada select.campo-bolo {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .campos-retirada select.campo-bolo:disabled {
+            cursor: not-allowed;
+            opacity: .72;
+        }
+
+        .ajuda-horario-retirada {
+            display: block;
+            margin-top: 7px;
+            padding: 8px 10px;
+            border: 1px solid #ead69a;
+            border-radius: 9px;
+            background: #fff8df;
+            color: #725c50;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 600px) {
+            .ajuda-horario-retirada {
+                font-size: 11px;
+            }
+        }
+
     </style>
 </head>
 
@@ -385,14 +497,18 @@
                         <h2>Quando deseja retirar?</h2>
 
                         <div class="campos-retirada">
-                            <div>
+                            <div class="campo-data-retirada-wrapper">
                                 <label>Data</label>
                                 <input
                                     type="date"
                                     id="dataRetiradaDocinhos"
                                     class="campo-bolo"
                                 >
-                            </div>
+                            
+                                <small class="ajuda-data-retirada">
+                                    Datas sem disponibilidade ficam bloqueadas para novas encomendas.
+                                </small>
+</div>
 
                             <div>
                                 <label>Horário</label>
@@ -400,7 +516,11 @@
                                     type="time"
                                     id="horaRetiradaDocinhos"
                                     class="campo-bolo"
+                                    disabled
                                 >
+                                <small class="ajuda-horario-retirada">
+                                    Escolha um dos horários disponíveis para retirada.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -528,14 +648,18 @@
                         <h2>Quando deseja retirar?</h2>
 
                         <div class="campos-retirada">
-                            <div>
+                            <div class="campo-data-retirada-wrapper">
                                 <label>Data</label>
                                 <input
                                     type="date"
                                     id="dataRetiradaCupcakes"
                                     class="campo-bolo"
                                 >
-                            </div>
+                            
+                                <small class="ajuda-data-retirada">
+                                    Datas sem disponibilidade ficam bloqueadas para novas encomendas.
+                                </small>
+</div>
 
                             <div>
                                 <label>Horário</label>
@@ -543,7 +667,11 @@
                                     type="time"
                                     id="horaRetiradaCupcakes"
                                     class="campo-bolo"
+                                    disabled
                                 >
+                                <small class="ajuda-horario-retirada">
+                                    Escolha um dos horários disponíveis para retirada.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -631,14 +759,18 @@
                         <h2>Quando deseja retirar?</h2>
 
                         <div class="campos-retirada">
-                            <div>
+                            <div class="campo-data-retirada-wrapper">
                                 <label>Data</label>
                                 <input
                                     type="date"
                                     id="dataRetiradaCaseirinho"
                                     class="campo-bolo"
                                 >
-                            </div>
+                            
+                                <small class="ajuda-data-retirada">
+                                    Datas sem disponibilidade ficam bloqueadas para novas encomendas.
+                                </small>
+</div>
 
                             <div>
                                 <label>Horário</label>
@@ -646,7 +778,11 @@
                                     type="time"
                                     id="horaRetiradaCaseirinho"
                                     class="campo-bolo"
+                                    disabled
                                 >
+                                <small class="ajuda-horario-retirada">
+                                    Escolha um dos horários disponíveis para retirada.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -823,14 +959,18 @@
                         <h2>Quando deseja retirar?</h2>
 
                         <div class="campos-retirada">
-                            <div>
+                            <div class="campo-data-retirada-wrapper">
                                 <label>Data</label>
                                 <input
                                     type="date"
                                     id="dataRetiradaKitFesta"
                                     class="campo-bolo"
                                 >
-                            </div>
+                            
+                                <small class="ajuda-data-retirada">
+                                    Datas sem disponibilidade ficam bloqueadas para novas encomendas.
+                                </small>
+</div>
 
                             <div>
                                 <label>Horário</label>
@@ -838,7 +978,11 @@
                                     type="time"
                                     id="horaRetiradaKitFesta"
                                     class="campo-bolo"
+                                    disabled
                                 >
+                                <small class="ajuda-horario-retirada">
+                                    Escolha um dos horários disponíveis para retirada.
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -1154,7 +1298,7 @@
 
                         <div class="campos-retirada">
 
-                            <div>
+                            <div class="campo-data-retirada-wrapper">
                                 <label>Data</label>
 
                                 <input
@@ -1162,7 +1306,11 @@
                                     id="dataRetirada"
                                     class="campo-bolo"
                                 >
-                            </div>
+                            
+                                <small class="ajuda-data-retirada">
+                                    Datas sem disponibilidade ficam bloqueadas para novas encomendas.
+                                </small>
+</div>
 
                             <div>
                                 <label>Horário</label>
@@ -1171,7 +1319,11 @@
                                     type="time"
                                     id="horaRetirada"
                                     class="campo-bolo"
+                                    disabled
                                 >
+                                <small class="ajuda-horario-retirada">
+                                    Escolha um dos horários disponíveis para retirada.
+                                </small>
                             </div>
 
                         </div>
