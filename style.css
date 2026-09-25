@@ -18882,21 +18882,651 @@ footer .copyright,
     }
 }
 
+
+
 /* =====================================================================
-   AJUSTE FINAL — IMAGENS DA PRONTA ENTREGA SEM CORTE
-   Mantém a foto inteira visível em desktop, tablet e mobile.
+   AJUSTE EXTRA — PRONTA ENTREGA AINDA MAIS COMPACTA
+   Mantém leitura boa e reduz bastante espaço ocupado.
    Este bloco deve permanecer no FINAL do style.css.
 ===================================================================== */
 
-.produtos-fatias .produto-imagem,
-.produtos-fatias .produto-imagem-foto {
-    background: #fffaf0 !important;
+/* DESKTOP: até 5 produtos por linha */
+.produtos-fatias {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 14px !important;
 }
 
-.produtos-fatias .produto-imagem-foto img {
-    width: 100% !important;
-    height: 100% !important;
+.produtos-fatias .produto {
+    border-radius: 14px !important;
+}
+
+.produtos-fatias .produto-imagem,
+.produtos-fatias .produto-imagem-foto {
+    height: 145px !important;
+}
+
+.produtos-fatias .produto-info {
+    padding: 11px 12px 12px !important;
+}
+
+.produtos-fatias .produto-categoria {
+    font-size: 9px !important;
+    margin-bottom: 4px !important;
+}
+
+.produtos-fatias .produto h3 {
+    margin-top: 3px !important;
+    font-size: 16px !important;
+}
+
+.produtos-fatias .produto-info > p,
+.produtos-fatias .produto p {
+    margin-top: 4px !important;
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+}
+
+.produto-quantidade-area {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+}
+
+.produto-quantidade-area > span {
+    font-size: 10.5px !important;
+}
+
+.produto-controle-quantidade button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    font-size: 14px !important;
+}
+
+.produto-controle-quantidade strong {
+    font-size: 12px !important;
+}
+
+.produto-rodape.produto-rodape-fatia {
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+    gap: 8px !important;
+}
+
+.produto-rodape.produto-rodape-fatia > strong {
+    font-size: 17px !important;
+}
+
+.produto-rodape.produto-rodape-fatia button {
+    min-height: 34px !important;
+    padding: 7px 9px !important;
+    font-size: 9.5px !important;
+}
+
+
+/* NOTEBOOK / TABLET GRANDE */
+@media (max-width: 1180px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .produtos-fatias {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        height: 140px !important;
+    }
+}
+
+
+/* MOBILE: 2 produtos por linha */
+@media (max-width: 700px) {
+    .cardapio {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .produtos-fatias {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+    }
+
+    .produtos-fatias .produto {
+        display: block !important;
+        min-width: 0 !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 100% !important;
+        height: 112px !important;
+        min-height: 0 !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 9px 10px 10px !important;
+    }
+
+    .produtos-fatias .produto-categoria {
+        font-size: 8px !important;
+    }
+
+    .produtos-fatias .produto h3 {
+        font-size: 14px !important;
+        line-height: 1.15 !important;
+    }
+
+    .produtos-fatias .produto-info > p,
+    .produtos-fatias .produto p {
+        margin-top: 4px !important;
+        font-size: 10.5px !important;
+        line-height: 1.3 !important;
+    }
+
+    .produto-quantidade-area {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        align-items: center !important;
+        gap: 5px !important;
+
+        margin-top: 7px !important;
+        padding-top: 7px !important;
+    }
+
+    .produto-quantidade-area > span {
+        font-size: 9.5px !important;
+    }
+
+    .produto-controle-quantidade {
+        gap: 4px !important;
+    }
+
+    .produto-controle-quantidade button {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        min-height: 26px !important;
+        font-size: 13px !important;
+    }
+
+    .produto-controle-quantidade strong {
+        min-width: 15px !important;
+        font-size: 11px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        margin-top: 7px !important;
+        padding-top: 7px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia > strong {
+        font-size: 16px !important;
+    }
+
+    .produto-rodape.produto-rodape-fatia button {
+        min-height: 32px !important;
+        padding: 7px 8px !important;
+        font-size: 9px !important;
+    }
+}
+
+
+/* CELULARES MUITO ESTREITOS:
+   mantém 1 por linha, mas em formato horizontal realmente compacto */
+@media (max-width: 360px) {
+    .produtos-fatias {
+        grid-template-columns: 1fr !important;
+    }
+
+    .produtos-fatias .produto {
+        display: grid !important;
+        grid-template-columns: 105px minmax(0, 1fr) !important;
+    }
+
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 105px !important;
+        height: 100% !important;
+        min-height: 165px !important;
+    }
+
+    .produtos-fatias .produto-info {
+        padding: 9px !important;
+    }
+}
+
+
+/* =====================================================================
+   AJUSTE FINAL — CHECKBOX DOS SABORES / CUPCAKES
+   Corrige o min-height global aplicado aos inputs.
+   Mantém o quadradinho compacto no desktop, tablet e mobile.
+===================================================================== */
+
+/* Checkboxes usados nos cards de opções */
+body .opcao-card input[type="checkbox"],
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    max-width: 15px !important;
+    max-height: 15px !important;
+
+    flex: 0 0 15px !important;
+    align-self: center !important;
+
+    margin: 0 10px 0 0 !important;
+    padding: 0 !important;
+
+    border: 1.5px solid #8f9395 !important;
+    border-radius: 4px !important;
+
+    background: #ffffff !important;
+    cursor: pointer;
+
+    position: relative;
+    line-height: 15px !important;
+}
+
+/* Estado selecionado */
+body .opcao-card input[type="checkbox"]:checked,
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"]:checked,
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked {
+    border-color: var(--gf-bordeaux, #85002f) !important;
+    background: var(--gf-bordeaux, #85002f) !important;
+}
+
+/* Símbolo de confirmação */
+body .opcao-card input[type="checkbox"]:checked::after,
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"]:checked::after,
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked::after,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked::after {
+    content: "✓";
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+
+    font-size: 10px !important;
+    font-weight: 800;
+    line-height: 1 !important;
+}
+
+/* Garante que o card não mude de tamanho ao selecionar */
+body #opcoesSaboresCupcake .opcao-card:has(input:checked),
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card:has(input:checked) {
+    border-width: 1px !important;
+    box-shadow: inset 0 0 0 1px var(--gf-amarelo-forte, #d6aa38) !important;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+    body .opcao-card input[type="checkbox"],
+    body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+    body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+        width: 15px !important;
+        height: 15px !important;
+        min-width: 15px !important;
+        min-height: 15px !important;
+        max-width: 15px !important;
+        max-height: 15px !important;
+        flex-basis: 15px !important;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    body .opcao-card input[type="checkbox"],
+    body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+    body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+        width: 15px !important;
+        height: 15px !important;
+        min-width: 15px !important;
+        min-height: 15px !important;
+        max-width: 15px !important;
+        max-height: 15px !important;
+
+        flex: 0 0 15px !important;
+        align-self: center !important;
+
+        margin-right: 9px !important;
+        padding: 0 !important;
+    }
+}
+
+
+/* =====================================================================
+   AJUSTE FINAL — PADRONIZAÇÃO DE TODOS OS ÍCONES DE SELEÇÃO
+   Gorete Festas
+   - Radio e checkbox passam a ter exatamente o mesmo visual.
+   - Mantém a lógica original: radio = escolha única / checkbox = múltipla.
+   - Aplicado em desktop, tablet e mobile.
+===================================================================== */
+
+body .opcao-card input[type="radio"],
+body .opcao-card input[type="checkbox"],
+body #opcoesSaboresDocinho .opcao-card input[type="radio"],
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+body #opcoesSaboresCupcake .opcao-card input[type="radio"],
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="radio"],
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    max-width: 15px !important;
+    max-height: 15px !important;
+
+    flex: 0 0 15px !important;
+    align-self: center !important;
+
+    margin: 0 10px 0 0 !important;
+    padding: 0 !important;
+
+    border: 1.5px solid #8f9395 !important;
+    border-radius: 50% !important;
+
+    background: #ffffff !important;
+    cursor: pointer;
+
+    position: relative;
+    line-height: 15px !important;
+
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Selecionado: mesmo padrão para radio e checkbox */
+body .opcao-card input[type="radio"]:checked,
+body .opcao-card input[type="checkbox"]:checked,
+body #opcoesSaboresDocinho .opcao-card input[type="radio"]:checked,
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"]:checked,
+body #opcoesSaboresCupcake .opcao-card input[type="radio"]:checked,
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="radio"]:checked,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked {
+    border-color: var(--gf-bordeaux, #85002f) !important;
+    background: var(--gf-bordeaux, #85002f) !important;
+}
+
+/* Remove o ✓ antigo dos checkboxes */
+body .opcao-card input[type="checkbox"]:checked::after,
+body #opcoesSaboresDocinho .opcao-card input[type="checkbox"]:checked::after,
+body #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked::after,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"]:checked::after {
+    content: "" !important;
+
+    position: absolute !important;
+    width: 5px !important;
+    height: 5px !important;
+
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    inset: auto !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    border-radius: 50% !important;
+    background: #ffffff !important;
+
     display: block !important;
-    object-fit: contain !important;
-    object-position: center center !important;
+}
+
+/* Bolinha interna dos radios */
+body .opcao-card input[type="radio"]:checked::after,
+body #opcoesSaboresDocinho .opcao-card input[type="radio"]:checked::after,
+body #opcoesSaboresCupcake .opcao-card input[type="radio"]:checked::after,
+body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="radio"]:checked::after {
+    content: "" !important;
+
+    position: absolute !important;
+    width: 5px !important;
+    height: 5px !important;
+
+    top: 50% !important;
+    left: 50% !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    border-radius: 50% !important;
+    background: #ffffff !important;
+
+    display: block !important;
+}
+
+/* Desabilitado */
+body .opcao-card input[type="radio"]:disabled,
+body .opcao-card input[type="checkbox"]:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.45 !important;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+    body .opcao-card input[type="radio"],
+    body .opcao-card input[type="checkbox"],
+    body #opcoesSaboresDocinho .opcao-card input[type="radio"],
+    body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+    body #opcoesSaboresCupcake .opcao-card input[type="radio"],
+    body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="radio"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+        width: 15px !important;
+        height: 15px !important;
+        min-width: 15px !important;
+        min-height: 15px !important;
+        max-width: 15px !important;
+        max-height: 15px !important;
+        flex: 0 0 15px !important;
+        border-radius: 50% !important;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    body .opcao-card input[type="radio"],
+    body .opcao-card input[type="checkbox"],
+    body #opcoesSaboresDocinho .opcao-card input[type="radio"],
+    body #opcoesSaboresDocinho .opcao-card input[type="checkbox"],
+    body #opcoesSaboresCupcake .opcao-card input[type="radio"],
+    body #opcoesSaboresCupcake .opcao-card input[type="checkbox"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="radio"],
+    body .montagem-cupcakes #opcoesSaboresCupcake .opcao-card input[type="checkbox"] {
+        width: 15px !important;
+        height: 15px !important;
+        min-width: 15px !important;
+        min-height: 15px !important;
+        max-width: 15px !important;
+        max-height: 15px !important;
+
+        flex: 0 0 15px !important;
+        align-self: center !important;
+
+        margin: 0 9px 0 0 !important;
+        padding: 0 !important;
+
+        border-radius: 50% !important;
+    }
+}
+
+
+/* =====================================================================
+   RESUMO DA ENCOMENDA — MELHORIA VISUAL E PROGRESSO
+   Desktop + tablet + mobile
+===================================================================== */
+
+.resumo-bolo .linha-resumo {
+    align-items: flex-start;
+}
+
+.resumo-bolo .linha-resumo > span {
+    flex: 0 0 auto;
+}
+
+.resumo-bolo .linha-resumo > strong {
+    max-width: 62%;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.resumo-progresso {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 13px;
+    padding: 10px 11px;
+
+    border: 1px solid #ead69a;
+    border-radius: 10px;
+
+    background: #fff9e7;
+    color: #725c50;
+
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.resumo-progresso-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+
+    border: 1px solid #d8b85c;
+    border-radius: 50%;
+
+    background: #fffef8;
+    color: #8a6b13;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.resumo-progresso.completo {
+    border-color: #b9d9c5;
+    background: #eef9f2;
+    color: #2f7047;
+}
+
+.resumo-progresso.completo .resumo-progresso-icone {
+    border-color: #8fc49e;
+    background: #2f7047;
+    color: #ffffff;
+}
+
+.resumo-progresso.incompleto {
+    border-color: #ead69a;
+    background: #fff9e7;
+    color: #725c50;
+}
+
+@media (max-width: 900px) {
+    .resumo-bolo .linha-resumo > strong {
+        max-width: 68%;
+    }
+}
+
+@media (max-width: 600px) {
+    .resumo-bolo {
+        padding: 17px;
+    }
+
+    .resumo-bolo .linha-resumo {
+        gap: 10px;
+        padding: 9px 0;
+    }
+
+    .resumo-bolo .linha-resumo > span {
+        font-size: 9px;
+    }
+
+    .resumo-bolo .linha-resumo > strong {
+        max-width: 64%;
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .resumo-progresso {
+        margin-top: 11px;
+        padding: 9px 10px;
+        font-size: 9px;
+    }
+
+    .resumo-progresso-icone {
+        width: 17px;
+        height: 17px;
+        min-width: 17px;
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 420px) {
+    .resumo-bolo .linha-resumo {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .resumo-bolo .linha-resumo > strong {
+        max-width: 100%;
+        text-align: left;
+    }
+}
+
+/* =====================================================================
+   GORETE FESTAS — AJUSTE FINAL DAS FOTOS DOS CARDS NO MOBILE
+   Mantém o desktop intacto e exibe a foto inteira no celular.
+===================================================================== */
+@media (max-width: 600px) {
+    .produtos-fatias .produto-imagem,
+    .produtos-fatias .produto-imagem-foto {
+        width: 100% !important;
+        height: 220px !important;
+        min-height: 220px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+    }
+
+    .produtos-fatias .produto-imagem-foto img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        display: block !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+    }
 }
