@@ -1713,6 +1713,7 @@
                 name="${inputName}"
                 value="${escaparHtmlSite(opcao.nome)}"
                 data-preco="${Number(opcao.preco || 0)}"
+                data-adicional-massa-preta="${opcao.grupo === "tamanho" ? Number(opcao.adicional_massa_preta || 0) : 0}"
                 data-id="${opcao.id}"
             >
 
@@ -2082,6 +2083,26 @@
        ATUALIZAR RESUMO
     ===================================================== */
 
+    function massaPretaSelecionada(massa) {
+        return Boolean(
+            massa &&
+            String(massa.value || "")
+                .trim()
+                .toLocaleLowerCase("pt-BR") === "massa preta"
+        );
+    }
+
+    function obterAdicionalMassaPreta(tamanho, massa) {
+        if (!tamanho || !massaPretaSelecionada(massa)) {
+            return 0;
+        }
+
+        return Number(
+            tamanho.dataset.adicionalMassaPreta || 0
+        );
+    }
+
+
     function atualizarResumoBolo() {
 
         const tamanho =
@@ -2141,9 +2162,16 @@
 
         if (resumoMassa) {
 
+            const adicionalMassaPreta =
+                obterAdicionalMassaPreta(tamanho, massa);
+
             resumoMassa.textContent =
                 massa
-                    ? massa.value
+                    ? (
+                        adicionalMassaPreta > 0
+                            ? `${massa.value} (+ ${formatarMoeda(adicionalMassaPreta)})`
+                            : massa.value
+                    )
                     : "—";
 
         }
@@ -2174,6 +2202,15 @@
         if (resumoAdicionais) {
 
             const adicionaisComValor = [];
+
+            const adicionalMassaPreta =
+                obterAdicionalMassaPreta(tamanho, massa);
+
+            if (adicionalMassaPreta > 0) {
+                adicionaisComValor.push(
+                    `Massa Preta (+ ${formatarMoeda(adicionalMassaPreta)})`
+                );
+            }
 
             if (
                 massa &&
@@ -2284,6 +2321,9 @@
                     massa.dataset.preco || 0
                 );
         }
+
+        valorTotal +=
+            obterAdicionalMassaPreta(tamanho, massa);
 
         recheios.forEach(item => {
             valorTotal +=
@@ -2428,6 +2468,9 @@
         const valorMassa =
             Number(massa.dataset.preco || 0);
 
+        const adicionalMassaPreta =
+            obterAdicionalMassaPreta(tamanho, massa);
+
         const valorRecheios =
             recheios.reduce(
                 (soma, item) =>
@@ -2445,10 +2488,19 @@
         const valorTotal =
             valorTamanho +
             valorMassa +
+            adicionalMassaPreta +
             valorRecheios +
             valorAdicionais;
 
         const adicionaisCobrados = [];
+
+        if (adicionalMassaPreta > 0) {
+            adicionaisCobrados.push({
+                origem: "Massa Preta",
+                nome: massa.value,
+                valor: adicionalMassaPreta
+            });
+        }
 
         if (valorMassa > 0) {
             adicionaisCobrados.push({
@@ -2649,6 +2701,9 @@
             valorMassa:
                 valorMassa,
 
+            adicionalMassaPreta:
+                adicionalMassaPreta,
+
             valorRecheios:
                 valorRecheios,
 
@@ -2711,6 +2766,14 @@
             ) {
 
                 item.adicionaisCobrados = [];
+
+                if (Number(item.adicionalMassaPreta || 0) > 0) {
+                    item.adicionaisCobrados.push({
+                        origem: "Massa Preta",
+                        nome: item.massa || "Massa Preta",
+                        valor: Number(item.adicionalMassaPreta || 0)
+                    });
+                }
 
                 if (Number(item.valorMassa || 0) > 0) {
                     item.adicionaisCobrados.push({
