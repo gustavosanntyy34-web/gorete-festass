@@ -4906,6 +4906,17 @@
                     </small>
                 </div>
 
+                <div class="campo-admin" id="campoAdicionalMassaPretaOpcao" hidden>
+                    <label for="adicionalMassaPretaOpcao">Adicional Massa Preta</label>
+                    <div class="campo-preco-admin">
+                        <span>R$</span>
+                        <input type="number" id="adicionalMassaPretaOpcao" min="0" step="0.01" placeholder="0,00">
+                    </div>
+                    <small>
+                        Informe o valor adicional da massa preta para este tamanho de bolo.
+                    </small>
+                </div>
+
                 <label class="campo-status-admin campo-status-card">
                     <input type="checkbox" id="ativoOpcao" checked>
                     <span>
@@ -7124,6 +7135,8 @@
         const labelPreco = document.querySelector('label[for="precoOpcao"]');
         const campoPreco = document.getElementById("campoPrecoOpcao");
         const precoInput = document.getElementById("precoOpcao");
+        const campoAdicionalMassaPreta = document.getElementById("campoAdicionalMassaPretaOpcao");
+        const adicionalMassaPretaInput = document.getElementById("adicionalMassaPretaOpcao");
 
         // Padrões
         labelDescricao.innerHTML = 'Descrição <small>(opcional)</small>';
@@ -7135,6 +7148,15 @@
 
         if (precoInput) {
             precoInput.required = false;
+        }
+
+        // O adicional da massa preta pertence somente aos tamanhos do bolo personalizado.
+        if (campoAdicionalMassaPreta) {
+            campoAdicionalMassaPreta.hidden = !(tipo === "bolo" && grupo === "tamanho");
+        }
+
+        if (adicionalMassaPretaInput && !(tipo === "bolo" && grupo === "tamanho")) {
+            adicionalMassaPretaInput.value = "0";
         }
 
         // DOCINHOS
@@ -7251,7 +7273,7 @@
         document.getElementById("tituloModalOpcao").textContent = `Adicionar ${tituloGrupo.toLowerCase()}`;
         const subtitulos = {
             bolo: {
-                tamanho: "Cadastre um tamanho e o valor base correspondente.",
+                tamanho: "Cadastre um tamanho, o valor base e o adicional da massa preta correspondente.",
                 massa: "Cadastre uma opção de massa e informe somente o adicional, quando houver.",
                 recheio: "Cadastre um sabor de recheio e informe se existe valor adicional.",
                 outro: "Cadastre um adicional que o cliente poderá escolher no bolo."
@@ -7288,6 +7310,10 @@
             (opcao.tipo_produto === "docinho" || opcao.tipo_produto === "cupcake")
                 ? "0"
                 : (opcao.preco ?? 0);
+        document.getElementById("adicionalMassaPretaOpcao").value =
+            (opcao.tipo_produto === "bolo" && opcao.grupo === "tamanho")
+                ? (opcao.adicional_massa_preta ?? 0)
+                : "0";
         document.getElementById("ordemOpcao").value = opcao.ordem ?? 0;
         document.getElementById("ativoOpcao").checked = !!opcao.ativo;
         document.getElementById("tituloModalOpcao").textContent = "Editar opção";
@@ -7321,6 +7347,10 @@
                 (tipo === "docinho" || tipo === "cupcake")
                     ? 0
                     : Number(document.getElementById("precoOpcao").value || 0),
+            adicional_massa_preta:
+                (tipo === "bolo" && grupo === "tamanho")
+                    ? Number(document.getElementById("adicionalMassaPretaOpcao").value || 0)
+                    : 0,
             ativo: document.getElementById("ativoOpcao").checked,
             ordem: Number(document.getElementById("ordemOpcao").value || proximaOrdem(tipo, grupo))
         };
