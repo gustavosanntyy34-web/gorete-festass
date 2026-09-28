@@ -3053,6 +3053,13 @@
                                 }
                             </p>
 
+                            ${Number(item.valorCaixa || 0) > 0 ? `
+                                <p>
+                                    <strong>Caixa:</strong>
+                                    + ${formatarMoeda(item.valorCaixa)}
+                                </p>
+                            ` : ""}
+
                             <p>
                                 <strong>Retirada:</strong>
                                 ${formatarData(item.data)}
@@ -3801,6 +3808,13 @@
                             <strong>Valor unitário:</strong>
                             ${formatarMoeda(item.precoUnitario)}
                         </p>
+
+                        ${Number(item.valorCaixa || 0) > 0 ? `
+                            <p>
+                                <strong>Caixa:</strong>
+                                + ${formatarMoeda(item.valorCaixa)}
+                            </p>
+                        ` : ""}
 
                         <p>
                             <strong>Retirada:</strong>
@@ -4655,6 +4669,15 @@
         return await resposta.json();
     }
 
+    function normalizarCategoriaDocinho(valor) {
+
+        return String(valor || "")
+            .trim()
+            .toLocaleLowerCase("pt-BR")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
     function nomeCategoriaDocinho(categoria) {
 
         const nomes = {
@@ -4726,14 +4749,31 @@
             return;
         }
 
-        const categorias =
-            categoriasDocinhosDisponiveis();
+        const regras =
+            [...regrasDocinhosSupabase]
+                .filter(regra => regra && regra.ativo !== false)
+                .sort((a, b) => {
+                    const categoriaA = String(a.categoria || "");
+                    const categoriaB = String(b.categoria || "");
 
-        if (!categorias.length) {
+                    if (categoriaA !== categoriaB) {
+                        return categoriaA.localeCompare(
+                            categoriaB,
+                            "pt-BR"
+                        );
+                    }
+
+                    return (
+                        Number(a.quantidade_minima || 0) -
+                        Number(b.quantidade_minima || 0)
+                    );
+                });
+
+        if (!regras.length) {
 
             container.innerHTML = `
                 <div class="opcoes-indisponiveis">
-                    Nenhuma categoria de docinhos foi cadastrada ainda.
+                    Nenhuma faixa de preço de docinhos foi cadastrada ainda.
                 </div>
             `;
 
@@ -4742,42 +4782,63 @@
 
         container.innerHTML = "";
 
-        categorias.forEach(categoria => {
+        regras.forEach(regra => {
 
-            const minimo =
-                menorQuantidadeCategoriaDocinho(categoria);
+            const categoria =
+                String(regra.categoria || "").trim();
 
-            const menorPreco =
-                menorPrecoCategoriaDocinho(categoria);
+            const tipoCobranca =
+                regra.tipo_cobranca || "unidade";
+
+            const quantidadeMinima =
+                Number(regra.quantidade_minima || 0);
+
+            const quantidadePacote =
+                Number(regra.quantidade_pacote || 0);
+
+            const precoUnitario =
+                Number(regra.preco_unitario || 0);
+
+            const precoPacote =
+                Number(regra.preco_pacote || 0);
 
             const label =
                 document.createElement("label");
 
             label.className = "opcao-card";
 
+            const textoPreco =
+                tipoCobranca === "pacote"
+                    ? `${formatarMoeda(precoPacote)} / pacote de ${quantidadePacote} un.`
+                    : `${formatarMoeda(precoUnitario)} / unidade`;
+
+            const textoQuantidade =
+                tipoCobranca === "pacote"
+                    ? (
+                        quantidadePacote > 0
+                            ? `Pacote com ${quantidadePacote} unidades`
+                            : "Quantidade conforme pacote cadastrado"
+                    )
+                    : (
+                        quantidadeMinima > 0
+                            ? `A partir de ${quantidadeMinima} unidades`
+                            : "Quantidade conforme regra cadastrada"
+                    );
+
             label.innerHTML = `
                 <input
                     type="radio"
                     name="categoriaDocinho"
                     value="${escaparHtmlSite(categoria)}"
+                    data-regra-id="${escaparHtmlSite(String(regra.id || ""))}"
+                    data-quantidade-minima="${quantidadeMinima}"
+                    data-quantidade-pacote="${quantidadePacote}"
                 >
 
                 <span>
                     <strong>${escaparHtmlSite(nomeCategoriaDocinho(categoria))}</strong>
-                    <small>
-                        ${
-                            menorPreco !== null
-                                ? `A partir de ${formatarMoeda(menorPreco)} / unidade`
-                                : "Preço conforme regra cadastrada"
-                        }
-                    </small>
-                    <em>
-                        ${
-                            minimo > 1
-                                ? `Pedido mínimo a partir de ${minimo} unidades`
-                                : "Quantidade conforme regra cadastrada"
-                        }
-                    </em>
+                    <small>${textoPreco}</small>
+                    <em>${textoQuantidade}</em>
                 </span>
             `;
 
@@ -4855,9 +4916,15 @@
             return;
         }
 
+        const categoriaNormalizada =
+            normalizarCategoriaDocinho(categoria);
+
         const sabores =
             opcoesDocinhosSupabase
-                .filter(item => item.grupo === categoria)
+                .filter(item =>
+                    normalizarCategoriaDocinho(item.grupo) === categoriaNormalizada &&
+                    item.ativo !== false
+                )
                 .sort(
                     (a, b) =>
                         Number(a.ordem || 0) -
@@ -4971,9 +5038,13 @@
             return null;
         }
 
+        const categoriaNormalizada =
+            normalizarCategoriaDocinho(categoria);
+
         const regrasCategoria =
             regrasDocinhosSupabase.filter(
-                regra => regra.categoria === categoria
+                regra =>
+                    normalizarCategoriaDocinho(regra.categoria) === categoriaNormalizada
             );
 
         // Pacotes têm prioridade quando a quantidade informada
@@ -5020,7 +5091,7 @@
 
         return regrasDocinhosSupabase
             .filter(regra =>
-                regra.categoria === categoria &&
+                normalizarCategoriaDocinho(regra.categoria) === normalizarCategoriaDocinho(categoria) &&
                 (regra.tipo_cobranca || "unidade") === "unidade" &&
                 Number(regra.quantidade_minima || 0) > quantidade
             )
@@ -5453,7 +5524,7 @@
                     : "—";
         }
 
-        const total =
+        const subtotalDocinhos =
             regraDocinhoAtual
                 ? (
                     ehPacote && quantidadePacote > 0
@@ -5461,6 +5532,23 @@
                         : quantidade * Number(regraDocinhoAtual.preco_unitario || 0)
                 )
                 : 0;
+
+        const valorCaixa =
+            regraDocinhoAtual && quantidade > 0
+                ? obterValorCaixaDocinhos(quantidade)
+                : 0;
+
+        const caixaResumo =
+            document.getElementById("resumoValorCaixaDocinho");
+
+        if (caixaResumo) {
+            caixaResumo.textContent =
+                regraDocinhoAtual && quantidade > 0
+                    ? formatarMoeda(valorCaixa)
+                    : "—";
+        }
+
+        const total = subtotalDocinhos + valorCaixa;
 
         if (totalResumo) {
             totalResumo.textContent =
@@ -5516,11 +5604,43 @@
 
                 if (alvo.name === "categoriaDocinho") {
 
-                    document.getElementById(
-                        "quantidadeDocinhos"
-                    ).value = "";
+                    const idRegraSelecionada =
+                        String(alvo.dataset.regraId || "");
 
-                    regraDocinhoAtual = null;
+                    regraDocinhoAtual =
+                        regrasDocinhosSupabase.find(
+                            regra =>
+                                String(regra.id || "") ===
+                                idRegraSelecionada
+                        ) || null;
+
+                    const campoQuantidade =
+                        document.getElementById(
+                            "quantidadeDocinhos"
+                        );
+
+                    if (campoQuantidade) {
+
+                        const tipoCobranca =
+                            regraDocinhoAtual?.tipo_cobranca ||
+                            "unidade";
+
+                        const quantidadeInicial =
+                            tipoCobranca === "pacote"
+                                ? Number(
+                                    regraDocinhoAtual
+                                        ?.quantidade_pacote || 0
+                                )
+                                : Number(
+                                    regraDocinhoAtual
+                                        ?.quantidade_minima || 0
+                                );
+
+                        campoQuantidade.value =
+                            quantidadeInicial > 0
+                                ? String(quantidadeInicial)
+                                : "";
+                    }
 
                     renderizarSaboresDocinhos();
                     atualizarRegraDocinho();
@@ -5672,6 +5792,41 @@
             }
         }
     }
+
+    function obterValorCaixaDocinhos(quantidade) {
+
+        const quantidadeNumerica =
+            Number(quantidade || 0);
+
+        if (quantidadeNumerica <= 0) {
+            return 0;
+        }
+
+        const configuracao =
+            opcoesDocinhosSupabase.find(
+                item =>
+                    item &&
+                    (
+                        item.valor_caixa_menos_50 !== undefined ||
+                        item.valor_caixa_50_ou_mais !== undefined
+                    )
+            ) || {};
+
+        const valorMenos50 =
+            Number(
+                configuracao.valor_caixa_menos_50 ?? 5
+            );
+
+        const valor50OuMais =
+            Number(
+                configuracao.valor_caixa_50_ou_mais ?? 10
+            );
+
+        return quantidadeNumerica >= 50
+            ? valor50OuMais
+            : valorMenos50;
+    }
+
 
     function adicionarDocinhosCarrinho() {
         if (!horarioRetiradaValido(document.getElementById("horaRetiradaDocinhos"))) {
@@ -5871,11 +6026,20 @@
                 )
                 : 0;
 
-        const total =
+        const subtotalDocinhos =
             ehPacote && quantidadePacote > 0
                 ? (quantidade / quantidadePacote) *
                   precoPacote
                 : quantidade * precoUnitario;
+
+        const valorCaixa =
+            obterValorCaixaDocinhos(
+                quantidade
+            );
+
+        const total =
+            subtotalDocinhos +
+            valorCaixa;
 
         carrinho.push({
             id: Date.now(),
@@ -5898,6 +6062,8 @@
                     )
                     : 0,
             regraNome: regraDocinhoAtual.nome || "",
+            subtotalDocinhos: subtotalDocinhos,
+            valorCaixa: valorCaixa,
             data: data,
             horario: horario,
             preco: total,

@@ -60,6 +60,92 @@
                 gap: 10px;
             }
 
+            /* DOCINHOS - VALORES DAS CAIXAS DENTRO DAS FAIXAS DE PREÇO */
+            .docinhos-caixas-config {
+                margin: 0 0 14px;
+                padding: 14px;
+                border: 1px solid #eadbd3;
+                border-radius: 14px;
+                background: #fffdf9;
+            }
+
+            .docinhos-caixas-config[hidden] {
+                display: none !important;
+            }
+
+            .docinhos-caixas-topo h5 {
+                margin: 0;
+                color: #563126;
+                font-size: 14px;
+            }
+
+            .docinhos-caixas-topo p {
+                margin: 4px 0 12px;
+                color: #8a7065;
+                font-size: 10px;
+                line-height: 1.45;
+            }
+
+            .docinhos-caixas-campos {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+                align-items: end;
+                gap: 10px;
+            }
+
+            .docinhos-caixas-campo label {
+                display: block;
+                margin-bottom: 5px;
+                color: #6d0c2e;
+                font-size: 9px;
+                font-weight: 800;
+            }
+
+            .docinhos-caixas-campo input {
+                width: 100%;
+                min-height: 40px;
+                box-sizing: border-box;
+                padding: 9px 10px;
+                border: 1px solid #dccbc3;
+                border-radius: 9px;
+                background: #fff;
+                color: #563126;
+                font: inherit;
+            }
+
+            .btn-salvar-caixas-docinhos {
+                min-height: 40px;
+                padding: 0 16px;
+                border: 0;
+                border-radius: 9px;
+                background: #8f002d;
+                color: #fff;
+                font-size: 10px;
+                font-weight: 800;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+
+            .mensagem-caixas-docinhos {
+                min-height: 16px;
+                margin: 8px 0 0;
+                font-size: 9px;
+                font-weight: 700;
+            }
+
+            .mensagem-caixas-docinhos.sucesso { color: #247a43; }
+            .mensagem-caixas-docinhos.erro { color: #b3261e; }
+
+            @media (max-width: 700px) {
+                .docinhos-caixas-campos {
+                    grid-template-columns: 1fr;
+                }
+
+                .btn-salvar-caixas-docinhos {
+                    width: 100%;
+                }
+            }
+
             .regra-admin-card {
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) auto auto;
@@ -321,6 +407,11 @@
         
             /* DOCINHOS: PREÇO FORA DO CADASTRO DO SABOR */
             #campoPrecoOpcao[hidden] {
+                display: none !important;
+            }
+
+            /* MASSA PRETA: EXCLUSIVO DO CADASTRO DE TAMANHO DO BOLO */
+            #campoAdicionalMassaPretaOpcao[hidden] {
                 display: none !important;
             }
 
@@ -4629,6 +4720,34 @@
                         </button>
                     </div>
 
+                    <section class="docinhos-caixas-config" id="configCaixasDocinhos" hidden>
+                        <div class="docinhos-caixas-topo">
+                            <h5>📦 Valor da caixa dos docinhos</h5>
+                            <p>
+                                Estes valores são aplicados automaticamente conforme a quantidade total de docinhos do pedido.
+                                Você pode alterá-los sempre que o preço das caixas mudar.
+                            </p>
+                        </div>
+
+                        <div class="docinhos-caixas-campos">
+                            <div class="docinhos-caixas-campo">
+                                <label for="valorCaixaDocinhosMenos50">Menos de 50 docinhos</label>
+                                <input type="number" id="valorCaixaDocinhosMenos50" min="0" step="0.01" value="5.00">
+                            </div>
+
+                            <div class="docinhos-caixas-campo">
+                                <label for="valorCaixaDocinhos50Mais">50 docinhos ou mais</label>
+                                <input type="number" id="valorCaixaDocinhos50Mais" min="0" step="0.01" value="10.00">
+                            </div>
+
+                            <button type="button" class="btn-salvar-caixas-docinhos" id="btnSalvarCaixasDocinhos">
+                                Salvar valores
+                            </button>
+                        </div>
+
+                        <p class="mensagem-caixas-docinhos" id="mensagemCaixasDocinhos"></p>
+                    </section>
+
                     <div id="listaRegrasAdmin" class="lista-regras-admin">
                         <p class="painel-carregando">Carregando regras...</p>
                     </div>
@@ -5910,6 +6029,11 @@
     const modalRegra = document.getElementById("modalRegra");
     const formRegra = document.getElementById("formRegra");
     const mensagemRegra = document.getElementById("mensagemRegra");
+    const configCaixasDocinhos = document.getElementById("configCaixasDocinhos");
+    const valorCaixaDocinhosMenos50 = document.getElementById("valorCaixaDocinhosMenos50");
+    const valorCaixaDocinhos50Mais = document.getElementById("valorCaixaDocinhos50Mais");
+    const btnSalvarCaixasDocinhos = document.getElementById("btnSalvarCaixasDocinhos");
+    const mensagemCaixasDocinhos = document.getElementById("mensagemCaixasDocinhos");
 
     let fatiasCarregadas = [];
 
@@ -6756,6 +6880,92 @@
         }
     }
 
+    function obterLinhaConfiguracaoCaixaDocinhos() {
+        return opcoesCarregadas.find(function(item) {
+            return item.tipo_produto === "docinho" &&
+                (item.grupo === "tradicional" || item.grupo === "premium");
+        }) || opcoesCarregadas.find(function(item) {
+            return item.tipo_produto === "docinho";
+        }) || null;
+    }
+
+    function atualizarConfiguracaoCaixasDocinhos() {
+        const ehDocinho = produtoEncomendaSelecionado === "docinho";
+
+        if (!configCaixasDocinhos) return;
+
+        configCaixasDocinhos.hidden = !ehDocinho;
+        if (!ehDocinho) return;
+
+        const configuracao = obterLinhaConfiguracaoCaixaDocinhos();
+
+        valorCaixaDocinhosMenos50.value = Number(
+            configuracao?.valor_caixa_menos_50 ?? 5
+        ).toFixed(2);
+
+        valorCaixaDocinhos50Mais.value = Number(
+            configuracao?.valor_caixa_50_ou_mais ?? 10
+        ).toFixed(2);
+    }
+
+    async function salvarValoresCaixasDocinhos() {
+        const menos50 = Number(valorCaixaDocinhosMenos50.value || 0);
+        const cinquentaMais = Number(valorCaixaDocinhos50Mais.value || 0);
+
+        if (menos50 < 0 || cinquentaMais < 0) {
+            mensagemCaixasDocinhos.textContent = "Os valores das caixas não podem ser negativos.";
+            mensagemCaixasDocinhos.className = "mensagem-caixas-docinhos erro";
+            return;
+        }
+
+        const docinhosExistentes = opcoesCarregadas.filter(function(item) {
+            return item.tipo_produto === "docinho" &&
+                (item.grupo === "tradicional" || item.grupo === "premium");
+        });
+
+        if (docinhosExistentes.length === 0) {
+            mensagemCaixasDocinhos.textContent = "Cadastre pelo menos um sabor de docinho antes de salvar os valores das caixas.";
+            mensagemCaixasDocinhos.className = "mensagem-caixas-docinhos erro";
+            return;
+        }
+
+        btnSalvarCaixasDocinhos.disabled = true;
+        mensagemCaixasDocinhos.textContent = "Salvando...";
+        mensagemCaixasDocinhos.className = "mensagem-caixas-docinhos";
+
+        const { error } = await supabasePainel
+            .from("opcoes_encomenda")
+            .update({
+                valor_caixa_menos_50: menos50,
+                valor_caixa_50_ou_mais: cinquentaMais
+            })
+            .eq("tipo_produto", "docinho");
+
+        btnSalvarCaixasDocinhos.disabled = false;
+
+        if (error) {
+            console.error(error);
+            mensagemCaixasDocinhos.textContent = "Não foi possível salvar os valores das caixas.";
+            mensagemCaixasDocinhos.className = "mensagem-caixas-docinhos erro";
+            return;
+        }
+
+        opcoesCarregadas.forEach(function(item) {
+            if (item.tipo_produto === "docinho") {
+                item.valor_caixa_menos_50 = menos50;
+                item.valor_caixa_50_ou_mais = cinquentaMais;
+            }
+        });
+
+        mensagemCaixasDocinhos.textContent = "Valores das caixas salvos com sucesso.";
+        mensagemCaixasDocinhos.className = "mensagem-caixas-docinhos sucesso";
+        atualizarConfiguracaoCaixasDocinhos();
+    }
+
+    if (btnSalvarCaixasDocinhos) {
+        btnSalvarCaixasDocinhos.addEventListener("click", salvarValoresCaixasDocinhos);
+    }
+
     function regrasDoProdutoAtual() {
         return regrasCarregadas.filter(
             item => item.tipo_produto === produtoEncomendaSelecionado
@@ -6775,6 +6985,8 @@
             "cupcake-regras",
             produtoEncomendaSelecionado === "cupcake"
         );
+
+        atualizarConfiguracaoCaixasDocinhos();
 
         document.getElementById("tituloRegrasEncomenda").textContent =
             config.tituloRegras || "Regras de venda";
@@ -7351,6 +7563,14 @@
                 (tipo === "bolo" && grupo === "tamanho")
                     ? Number(document.getElementById("adicionalMassaPretaOpcao").value || 0)
                     : 0,
+            valor_caixa_menos_50:
+                tipo === "docinho"
+                    ? Number(valorCaixaDocinhosMenos50?.value || obterLinhaConfiguracaoCaixaDocinhos()?.valor_caixa_menos_50 || 5)
+                    : 5,
+            valor_caixa_50_ou_mais:
+                tipo === "docinho"
+                    ? Number(valorCaixaDocinhos50Mais?.value || obterLinhaConfiguracaoCaixaDocinhos()?.valor_caixa_50_ou_mais || 10)
+                    : 10,
             ativo: document.getElementById("ativoOpcao").checked,
             ordem: Number(document.getElementById("ordemOpcao").value || proximaOrdem(tipo, grupo))
         };
